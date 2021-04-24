@@ -9,26 +9,28 @@ class CSprite
 {
 	string id;				// Sprite ID in the sprite database
 
-	int left; 
+	int left;
 	int top;
 	int right;
 	int bottom;
 
 	LPDIRECT3DTEXTURE9 texture;
-public: 
-	CSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+public:
+	int width;
+	int height;
+	CSprite(string id, int left, int top, int right, int bottom, int width, int height, LPDIRECT3DTEXTURE9 tex);
 
 	void Draw(float x, float y, int alpha = 255);
 };
 
-typedef CSprite * LPSPRITE;
+typedef CSprite* LPSPRITE;
 
 /*
 	Manage sprite database
 */
 class CSprites
 {
-	static CSprites * __instance;
+	static CSprites* __instance;
 
 	unordered_map<string, LPSPRITE> sprites;
 
@@ -37,7 +39,7 @@ public:
 	LPSPRITE Get(string id);
 	void CSprites::Clear();
 
-	static CSprites * GetInstance();
+	static CSprites* GetInstance();
 };
 
 

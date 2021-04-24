@@ -1,5 +1,6 @@
 #include "Animations.h"
 #include "Utils.h"
+#include "GameObject.h"
 
 void CAnimation::Add(LPSPRITE sprite, DWORD time)
 {
@@ -17,7 +18,7 @@ void CAnimation::Add(LPSPRITE sprite, DWORD time)
 }
 
 // NOTE: sometimes Animation object is NULL ??? HOW ??? 
-void CAnimation::Render(float x, float y, int alpha)
+void CAnimation::Render(float x, float y, int alpha, int& width, int& height)
 {
 	this->currentFrame = this->currentFrame;
 	DWORD now = GetTickCount();
@@ -36,8 +37,11 @@ void CAnimation::Render(float x, float y, int alpha)
 			if (currentFrame == frames.size()) currentFrame = 0;
 		}
 	}
+	LPSPRITE sprite = frames[currentFrame]->GetSprite();
+	width = sprite->width;
+	height = sprite->height;
 
-	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
+	sprite->Draw(x, y, alpha);
 }
 
 

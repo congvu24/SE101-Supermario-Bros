@@ -1,7 +1,7 @@
-#include "Test.h"
+#include "Enemy.h"
 #include <iostream>
 
-Test::Test()
+Enemy::Enemy()
 {
 	SetState("indie");
 	//this->vx = .05;
@@ -21,7 +21,7 @@ Test::Test()
 //		bottom = y + KOOPAS_BBOX_HEIGHT;*/
 //}
 
-void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Enemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
 
@@ -44,7 +44,7 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void Test::Render()
+void Enemy::Render()
 {
 
 	//int ani = KOOPAS_ANI_WALKING_LEFT;
@@ -65,7 +65,7 @@ void Test::Render()
 	RenderBoundingBox();
 }
 
-void Test::SetState(string state)
+void Enemy::SetState(string state)
 {
 	CGameObject::SetState(state);
 
@@ -97,7 +97,7 @@ void Test::SetState(string state)
 
 }
 
-void Test::ParseFromJson(json data) {
+void Enemy::ParseFromJson(json data) {
 
 
 	int id = stoi(string(data["id"])); //object id;
@@ -128,7 +128,7 @@ void Test::ParseFromJson(json data) {
 	SetActiveAnimationSet(type);
 }
 
-void Test::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Enemy::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;

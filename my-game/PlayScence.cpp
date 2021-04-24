@@ -7,6 +7,7 @@
 #include "Sprites.h"
 #include "Portal.h"
 #include "Test.h"
+#include "Enemy.h"
 
 using namespace std;
 
@@ -54,54 +55,6 @@ void CPlayScene::Load()
 
 	_ParseSection_OBJECTS_FromJson(object);
 
-
-
-
-
-
-
-	//ifstream f;
-	//f.open(sceneFilePath);
-
-	//// current resource section flag
-	//int section = SCENE_SECTION_UNKNOWN;					
-
-	//char str[MAX_SCENE_LINE];
-	//while (f.getline(str, MAX_SCENE_LINE))
-	//{
-	//	string line(str);
-
-	//	if (line[0] == '#') continue;	// skip comment lines	
-
-	//	if (line == "[TEXTURES]") { section = SCENE_SECTION_TEXTURES; continue; }
-	//	if (line == "[SPRITES]") { 
-	//		section = SCENE_SECTION_SPRITES; continue; }
-	//	if (line == "[ANIMATIONS]") { 
-	//		section = SCENE_SECTION_ANIMATIONS; continue; }
-	//	if (line == "[ANIMATION_SETS]") { 
-	//		section = SCENE_SECTION_ANIMATION_SETS; continue; }
-	//	if (line == "[OBJECTS]") { 
-	//		section = SCENE_SECTION_OBJECTS; continue; }
-	//	if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
-
-	//	//
-	//	// data section
-	//	//
-	//	switch (section)
-	//	{ 
-	//		case SCENE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
-	//		case SCENE_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
-	//		case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
-	//		case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
-	//		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
-	//	}
-	//}
-
-	//f.close();
-
-	//CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-
-	//DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -156,33 +109,37 @@ void CPlayScene::Unload()
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
-	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	/*CMario* mario = ((CPlayScene*)scence)->GetPlayer();
-	switch (KeyCode)
+	CGameObject* player = ((CPlayScene*)scence)->GetPlayer();
+	/*switch (KeyCode)
 	{
-	case DIK_SPACE:
-		mario->SetState(MARIO_STATE_JUMP);
+	case DIK_D:
+		player->SetState("running-right");
+		DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+
 		break;
 	case DIK_A:
-		mario->Reset();
+		player->SetState("running-left");
+		DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+
 		break;
 	}*/
 }
 
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
-	//CGame* game = CGame::GetInstance();
+	CGame* game = CGame::GetInstance();
 	//CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	CGameObject* player = ((CPlayScene*)scence)->GetPlayer();
 
 	//// disable control key when Mario die 
-	//if (mario->GetState() == MARIO_STATE_DIE) return;
-	//if (game->IsKeyDown(DIK_RIGHT))
-	//	mario->SetState(MARIO_STATE_WALKING_RIGHT);
-	//else if (game->IsKeyDown(DIK_LEFT))
-	//	mario->SetState(MARIO_STATE_WALKING_LEFT);
-	//else
-	//	mario->SetState(MARIO_STATE_IDLE);
+	if (player->GetState() == "die") return;
+	if (game->IsKeyDown(DIK_RIGHT))
+		player->SetState("running-right");
+	else if (game->IsKeyDown(DIK_LEFT))
+		player->SetState("running-left");
+	else
+		player->SetState("indie");
 }
 
 
@@ -238,6 +195,7 @@ void  CPlayScene::_ParseSection_ANIMATION_SETS_FromJson(LPCWSTR filePath) {
 void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 	unordered_map <string, int> character_code;
 	character_code["test"] = 1;
+	character_code["enemy"] = 2;
 
 
 	//each sence has many object
@@ -245,14 +203,14 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 
 		json data = it.value();
 
-		string name = data["name"].dump(); //object name;
-		
+		string name = string(data["name"]); //object name;
+
 
 		CGameObject* obj;
 
 		//DebugOut(L"[ERROR] Texture ID %d not found!\n", IntToLPCWSTR(character_code[name]));
 
-		switch (1)
+		switch (character_code.at(name))
 		{
 		case 1:
 			/*if (player != NULL)
@@ -263,6 +221,10 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			obj = new Test();
 			obj->ParseFromJson(data); //remember to set position, animation_set in this function
 			player = obj;
+			break;
+		case 2:
+			obj = new Enemy();
+			obj->ParseFromJson(data); //remember to set position, animation_set in this function
 			break;
 		default:
 			break;

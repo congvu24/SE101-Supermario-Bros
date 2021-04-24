@@ -61,12 +61,16 @@ public:
 
 	int nx;
 
+	float width;
+	float height;
+
 	string state;
 	string type;
 
 	DWORD dt;
 
 	LPDIRECT3DTEXTURE9 texture;
+	LPDIRECT3DTEXTURE9 bboxtex;
 	unordered_map<string, LPSPRITE> sprites; //save all sprite of animation
 	unordered_map<string, LPANIMATION> all_animations; //save all animations
 	CAnimationSets animations_set; //save all the animation sets
@@ -78,6 +82,7 @@ public:
 public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
+	void SetSize(float w, float h) { this->width = w, this->height = h; }
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 

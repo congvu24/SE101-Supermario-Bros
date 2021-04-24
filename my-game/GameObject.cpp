@@ -13,6 +13,43 @@ CGameObject::CGameObject()
 	x = y = 0;
 	vx = vy = 0;
 	nx = 1;
+
+
+	D3DXIMAGE_INFO info;
+	HRESULT result = D3DXGetImageInfoFromFile(L"assets/texture/bbox.png", &info);
+	if (result != D3D_OK)
+	{
+		DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", L"assets/texture/bbox.png");
+		return;
+	}
+
+	LPDIRECT3DDEVICE9 d3ddv = CGame::GetInstance()->GetDirect3DDevice();
+	LPDIRECT3DTEXTURE9 textu;
+
+	result = D3DXCreateTextureFromFileEx(
+		d3ddv,								// Pointer to Direct3D device object
+		L"assets/texture/bbox.png",							// Path to the image to load
+		info.Width,							// Texture width
+		info.Height,						// Texture height
+		1,
+		D3DUSAGE_DYNAMIC,
+		D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT,
+		D3DX_DEFAULT,
+		D3DX_DEFAULT,
+		D3DCOLOR_XRGB(255, 0, 255),		// transparentColor	
+		&info,
+		NULL,
+		&textu);								// Created texture pointer
+
+	if (result != D3D_OK)
+	{
+		OutputDebugString(L"[ERROR] CreateTextureFromFile failed\n");
+		return;
+	}
+
+	bboxtex = textu;
+
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -119,8 +156,6 @@ void CGameObject::RenderBoundingBox()
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
 
-	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
-
 	float l, t, r, b;
 
 	GetBoundingBox(l, t, r, b);
@@ -129,14 +164,15 @@ void CGameObject::RenderBoundingBox()
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+	if (bboxtex != NULL)
+		CGame::GetInstance()->Draw(x, y, bboxtex, rect.left, rect.top, rect.right, rect.bottom, 100);
 }
 
 
 
 
 void CGameObject::AddSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex) {
-	LPSPRITE s = new CSprite(id, left, top, right, bottom, tex);
+	LPSPRITE s = new CSprite(id, left, top, right, bottom, right - left, bottom - top, tex);
 	sprites[id] = s;
 
 	DebugOut(L"[INFO] sprite added: %s \n", IntToLPCWSTR(right));
@@ -184,7 +220,7 @@ void CGameObject::ClearAnimationSet() {
 void CGameObject::SetTexture(LPCWSTR filePath, D3DCOLOR transparentColor = D3DCOLOR_XRGB(255, 0, 255)) {
 
 	D3DXIMAGE_INFO info;
-	HRESULT result = D3DXGetImageInfoFromFile(L"mario.png", &info);
+	HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
 	if (result != D3D_OK)
 	{
 		DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
@@ -196,7 +232,7 @@ void CGameObject::SetTexture(LPCWSTR filePath, D3DCOLOR transparentColor = D3DCO
 
 	result = D3DXCreateTextureFromFileEx(
 		d3ddv,								// Pointer to Direct3D device object
-		L"mario.png",							// Path to the image to load
+		filePath,							// Path to the image to load
 		info.Width,							// Texture width
 		info.Height,						// Texture height
 		1,
@@ -230,7 +266,7 @@ LPDIRECT3DTEXTURE9 CGameObject::GetTexture() {
 void CGameObject::ParseSpriteFromJson(LPCWSTR filePath) {
 
 	OutputDebugString(filePath);
-	json sprite = ReadJsonFIle(L"animation1.json");
+	json sprite = ReadJsonFIle(filePath);
 	json frames = sprite["frames"];
 
 
@@ -244,7 +280,12 @@ void CGameObject::ParseSpriteFromJson(LPCWSTR filePath) {
 		int l = frame["x"];
 		int t = frame["y"];
 		int r = l + frame["w"];
+		//b = h - t;
+		//w = r - l;
+
 		int b = t + frame["h"];
+		//int w = frame["w"];
+		//int h = frame["h"];
 
 		if (GetTexture() == NULL)
 		{
@@ -256,7 +297,7 @@ void CGameObject::ParseSpriteFromJson(LPCWSTR filePath) {
 	}
 }
 void CGameObject::ParseAnimationFromJson(LPCWSTR filePath) {
-	json data = ReadJsonFIle(L"mario-animation.json");
+	json data = ReadJsonFIle(filePath);
 
 	for (json::iterator set = data.begin(); set != data.end(); ++set) {
 		string key = set.key();
