@@ -1,15 +1,20 @@
 #include <iostream>
 #include <fstream>
+#include "library/json.hpp"
+
+// for convenience
 
 #include "Game.h"
 #include "Utils.h"
 
 #include "PlayScence.h"
 
-CGame * CGame::__instance = NULL;
+using json = nlohmann::json;
+
+CGame* CGame::__instance = NULL;
 
 /*
-	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for 
+	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
 	rendering 2D images
 	- hInst: Application instance handle
 	- hWnd: Application window handle
@@ -18,7 +23,7 @@ void CGame::Init(HWND hWnd)
 {
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
-	this->hWnd = hWnd;									
+	this->hWnd = hWnd;
 
 	D3DPRESENT_PARAMETERS d3dpp;
 
@@ -61,12 +66,12 @@ void CGame::Init(HWND hWnd)
 }
 
 /*
-	Utility function to wrap LPD3DXSPRITE::Draw 
+	Utility function to wrap LPD3DXSPRITE::Draw
 */
 void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
 	D3DXVECTOR3 p(x - cam_x, y - cam_y, 0);
-	RECT r; 
+	RECT r;
 	r.left = left;
 	r.top = top;
 	r.right = right;
@@ -98,7 +103,7 @@ void CGame::InitKeyboard()
 	hr = di->CreateDevice(GUID_SysKeyboard, &didv, NULL);
 
 	// TO-DO: put in exception handling
-	if (hr != DI_OK) 
+	if (hr != DI_OK)
 	{
 		DebugOut(L"[ERROR] CreateDevice failed!\n");
 		return;
@@ -148,7 +153,7 @@ void CGame::InitKeyboard()
 
 void CGame::ProcessKeyboard()
 {
-	HRESULT hr; 
+	HRESULT hr;
 
 	// Collect all key states first
 	hr = didv->GetDeviceState(sizeof(keyStates), keyStates);
@@ -158,8 +163,8 @@ void CGame::ProcessKeyboard()
 		if ((hr == DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
 		{
 			HRESULT h = didv->Acquire();
-			if (h==DI_OK)
-			{ 
+			if (h == DI_OK)
+			{
 				DebugOut(L"[INFO] Keyboard re-acquired!\n");
 			}
 			else return;
@@ -171,7 +176,7 @@ void CGame::ProcessKeyboard()
 		}
 	}
 
-	keyHandler->KeyState((BYTE *)&keyStates);
+	keyHandler->KeyState((BYTE*)&keyStates);
 
 
 
@@ -209,17 +214,17 @@ CGame::~CGame()
 	Source: GameDev.net
 */
 void CGame::SweptAABB(
-	float ml, float mt,	float mr, float mb,			
-	float dx, float dy,			
+	float ml, float mt, float mr, float mb,
+	float dx, float dy,
 	float sl, float st, float sr, float sb,
-	float &t, float &nx, float &ny)
+	float& t, float& nx, float& ny)
 {
 
 	float dx_entry, dx_exit, tx_entry, tx_exit;
 	float dy_entry, dy_exit, ty_entry, ty_exit;
 
-	float t_entry; 
-	float t_exit; 
+	float t_entry;
+	float t_exit;
 
 	t = -1.0f;			// no collision
 	nx = ny = 0;
@@ -240,13 +245,13 @@ void CGame::SweptAABB(
 
 	if (dx > 0)
 	{
-		dx_entry = sl - mr; 
+		dx_entry = sl - mr;
 		dx_exit = sr - ml;
 	}
 	else if (dx < 0)
 	{
 		dx_entry = sr - ml;
-		dx_exit = sl- mr;
+		dx_exit = sl - mr;
 	}
 
 
@@ -271,7 +276,7 @@ void CGame::SweptAABB(
 		tx_entry = dx_entry / dx;
 		tx_exit = dx_exit / dx;
 	}
-	
+
 	if (dy == 0)
 	{
 		ty_entry = -99999.0f;
@@ -282,31 +287,31 @@ void CGame::SweptAABB(
 		ty_entry = dy_entry / dy;
 		ty_exit = dy_exit / dy;
 	}
-	
 
-	if (  (tx_entry < 0.0f && ty_entry < 0.0f) || tx_entry > 1.0f || ty_entry > 1.0f) return;
+
+	if ((tx_entry < 0.0f && ty_entry < 0.0f) || tx_entry > 1.0f || ty_entry > 1.0f) return;
 
 	t_entry = max(tx_entry, ty_entry);
 	t_exit = min(tx_exit, ty_exit);
-	
-	if (t_entry > t_exit) return; 
 
-	t = t_entry; 
+	if (t_entry > t_exit) return;
+
+	t = t_entry;
 
 	if (tx_entry > ty_entry)
 	{
 		ny = 0.0f;
 		dx > 0 ? nx = -1.0f : nx = 1.0f;
 	}
-	else 
+	else
 	{
 		nx = 0.0f;
-		dy > 0?ny = -1.0f:ny = 1.0f;
+		dy > 0 ? ny = -1.0f : ny = 1.0f;
 	}
 
 }
 
-CGame *CGame::GetInstance()
+CGame* CGame::GetInstance()
 {
 	if (__instance == NULL) __instance = new CGame();
 	return __instance;
@@ -330,6 +335,14 @@ void CGame::_ParseSection_SETTINGS(string line)
 		DebugOut(L"[ERROR] Unknown game setting %s\n", ToWSTR(tokens[0]).c_str());
 }
 
+void CGame::_ParseSection_SETTINGS_FromJson(json data)
+{
+	DebugOut(L"DATAAAAAAAAAA %s\n", IntToLPCWSTR(stoi(data["active"].dump())));
+
+	//int active = stoi(data["active"].dump());
+	//current_scene = active;
+}
+
 void CGame::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
@@ -342,57 +355,125 @@ void CGame::_ParseSection_SCENES(string line)
 	scenes[id] = scene;
 }
 
+void CGame::_ParseSection_SCENES_FromJson(json data)
+{
+	/*vector<string> tokens = split(line);
+
+	if (tokens.size() < 2) return;
+	int id = atoi(tokens[0].c_str());
+	LPCWSTR path = ToLPCWSTR(tokens[1]);
+
+	LPSCENE scene = new CPlayScene(id, path);
+	scenes[id] = scene;*/
+
+	for (json::iterator it = data.begin(); it != data.end(); ++it) {
+
+		LPCWSTR path = ToLPCWSTR(it.value());
+		DebugOut(L"[INFO] Load data : %s\n", path);
+		int id = stoi(it.key());
+		LPSCENE scene = new CPlayScene(id, path);
+		scenes[id] = scene;
+	}
+
+}
+
+
 /*
 	Load game campaign file and load/initiate first scene
 */
 void CGame::Load(LPCWSTR gameFile)
 {
-	DebugOut(L"[INFO] Start loading game file : %s\n", gameFile);
 
-	ifstream f;
-	f.open(gameFile);
-	char str[MAX_GAME_LINE];
+	// read file here and init data 
+	// 
+	// 
+	// 
 
-	// current resource section flag
-	int section = GAME_FILE_SECTION_UNKNOWN;
+	//DebugOut(L"[INFO] Load data : %s\n", j2["pi"]);
 
-	while (f.getline(str, MAX_GAME_LINE))
-	{
-		string line(str);
 
-		if (line[0] == '#') continue;	// skip comment lines	
 
-		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
-		if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
 
-		//
-		// data section
-		//
-		switch (section)
-		{
-			case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
-			case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
-		}
-	}
-	f.close();
+	//read get scene detail: id, name, objects
+	json gameData = ReadJsonFIle(L"assets/game.json");
 
-	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n",gameFile);
+	string active = gameData["active"];
 
-	SwitchScene(current_scene);
+
+
+	DebugOut(L"[INFO] Active id : %s\n", ToLPCWSTR(active));
+
+	//gotcha, now read the objects and identify them by name;
+
+	_ParseSection_SCENES_FromJson(gameData["scene"]); // now parse the json to game data;
+	//_ParseSection_SETTINGS_FromJson(active);
+//int active = stoi(data["active"].dump());
+	current_scene = stoi(active);
+
+	SwitchScene(stoi(active));
+
+
+
+
+
+
+
+	//for (json::iterator it = j["frames"].begin(); it != j["frames"].end(); ++it) {
+		//std::cout << it.key() << " : " << it.value() << "\n";
+		//OutputDebugStringW(ToLPCWSTR(it.key()));
+		//OutputDebugStringW(ToLPCWSTR(it.value()["animation"][0]["w"].dump()));
+		/*for (json::iterator k = it.value()["animation"].begin(); k != it.value()["animation"].end(); ++k) {
+			OutputDebugStringW(ToLPCWSTR(k.value()["w"].dump()));
+
+		}*/
+
+		//}
+
+	//DebugOut(L"[INFO] Start loading game file : %s\n", gameFile);
+
+	//ifstream f;
+	//f.open(gameFile);
+	//char str[MAX_GAME_LINE];
+
+	////current resource section flag
+	//int section = GAME_FILE_SECTION_UNKNOWN;
+
+	//while (f.getline(str, MAX_GAME_LINE))
+	//{
+	//	string line(str);
+
+	//	if (line[0] == '#') continue;	// skip comment lines	
+
+	//	if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
+	//	if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
+
+	//	//
+	//	// data section
+	//	//
+	//	switch (section)
+	//	{
+	//	case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
+	//	case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
+	//	}
+	//}
+	//f.close();
+
+	//DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", gameFile);
+
 }
 
 void CGame::SwitchScene(int scene_id)
 {
 	DebugOut(L"[INFO] Switching to scene %d\n", scene_id);
 
-	scenes[current_scene]->Unload();;
+	//scenes[current_scene]->Unload();
 
-	CTextures::GetInstance()->Clear();
-	CSprites::GetInstance()->Clear();
-	CAnimations::GetInstance()->Clear();
+	//CTextures::GetInstance()->Clear();
+	//CSprites::GetInstance()->Clear();
+	//CAnimations::GetInstance()->Clear();
 
 	current_scene = scene_id;
 	LPSCENE s = scenes[scene_id];
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
-	s->Load();	
+	s->Load();
 }

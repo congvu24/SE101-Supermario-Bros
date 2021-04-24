@@ -1,0 +1,6 @@
+{
+  "id": 1,
+  "name": "mario",
+  "sprite": "mario.json",
+  "animation": "mario-animation.json"
+}

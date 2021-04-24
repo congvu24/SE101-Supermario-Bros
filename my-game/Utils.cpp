@@ -1,8 +1,9 @@
 #include <Windows.h>
+#include <iostream>
 
 #include "Utils.h"
 
-void DebugOut(wchar_t *fmt, ...)
+void DebugOut(wchar_t* fmt, ...)
 {
 	va_list argp;
 	va_start(argp, fmt);
@@ -31,10 +32,10 @@ char * string to wchar_t* string.
 */
 wstring ToWSTR(string st)
 {
-	const char *str = st.c_str();
+	const char* str = st.c_str();
 
 	size_t newsize = strlen(str) + 1;
-	wchar_t * wcstring = new wchar_t[newsize];
+	wchar_t* wcstring = new wchar_t[newsize];
 	size_t convertedChars = 0;
 	mbstowcs_s(&convertedChars, wcstring, newsize, str, _TRUNCATE);
 
@@ -49,15 +50,33 @@ wstring ToWSTR(string st)
 */
 LPCWSTR ToLPCWSTR(string st)
 {
-	const char *str = st.c_str();
+	const char* str = st.c_str();
 
 	size_t newsize = strlen(str) + 1;
-	wchar_t * wcstring = new wchar_t[newsize];
+	wchar_t* wcstring = new wchar_t[newsize];
 	size_t convertedChars = 0;
 	mbstowcs_s(&convertedChars, wcstring, newsize, str, _TRUNCATE);
 
-	wstring *w = new wstring(wcstring);
+	wstring* w = new wstring(wcstring);
 
 	// delete wcstring   // << can I ? 
 	return w->c_str();
+}
+
+LPCWSTR IntToLPCWSTR(int st)
+{
+	char s[256];
+
+	sprintf_s(s, "%d", st);
+	return ToLPCWSTR(s);
+}
+
+json ReadJsonFIle(LPCWSTR file) {
+
+	ifstream readData(file);
+	DebugOut(L"[INFO] Start loading game file : %s\n", file);
+
+	json jsonData;
+	readData >> jsonData;
+	return jsonData;
 }

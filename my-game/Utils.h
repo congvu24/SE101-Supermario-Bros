@@ -11,14 +11,21 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include "library/json.hpp"
+#include <fstream>
+
+
+using json = nlohmann::json;
 
 
 using namespace std;
 
-void DebugOut(wchar_t *fmt, ...);
+void DebugOut(wchar_t* fmt, ...);
 
 vector<string> split(string line, string delimeter = "\t");
 wstring ToWSTR(string st);
 
 LPCWSTR ToLPCWSTR(string st);
+LPCWSTR IntToLPCWSTR(int st);
 
+json ReadJsonFIle(LPCWSTR file);

@@ -9,21 +9,21 @@
 #include "Koopas.h"
 
 
-class CPlayScene: public CScene
+class CPlayScene : public CScene
 {
-protected: 
-	CMario *player;					// A play scene has to have player, right? 
+protected:
+	CGameObject* player;					// A play scene has to have player, right? 
 
 	vector<LPGAMEOBJECT> objects;
 
-	void _ParseSection_TEXTURES(string line);
-	void _ParseSection_SPRITES(string line);
-	void _ParseSection_ANIMATIONS(string line);
-	void _ParseSection_ANIMATION_SETS(string line);
-	void _ParseSection_OBJECTS(string line);
+	void _ParseSection_TEXTURES_FromJson(LPCWSTR filePath, int id);
+	void _ParseSection_SPRITES_FromJson(LPCWSTR filePath, int textID);
+	void _ParseSection_ANIMATIONS_FromJson(LPCWSTR filePath);
+	void _ParseSection_ANIMATION_SETS_FromJson(LPCWSTR filePath);
+	void _ParseSection_OBJECTS_FromJson(json data);
 
-	
-public: 
+
+public:
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();
@@ -31,17 +31,17 @@ public:
 	virtual void Render();
 	virtual void Unload();
 
-	CMario * GetPlayer() { return player; } 
+	CGameObject* GetPlayer() { return player; }
 
 	//friend class CPlayScenceKeyHandler;
 };
 
 class CPlayScenceKeyHandler : public CScenceKeyHandler
 {
-public: 
-	virtual void KeyState(BYTE *states);
+public:
+	virtual void KeyState(BYTE* states);
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode) {};
-	CPlayScenceKeyHandler(CScene *s) :CScenceKeyHandler(s) {};
+	CPlayScenceKeyHandler(CScene* s) :CScenceKeyHandler(s) {};
 };
 

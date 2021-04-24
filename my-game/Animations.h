@@ -19,7 +19,7 @@ public:
 	LPSPRITE GetSprite() { return sprite; }
 };
 
-typedef CAnimationFrame *LPANIMATION_FRAME;
+typedef CAnimationFrame* LPANIMATION_FRAME;
 
 class CAnimation
 {
@@ -29,45 +29,38 @@ class CAnimation
 	vector<LPANIMATION_FRAME> frames;
 public:
 	CAnimation(int defaultTime = 100) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
-	void Add(int spriteId, DWORD time = 0);
+	void Add(LPSPRITE sprite, DWORD time = 0);
 
 	void Render(float x, float y, int alpha = 255);
 };
 
-typedef CAnimation *LPANIMATION;
+typedef CAnimation* LPANIMATION;
 
-class CAnimations
+class CAnimations  //save animation list by id
 {
-	static CAnimations * __instance;
-
-	unordered_map<int, LPANIMATION> animations;
+	unordered_map<string, LPANIMATION> animations;
 
 public:
-	void Add(int id, LPANIMATION ani);
-	LPANIMATION Get(int id);
+	CAnimations();
+	void Add(string id, LPANIMATION ani);
+	LPANIMATION Get(string id);
 	void Clear();
-
-	static CAnimations * GetInstance();
 };
 
-typedef vector<LPANIMATION> CAnimationSet;
+typedef unordered_map<string, LPANIMATION> LPANIMATION_SET; //list of CAnimations is CAnimationSet
 
-typedef CAnimationSet* LPANIMATION_SET;
+//typedef CAnimationSet* LPANIMATION_SET;
 
 /*
 	Manage animation set database
 */
 class CAnimationSets
 {
-	static CAnimationSets * __instance;
-
-	unordered_map<int, LPANIMATION_SET> animation_sets;
+	unordered_map<string, LPANIMATION_SET> animation_sets; //list of CAnimationSet by id is CAnimationsets
 
 public:
 	CAnimationSets();
-	void Add(int id, LPANIMATION_SET ani);
-	LPANIMATION_SET Get(unsigned int id);
-
-
-	static CAnimationSets * GetInstance();
+	void Add(string id, LPANIMATION_SET ani);
+	LPANIMATION_SET Get(string id);
+	void Clear();
 };

@@ -2,8 +2,10 @@
 #include "Game.h"
 #include "Utils.h"
 
-CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+CSprite::CSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
+	DebugOut(L"[INFO] init %s \n", ToLPCWSTR(id));
+
 	this->id = id;
 	this->left = left;
 	this->top = top;
@@ -23,10 +25,11 @@ CSprites *CSprites::GetInstance()
 void CSprite::Draw(float x, float y, int alpha)
 {
 	CGame * game = CGame::GetInstance();
+	DebugOut(L"[INFO] render %s \n", ToLPCWSTR(id));
 	game->Draw(x, y, texture, left, top, right, bottom, alpha);
 }
 
-void CSprites::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+void CSprites::Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
 	LPSPRITE s = new CSprite(id, left, top, right, bottom, tex);
 	sprites[id] = s;
@@ -34,7 +37,7 @@ void CSprites::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DT
 	DebugOut(L"[INFO] sprite added: %d, %d, %d, %d, %d \n", id, left, top, right, bottom);
 }
 
-LPSPRITE CSprites::Get(int id)
+LPSPRITE CSprites::Get(string id)
 {
 	return sprites[id];
 }

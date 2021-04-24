@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "name": "World 1-1",
+  "object": [
+    {
+      "id": "1",
+      "name": "test",
+      "texture": "assets/texture/mario.png",
+      "sprite": "assets/sprite/mario.json",
+      "animation": "assets/animations/mario-animation.json",
+      "type": 1,
+      "x": 100,
+      "y": 100
+    }
+  ]
+}
