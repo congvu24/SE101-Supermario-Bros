@@ -117,6 +117,7 @@ void CGameObject::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
+//filter collision with moving object 
 void CGameObject::FilterCollision(
 	vector<LPCOLLISIONEVENT>& coEvents,
 	vector<LPCOLLISIONEVENT>& coEventsResult,

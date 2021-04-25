@@ -4,7 +4,7 @@
 Enemy::Enemy()
 {
 	SetState("indie");
-	//this->vx = .05;
+	this->vx = .05;
 	//this->dx = 1;
 	//this->dy = 1;
 }
@@ -51,9 +51,9 @@ void Enemy::Render()
 	/*if (state == "indie") {
 
 	}*/
-	if (vx == 0) this->state = "indie";
-	if (vx > 0) this->state = "running-right";
-	if (vx < 0) this->state = "running-left";
+	//if (vx == 0) this->state = "indie";
+	/*if (vx > 0) this->state = "running-right";
+	if (vx < 0) this->state = "running-left";*/
 
 	int width = 0;
 	int height = 0;
@@ -69,18 +69,18 @@ void Enemy::SetState(string state)
 {
 	CGameObject::SetState(state);
 
-	if (state == "running-right") {
-		vx = 0.15f;
-		nx = 1;
-	}
-	else if (state == "running-left") {
-		vx = -0.15f;
-		nx = -1;
-	}
-	else if (state == "indie") {
-		vx = 0;
+	//if (state == "running-right") {
+	//	vx = 0.15f;
+	//	nx = 1;
+	//}
+	//else if (state == "running-left") {
+	//	vx = -0.15f;
+	//	nx = -1;
+	//}
+	//else if (state == "indie") {
+	//	vx = 0;
 
-	}
+	//}
 
 
 	/*CGameObject::SetState(state);
