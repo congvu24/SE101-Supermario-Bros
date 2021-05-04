@@ -18,7 +18,7 @@ void CAnimation::Add(LPSPRITE sprite, DWORD time)
 }
 
 // NOTE: sometimes Animation object is NULL ??? HOW ??? 
-void CAnimation::Render(float x, float y, int alpha, int& width, int& height)
+void CAnimation::Render(float x, float y, int alpha, float& width, float& height)
 {
 	this->currentFrame = this->currentFrame;
 	DWORD now = GetTickCount();

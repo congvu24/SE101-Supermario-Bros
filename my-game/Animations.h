@@ -31,7 +31,7 @@ public:
 	CAnimation(int defaultTime = 100) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void Add(LPSPRITE sprite, DWORD time = 0);
 
-	void Render(float x, float y, int alpha, int& width, int& height);
+	void Render(float x, float y, int alpha, float& width, float& height);
 };
 
 typedef CAnimation* LPANIMATION;

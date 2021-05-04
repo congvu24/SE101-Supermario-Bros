@@ -20,7 +20,8 @@
 Test::Test()
 {
 	SetState("indie");
-	this->vx = .05;
+	//this->v.x = .05;
+	//v = Vector(0.05, 0.05);
 	//this->dx = 1;
 	//this->dy = 1;
 }
@@ -40,6 +41,8 @@ Test::Test()
 void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
+	v = v + g * dt;
+	if (v.y > 0.35f) v.y = 0.35f;
 
 	//
 	// TO-DO: make sure Koopas can interact with the world and to each of them too!
@@ -103,15 +106,17 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (coEvents.size() == 0) {
 
-		x += dx;
-		y += dy;
-		if (vx < 0 && x < 0) {
-			x = 0; vx = -vx;
+	/*	p.x += d.x;
+		p.y += d.y;*/
+		p = p + d;
+
+		/*if (v.x < 0 && p.x < 0) {
+			p.x = 0; v.x = -v.x;
 		}
 
-		if (vx > 0 && x > 290) {
-			x = 290; vx = -vx;
-		}
+		if (v.x > 0 && p.x > 290) {
+			p.x = 290; v.x = -v.x;
+		}*/
 	}
 	else {
 		float min_tx, min_ty, nx = 0, ny;
@@ -122,15 +127,15 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
-		if (rdx != 0 && rdx != dx)
-			x += nx * abs(rdx);
+		if (rdx != 0 && rdx != d.x)
+			p.x += nx * abs(rdx);
 
 		// block every object first!
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
+		p.x += min_tx * d.x + nx * 0.4f;
+		p.y += min_ty * d.y + ny * 0.4f;
 
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+		if (nx != 0) v.x = 0;
+		if (ny != 0) v.y = 0;
 
 		DebugOut(L"[INFOR] Time to stop!!!!!\n");
 
@@ -147,13 +152,13 @@ void Test::Render()
 	/*if (state == "indie") {
 
 	}*/
-	if (vx == 0) this->state = "indie";
-	if (vx > 0) this->state = "running-right";
-	if (vx < 0) this->state = "running-left";
+	//if (v.x == 0) this->state = "indie";
+	//if (v.x > 0) this->state = "running-right";
+	//if (v.x < 0) this->state = "running-left";
 
-	int width = 0;
-	int height = 0;
-	animations_set.Get(type).at(state)->Render(x, y, 255, width, height);
+	float width = 0;
+	float height = 0;
+	animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
 
 	SetSize(width, height);
 
@@ -166,16 +171,28 @@ void Test::SetState(string state)
 	CGameObject::SetState(state);
 
 	if (state == "running-right") {
-		vx = 0.15f;
+		v.x = 0.15f;
 		nx = 1;
 	}
 	else if (state == "running-left") {
-		vx = -0.15f;
+		v.x = -0.15f;
 		nx = -1;
 	}
+	else if (state == "running-up") {
+		v.y = -0.15f;
+		ny = -1;
+	}
+	else if (state == "running-down") {
+		v.y = 0.15f;
+		ny = -1;
+	}
+	else if (state == "jumping") {
+		v.y = -0.35f;
+		ny = -1;
+	}
 	else if (state == "indie") {
-		vx = 0;
-
+		v.x = 0;
+		//v.y = 0;
 	}
 
 }
@@ -198,8 +215,8 @@ void Test::ParseFromJson(json data) {
 	// set inital position
 	id = id;
 	this->type = type;
-	this->x = x;
-	this->y = y;
+	this->p.x = x;
+	this->p.y = y;
 	//
 	D3DCOLOR transcolor;
 	SetTexture(texture, D3DCOLOR_XRGB(255, 0, 255));
@@ -213,18 +230,18 @@ void Test::ParseFromJson(json data) {
 
 void Test::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x;
-	top = y;
+	left = p.x;
+	top = p.y;
 
 	if (type == "1")
 	{
-		right = x + width;
-		bottom = y + height;
+		right = p.x + width;
+		bottom = p.y + height;
 	}
 	else
 	{
-		right = x + width;
-		bottom = y + height;
+		right = p.x + width;
+		bottom = p.y + height;
 
 		//right = x + MARIO_SMALL_BBOX_WIDTH;
 		//bottom = y + MARIO_SMALL_BBOX_HEIGHT;

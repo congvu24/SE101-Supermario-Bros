@@ -8,6 +8,7 @@
 #include "Animations.h"
 #include "library/json.hpp"
 #include "Utils.h"
+#include "Vector.h"
 
 using json = nlohmann::json;
 
@@ -50,16 +51,24 @@ public:
 
 	int id;
 
-	float x;
-	float y;
+	//float x;
+	//float y;
 
-	float dx;	// dx = vx*dt
-	float dy;	// dy = vy*dt
+	Vector p;
 
-	float vx;
-	float vy;
+	// float dx;	// dx = vx*dt
+	// float dy;	// dy = vy*dt
+
+	Vector d;
+	Vector g = Vector(0, 0.001f);
+
+	/*float vx;
+	float vy;*/
+
+	Vector v;
 
 	int nx;
+	int ny;
 
 	float width;
 	float height;
@@ -80,11 +89,11 @@ public:
 
 
 public:
-	void SetPosition(float x, float y) { this->x = x, this->y = y; }
-	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
+	void SetPosition(float x, float y) { this->p.x = x, this->p.y = y; }
+	void SetSpeed(float vx, float vy) { this->v.x = vx, this->v.y = vy; }
 	void SetSize(float w, float h) { this->width = w, this->height = h; }
-	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
-	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
+	void GetPosition(float& x, float& y) { x = this->p.x; y = this->p.y; }
+	void GetSpeed(float& vx, float& vy) { vx = this->v.x; vy = this->v.y; }
 
 	string GetState() { return this->state; }
 

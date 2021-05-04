@@ -1,6 +1,13 @@
 {
   "1": {
-    "indie": [{ "name": "newmario/66", "time": 100 }],
+    "indie": [
+      { "name": "newmario/67", "time": 100 },
+      { "name": "newmario/68", "time": 100 },
+      { "name": "newmario/69", "time": 100 }
+    ],
+    "running-up": [{ "name": "newmario/66", "time": 100 }],
+    "jumping": [{ "name": "newmario/66", "time": 100 }],
+    "running-down": [{ "name": "newmario/66", "time": 100 }],
     "running-right": [
       { "name": "newmario/67", "time": 100 },
       { "name": "newmario/68", "time": 100 },

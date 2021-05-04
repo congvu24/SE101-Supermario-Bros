@@ -10,8 +10,11 @@
 
 CGameObject::CGameObject()
 {
-	x = y = 0;
-	vx = vy = 0;
+	/*p.x = p.y = 0;
+	v.x = v.y = 0;*/
+
+	p = Vector(0, 0);
+	v = Vector(0, 0);
 	nx = 1;
 
 
@@ -55,8 +58,9 @@ CGameObject::CGameObject()
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	this->dt = dt;
-	dx = vx * dt;
-	dy = vy * dt;
+	d = v * dt;
+	//d.x = v.x * dt;
+	//d.y = v.y * dt;
 }
 
 /*
@@ -78,8 +82,8 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 	float sdy = svy * dt;
 
 	// (rdx, rdy) is RELATIVE movement distance/velocity 
-	float rdx = this->dx - sdx;
-	float rdy = this->dy - sdy;
+	float rdx = this->d.x - sdx;
+	float rdy = this->d.y - sdy;
 
 	GetBoundingBox(ml, mt, mr, mb);
 
@@ -154,7 +158,7 @@ void CGameObject::FilterCollision(
 
 void CGameObject::RenderBoundingBox()
 {
-	D3DXVECTOR3 p(x, y, 0);
+	D3DXVECTOR3 p(p.x, p.y, 0);
 	RECT rect;
 
 	float l, t, r, b;
@@ -166,7 +170,7 @@ void CGameObject::RenderBoundingBox()
 	rect.bottom = (int)b - (int)t;
 
 	if (bboxtex != NULL)
-		CGame::GetInstance()->Draw(x, y, bboxtex, rect.left, rect.top, rect.right, rect.bottom, 100);
+		CGame::GetInstance()->Draw(p.x, p.y, bboxtex, rect.left, rect.top, rect.right, rect.bottom, 100);
 }
 
 

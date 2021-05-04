@@ -4,7 +4,8 @@
 Enemy::Enemy()
 {
 	SetState("indie");
-	this->vx = .05;
+	//this->v.x = .05;
+	//v = Vector(0.05, 0);
 	//this->dx = 1;
 	//this->dy = 1;
 }
@@ -29,18 +30,18 @@ void Enemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// TO-DO: make sure Koopas can interact with the world and to each of them too!
 	// 
 
-	x += dx;
-	y += dy;
+	p.x += d.x;
+	p.y += d.y;
 
 	/*if (state == "running-right") vx = 0.5f;
 	if (state == "running-left") vx = -0.5f;*/
 
-	if (vx < 0 && x < 0) {
-		x = 0; vx = -vx;
+	if (v.x < 0 && p.x < 0) {
+		p.x = 0; v.x = -v.x;
 	}
 
-	if (vx > 0 && x > 290) {
-		x = 290; vx = -vx;
+	if (v.x > 0 && p.x > 290) {
+		p.x = 290; v.x = -v.x;
 	}
 }
 
@@ -55,9 +56,9 @@ void Enemy::Render()
 	/*if (vx > 0) this->state = "running-right";
 	if (vx < 0) this->state = "running-left";*/
 
-	int width = 0;
-	int height = 0;
-	animations_set.Get(type).at(state)->Render(x, y, 255, width, height);
+	float width = 0;
+	float height = 0;
+	animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
 
 	SetSize(width, height);
 
@@ -115,8 +116,8 @@ void Enemy::ParseFromJson(json data) {
 	// set inital position
 	id = id;
 	this->type = type;
-	this->x = x;
-	this->y = y;
+	this->p.x = x;
+	this->p.y = y;
 	//
 	D3DCOLOR transcolor;
 	SetTexture(texture, D3DCOLOR_XRGB(255, 0, 255));
@@ -130,18 +131,18 @@ void Enemy::ParseFromJson(json data) {
 
 void Enemy::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x;
-	top = y;
+	left = p.x;
+	top = p.y;
 
 	if (type == "1")
 	{
-		right = x + width;
-		bottom = y + height;
+		right = p.x + width;
+		bottom = p.y + height;
 	}
 	else
 	{
-		right = x + width;
-		bottom = y + height;
+		right = p.x + width;
+		bottom = p.y + height;
 
 		//right = x + MARIO_SMALL_BBOX_WIDTH;
 		//bottom = y + MARIO_SMALL_BBOX_HEIGHT;

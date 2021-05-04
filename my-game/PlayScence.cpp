@@ -138,6 +138,12 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 		player->SetState("running-right");
 	else if (game->IsKeyDown(DIK_LEFT))
 		player->SetState("running-left");
+	else if (game->IsKeyDown(DIK_UP))
+		player->SetState("running-up");
+	else if (game->IsKeyDown(DIK_DOWN))
+		player->SetState("running-down");
+	else if (game->IsKeyDown(DIK_SPACE))
+		player->SetState("jumping");
 	else
 		player->SetState("indie");
 }

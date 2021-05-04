@@ -19,8 +19,18 @@
       "sprite": "assets/sprite/mario.json",
       "animation": "assets/animations/enemy.json",
       "type": 1,
-      "x": 200,
-      "y": 100
+      "x": 100,
+      "y": 150
+    },
+    {
+      "id": "3",
+      "name": "enemy",
+      "texture": "assets/texture/mario.png",
+      "sprite": "assets/sprite/mario.json",
+      "animation": "assets/animations/enemy.json",
+      "type": 1,
+      "x": 114,
+      "y": 150
     }
   ]
 }
