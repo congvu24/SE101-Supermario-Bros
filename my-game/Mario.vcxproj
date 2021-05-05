@@ -130,6 +130,8 @@
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
+    <ClCompile Include="SweptAABB.cpp" />
+    <ClCompile Include="SweptAABB.h" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Game.cpp" />

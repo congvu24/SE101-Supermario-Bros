@@ -49,7 +49,7 @@ class CGameObject
 {
 public:
 
-	int id;
+	int id = 0;
 
 	//float x;
 	//float y;
@@ -87,13 +87,15 @@ public:
 	//string active_animation_set; //active animation set to have different type of character
 	LPANIMATION_SET active_animation_set;
 
+	vector<LPCOLLISIONEVENT> coEvents;
+
 
 public:
 	void SetPosition(float x, float y) { this->p.x = x, this->p.y = y; }
 	void SetSpeed(float vx, float vy) { this->v.x = vx, this->v.y = vy; }
 	void SetSize(float w, float h) { this->width = w, this->height = h; }
-	void GetPosition(float& x, float& y) { x = this->p.x; y = this->p.y; }
 	void GetSpeed(float& vx, float& vy) { vx = this->v.x; vy = this->v.y; }
+	void GetPosition(float& x, float& y) { x = this->p.x; y = this->p.y; }
 
 	string GetState() { return this->state; }
 

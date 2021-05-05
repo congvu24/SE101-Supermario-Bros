@@ -241,8 +241,12 @@ void CGame::SweptAABB(
 	if (br < sl || bl > sr || bb < st || bt > sb) return;
 
 
-	//if (dx == 0 && dy == 0) return;		// moving object is not moving > obvious no collision
+	if (dx == 0 && dy == 0) return;		// moving object is not moving > obvious no collision
 
+	if (mr > sl && mt > st && dx != 0) {
+		DebugOut(L"[ERROR] khong on roi");
+
+	}
 	if (dx > 0)
 	{
 		dx_entry = sl - mr;
@@ -265,7 +269,6 @@ void CGame::SweptAABB(
 		dy_entry = sb - mt;
 		dy_exit = st - mb;
 	}
-
 	if (dx == 0)
 	{
 		tx_entry = -999999.0f;

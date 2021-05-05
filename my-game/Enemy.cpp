@@ -4,6 +4,8 @@
 Enemy::Enemy()
 {
 	SetState("indie");
+	width = 14;
+	height = 16;
 	//this->v.x = .05;
 	//v = Vector(0.05, 0);
 	//this->dx = 1;
@@ -24,25 +26,8 @@ Enemy::Enemy()
 
 void Enemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt, coObjects);
+	//CGameObject::Update(dt, coObjects);
 
-	//
-	// TO-DO: make sure Koopas can interact with the world and to each of them too!
-	// 
-
-	p.x += d.x;
-	p.y += d.y;
-
-	/*if (state == "running-right") vx = 0.5f;
-	if (state == "running-left") vx = -0.5f;*/
-
-	if (v.x < 0 && p.x < 0) {
-		p.x = 0; v.x = -v.x;
-	}
-
-	if (v.x > 0 && p.x > 290) {
-		p.x = 290; v.x = -v.x;
-	}
 }
 
 void Enemy::Render()
@@ -60,7 +45,7 @@ void Enemy::Render()
 	float height = 0;
 	animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
 
-	SetSize(width, height);
+	//SetSize(width, height);
 
 
 	RenderBoundingBox();
@@ -114,7 +99,7 @@ void Enemy::ParseFromJson(json data) {
 	LPCWSTR animation = ToLPCWSTR(string(data["animation"]));
 
 	// set inital position
-	id = id;
+	this->id = id;
 	this->type = type;
 	this->p.x = x;
 	this->p.y = y;

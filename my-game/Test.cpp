@@ -3,8 +3,6 @@
 #include "Quadtree.h"
 
 
-
-
 //Quadtree* CreateQuadTree(vector<CGameObject*>* entity_list)
 //{
 //	// Init base game region for detecting collision
@@ -19,6 +17,8 @@
 
 Test::Test()
 {
+	width = 19;
+	height = 27;
 	SetState("indie");
 	//this->v.x = .05;
 	//v = Vector(0.05, 0.05);
@@ -106,8 +106,8 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (coEvents.size() == 0) {
 
-	/*	p.x += d.x;
-		p.y += d.y;*/
+		/*	p.x += d.x;
+			p.y += d.y;*/
 		p = p + d;
 
 		/*if (v.x < 0 && p.x < 0) {
@@ -160,7 +160,7 @@ void Test::Render()
 	float height = 0;
 	animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
 
-	SetSize(width, height);
+	//SetSize(width, height);
 
 
 	RenderBoundingBox();
@@ -213,7 +213,7 @@ void Test::ParseFromJson(json data) {
 	LPCWSTR animation = ToLPCWSTR(string(data["animation"]));
 
 	// set inital position
-	id = id;
+	this->id = id;
 	this->type = type;
 	this->p.x = x;
 	this->p.y = y;

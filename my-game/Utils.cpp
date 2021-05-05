@@ -71,6 +71,14 @@ LPCWSTR IntToLPCWSTR(int st)
 	return ToLPCWSTR(s);
 }
 
+LPCWSTR FloatToLPCWSTR(float st)
+{
+	char s[256];
+
+	sprintf_s(s, "%.2f", st);
+	return ToLPCWSTR(s);
+}
+
 json ReadJsonFIle(LPCWSTR file) {
 
 	ifstream readData(file);
