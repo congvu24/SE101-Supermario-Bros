@@ -7,6 +7,7 @@
 #include "Mario.h"
 #include "Goomba.h"
 #include "Koopas.h"
+#include "Map.h"
 
 
 class CPlayScene : public CScene
@@ -21,15 +22,19 @@ protected:
 	void _ParseSection_ANIMATIONS_FromJson(LPCWSTR filePath);
 	void _ParseSection_ANIMATION_SETS_FromJson(LPCWSTR filePath);
 	void _ParseSection_OBJECTS_FromJson(json data);
+	void _ParseSection_MAP_FromJson(string mapPath);
 
 
 public:
+	Map* map;
+
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+	LPMAP GetMap() { return this->map; };
 
 	CGameObject* GetPlayer() { return player; }
 

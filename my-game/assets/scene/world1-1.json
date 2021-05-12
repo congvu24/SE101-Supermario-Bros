@@ -1,6 +1,7 @@
 {
   "id": 1,
   "name": "World 1-1",
+  "map": "assets/map/World1-1/World1-1.json",
   "object": [
     {
       "id": "1",

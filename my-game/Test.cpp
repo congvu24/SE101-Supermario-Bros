@@ -192,7 +192,7 @@ void Test::SetState(string state)
 	}
 	else if (state == "indie") {
 		v.x = 0;
-		//v.y = 0;
+		v.y = 0;
 	}
 
 }

@@ -34,7 +34,7 @@
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
-#define MAX_FRAME_RATE 120
+#define MAX_FRAME_RATE 60
 
 CGame *game;
 
@@ -80,6 +80,7 @@ void Render()
 
 		spriteHandler->End();
 		d3ddv->EndScene();
+
 	}
 
 	// Display back buffer content to the screen

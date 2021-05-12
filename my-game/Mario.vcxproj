@@ -128,6 +128,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Koopas.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="SweptAABB.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="library\json.hpp" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Test.h" />

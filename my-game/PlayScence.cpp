@@ -55,6 +55,13 @@ void CPlayScene::Load()
 
 	_ParseSection_OBJECTS_FromJson(object);
 
+
+	string map = string(scene["map"]);
+	DebugOut(L"[INFO] LOAD MAP : %s \n", ToLPCWSTR(map));
+
+	_ParseSection_MAP_FromJson(map);
+
+
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -73,24 +80,34 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
+
+
+
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
 
-	// Update camera to follow mario
-	//float cx, cy;
-	//player->GetPosition(cx, cy);
+	 //Update camera to follow mario
+	float cx, cy;
+	player->GetPosition(cx, cy);
 
-	//CGame* game = CGame::GetInstance();
-	//cx -= game->GetScreenWidth() / 2;
-	//cy -= game->GetScreenHeight() / 2;
+	CGame* game = CGame::GetInstance();
+	cx -= game->GetScreenWidth() / 2;
+	cy -= game->GetScreenHeight() / 2;
 
-	//CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	CGame::GetInstance()->SetCamPos(cx, cy);
 }
 
 void CPlayScene::Render()
 {
+	
+	//if (map->isRendered == false) {
+	map->render();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
+	//map->isRendered = true;
+//}
+
+
 }
 
 /*
@@ -239,4 +256,9 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 
 	}
 	// parse from object[] to list of object for each screen
+}
+
+void  CPlayScene::_ParseSection_MAP_FromJson(string mapPath) {
+	this->map = new Map();
+	map->load(ToLPCWSTR(mapPath));
 }
