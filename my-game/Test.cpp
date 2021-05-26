@@ -17,8 +17,8 @@
 
 Test::Test()
 {
-	width = 19;
-	height = 27;
+	width = 42;
+	height = 54;
 	SetState("indie");
 	//this->v.x = .05;
 	//v = Vector(0.05, 0.05);
@@ -54,7 +54,7 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	coEvents.clear();
 
-	RECT base = { 0, 0, 800, 600 };
+	RECT base = { 0, 0, 200, 200 };
 	Quadtree* quadtree = new Quadtree(1, &base);
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
@@ -67,35 +67,55 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		//Get all objects that can collide with current entity
-		quadtree->Retrieve(return_objects_list, *i);
-		for (auto x = return_objects_list->begin(); x != return_objects_list->end(); x++)
-		{
-
-			//if (IsCollide(*i, *x))  // Your algorithm about Collision Detection
-			//{
-			//	// Do something here
-			//}
-			LPCOLLISIONEVENT e = SweptAABBEx(*x);
+		if (*i != this) {
+			LPCOLLISIONEVENT e = SweptAABBEx(*i);
 
 			if (e->t > 0 && e->t <= 1.0f) {
-
-				//coEvents.push_back(e);
 				DebugOut(L"[INFOR] HAPPEN!!!!!\n");
 				coEvents.push_back(e);
-				//x += dx + nx * 0.4f;
-				//y += dy + ny * 0.4f;
-
-				//if (nx != 0) vx = 0;
-				//if (ny != 0) vy = 0;
 			}
 			else {
-				//DebugOut(L"[INFOR] NO HAPPEN!!!!!\n");
 				delete e;
 			}
 		}
 
-		return_objects_list->clear();
+
+
+		//Get all objects that can collide with current entity
+		//quadtree->Retrieve(return_objects_list, this);
+		//if (return_objects_list->size() > 0) {
+		//	DebugOut(L"[INFOR] Co kha nang!!!!! %s \n", IntToLPCWSTR(return_objects_list->size()));
+
+		//}
+		//for (auto x = return_objects_list->begin(); x != return_objects_list->end(); x++)
+		//{
+
+		//	//if (IsCollide(*i, *x))  // Your algorithm about Collision Detection
+		//	//{
+		//	//	// Do something here
+		//	//}
+		//	if (*x != this) {
+		//		LPCOLLISIONEVENT e = SweptAABBEx(*x);
+
+		//		if (e->t > 0 && e->t <= 1.0f) {
+
+		//			//coEvents.push_back(e);
+		//			DebugOut(L"[INFOR] HAPPEN!!!!!\n");
+		//			coEvents.push_back(e);
+		//			//x += dx + nx * 0.4f;
+		//			//y += dy + ny * 0.4f;
+
+		//			//if (nx != 0) vx = 0;
+		//			//if (ny != 0) vy = 0;
+		//		}
+		//		else {
+		//			//DebugOut(L"[INFOR] NO HAPPEN!!!!!\n");
+		//			delete e;
+		//		}
+		//	}
+		//}
+
+		//return_objects_list->clear();
 	}
 
 	////quadtree->Release();
@@ -168,7 +188,6 @@ void Test::Render()
 
 void Test::SetState(string state)
 {
-	CGameObject::SetState(state);
 
 	if (state == "running-right") {
 		v.x = 0.15f;
@@ -186,64 +205,33 @@ void Test::SetState(string state)
 		v.y = 0.15f;
 		ny = -1;
 	}
-	else if (state == "jumping") {
-		v.y = -0.35f;
+	else if (state == "jumping" && this->state != "jumping") {
+		v.y = -0.4f;
 		ny = -1;
 	}
 	else if (state == "indie") {
 		v.x = 0;
-		v.y = 0;
+		//v.y = 0;
 	}
 
+	CGameObject::SetState(state);
+
 }
 
-void Test::ParseFromJson(json data) {
-
-
-	int id = stoi(string(data["id"])); //object id;
-
-
-	string type = to_string(data["type"]); //object type;
-
-	float x = data["x"]; //object x;
-	float y = data["y"]; //object y;
-
-	LPCWSTR sprite = ToLPCWSTR(string(data["sprite"]));
-	LPCWSTR texture = ToLPCWSTR(string(data["texture"]));
-	LPCWSTR animation = ToLPCWSTR(string(data["animation"]));
-
-	// set inital position
-	this->id = id;
-	this->type = type;
-	this->p.x = x;
-	this->p.y = y;
-	//
-	D3DCOLOR transcolor;
-	SetTexture(texture, D3DCOLOR_XRGB(255, 0, 255));
-	ParseSpriteFromJson(sprite);
-
-	ParseAnimationFromJson(animation);
-
-	// set active animation set;
-	SetActiveAnimationSet(type);
-}
+//void Test::ParseFromJson(json data) {
+//
+//
+//}
 
 void Test::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = p.x;
 	top = p.y;
 
-	if (type == "1")
-	{
-		right = p.x + width;
-		bottom = p.y + height;
-	}
-	else
-	{
-		right = p.x + width;
-		bottom = p.y + height;
 
-		//right = x + MARIO_SMALL_BBOX_WIDTH;
-		//bottom = y + MARIO_SMALL_BBOX_HEIGHT;
-	}
+	right = p.x + width;
+	bottom = p.y + height;
+
+	//right = x + MARIO_SMALL_BBOX_WIDTH;
+	//bottom = y + MARIO_SMALL_BBOX_HEIGHT;
 }

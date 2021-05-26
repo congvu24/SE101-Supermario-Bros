@@ -3,10 +3,17 @@
 #include <string.h>
 #include <d3dx9.h>
 #include "Game.h"
+#include "Vector.h"
+#include "GameObject.h"
+#include "Collision.h"
+#include "MisteryBox.h"
+
 
 #include "Utils.h"
 
 using namespace std;
+
+#define FIXED_TILE_SIZE 20
 
 
 enum layer_type
@@ -23,7 +30,7 @@ public:
 	float tileWidth;
 	float spacing;
 	float margin;
-	int firstGrid;	
+	int firstGrid;
 	float imageHeight;
 	float imageWidth;
 	int columns;
@@ -50,6 +57,7 @@ public:
 
 	Layer() {  };
 	void render(unordered_map<int, LPTILESET>* tileset);
+	void draw(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity);
 };
 
 typedef Layer* LPLAYER;
@@ -65,7 +73,7 @@ public:
 	unordered_map<int, LPLAYER> all_layer;
 
 	Map() {};
-	void load(LPCWSTR path);
+	void load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions);
 	void render();
 };
 

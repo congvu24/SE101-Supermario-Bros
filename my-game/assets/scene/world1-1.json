@@ -11,37 +11,19 @@
       "animation": "assets/animations/mario-animation.json",
       "type": 1,
       "x": 100,
-      "y": 100
+      "y": 100,
+      "visible": true
     },
     {
       "id": "2",
-      "name": "enemy",
-      "texture": "assets/texture/mario.png",
-      "sprite": "assets/sprite/mario.json",
-      "animation": "assets/animations/enemy.json",
+      "name": "MisteryBox",
+      "texture": "assets/texture/misc.png",
+      "sprite": "assets/sprite/misc.json",
+      "animation": "assets/animations/misterybox-animation.json",
       "type": 1,
       "x": 100,
-      "y": 150
-    },
-    {
-      "id": "3",
-      "name": "enemy",
-      "texture": "assets/texture/mario.png",
-      "sprite": "assets/sprite/mario.json",
-      "animation": "assets/animations/enemy.json",
-      "type": 1,
-      "x": 114,
-      "y": 150
-    },
-    {
-      "id": "3",
-      "name": "enemy",
-      "texture": "assets/texture/mario.png",
-      "sprite": "assets/sprite/mario.json",
-      "animation": "assets/animations/enemy.json",
-      "type": 1,
-      "x": 128,
-      "y": 150
+      "y": 150,
+      "visible": false
     }
   ]
 }

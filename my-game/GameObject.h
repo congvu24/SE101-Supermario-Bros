@@ -47,7 +47,9 @@ struct CCollisionEvent
 
 class CGameObject
 {
+
 public:
+	static json data;
 
 	int id = 0;
 
@@ -124,8 +126,8 @@ public:
 	virtual void Render() = 0;
 	virtual void SetState(string state) { this->state = state; }
 
-	virtual void ParseFromJson(json data) = 0; // use this function to parse from data to object
-
+	void ParseFromJson(json data); // use this function to parse from data to object
+	void ParseFromOwnJson(); // use this function to parse from data to object
 
 	void AddSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 	LPSPRITE GetSprite(string id);

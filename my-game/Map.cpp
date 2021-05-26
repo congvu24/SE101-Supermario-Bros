@@ -16,44 +16,76 @@ void Tileset::load(LPCWSTR path) {
 void Layer::render(unordered_map<int, LPTILESET>* tileset) {
 	//DebugOut(L"[INFOR] Render tile layer %s\n", ToLPCWSTR(this->name));
 
-	CGame* game = CGame::GetInstance();
+
 
 	for (int i = 0; i < width * height; i++) {
 		int cell = data[i];
 		if (cell > 0) {
 			LPTILESET activeTileset = getTileSetFromMin(tileset, 100);
 
+			Vector p;
+			RECT r;
+
 			int col = floor(i / width);
 			int row = i % width;
 
-			int x = row * 48;
-			int y = col * 48; //calc from i;
+			p.x = row * activeTileset->tileHeight;
+			p.y = col * activeTileset->tileHeight; //calc from i, all size will be transform below
 
 			int tilecol = floor(cell / activeTileset->imageWidth);
 			int tileRow = cell % int(activeTileset->imageWidth);
 
-			int left = tileRow * 48;
-			int top = tilecol * 48;
-			int right = left + 48;
-			int bottom = top + 48; //calc from the cell
+			//int left = tileRow * activeTileset->tileWidth;
+			//int top = tilecol * activeTileset->tileHeight;
+			//int right = left + activeTileset->tileWidth;
+			//int bottom = top + activeTileset->tileHeight; //calc from the cell
 
-			top = ((cell - activeTileset->firstGrid) / activeTileset->columns) * activeTileset->tileHeight;
-			left = ((cell - activeTileset->firstGrid) % activeTileset->columns) * activeTileset->tileWidth;
-			bottom = top + activeTileset->tileHeight;
-			right = left + activeTileset->tileWidth;
+			r.top = ((cell - activeTileset->firstGrid) / activeTileset->columns) * activeTileset->tileHeight;
+			r.left = ((cell - activeTileset->firstGrid) % activeTileset->columns) * activeTileset->tileWidth;
+			r.bottom = r.top + activeTileset->tileHeight;
+			r.right = r.left + activeTileset->tileWidth;
 
 			if (activeTileset != NULL && activeTileset->texture != NULL) {
-				//DebugOut(L"[INFOR] Render texture %s\n");
-				//LPDIRECT3DTEXTURE9 text =;
-
-				game->Draw(x, y, activeTileset->texture, left, top, right, bottom, 255);
+				draw(p, activeTileset->texture, r, 255);
 			}
 		}
 	}
 
 }
 
-void Map::load(LPCWSTR path) {
+void Layer::draw(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity) {
+	// transform every size to be one fixed size
+	// also calc new position after scale
+	// draw here
+	CGame* game = CGame::GetInstance();
+
+	D3DXVECTOR2 pos, scale;
+
+
+
+	float width = r.right - r.left;
+	float height = r.bottom - r.top;
+	// assum that width = height;
+
+	scale.x = (FIXED_TILE_SIZE / width);
+	scale.y = (FIXED_TILE_SIZE / height);
+
+	scale.x = 1;
+	scale.y = 1;
+
+	//p.x = 0;
+	//p.y = 0;
+
+	pos.x = p.x;
+	pos.y = p.y;
+
+
+	game->DrawWithScale(p, texture, r, 255, pos, scale);
+
+	//game->Draw(p.x, p.y, texture, r.left, r.top, r.right, r.bottom, 255);
+}
+
+void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
 	json mapData = ReadJsonFIle(path);
 	this->data = mapData;
 
@@ -76,7 +108,7 @@ void Map::load(LPCWSTR path) {
 		tile->columns = data["columns"];
 		//load texture here
 
-		LPCWSTR filePath = L"assets/map/World1-1/World1-1.png";  // have to fix here
+		LPCWSTR filePath = ToLPCWSTR("assets/map/" + tile->name + "/" + tile->image);  // have to fix here
 
 		D3DXIMAGE_INFO info;
 		HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
@@ -124,6 +156,7 @@ void Map::load(LPCWSTR path) {
 		json data = set.value();
 		Layer* layer = new Layer();
 		string type = string(data["type"]);
+		string name = string(data["name"]);
 		if (type == "tilelayer") {
 			int id = data["id"];
 			int height = data["height"];
@@ -147,6 +180,67 @@ void Map::load(LPCWSTR path) {
 			}
 
 			this->all_layer[id] = layer;
+		}
+
+		else if (type == "objectgroup" && name == "RectCollision") {
+			json objects = data["objects"];
+
+			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+				json value = objData.value();
+				LPGAMEOBJECT obj = new Collision();
+				/*obj->width = float(value["width"]);
+				obj->height = float(value["height"]);
+				obj->p = Vector(float(value["x"]), float(value["y"]));*/
+
+				float raito = 48 / FIXED_TILE_SIZE;
+
+				float width = float(value["width"]);
+				float height = float(value["height"]);
+				float x = float(value["x"]);
+				float y = float(value["y"]);
+
+
+				obj->width = width;
+				obj->height = height;
+				obj->p = Vector(x, y);
+
+
+				obCollisions->push_back(obj);
+			}
+		}
+		else if (type == "objectgroup" && name == "QuestionBox_Coin") {
+			json objects = data["objects"];
+
+			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+				json value = objData.value();
+				//LPGAMEOBJECT obj = new Collision();
+				///*obj->width = float(value["width"]);
+				//obj->height = float(value["height"]);
+				//obj->p = Vector(float(value["x"]), float(value["y"]));*/
+
+				//float raito = 48 / FIXED_TILE_SIZE;
+
+				float width = float(value["width"]);
+				float height = float(value["height"]);
+				float x = float(value["x"]);
+				float y = float(value["y"]);
+
+
+				//obj->width = width;
+				//obj->height = height;
+				//obj->p = Vector(x, y);
+
+				LPGAMEOBJECT obj = new MisteryBox();
+				obj->ParseFromOwnJson();
+				obj->width = width;
+				obj->height = height;
+				obj->p = Vector(x, y);
+
+
+				obCollisions->push_back(obj);
+			}
+
+
 		}
 		else {
 			delete layer;

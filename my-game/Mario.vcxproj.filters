@@ -96,6 +96,15 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\Games</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="MisteryBox.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -153,6 +162,15 @@
       <Filter>Header Files\Character</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="MisteryBox.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>

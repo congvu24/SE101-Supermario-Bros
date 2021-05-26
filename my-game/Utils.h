@@ -29,3 +29,5 @@ LPCWSTR ToLPCWSTR(string st);
 LPCWSTR IntToLPCWSTR(int st);
 
 json ReadJsonFIle(LPCWSTR file);
+
+int fromNameToCode(string name);

@@ -1,22 +1,19 @@
 {
   "1": {
-    "indie": [
-      { "name": "newmario/67", "time": 100 },
-      { "name": "newmario/68", "time": 100 },
-      { "name": "newmario/69", "time": 100 }
+    "indie": [{ "name": "108.png", "time": 100 }],
+    "running-up": [{ "name": "111.png", "time": 100 }],
+    "jumping": [
+      { "name": "129.png", "time": 100 },
+      { "name": "130.png", "time": 100 }
     ],
-    "running-up": [{ "name": "newmario/66", "time": 100 }],
-    "jumping": [{ "name": "newmario/66", "time": 100 }],
-    "running-down": [{ "name": "newmario/66", "time": 100 }],
+    "running-down": [{ "name": "110.png", "time": 100 }],
     "running-right": [
-      { "name": "newmario/67", "time": 100 },
-      { "name": "newmario/68", "time": 100 },
-      { "name": "newmario/69", "time": 100 }
+      { "name": "129.png", "time": 100 },
+      { "name": "130.png", "time": 100 }
     ],
     "running-left": [
-      { "name": "newmario/65", "time": 100 },
-      { "name": "newmario/64", "time": 100 },
-      { "name": "newmario/63", "time": 100 }
+      { "name": "124.png", "time": 100 },
+      { "name": "122.png", "time": 100 }
     ]
   }
 }

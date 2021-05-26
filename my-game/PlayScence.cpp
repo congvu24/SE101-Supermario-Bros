@@ -8,6 +8,7 @@
 #include "Portal.h"
 #include "Test.h"
 #include "Enemy.h"
+#include "MisteryBox.h"
 
 using namespace std;
 
@@ -69,15 +70,26 @@ void CPlayScene::Update(DWORD dt)
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 
-	vector<LPGAMEOBJECT> coObjects;
-	for (size_t i = 0; i < objects.size(); i++)
+
+	/*for (size_t i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
-	}
+	}*/
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
-		objects[i]->Update(dt, &coObjects);
+		if (Test* v = dynamic_cast<Test*>(objects[i])) {
+			objects[i]->Update(dt, &objects);
+		}
+
+		else if (this->getCamera()->isInCam(objects[i], 100) == true) { 
+			// only render in camera zone
+			objects[i]->Update(dt, &objects);
+		}
+		else {
+			DebugOut(L"[INFO] NO UPDATE \n");
+
+		}
 	}
 
 
@@ -86,7 +98,7 @@ void CPlayScene::Update(DWORD dt)
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
 
-	 //Update camera to follow mario
+	//Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
 
@@ -94,12 +106,14 @@ void CPlayScene::Update(DWORD dt)
 	cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;
 
-	CGame::GetInstance()->SetCamPos(cx, cy);
+	//CGame::GetInstance()->SetCamPos(cx, cy);
+	CGame::GetInstance()->GetCurrentScene()->camera->setCamPos(cx, cy);
+
 }
 
 void CPlayScene::Render()
 {
-	
+
 	//if (map->isRendered == false) {
 	map->render();
 	for (int i = 0; i < objects.size(); i++)
@@ -120,6 +134,7 @@ void CPlayScene::Unload()
 
 	objects.clear();
 	player = NULL;
+	// delete map data here;
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
@@ -128,19 +143,13 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 
 	CGameObject* player = ((CPlayScene*)scence)->GetPlayer();
-	/*switch (KeyCode)
+	switch (KeyCode)
 	{
-	case DIK_D:
-		player->SetState("running-right");
+	case DIK_SPACE:
+		player->SetState("jumping");
 		DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-
 		break;
-	case DIK_A:
-		player->SetState("running-left");
-		DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-
-		break;
-	}*/
+	}
 }
 
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
@@ -159,8 +168,6 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 		player->SetState("running-up");
 	else if (game->IsKeyDown(DIK_DOWN))
 		player->SetState("running-down");
-	else if (game->IsKeyDown(DIK_SPACE))
-		player->SetState("jumping");
 	else
 		player->SetState("indie");
 }
@@ -216,49 +223,73 @@ void  CPlayScene::_ParseSection_ANIMATIONS_FromJson(LPCWSTR filePath) {
 void  CPlayScene::_ParseSection_ANIMATION_SETS_FromJson(LPCWSTR filePath) {
 }
 void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
-	unordered_map <string, int> character_code;
-	character_code["test"] = 1;
-	character_code["enemy"] = 2;
-
-
 	//each sence has many object
 	for (json::iterator it = allObjects.begin(); it != allObjects.end(); ++it) {
 
 		json data = it.value();
 
 		string name = string(data["name"]); //object name;
-
+		bool visible = bool(data["visible"]); //object name;
 
 		CGameObject* obj;
 
 		//DebugOut(L"[ERROR] Texture ID %d not found!\n", IntToLPCWSTR(character_code[name]));
 
-		switch (character_code.at(name))
-		{
-		case 1:
-			/*if (player != NULL)
+		if (visible == true) {
+			switch (fromNameToCode(name))
 			{
-				DebugOut(L"[ERROR] MARIO object was created before!\n");
-				return;
-			}*/
-			obj = new Test();
-			obj->ParseFromJson(data); //remember to set position, animation_set in this function
-			player = obj;
-			break;
-		case 2:
-			obj = new Enemy();
-			obj->ParseFromJson(data); //remember to set position, animation_set in this function
-			break;
-		default:
-			break;
+			case 1:
+				/*if (player != NULL)
+				{
+					DebugOut(L"[ERROR] MARIO object was created before!\n");
+					return;
+				}*/
+				obj = new Test();
+				obj->ParseFromJson(data); //remember to set position, animation_set in this function
+				player = obj;
+				break;
+			case 2:
+				obj = new Enemy();
+				obj->ParseFromJson(data); //remember to set position, animation_set in this function
+				break;
+			case 3:
+				obj = new MisteryBox();
+				obj->ParseFromJson(data); //remember to set position, animation_set in this function
+				break;
+			default:
+				break;
+			}
+			objects.push_back(obj);
 		}
-		objects.push_back(obj);
+		else {
+			switch (fromNameToCode(name))
+			{
+			case 1:
+				Test::data = data;
+				break;
+			case 2:
+				Enemy::data = data;
+				break;
+			case 3:
+				MisteryBox::data = data;
+				break;
+			default:
+				break;
+			}
+		}
 
 	}
 	// parse from object[] to list of object for each screen
 }
 
 void  CPlayScene::_ParseSection_MAP_FromJson(string mapPath) {
+	vector<LPGAMEOBJECT> obCollision;
+
 	this->map = new Map();
-	map->load(ToLPCWSTR(mapPath));
+	map->load(ToLPCWSTR(mapPath), &obCollision);
+
+	for (size_t i = 0; i < obCollision.size(); i++)
+	{
+		objects.push_back(obCollision[i]);
+	}
 }

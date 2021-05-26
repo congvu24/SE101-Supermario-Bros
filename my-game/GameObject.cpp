@@ -8,10 +8,13 @@
 #include "GameObject.h"
 #include "Sprites.h"
 
+
+json CGameObject::data = NULL;
 CGameObject::CGameObject()
 {
 	/*p.x = p.y = 0;
 	v.x = v.y = 0;*/
+
 
 	p = Vector(0, 0);
 	v = Vector(0, 0);
@@ -342,6 +345,42 @@ void CGameObject::ParseAnimationFromJson(LPCWSTR filePath) {
 
 }
 
+void CGameObject::ParseFromJson(json data) {
+
+	int id = stoi(string(data["id"])); //object id;
+
+
+	string type = to_string(data["type"]); //object type;
+
+	float x = data["x"]; //object x;
+	float y = data["y"]; //object y;
+
+	LPCWSTR sprite = ToLPCWSTR(string(data["sprite"]));
+	LPCWSTR texture = ToLPCWSTR(string(data["texture"]));
+	LPCWSTR animation = ToLPCWSTR(string(data["animation"]));
+
+	// set inital position
+	this->id = id;
+	this->type = type;
+	this->p.x = x;
+	this->p.y = y;
+	//
+	D3DCOLOR transcolor;
+	SetTexture(texture, D3DCOLOR_XRGB(255, 0, 255));
+	ParseSpriteFromJson(sprite);
+
+	ParseAnimationFromJson(animation);
+
+	// set active animation set;
+	SetActiveAnimationSet(type);
+}
+void CGameObject::ParseFromOwnJson() {
+	if (this->data != NULL) {
+		this->ParseFromJson(this->data);
+	}
+	//DebugOut(L"[INFOR] Add animation set ! %s\n", IntToLPCWSTR(CGameObject::data));
+
+}
 
 CGameObject::~CGameObject()
 {

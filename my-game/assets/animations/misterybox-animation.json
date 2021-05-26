@@ -1,0 +1,11 @@
+{
+  "1": {
+    "running": [
+      { "name": "13.png", "time": 100 },
+      { "name": "14.png", "time": 100 },
+      { "name": "15.png", "time": 100 },
+      { "name": "16.png", "time": 100 }
+    ],
+    "stop": [{ "name": "17.png", "time": 100 }]
+  }
+}

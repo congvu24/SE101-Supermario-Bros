@@ -27,7 +27,6 @@ protected:
 
 public:
 	Map* map;
-
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();

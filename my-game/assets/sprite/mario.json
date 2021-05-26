@@ -1,1035 +1,1035 @@
 {
   "frames": {
-    "newmario/0": {
-      "frame": { "x": 0, "y": 0, "w": 14, "h": 16 },
+    "0.png": {
+      "frame": { "x": 128, "y": 60, "w": 28, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 16 },
-      "sourceSize": { "w": 14, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 32 },
+      "sourceSize": { "w": 28, "h": 32 }
     },
-    "newmario/1": {
-      "frame": { "x": 14, "y": 0, "w": 13, "h": 16 },
+    "1.png": {
+      "frame": { "x": 156, "y": 60, "w": 26, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 13, "h": 16 },
-      "sourceSize": { "w": 13, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 32 },
+      "sourceSize": { "w": 26, "h": 32 }
     },
-    "newmario/2": {
-      "frame": { "x": 27, "y": 0, "w": 12, "h": 15 },
+    "2.png": {
+      "frame": { "x": 104, "y": 0, "w": 24, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 15 },
-      "sourceSize": { "w": 12, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 30 },
+      "sourceSize": { "w": 24, "h": 30 }
     },
-    "newmario/3": {
-      "frame": { "x": 39, "y": 0, "w": 16, "h": 16 },
+    "3.png": {
+      "frame": { "x": 122, "y": 124, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/4": {
-      "frame": { "x": 55, "y": 0, "w": 15, "h": 16 },
+    "4.png": {
+      "frame": { "x": 120, "y": 156, "w": 30, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 16 },
-      "sourceSize": { "w": 15, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 32 },
+      "sourceSize": { "w": 30, "h": 32 }
     },
-    "newmario/5": {
-      "frame": { "x": 70, "y": 0, "w": 16, "h": 16 },
+    "5.png": {
+      "frame": { "x": 56, "y": 188, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/6": {
-      "frame": { "x": 86, "y": 0, "w": 12, "h": 15 },
+    "6.png": {
+      "frame": { "x": 52, "y": 60, "w": 24, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 15 },
-      "sourceSize": { "w": 12, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 30 },
+      "sourceSize": { "w": 24, "h": 30 }
     },
-    "newmario/7": {
-      "frame": { "x": 98, "y": 0, "w": 14, "h": 15 },
+    "7.png": {
+      "frame": { "x": 76, "y": 60, "w": 28, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 15 },
-      "sourceSize": { "w": 14, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 30 },
+      "sourceSize": { "w": 28, "h": 30 }
     },
-    "newmario/8": {
-      "frame": { "x": 112, "y": 0, "w": 12, "h": 15 },
+    "8.png": {
+      "frame": { "x": 104, "y": 60, "w": 24, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 15 },
-      "sourceSize": { "w": 12, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 30 },
+      "sourceSize": { "w": 24, "h": 30 }
     },
-    "newmario/9": {
-      "frame": { "x": 124, "y": 0, "w": 16, "h": 16 },
+    "9.png": {
+      "frame": { "x": 30, "y": 220, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/10": {
-      "frame": { "x": 140, "y": 0, "w": 15, "h": 16 },
+    "10.png": {
+      "frame": { "x": 182, "y": 60, "w": 30, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 16 },
-      "sourceSize": { "w": 15, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 32 },
+      "sourceSize": { "w": 30, "h": 32 }
     },
-    "newmario/11": {
-      "frame": { "x": 155, "y": 0, "w": 16, "h": 16 },
+    "11.png": {
+      "frame": { "x": 212, "y": 60, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/12": {
-      "frame": { "x": 171, "y": 0, "w": 12, "h": 15 },
+    "12.png": {
+      "frame": { "x": 48, "y": 0, "w": 24, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 15 },
-      "sourceSize": { "w": 12, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 30 },
+      "sourceSize": { "w": 24, "h": 30 }
     },
-    "newmario/13": {
-      "frame": { "x": 183, "y": 0, "w": 13, "h": 16 },
+    "13.png": {
+      "frame": { "x": 0, "y": 92, "w": 26, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 13, "h": 16 },
-      "sourceSize": { "w": 13, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 32 },
+      "sourceSize": { "w": 26, "h": 32 }
     },
-    "newmario/14": {
-      "frame": { "x": 196, "y": 0, "w": 14, "h": 16 },
+    "14.png": {
+      "frame": { "x": 26, "y": 92, "w": 28, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 16 },
-      "sourceSize": { "w": 14, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 32 },
+      "sourceSize": { "w": 28, "h": 32 }
     },
-    "newmario/15": {
-      "frame": { "x": 210, "y": 0, "w": 15, "h": 16 },
+    "15.png": {
+      "frame": { "x": 54, "y": 92, "w": 30, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 16 },
-      "sourceSize": { "w": 15, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 32 },
+      "sourceSize": { "w": 30, "h": 32 }
     },
-    "newmario/16": {
-      "frame": { "x": 0, "y": 16, "w": 16, "h": 16 },
+    "16.png": {
+      "frame": { "x": 84, "y": 92, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/17": {
-      "frame": { "x": 16, "y": 16, "w": 16, "h": 16 },
+    "17.png": {
+      "frame": { "x": 116, "y": 92, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/18": {
-      "frame": { "x": 32, "y": 16, "w": 14, "h": 16 },
+    "18.png": {
+      "frame": { "x": 148, "y": 92, "w": 28, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 16 },
-      "sourceSize": { "w": 14, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 32 },
+      "sourceSize": { "w": 28, "h": 32 }
     },
-    "newmario/19": {
-      "frame": { "x": 46, "y": 16, "w": 16, "h": 15 },
+    "19.png": {
+      "frame": { "x": 72, "y": 0, "w": 32, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 15 },
-      "sourceSize": { "w": 16, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 30 },
+      "sourceSize": { "w": 32, "h": 30 }
     },
-    "newmario/20": {
-      "frame": { "x": 62, "y": 16, "w": 16, "h": 16 },
+    "20.png": {
+      "frame": { "x": 176, "y": 92, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/21": {
-      "frame": { "x": 78, "y": 16, "w": 14, "h": 15 },
+    "21.png": {
+      "frame": { "x": 128, "y": 0, "w": 28, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 15 },
-      "sourceSize": { "w": 14, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 30 },
+      "sourceSize": { "w": 28, "h": 30 }
     },
-    "newmario/22": {
-      "frame": { "x": 92, "y": 16, "w": 14, "h": 15 },
+    "22.png": {
+      "frame": { "x": 156, "y": 0, "w": 28, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 15 },
-      "sourceSize": { "w": 14, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 30 },
+      "sourceSize": { "w": 28, "h": 30 }
     },
-    "newmario/23": {
-      "frame": { "x": 106, "y": 16, "w": 14, "h": 15 },
+    "23.png": {
+      "frame": { "x": 184, "y": 0, "w": 28, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 15 },
-      "sourceSize": { "w": 14, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 30 },
+      "sourceSize": { "w": 28, "h": 30 }
     },
-    "newmario/24": {
-      "frame": { "x": 120, "y": 16, "w": 16, "h": 16 },
+    "24.png": {
+      "frame": { "x": 208, "y": 92, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/25": {
-      "frame": { "x": 136, "y": 16, "w": 16, "h": 15 },
+    "25.png": {
+      "frame": { "x": 212, "y": 0, "w": 32, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 15 },
-      "sourceSize": { "w": 16, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 30 },
+      "sourceSize": { "w": 32, "h": 30 }
     },
-    "newmario/26": {
-      "frame": { "x": 152, "y": 16, "w": 14, "h": 16 },
+    "26.png": {
+      "frame": { "x": 0, "y": 124, "w": 28, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 16 },
-      "sourceSize": { "w": 14, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 32 },
+      "sourceSize": { "w": 28, "h": 32 }
     },
-    "newmario/27": {
-      "frame": { "x": 166, "y": 16, "w": 16, "h": 16 },
+    "27.png": {
+      "frame": { "x": 28, "y": 124, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/28": {
-      "frame": { "x": 182, "y": 16, "w": 16, "h": 16 },
+    "28.png": {
+      "frame": { "x": 60, "y": 124, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/29": {
-      "frame": { "x": 198, "y": 16, "w": 15, "h": 16 },
+    "29.png": {
+      "frame": { "x": 92, "y": 124, "w": 30, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 16 },
-      "sourceSize": { "w": 15, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 32 },
+      "sourceSize": { "w": 30, "h": 32 }
     },
-    "newmario/30": {
-      "frame": { "x": 213, "y": 16, "w": 16, "h": 16 },
+    "30.png": {
+      "frame": { "x": 154, "y": 124, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/31": {
-      "frame": { "x": 0, "y": 32, "w": 16, "h": 16 },
+    "31.png": {
+      "frame": { "x": 186, "y": 124, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/32": {
-      "frame": { "x": 16, "y": 32, "w": 14, "h": 15 },
+    "32.png": {
+      "frame": { "x": 0, "y": 30, "w": 28, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 15 },
-      "sourceSize": { "w": 14, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 30 },
+      "sourceSize": { "w": 28, "h": 30 }
     },
-    "newmario/33": {
-      "frame": { "x": 30, "y": 32, "w": 14, "h": 15 },
+    "33.png": {
+      "frame": { "x": 28, "y": 30, "w": 28, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 15 },
-      "sourceSize": { "w": 14, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 30 },
+      "sourceSize": { "w": 28, "h": 30 }
     },
-    "newmario/34": {
-      "frame": { "x": 44, "y": 32, "w": 16, "h": 15 },
+    "34.png": {
+      "frame": { "x": 56, "y": 30, "w": 32, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 15 },
-      "sourceSize": { "w": 16, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 30 },
+      "sourceSize": { "w": 32, "h": 30 }
     },
-    "newmario/35": {
-      "frame": { "x": 60, "y": 32, "w": 15, "h": 16 },
+    "35.png": {
+      "frame": { "x": 0, "y": 156, "w": 30, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 16 },
-      "sourceSize": { "w": 15, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 32 },
+      "sourceSize": { "w": 30, "h": 32 }
     },
-    "newmario/36": {
-      "frame": { "x": 75, "y": 32, "w": 15, "h": 16 },
+    "36.png": {
+      "frame": { "x": 30, "y": 156, "w": 30, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 16 },
-      "sourceSize": { "w": 15, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 32 },
+      "sourceSize": { "w": 30, "h": 32 }
     },
-    "newmario/37": {
-      "frame": { "x": 90, "y": 32, "w": 15, "h": 16 },
+    "37.png": {
+      "frame": { "x": 60, "y": 156, "w": 30, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 16 },
-      "sourceSize": { "w": 15, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 32 },
+      "sourceSize": { "w": 30, "h": 32 }
     },
-    "newmario/38": {
-      "frame": { "x": 105, "y": 32, "w": 15, "h": 16 },
+    "38.png": {
+      "frame": { "x": 90, "y": 156, "w": 30, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 16 },
-      "sourceSize": { "w": 15, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 32 },
+      "sourceSize": { "w": 30, "h": 32 }
     },
-    "newmario/39": {
-      "frame": { "x": 120, "y": 32, "w": 16, "h": 15 },
+    "39.png": {
+      "frame": { "x": 88, "y": 30, "w": 32, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 15 },
-      "sourceSize": { "w": 16, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 30 },
+      "sourceSize": { "w": 32, "h": 30 }
     },
-    "newmario/40": {
-      "frame": { "x": 136, "y": 32, "w": 14, "h": 15 },
+    "40.png": {
+      "frame": { "x": 120, "y": 30, "w": 28, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 15 },
-      "sourceSize": { "w": 14, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 30 },
+      "sourceSize": { "w": 28, "h": 30 }
     },
-    "newmario/41": {
-      "frame": { "x": 150, "y": 32, "w": 14, "h": 15 },
+    "41.png": {
+      "frame": { "x": 148, "y": 30, "w": 28, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 15 },
-      "sourceSize": { "w": 14, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 30 },
+      "sourceSize": { "w": 28, "h": 30 }
     },
-    "newmario/42": {
-      "frame": { "x": 164, "y": 32, "w": 16, "h": 16 },
+    "42.png": {
+      "frame": { "x": 150, "y": 156, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/43": {
-      "frame": { "x": 180, "y": 32, "w": 16, "h": 16 },
+    "43.png": {
+      "frame": { "x": 182, "y": 156, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/44": {
-      "frame": { "x": 196, "y": 32, "w": 12, "h": 15 },
+    "44.png": {
+      "frame": { "x": 176, "y": 30, "w": 24, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 15 },
-      "sourceSize": { "w": 12, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 30 },
+      "sourceSize": { "w": 24, "h": 30 }
     },
-    "newmario/45": {
-      "frame": { "x": 208, "y": 32, "w": 12, "h": 14 },
+    "45.png": {
+      "frame": { "x": 0, "y": 0, "w": 24, "h": 28 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 14 },
-      "sourceSize": { "w": 12, "h": 14 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+      "sourceSize": { "w": 24, "h": 28 }
     },
-    "newmario/46": {
-      "frame": { "x": 220, "y": 32, "w": 14, "h": 15 },
+    "46.png": {
+      "frame": { "x": 200, "y": 30, "w": 28, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 15 },
-      "sourceSize": { "w": 14, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 30 },
+      "sourceSize": { "w": 28, "h": 30 }
     },
-    "newmario/47": {
-      "frame": { "x": 0, "y": 48, "w": 15, "h": 16 },
+    "47.png": {
+      "frame": { "x": 214, "y": 156, "w": 30, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 16 },
-      "sourceSize": { "w": 15, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 32 },
+      "sourceSize": { "w": 30, "h": 32 }
     },
-    "newmario/48": {
-      "frame": { "x": 15, "y": 48, "w": 13, "h": 16 },
+    "48.png": {
+      "frame": { "x": 0, "y": 188, "w": 26, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 13, "h": 16 },
-      "sourceSize": { "w": 13, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 32 },
+      "sourceSize": { "w": 26, "h": 32 }
     },
-    "newmario/49": {
-      "frame": { "x": 28, "y": 48, "w": 15, "h": 16 },
+    "49.png": {
+      "frame": { "x": 26, "y": 188, "w": 30, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 16 },
-      "sourceSize": { "w": 15, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 32 },
+      "sourceSize": { "w": 30, "h": 32 }
     },
-    "newmario/50": {
-      "frame": { "x": 43, "y": 48, "w": 14, "h": 16 },
+    "50.png": {
+      "frame": { "x": 88, "y": 188, "w": 28, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 16 },
-      "sourceSize": { "w": 14, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 32 },
+      "sourceSize": { "w": 28, "h": 32 }
     },
-    "newmario/51": {
-      "frame": { "x": 57, "y": 48, "w": 16, "h": 16 },
+    "51.png": {
+      "frame": { "x": 116, "y": 188, "w": 32, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-      "sourceSize": { "w": 16, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+      "sourceSize": { "w": 32, "h": 32 }
     },
-    "newmario/52": {
-      "frame": { "x": 73, "y": 48, "w": 14, "h": 16 },
+    "52.png": {
+      "frame": { "x": 148, "y": 188, "w": 28, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 16 },
-      "sourceSize": { "w": 14, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 32 },
+      "sourceSize": { "w": 28, "h": 32 }
     },
-    "newmario/53": {
-      "frame": { "x": 87, "y": 48, "w": 15, "h": 16 },
+    "53.png": {
+      "frame": { "x": 176, "y": 188, "w": 30, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 16 },
-      "sourceSize": { "w": 15, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 32 },
+      "sourceSize": { "w": 30, "h": 32 }
     },
-    "newmario/54": {
-      "frame": { "x": 102, "y": 48, "w": 13, "h": 16 },
+    "54.png": {
+      "frame": { "x": 206, "y": 188, "w": 26, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 13, "h": 16 },
-      "sourceSize": { "w": 13, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 32 },
+      "sourceSize": { "w": 26, "h": 32 }
     },
-    "newmario/55": {
-      "frame": { "x": 115, "y": 48, "w": 15, "h": 16 },
+    "55.png": {
+      "frame": { "x": 0, "y": 220, "w": 30, "h": 32 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 16 },
-      "sourceSize": { "w": 15, "h": 16 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 32 },
+      "sourceSize": { "w": 30, "h": 32 }
     },
-    "newmario/56": {
-      "frame": { "x": 130, "y": 48, "w": 14, "h": 15 },
+    "56.png": {
+      "frame": { "x": 0, "y": 60, "w": 28, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 15 },
-      "sourceSize": { "w": 14, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 30 },
+      "sourceSize": { "w": 28, "h": 30 }
     },
-    "newmario/57": {
-      "frame": { "x": 144, "y": 48, "w": 12, "h": 14 },
+    "57.png": {
+      "frame": { "x": 24, "y": 0, "w": 24, "h": 28 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 14 },
-      "sourceSize": { "w": 12, "h": 14 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+      "sourceSize": { "w": 24, "h": 28 }
     },
-    "newmario/58": {
-      "frame": { "x": 156, "y": 48, "w": 12, "h": 15 },
+    "58.png": {
+      "frame": { "x": 28, "y": 60, "w": 24, "h": 30 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 15 },
-      "sourceSize": { "w": 12, "h": 15 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 30 },
+      "sourceSize": { "w": 24, "h": 30 }
     },
-    "newmario/59": {
-      "frame": { "x": 168, "y": 48, "w": 16, "h": 28 },
+    "59.png": {
+      "frame": { "x": 176, "y": 836, "w": 32, "h": 56 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 28 },
-      "sourceSize": { "w": 16, "h": 28 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 56 },
+      "sourceSize": { "w": 32, "h": 56 }
     },
-    "newmario/60": {
-      "frame": { "x": 184, "y": 48, "w": 19, "h": 26 },
+    "60.png": {
+      "frame": { "x": 166, "y": 354, "w": 38, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 26 },
-      "sourceSize": { "w": 19, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 52 },
+      "sourceSize": { "w": 38, "h": 52 }
     },
-    "newmario/61": {
-      "frame": { "x": 203, "y": 48, "w": 19, "h": 27 },
+    "61.png": {
+      "frame": { "x": 0, "y": 674, "w": 38, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 27 },
-      "sourceSize": { "w": 19, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 54 },
+      "sourceSize": { "w": 38, "h": 54 }
     },
-    "newmario/62": {
-      "frame": { "x": 0, "y": 76, "w": 19, "h": 27 },
+    "62.png": {
+      "frame": { "x": 38, "y": 674, "w": 38, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 27 },
-      "sourceSize": { "w": 19, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 54 },
+      "sourceSize": { "w": 38, "h": 54 }
     },
-    "newmario/63": {
-      "frame": { "x": 19, "y": 76, "w": 16, "h": 26 },
+    "63.png": {
+      "frame": { "x": 204, "y": 354, "w": 32, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
-      "sourceSize": { "w": 16, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 52 },
+      "sourceSize": { "w": 32, "h": 52 }
     },
-    "newmario/64": {
-      "frame": { "x": 35, "y": 76, "w": 16, "h": 27 },
+    "64.png": {
+      "frame": { "x": 76, "y": 674, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/65": {
-      "frame": { "x": 51, "y": 76, "w": 14, "h": 27 },
+    "65.png": {
+      "frame": { "x": 108, "y": 674, "w": 28, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 27 },
-      "sourceSize": { "w": 14, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 54 },
+      "sourceSize": { "w": 28, "h": 54 }
     },
-    "newmario/66": {
-      "frame": { "x": 65, "y": 76, "w": 16, "h": 27 },
+    "66.png": {
+      "frame": { "x": 136, "y": 674, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/67": {
-      "frame": { "x": 81, "y": 76, "w": 14, "h": 27 },
+    "67.png": {
+      "frame": { "x": 168, "y": 674, "w": 28, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 27 },
-      "sourceSize": { "w": 14, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 54 },
+      "sourceSize": { "w": 28, "h": 54 }
     },
-    "newmario/68": {
-      "frame": { "x": 95, "y": 76, "w": 16, "h": 27 },
+    "68.png": {
+      "frame": { "x": 196, "y": 674, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/69": {
-      "frame": { "x": 111, "y": 76, "w": 16, "h": 26 },
+    "69.png": {
+      "frame": { "x": 0, "y": 406, "w": 32, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
-      "sourceSize": { "w": 16, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 52 },
+      "sourceSize": { "w": 32, "h": 52 }
     },
-    "newmario/70": {
-      "frame": { "x": 127, "y": 76, "w": 19, "h": 27 },
+    "70.png": {
+      "frame": { "x": 0, "y": 728, "w": 38, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 27 },
-      "sourceSize": { "w": 19, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 54 },
+      "sourceSize": { "w": 38, "h": 54 }
     },
-    "newmario/71": {
-      "frame": { "x": 146, "y": 76, "w": 19, "h": 27 },
+    "71.png": {
+      "frame": { "x": 38, "y": 728, "w": 38, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 27 },
-      "sourceSize": { "w": 19, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 54 },
+      "sourceSize": { "w": 38, "h": 54 }
     },
-    "newmario/72": {
-      "frame": { "x": 165, "y": 76, "w": 19, "h": 26 },
+    "72.png": {
+      "frame": { "x": 32, "y": 406, "w": 38, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 26 },
-      "sourceSize": { "w": 19, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 52 },
+      "sourceSize": { "w": 38, "h": 52 }
     },
-    "newmario/73": {
-      "frame": { "x": 184, "y": 76, "w": 16, "h": 28 },
+    "73.png": {
+      "frame": { "x": 208, "y": 836, "w": 32, "h": 56 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 28 },
-      "sourceSize": { "w": 16, "h": 28 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 56 },
+      "sourceSize": { "w": 32, "h": 56 }
     },
-    "newmario/74": {
-      "frame": { "x": 200, "y": 76, "w": 16, "h": 26 },
+    "74.png": {
+      "frame": { "x": 70, "y": 406, "w": 32, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
-      "sourceSize": { "w": 16, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 52 },
+      "sourceSize": { "w": 32, "h": 52 }
     },
-    "newmario/75": {
-      "frame": { "x": 216, "y": 76, "w": 19, "h": 26 },
+    "75.png": {
+      "frame": { "x": 102, "y": 406, "w": 38, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 26 },
-      "sourceSize": { "w": 19, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 52 },
+      "sourceSize": { "w": 38, "h": 52 }
     },
-    "newmario/76": {
-      "frame": { "x": 0, "y": 104, "w": 18, "h": 27 },
+    "76.png": {
+      "frame": { "x": 76, "y": 728, "w": 36, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 18, "h": 27 },
-      "sourceSize": { "w": 18, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 36, "h": 54 },
+      "sourceSize": { "w": 36, "h": 54 }
     },
-    "newmario/77": {
-      "frame": { "x": 18, "y": 104, "w": 19, "h": 26 },
+    "77.png": {
+      "frame": { "x": 140, "y": 406, "w": 38, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 26 },
-      "sourceSize": { "w": 19, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 52 },
+      "sourceSize": { "w": 38, "h": 52 }
     },
-    "newmario/78": {
-      "frame": { "x": 37, "y": 104, "w": 19, "h": 27 },
+    "78.png": {
+      "frame": { "x": 112, "y": 728, "w": 38, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 27 },
-      "sourceSize": { "w": 19, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 54 },
+      "sourceSize": { "w": 38, "h": 54 }
     },
-    "newmario/79": {
-      "frame": { "x": 56, "y": 104, "w": 19, "h": 27 },
+    "79.png": {
+      "frame": { "x": 150, "y": 728, "w": 38, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 27 },
-      "sourceSize": { "w": 19, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 54 },
+      "sourceSize": { "w": 38, "h": 54 }
     },
-    "newmario/80": {
-      "frame": { "x": 75, "y": 104, "w": 18, "h": 27 },
+    "80.png": {
+      "frame": { "x": 188, "y": 728, "w": 36, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 18, "h": 27 },
-      "sourceSize": { "w": 18, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 36, "h": 54 },
+      "sourceSize": { "w": 36, "h": 54 }
     },
-    "newmario/81": {
-      "frame": { "x": 93, "y": 104, "w": 16, "h": 27 },
+    "81.png": {
+      "frame": { "x": 0, "y": 782, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/82": {
-      "frame": { "x": 109, "y": 104, "w": 18, "h": 27 },
+    "82.png": {
+      "frame": { "x": 32, "y": 782, "w": 36, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 18, "h": 27 },
-      "sourceSize": { "w": 18, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 36, "h": 54 },
+      "sourceSize": { "w": 36, "h": 54 }
     },
-    "newmario/83": {
-      "frame": { "x": 127, "y": 104, "w": 19, "h": 27 },
+    "83.png": {
+      "frame": { "x": 68, "y": 782, "w": 38, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 27 },
-      "sourceSize": { "w": 19, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 54 },
+      "sourceSize": { "w": 38, "h": 54 }
     },
-    "newmario/84": {
-      "frame": { "x": 146, "y": 104, "w": 19, "h": 27 },
+    "84.png": {
+      "frame": { "x": 106, "y": 782, "w": 38, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 27 },
-      "sourceSize": { "w": 19, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 54 },
+      "sourceSize": { "w": 38, "h": 54 }
     },
-    "newmario/85": {
-      "frame": { "x": 165, "y": 104, "w": 19, "h": 26 },
+    "85.png": {
+      "frame": { "x": 178, "y": 406, "w": 38, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 26 },
-      "sourceSize": { "w": 19, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 52 },
+      "sourceSize": { "w": 38, "h": 52 }
     },
-    "newmario/86": {
-      "frame": { "x": 184, "y": 104, "w": 18, "h": 27 },
+    "86.png": {
+      "frame": { "x": 144, "y": 782, "w": 36, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 18, "h": 27 },
-      "sourceSize": { "w": 18, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 36, "h": 54 },
+      "sourceSize": { "w": 36, "h": 54 }
     },
-    "newmario/87": {
-      "frame": { "x": 202, "y": 104, "w": 19, "h": 26 },
+    "87.png": {
+      "frame": { "x": 0, "y": 458, "w": 38, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 26 },
-      "sourceSize": { "w": 19, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 52 },
+      "sourceSize": { "w": 38, "h": 52 }
     },
-    "newmario/88": {
-      "frame": { "x": 221, "y": 104, "w": 16, "h": 26 },
+    "88.png": {
+      "frame": { "x": 38, "y": 458, "w": 32, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
-      "sourceSize": { "w": 16, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 52 },
+      "sourceSize": { "w": 32, "h": 52 }
     },
-    "newmario/89": {
-      "frame": { "x": 0, "y": 131, "w": 14, "h": 18 },
+    "89.png": {
+      "frame": { "x": 90, "y": 220, "w": 28, "h": 36 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 18 },
-      "sourceSize": { "w": 14, "h": 18 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 36 },
+      "sourceSize": { "w": 28, "h": 36 }
     },
-    "newmario/90": {
-      "frame": { "x": 14, "y": 131, "w": 14, "h": 27 },
+    "90.png": {
+      "frame": { "x": 180, "y": 782, "w": 28, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 27 },
-      "sourceSize": { "w": 14, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 54 },
+      "sourceSize": { "w": 28, "h": 54 }
     },
-    "newmario/91": {
-      "frame": { "x": 28, "y": 131, "w": 14, "h": 27 },
+    "91.png": {
+      "frame": { "x": 208, "y": 782, "w": 28, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 27 },
-      "sourceSize": { "w": 14, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 54 },
+      "sourceSize": { "w": 28, "h": 54 }
     },
-    "newmario/92": {
-      "frame": { "x": 42, "y": 131, "w": 14, "h": 27 },
+    "92.png": {
+      "frame": { "x": 0, "y": 836, "w": 28, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 27 },
-      "sourceSize": { "w": 14, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 54 },
+      "sourceSize": { "w": 28, "h": 54 }
     },
-    "newmario/93": {
-      "frame": { "x": 56, "y": 131, "w": 16, "h": 26 },
+    "93.png": {
+      "frame": { "x": 70, "y": 458, "w": 32, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
-      "sourceSize": { "w": 16, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 52 },
+      "sourceSize": { "w": 32, "h": 52 }
     },
-    "newmario/94": {
-      "frame": { "x": 72, "y": 131, "w": 15, "h": 27 },
+    "94.png": {
+      "frame": { "x": 28, "y": 836, "w": 30, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 27 },
-      "sourceSize": { "w": 15, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 54 },
+      "sourceSize": { "w": 30, "h": 54 }
     },
-    "newmario/95": {
-      "frame": { "x": 87, "y": 131, "w": 14, "h": 27 },
+    "95.png": {
+      "frame": { "x": 58, "y": 836, "w": 28, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 27 },
-      "sourceSize": { "w": 14, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 54 },
+      "sourceSize": { "w": 28, "h": 54 }
     },
-    "newmario/96": {
-      "frame": { "x": 101, "y": 131, "w": 16, "h": 27 },
+    "96.png": {
+      "frame": { "x": 86, "y": 836, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/97": {
-      "frame": { "x": 117, "y": 131, "w": 14, "h": 27 },
+    "97.png": {
+      "frame": { "x": 118, "y": 836, "w": 28, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 27 },
-      "sourceSize": { "w": 14, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 54 },
+      "sourceSize": { "w": 28, "h": 54 }
     },
-    "newmario/98": {
-      "frame": { "x": 131, "y": 131, "w": 15, "h": 27 },
+    "98.png": {
+      "frame": { "x": 146, "y": 836, "w": 30, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 27 },
-      "sourceSize": { "w": 15, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 54 },
+      "sourceSize": { "w": 30, "h": 54 }
     },
-    "newmario/99": {
-      "frame": { "x": 146, "y": 131, "w": 16, "h": 26 },
+    "99.png": {
+      "frame": { "x": 102, "y": 458, "w": 32, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
-      "sourceSize": { "w": 16, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 52 },
+      "sourceSize": { "w": 32, "h": 52 }
     },
-    "newmario/100": {
-      "frame": { "x": 162, "y": 131, "w": 14, "h": 27 },
+    "100.png": {
+      "frame": { "x": 134, "y": 458, "w": 28, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 27 },
-      "sourceSize": { "w": 14, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 54 },
+      "sourceSize": { "w": 28, "h": 54 }
     },
-    "newmario/101": {
-      "frame": { "x": 176, "y": 131, "w": 14, "h": 27 },
+    "101.png": {
+      "frame": { "x": 162, "y": 458, "w": 28, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 27 },
-      "sourceSize": { "w": 14, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 54 },
+      "sourceSize": { "w": 28, "h": 54 }
     },
-    "newmario/102": {
-      "frame": { "x": 190, "y": 131, "w": 14, "h": 27 },
+    "102.png": {
+      "frame": { "x": 190, "y": 458, "w": 28, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 27 },
-      "sourceSize": { "w": 14, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 54 },
+      "sourceSize": { "w": 28, "h": 54 }
     },
-    "newmario/103": {
-      "frame": { "x": 204, "y": 131, "w": 14, "h": 18 },
+    "103.png": {
+      "frame": { "x": 62, "y": 220, "w": 28, "h": 36 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 18 },
-      "sourceSize": { "w": 14, "h": 18 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 36 },
+      "sourceSize": { "w": 28, "h": 36 }
     },
-    "newmario/104": {
-      "frame": { "x": 218, "y": 131, "w": 21, "h": 27 },
+    "104.png": {
+      "frame": { "x": 0, "y": 512, "w": 42, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 21, "h": 27 },
-      "sourceSize": { "w": 21, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 42, "h": 54 },
+      "sourceSize": { "w": 42, "h": 54 }
     },
-    "newmario/105": {
-      "frame": { "x": 0, "y": 158, "w": 16, "h": 26 },
+    "105.png": {
+      "frame": { "x": 120, "y": 302, "w": 32, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
-      "sourceSize": { "w": 16, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 52 },
+      "sourceSize": { "w": 32, "h": 52 }
     },
-    "newmario/106": {
-      "frame": { "x": 16, "y": 158, "w": 14, "h": 22 },
+    "106.png": {
+      "frame": { "x": 0, "y": 302, "w": 28, "h": 44 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 22 },
-      "sourceSize": { "w": 14, "h": 22 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 44 },
+      "sourceSize": { "w": 28, "h": 44 }
     },
-    "newmario/107": {
-      "frame": { "x": 30, "y": 158, "w": 16, "h": 25 },
+    "107.png": {
+      "frame": { "x": 56, "y": 302, "w": 32, "h": 50 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 25 },
-      "sourceSize": { "w": 16, "h": 25 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 50 },
+      "sourceSize": { "w": 32, "h": 50 }
     },
-    "newmario/108": {
-      "frame": { "x": 46, "y": 158, "w": 21, "h": 27 },
+    "108.png": {
+      "frame": { "x": 42, "y": 512, "w": 42, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 21, "h": 27 },
-      "sourceSize": { "w": 21, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 42, "h": 54 },
+      "sourceSize": { "w": 42, "h": 54 }
     },
-    "newmario/109": {
-      "frame": { "x": 67, "y": 158, "w": 16, "h": 27 },
+    "109.png": {
+      "frame": { "x": 84, "y": 512, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/110": {
-      "frame": { "x": 83, "y": 158, "w": 16, "h": 27 },
+    "110.png": {
+      "frame": { "x": 116, "y": 512, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/111": {
-      "frame": { "x": 99, "y": 158, "w": 16, "h": 27 },
+    "111.png": {
+      "frame": { "x": 148, "y": 512, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/112": {
-      "frame": { "x": 115, "y": 158, "w": 16, "h": 27 },
+    "112.png": {
+      "frame": { "x": 180, "y": 512, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/113": {
-      "frame": { "x": 131, "y": 158, "w": 16, "h": 27 },
+    "113.png": {
+      "frame": { "x": 212, "y": 512, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/114": {
-      "frame": { "x": 147, "y": 158, "w": 21, "h": 27 },
+    "114.png": {
+      "frame": { "x": 0, "y": 566, "w": 42, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 21, "h": 27 },
-      "sourceSize": { "w": 21, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 42, "h": 54 },
+      "sourceSize": { "w": 42, "h": 54 }
     },
-    "newmario/115": {
-      "frame": { "x": 168, "y": 158, "w": 16, "h": 25 },
+    "115.png": {
+      "frame": { "x": 88, "y": 302, "w": 32, "h": 50 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 25 },
-      "sourceSize": { "w": 16, "h": 25 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 50 },
+      "sourceSize": { "w": 32, "h": 50 }
     },
-    "newmario/116": {
-      "frame": { "x": 184, "y": 158, "w": 14, "h": 22 },
+    "116.png": {
+      "frame": { "x": 28, "y": 302, "w": 28, "h": 44 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 22 },
-      "sourceSize": { "w": 14, "h": 22 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 44 },
+      "sourceSize": { "w": 28, "h": 44 }
     },
-    "newmario/117": {
-      "frame": { "x": 198, "y": 158, "w": 16, "h": 26 },
+    "117.png": {
+      "frame": { "x": 152, "y": 302, "w": 32, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
-      "sourceSize": { "w": 16, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 52 },
+      "sourceSize": { "w": 32, "h": 52 }
     },
-    "newmario/118": {
-      "frame": { "x": 214, "y": 158, "w": 21, "h": 27 },
+    "118.png": {
+      "frame": { "x": 42, "y": 566, "w": 42, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 21, "h": 27 },
-      "sourceSize": { "w": 21, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 42, "h": 54 },
+      "sourceSize": { "w": 42, "h": 54 }
     },
-    "newmario/119": {
-      "frame": { "x": 0, "y": 185, "w": 19, "h": 26 },
+    "119.png": {
+      "frame": { "x": 184, "y": 302, "w": 38, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 26 },
-      "sourceSize": { "w": 19, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 52 },
+      "sourceSize": { "w": 38, "h": 52 }
     },
-    "newmario/120": {
-      "frame": { "x": 19, "y": 185, "w": 19, "h": 27 },
+    "120.png": {
+      "frame": { "x": 84, "y": 566, "w": 38, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 27 },
-      "sourceSize": { "w": 19, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 54 },
+      "sourceSize": { "w": 38, "h": 54 }
     },
-    "newmario/121": {
-      "frame": { "x": 38, "y": 185, "w": 16, "h": 27 },
+    "121.png": {
+      "frame": { "x": 122, "y": 566, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/122": {
-      "frame": { "x": 54, "y": 185, "w": 14, "h": 27 },
+    "122.png": {
+      "frame": { "x": 154, "y": 566, "w": 28, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 27 },
-      "sourceSize": { "w": 14, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 54 },
+      "sourceSize": { "w": 28, "h": 54 }
     },
-    "newmario/123": {
-      "frame": { "x": 68, "y": 185, "w": 16, "h": 26 },
+    "123.png": {
+      "frame": { "x": 0, "y": 354, "w": 32, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
-      "sourceSize": { "w": 16, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 52 },
+      "sourceSize": { "w": 32, "h": 52 }
     },
-    "newmario/124": {
-      "frame": { "x": 84, "y": 185, "w": 15, "h": 27 },
+    "124.png": {
+      "frame": { "x": 182, "y": 566, "w": 30, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 27 },
-      "sourceSize": { "w": 15, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 54 },
+      "sourceSize": { "w": 30, "h": 54 }
     },
-    "newmario/125": {
-      "frame": { "x": 99, "y": 185, "w": 18, "h": 21 },
+    "125.png": {
+      "frame": { "x": 122, "y": 260, "w": 36, "h": 42 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 18, "h": 21 },
-      "sourceSize": { "w": 18, "h": 21 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 36, "h": 42 },
+      "sourceSize": { "w": 36, "h": 42 }
     },
-    "newmario/126": {
-      "frame": { "x": 117, "y": 185, "w": 15, "h": 27 },
+    "126.png": {
+      "frame": { "x": 212, "y": 566, "w": 30, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 27 },
-      "sourceSize": { "w": 15, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 54 },
+      "sourceSize": { "w": 30, "h": 54 }
     },
-    "newmario/127": {
-      "frame": { "x": 132, "y": 185, "w": 16, "h": 26 },
+    "127.png": {
+      "frame": { "x": 32, "y": 354, "w": 32, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
-      "sourceSize": { "w": 16, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 52 },
+      "sourceSize": { "w": 32, "h": 52 }
     },
-    "newmario/128": {
-      "frame": { "x": 148, "y": 185, "w": 14, "h": 27 },
+    "128.png": {
+      "frame": { "x": 0, "y": 620, "w": 28, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 27 },
-      "sourceSize": { "w": 14, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 54 },
+      "sourceSize": { "w": 28, "h": 54 }
     },
-    "newmario/129": {
-      "frame": { "x": 162, "y": 185, "w": 16, "h": 27 },
+    "129.png": {
+      "frame": { "x": 28, "y": 620, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/130": {
-      "frame": { "x": 178, "y": 185, "w": 19, "h": 27 },
+    "130.png": {
+      "frame": { "x": 60, "y": 620, "w": 38, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 27 },
-      "sourceSize": { "w": 19, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 54 },
+      "sourceSize": { "w": 38, "h": 54 }
     },
-    "newmario/131": {
-      "frame": { "x": 197, "y": 185, "w": 19, "h": 26 },
+    "131.png": {
+      "frame": { "x": 64, "y": 354, "w": 38, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 26 },
-      "sourceSize": { "w": 19, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 52 },
+      "sourceSize": { "w": 38, "h": 52 }
     },
-    "newmario/132": {
-      "frame": { "x": 216, "y": 185, "w": 19, "h": 20 },
+    "132.png": {
+      "frame": { "x": 198, "y": 220, "w": 38, "h": 40 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 20 },
-      "sourceSize": { "w": 19, "h": 20 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 40 },
+      "sourceSize": { "w": 38, "h": 40 }
     },
-    "newmario/133": {
-      "frame": { "x": 0, "y": 212, "w": 21, "h": 20 },
+    "133.png": {
+      "frame": { "x": 0, "y": 260, "w": 42, "h": 40 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 21, "h": 20 },
-      "sourceSize": { "w": 21, "h": 20 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 42, "h": 40 },
+      "sourceSize": { "w": 42, "h": 40 }
     },
-    "newmario/134": {
-      "frame": { "x": 21, "y": 212, "w": 20, "h": 19 },
+    "134.png": {
+      "frame": { "x": 118, "y": 220, "w": 40, "h": 38 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 19 },
-      "sourceSize": { "w": 20, "h": 19 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 38 },
+      "sourceSize": { "w": 40, "h": 38 }
     },
-    "newmario/135": {
-      "frame": { "x": 41, "y": 212, "w": 20, "h": 21 },
+    "135.png": {
+      "frame": { "x": 158, "y": 260, "w": 40, "h": 42 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 21 },
-      "sourceSize": { "w": 20, "h": 21 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 42 },
+      "sourceSize": { "w": 40, "h": 42 }
     },
-    "newmario/136": {
-      "frame": { "x": 61, "y": 212, "w": 16, "h": 26 },
+    "136.png": {
+      "frame": { "x": 102, "y": 354, "w": 32, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
-      "sourceSize": { "w": 16, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 52 },
+      "sourceSize": { "w": 32, "h": 52 }
     },
-    "newmario/137": {
-      "frame": { "x": 77, "y": 212, "w": 16, "h": 27 },
+    "137.png": {
+      "frame": { "x": 98, "y": 620, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/138": {
-      "frame": { "x": 93, "y": 212, "w": 16, "h": 27 },
+    "138.png": {
+      "frame": { "x": 130, "y": 620, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/139": {
-      "frame": { "x": 109, "y": 212, "w": 16, "h": 27 },
+    "139.png": {
+      "frame": { "x": 162, "y": 620, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/140": {
-      "frame": { "x": 125, "y": 212, "w": 16, "h": 27 },
+    "140.png": {
+      "frame": { "x": 194, "y": 620, "w": 32, "h": 54 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 27 },
-      "sourceSize": { "w": 16, "h": 27 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 54 },
+      "sourceSize": { "w": 32, "h": 54 }
     },
-    "newmario/141": {
-      "frame": { "x": 141, "y": 212, "w": 16, "h": 26 },
+    "141.png": {
+      "frame": { "x": 134, "y": 354, "w": 32, "h": 52 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
-      "sourceSize": { "w": 16, "h": 26 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 52 },
+      "sourceSize": { "w": 32, "h": 52 }
     },
-    "newmario/142": {
-      "frame": { "x": 157, "y": 212, "w": 20, "h": 21 },
+    "142.png": {
+      "frame": { "x": 198, "y": 260, "w": 40, "h": 42 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 21 },
-      "sourceSize": { "w": 20, "h": 21 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 42 },
+      "sourceSize": { "w": 40, "h": 42 }
     },
-    "newmario/143": {
-      "frame": { "x": 177, "y": 212, "w": 20, "h": 19 },
+    "143.png": {
+      "frame": { "x": 158, "y": 220, "w": 40, "h": 38 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 19 },
-      "sourceSize": { "w": 20, "h": 19 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 38 },
+      "sourceSize": { "w": 40, "h": 38 }
     },
-    "newmario/144": {
-      "frame": { "x": 197, "y": 212, "w": 21, "h": 20 },
+    "144.png": {
+      "frame": { "x": 42, "y": 260, "w": 42, "h": 40 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 21, "h": 20 },
-      "sourceSize": { "w": 21, "h": 20 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 42, "h": 40 },
+      "sourceSize": { "w": 42, "h": 40 }
     },
-    "newmario/145": {
-      "frame": { "x": 218, "y": 212, "w": 19, "h": 20 },
+    "145.png": {
+      "frame": { "x": 84, "y": 260, "w": 38, "h": 40 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 19, "h": 20 },
-      "sourceSize": { "w": 19, "h": 20 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 38, "h": 40 },
+      "sourceSize": { "w": 38, "h": 40 }
     }
   },
   "meta": {
     "app": "https://www.codeandweb.com/texturepacker",
     "version": "1.0",
-    "image": "animation1.png",
+    "image": "mario-animation.png",
     "format": "RGBA8888",
-    "size": { "w": 239, "h": 239 },
-    "scale": "1",
-    "smartupdate": "$TexturePacker:SmartUpdate:d593afa7dedcec5e56bad0ff3cc7c212:33fda7c9de10cec76e500e7b7d634797:aa601c62cca1cc32a31bcc1247a6d7fd$"
+    "size": { "w": 244, "h": 892 },
+    "scale": "1.5",
+    "smartupdate": "$TexturePacker:SmartUpdate:eea29972aec8ee203e4adbfabab08be2:33fda7c9de10cec76e500e7b7d634797:2dab23fb89b8c65386e2016140c563b2$"
   }
 }
