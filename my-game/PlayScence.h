@@ -9,6 +9,12 @@
 #include "Koopas.h"
 #include "Map.h"
 
+enum CameraMoveDirection {
+	UP,
+	DOWN,
+	RIGHT,
+	LEFT
+};
 
 class CPlayScene : public CScene
 {
@@ -34,6 +40,8 @@ public:
 	virtual void Render();
 	virtual void Unload();
 	LPMAP GetMap() { return this->map; };
+	void restart();
+	void moveCamera(CameraMoveDirection);
 
 	CGameObject* GetPlayer() { return player; }
 

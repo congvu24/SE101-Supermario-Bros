@@ -93,7 +93,11 @@ int fromNameToCode(string name) {
 	unordered_map <string, int> character_code;
 	character_code["test"] = 1;
 	character_code["enemy"] = 2;
-	character_code["MisteryBox"] = 3;
-
-	return character_code.at(name);
+	character_code["QuestionBox_Item"] = 3;
+	character_code["Coin"] = 4;
+	
+	if (character_code.find(name) != character_code.end()) {
+		return character_code.at(name);
+	}
+	else return 0;
 }

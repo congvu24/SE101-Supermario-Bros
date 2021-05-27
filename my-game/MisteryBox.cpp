@@ -83,36 +83,6 @@ void MisteryBox::SetState(string state)
 
 }
 
-void MisteryBox::ParseFromJson(json data) {
-
-
-	int id = stoi(string(data["id"])); //object id;
-
-
-	string type = to_string(data["type"]); //object type;
-
-	float x = data["x"]; //object x;
-	float y = data["y"]; //object y;
-
-	LPCWSTR sprite = ToLPCWSTR(string(data["sprite"]));
-	LPCWSTR texture = ToLPCWSTR(string(data["texture"]));
-	LPCWSTR animation = ToLPCWSTR(string(data["animation"]));
-
-	// set inital position
-	this->id = id;
-	this->type = type;
-	this->p.x = x;
-	this->p.y = y;
-	//
-	D3DCOLOR transcolor;
-	SetTexture(texture, D3DCOLOR_XRGB(255, 0, 255));
-	ParseSpriteFromJson(sprite);
-
-	ParseAnimationFromJson(animation);
-
-	// set active animation set;
-	SetActiveAnimationSet(type);
-}
 
 void MisteryBox::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {

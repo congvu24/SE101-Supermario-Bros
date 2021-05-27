@@ -83,53 +83,10 @@ void Enemy::SetState(string state)
 
 }
 
-void Enemy::ParseFromJson(json data) {
-
-
-	int id = stoi(string(data["id"])); //object id;
-
-
-	string type = to_string(data["type"]); //object type;
-
-	float x = data["x"]; //object x;
-	float y = data["y"]; //object y;
-
-	LPCWSTR sprite = ToLPCWSTR(string(data["sprite"]));
-	LPCWSTR texture = ToLPCWSTR(string(data["texture"]));
-	LPCWSTR animation = ToLPCWSTR(string(data["animation"]));
-
-	// set inital position
-	this->id = id;
-	this->type = type;
-	this->p.x = x;
-	this->p.y = y;
-	//
-	D3DCOLOR transcolor;
-	SetTexture(texture, D3DCOLOR_XRGB(255, 0, 255));
-	ParseSpriteFromJson(sprite);
-
-	ParseAnimationFromJson(animation);
-
-	// set active animation set;
-	SetActiveAnimationSet(type);
-}
-
 void Enemy::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = p.x;
 	top = p.y;
-
-	if (type == "1")
-	{
-		right = p.x + width;
-		bottom = p.y + height;
-	}
-	else
-	{
-		right = p.x + width;
-		bottom = p.y + height;
-
-		//right = x + MARIO_SMALL_BBOX_WIDTH;
-		//bottom = y + MARIO_SMALL_BBOX_HEIGHT;
-	}
+	right = p.x + width;
+	bottom = p.y + height;
 }

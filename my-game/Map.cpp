@@ -208,36 +208,41 @@ void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
 				obCollisions->push_back(obj);
 			}
 		}
-		else if (type == "objectgroup" && name == "QuestionBox_Coin") {
+		else if (type == "objectgroup" && name != "RectCollision") {
+			DebugOut(L"[INFO] Load name: %s \n", ToLPCWSTR(name));
+
 			json objects = data["objects"];
 
 			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
 				json value = objData.value();
-				//LPGAMEOBJECT obj = new Collision();
-				///*obj->width = float(value["width"]);
-				//obj->height = float(value["height"]);
-				//obj->p = Vector(float(value["x"]), float(value["y"]));*/
-
-				//float raito = 48 / FIXED_TILE_SIZE;
 
 				float width = float(value["width"]);
 				float height = float(value["height"]);
 				float x = float(value["x"]);
 				float y = float(value["y"]);
 
+				LPGAMEOBJECT obj = NULL;
 
-				//obj->width = width;
-				//obj->height = height;
-				//obj->p = Vector(x, y);
+				switch (fromNameToCode(name))
+				{
+				case 3:
+					obj = new MisteryBox();
+					break;
+				case 4:
+					obj = new Coin();
+					break;
+				default:
+					break;
+				}
 
-				LPGAMEOBJECT obj = new MisteryBox();
-				obj->ParseFromOwnJson();
-				obj->width = width;
-				obj->height = height;
-				obj->p = Vector(x, y);
+				if (obj != NULL) {
+					obj->ParseFromOwnJson();
+					obj->width = width;
+					obj->height = height;
+					obj->p = Vector(x, y);
 
-
-				obCollisions->push_back(obj);
+					obCollisions->push_back(obj);
+				}
 			}
 
 

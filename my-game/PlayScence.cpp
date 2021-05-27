@@ -9,6 +9,7 @@
 #include "Test.h"
 #include "Enemy.h"
 #include "MisteryBox.h"
+#include "Coin.h"
 
 using namespace std;
 
@@ -75,22 +76,30 @@ void CPlayScene::Update(DWORD dt)
 	{
 		coObjects.push_back(objects[i]);
 	}*/
+	vector<LPGAMEOBJECT> listCollider;
+
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
+		//if (this->getCamera()->isInCam(objects[i], 100) == true) {
+		//	listCollider.push_back(objects[i]);
+		//}
+
 		if (Test* v = dynamic_cast<Test*>(objects[i])) {
 			objects[i]->Update(dt, &objects);
 		}
 
-		else if (this->getCamera()->isInCam(objects[i], 100) == true) { 
+		else if (this->getCamera()->isInCam(objects[i], 100) == true) {
 			// only render in camera zone
 			objects[i]->Update(dt, &objects);
 		}
 		else {
-			DebugOut(L"[INFO] NO UPDATE \n");
+			//DebugOut(L"[INFO] NO UPDATE \n");
 
 		}
 	}
+	//DebugOut(L"[INFO] ELEMENT COUNT: %s \n", IntToLPCWSTR(listCollider.size()));
+
 
 
 
@@ -107,8 +116,12 @@ void CPlayScene::Update(DWORD dt)
 	cy -= game->GetScreenHeight() / 2;
 
 	//CGame::GetInstance()->SetCamPos(cx, cy);
-	CGame::GetInstance()->GetCurrentScene()->camera->setCamPos(cx, cy);
+	if (CGame::GetInstance()->GetCurrentScene()->camera->isCameraMoving == false) {
+		CGame::GetInstance()->GetCurrentScene()->camera->setCamPos(cx, cy);
+	}
 
+
+	listCollider.clear();
 }
 
 void CPlayScene::Render()
@@ -150,6 +163,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 		break;
 	}
+
 }
 
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
@@ -168,11 +182,44 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 		player->SetState("running-up");
 	else if (game->IsKeyDown(DIK_DOWN))
 		player->SetState("running-down");
+	else if (game->IsKeyDown(DIK_R))
+		((CPlayScene*)scence)->restart();
 	else
 		player->SetState("indie");
+
+	// move camera
+	if (game->IsKeyDown(DIK_J))
+		((CPlayScene*)scence)->moveCamera(LEFT);
+	if (game->IsKeyDown(DIK_K))
+		((CPlayScene*)scence)->moveCamera(DOWN);
+	if (game->IsKeyDown(DIK_I))
+		((CPlayScene*)scence)->moveCamera(UP);
+	if (game->IsKeyDown(DIK_L))
+		((CPlayScene*)scence)->moveCamera(RIGHT);
 }
 
+void CPlayScene::restart() {
+	this->player->SetPosition(100, 1000);
+	this->camera->move_x = 0;
+	this->camera->move_y = 0;
+	this->camera->isCameraMoving = false;
+}
 
+void CPlayScene::moveCamera(CameraMoveDirection direction) {
+	camera->isCameraMoving = true;
+	if (direction == UP) {
+		camera->move(0, -20);
+	}
+	else if (direction == DOWN) {
+		camera->move(0, 20);
+	}
+	else if (direction == RIGHT) {
+		camera->move(20, 0);
+	}
+	else if (direction == LEFT) {
+		camera->move(-20, 0);
+	}
+}
 
 void  CPlayScene::_ParseSection_TEXTURES_FromJson(LPCWSTR filePath, int id) {
 
@@ -235,50 +282,52 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 
 		//DebugOut(L"[ERROR] Texture ID %d not found!\n", IntToLPCWSTR(character_code[name]));
 
-		if (visible == true) {
-			switch (fromNameToCode(name))
-			{
-			case 1:
-				/*if (player != NULL)
-				{
-					DebugOut(L"[ERROR] MARIO object was created before!\n");
-					return;
-				}*/
-				obj = new Test();
-				obj->ParseFromJson(data); //remember to set position, animation_set in this function
-				player = obj;
-				break;
-			case 2:
-				obj = new Enemy();
-				obj->ParseFromJson(data); //remember to set position, animation_set in this function
-				break;
-			case 3:
-				obj = new MisteryBox();
-				obj->ParseFromJson(data); //remember to set position, animation_set in this function
-				break;
-			default:
-				break;
-			}
-			objects.push_back(obj);
-		}
-		else {
-			switch (fromNameToCode(name))
-			{
-			case 1:
-				Test::data = data;
-				break;
-			case 2:
-				Enemy::data = data;
-				break;
-			case 3:
-				MisteryBox::data = data;
-				break;
-			default:
-				break;
-			}
-		}
 
+		switch (fromNameToCode(name))
+		{
+		case 1:
+			if (player != NULL)
+			{
+				DebugOut(L"[ERROR] MARIO object was created before!\n");
+				return;
+			}
+			obj = new Test();
+			obj->ParseFromJson(data); //remember to set position, animation_set in this function
+			player = obj;
+			break;
+		case 2:
+			if (visible == true) {
+				obj = new Enemy();
+				obj->ParseFromJson(data);
+			}
+			else {
+				Enemy::data = data;
+			}
+			break;
+		case 3:
+			if (visible == true) {
+				obj = new MisteryBox();
+				obj->ParseFromJson(data);
+			}
+			else {
+				MisteryBox::data = data;
+			}
+			break;
+		case 4:
+			if (visible == true) {
+				obj = new Coin();
+				obj->ParseFromJson(data);
+			}
+			else {
+				Coin::data = data;
+			}
+			break;
+		default:
+			break;
+		}
+		objects.push_back(obj);
 	}
+
 	// parse from object[] to list of object for each screen
 }
 

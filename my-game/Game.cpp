@@ -425,7 +425,7 @@ void CGame::Load(LPCWSTR gameFile)
 
 
 	//read get scene detail: id, name, objects
-	json gameData = ReadJsonFIle(L"assets/game.json");
+	json gameData = ReadJsonFIle(gameFile);
 
 	string active = gameData["active"];
 

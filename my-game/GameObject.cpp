@@ -117,12 +117,9 @@ void CGameObject::CalcPotentialCollisions(
 			LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
 			if (e->t > 0 && e->t <= 1.0f) {
-				DebugOut(L"Happend \n");
 				coEvents.push_back(e);
 			}
 			else {
-				DebugOut(L"No Happend \n");
-
 				delete e;
 			}
 		}
@@ -191,13 +188,8 @@ void CGameObject::AddSprite(string id, int left, int top, int right, int bottom,
 	LPSPRITE s = new CSprite(id, left, top, right, bottom, right - left, bottom - top, tex);
 	sprites[id] = s;
 
-	DebugOut(L"[INFO] sprite added: %s \n", IntToLPCWSTR(right));
 }
 LPSPRITE CGameObject::GetSprite(string id) {
-	for (auto& x : sprites) {
-		DebugOut(L"[INFO] sprite added: %s \n", ToLPCWSTR(x.first));
-
-	}
 	LPSPRITE sprite = sprites.at(id);
 	return sprite;
 }
@@ -291,7 +283,6 @@ void CGameObject::ParseSpriteFromJson(LPCWSTR filePath) {
 		json data = it.value();
 		string id = it.key();
 		json frame = data["frame"];
-		DebugOut(L"[INFOR] load ! %s\n", ToLPCWSTR(id));
 
 		int l = frame["x"];
 		int t = frame["y"];
@@ -329,16 +320,13 @@ void CGameObject::ParseAnimationFromJson(LPCWSTR filePath) {
 
 				int time = frame.value()["time"];
 				ani->Add(sprite, time);
-				DebugOut(L"[INFOR] Add frame ! %s\n", ToLPCWSTR(frame.value()["name"].dump()));
 
 			}
 			AddAnimation(animationName, ani);
 			animation_set[animationName] = GetAnimation(animationName);
-			DebugOut(L"[INFOR] Add animation ! %s\n", ToLPCWSTR(animationName));
 
 		}
 		AddAnimationSet(key, animation_set);
-		DebugOut(L"[INFOR] Add animation set ! %s\n", ToLPCWSTR(key));
 
 	}
 	// load all animation set to animation_set;

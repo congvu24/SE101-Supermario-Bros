@@ -46,8 +46,8 @@ bool Quadtree::IsContain(CGameObject* CGameObject)
 //
 void Quadtree::Split()
 {
-	float middle_x = m_region->left + m_region->right / 2;
-	float middle_y = m_region->top + m_region->bottom / 2;
+	float middle_x = m_region->left + (m_region->right - m_region->left) / 2;
+	float middle_y = m_region->top + (m_region->bottom - m_region->top) / 2;
 
 	RECT rect1 = { m_region->left ,m_region->top , middle_x, middle_y };
 	RECT rect2 = { middle_x ,m_region->top , m_region->right, middle_y };

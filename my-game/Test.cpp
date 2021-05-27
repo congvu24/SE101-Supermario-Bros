@@ -1,6 +1,7 @@
 #include "Test.h"
 #include <iostream>
 #include "Quadtree.h"
+#include "Game.h"
 
 
 //Quadtree* CreateQuadTree(vector<CGameObject*>* entity_list)
@@ -54,89 +55,76 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	coEvents.clear();
 
-	RECT base = { 0, 0, 200, 200 };
+	/*RECT base = { 0, 0, 400, 300 };
 	Quadtree* quadtree = new Quadtree(1, &base);
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
-		quadtree->Insert(*i);
+		if (*i != this) {
+			quadtree->Insert(*i);
+		}*/
 
 
-	//Quadtree* quadtree = CreateQuadTree(coObjects);
+		//Quadtree* quadtree = CreateQuadTree(coObjects);
 
-	vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
+	int count = 0;
+
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		if (*i != this) {
+		//if (*i != this && CGame::GetInstance()->GetCurrentScene()->camera->isInCam(*i, 100) == true) {
+			count++;
 			LPCOLLISIONEVENT e = SweptAABBEx(*i);
 
 			if (e->t > 0 && e->t <= 1.0f) {
-				DebugOut(L"[INFOR] HAPPEN!!!!!\n");
 				coEvents.push_back(e);
 			}
 			else {
 				delete e;
 			}
-		}
-
-
-
-		//Get all objects that can collide with current entity
-		//quadtree->Retrieve(return_objects_list, this);
-		//if (return_objects_list->size() > 0) {
-		//	DebugOut(L"[INFOR] Co kha nang!!!!! %s \n", IntToLPCWSTR(return_objects_list->size()));
-
-		//}
-		//for (auto x = return_objects_list->begin(); x != return_objects_list->end(); x++)
-		//{
-
-		//	//if (IsCollide(*i, *x))  // Your algorithm about Collision Detection
-		//	//{
-		//	//	// Do something here
-		//	//}
-		//	if (*x != this) {
-		//		LPCOLLISIONEVENT e = SweptAABBEx(*x);
-
-		//		if (e->t > 0 && e->t <= 1.0f) {
-
-		//			//coEvents.push_back(e);
-		//			DebugOut(L"[INFOR] HAPPEN!!!!!\n");
-		//			coEvents.push_back(e);
-		//			//x += dx + nx * 0.4f;
-		//			//y += dy + ny * 0.4f;
-
-		//			//if (nx != 0) vx = 0;
-		//			//if (ny != 0) vy = 0;
-		//		}
-		//		else {
-		//			//DebugOut(L"[INFOR] NO HAPPEN!!!!!\n");
-		//			delete e;
-		//		}
-		//	}
 		//}
 
-		//return_objects_list->clear();
 	}
 
-	////quadtree->Release();
+
+
+
+	//vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
+
+	//quadtree->Retrieve(return_objects_list, this);
+
+	//if (return_objects_list->size() > 0) {
+	//	DebugOut(L"[INFOR] Co kha nang!!!!! %s \n", IntToLPCWSTR(return_objects_list->size()));
+
+	//}
+
+	////Get all objects that can collide with current entity
+
+	//for (auto x = return_objects_list->begin(); x != return_objects_list->end(); x++)
+	//{
+	//	if (*x != this) {
+	//		LPCOLLISIONEVENT e = SweptAABBEx(*x);
+
+	//		if (e->t > 0 && e->t <= 1.0f) {
+	//			DebugOut(L"[INFOR] HAPPEN!!!!!\n");
+	//			coEvents.push_back(e);
+	//		}
+	//		else {
+	//			delete e;
+	//		}
+	//	}
+	//}
 
 	//return_objects_list->clear();
-	delete return_objects_list;
-	delete quadtree;
+
+	//////quadtree->Release();
+
+	////return_objects_list->clear();
+	//delete return_objects_list;
+	//delete quadtree;
 
 	if (coEvents.size() == 0) {
 
-		/*	p.x += d.x;
-			p.y += d.y;*/
 		p = p + d;
-
-		/*if (v.x < 0 && p.x < 0) {
-			p.x = 0; v.x = -v.x;
-		}
-
-		if (v.x > 0 && p.x > 290) {
-			p.x = 290; v.x = -v.x;
-		}*/
 	}
 	else {
 		float min_tx, min_ty, nx = 0, ny;
@@ -157,7 +145,6 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (nx != 0) v.x = 0;
 		if (ny != 0) v.y = 0;
 
-		DebugOut(L"[INFOR] Time to stop!!!!!\n");
 
 
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];

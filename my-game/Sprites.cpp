@@ -4,8 +4,6 @@
 
 CSprite::CSprite(string id, int left, int top, int right, int bottom, int width, int height, LPDIRECT3DTEXTURE9 tex)
 {
-	DebugOut(L"[INFO] init %s \n", ToLPCWSTR(id));
-
 	this->id = id;
 	this->left = left;
 	this->top = top;
@@ -35,8 +33,6 @@ void CSprites::Add(string id, int left, int top, int right, int bottom, LPDIRECT
 {
 	LPSPRITE s = new CSprite(id, left, top, right, bottom, right - left, bottom - top, tex);
 	sprites[id] = s;
-
-	DebugOut(L"[INFO] sprite added: %d, %d, %d, %d, %d \n", id, left, top, right, bottom);
 }
 
 LPSPRITE CSprites::Get(string id)

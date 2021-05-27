@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "Collision.h"
 #include "MisteryBox.h"
+#include "Coin.h"
 
 
 #include "Utils.h"

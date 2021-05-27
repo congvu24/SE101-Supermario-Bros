@@ -11,15 +11,26 @@
       "animation": "assets/animations/mario-animation.json",
       "type": 1,
       "x": 100,
-      "y": 100,
+      "y": 1000,
       "visible": true
     },
     {
       "id": "2",
-      "name": "MisteryBox",
+      "name": "QuestionBox_Item",
       "texture": "assets/texture/misc.png",
       "sprite": "assets/sprite/misc.json",
       "animation": "assets/animations/misterybox-animation.json",
+      "type": 1,
+      "x": 100,
+      "y": 150,
+      "visible": false
+    },
+    {
+      "id": "3",
+      "name": "Coin",
+      "texture": "assets/texture/misc.png",
+      "sprite": "assets/sprite/misc.json",
+      "animation": "assets/animations/coin-animation.json",
       "type": 1,
       "x": 100,
       "y": 150,

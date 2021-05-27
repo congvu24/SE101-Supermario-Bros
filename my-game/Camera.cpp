@@ -33,6 +33,18 @@ bool Camera::isInCam(float x, float y, int margin = 100) {
 	else return false;
 }
 
+
+void Camera::move(float x, float y) {
+	/*setCamPos(cam_x + x, cam_y + y);*/
+	move_x = move_x + x;
+	move_y = move_y + y;
+}
+
 D3DXVECTOR3 Camera::calcInCamPosition(float x, float y) {
-	return D3DXVECTOR3(x - cam_x, y - cam_y, 0);
+	/*if (isCameraMoving == true) {
+		return D3DXVECTOR3(x, y, 0);
+
+	}
+	else*/
+		return D3DXVECTOR3(x - cam_x - move_x, y - cam_y - move_y + 170, 0);
 }
