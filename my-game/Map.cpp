@@ -183,30 +183,26 @@ void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
 		}
 
 		else if (type == "objectgroup" && name == "RectCollision") {
-			//json objects = data["objects"];
+			json objects = data["objects"];
 
-			//for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
-			//	json value = objData.value();
-			//	LPGAMEOBJECT obj = new Collision();
-			//	/*obj->width = float(value["width"]);
-			//	obj->height = float(value["height"]);
-			//	obj->p = Vector(float(value["x"]), float(value["y"]));*/
+			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+				json value = objData.value();
+				LPGAMEOBJECT obj = new Collision();
 
-			//	float raito = 48 / FIXED_TILE_SIZE;
+				obj->ParseFromOwnJson();
 
-			//	float width = float(value["width"]);
-			//	float height = float(value["height"]);
-			//	float x = float(value["x"]);
-			//	float y = float(value["y"]);
+				float width = float(value["width"]);
+				float height = float(value["height"]);
+				float x = float(value["x"]);
+				float y = float(value["y"]);
 
 
-			//	obj->width = width;
-			//	obj->height = height;
-			//	obj->p = Vector(x, y);
+				obj->width = width;
+				obj->height = height;
+				obj->p = Vector(x, y);
 
-
-			//	obCollisions->push_back(obj);
-			//}
+				obCollisions->push_back(obj);
+			}
 		}
 		else if (type == "objectgroup" && name != "RectCollision") {
 			DebugOut(L"[INFO] Load name: %s \n", ToLPCWSTR(name));
@@ -221,12 +217,12 @@ void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
 				float x = float(value["x"]);
 				float y = float(value["y"]);
 
-				Coin* obj = NULL;
+				CGameObject* obj = NULL;
 
 				switch (fromNameToCode(name))
 				{
 				case 3:
-					obj = new Coin();
+					obj = new MisteryBox();
 					break;
 				case 4:
 					obj = new Coin();
@@ -241,6 +237,7 @@ void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
 					obj->height = height;
 					obj->p.x = x;
 					obj->p.y = y;
+					DebugOut(L"[INFO] Size Of Coin: %s \n", IntToLPCWSTR(sizeof(*obj)));
 
 					obCollisions->push_back(obj);
 				}

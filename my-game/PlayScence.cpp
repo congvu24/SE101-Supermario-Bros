@@ -120,7 +120,6 @@ void CPlayScene::Update(DWORD dt)
 		CGame::GetInstance()->GetCurrentScene()->camera->setCamPos(cx, cy);
 	}
 
-
 	listCollider.clear();
 }
 
@@ -278,7 +277,7 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 		string name = string(data["name"]); //object name;
 		bool visible = bool(data["visible"]); //object name;
 
-		CGameObject* obj;
+		CGameObject* obj = NULL;
 
 		//DebugOut(L"[ERROR] Texture ID %d not found!\n", IntToLPCWSTR(character_code[name]));
 
@@ -295,41 +294,22 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			obj->ParseFromJson(data); //remember to set position, animation_set in this function
 			player = obj;
 			break;
-		case 2:
-			if (visible == true) {
-				obj = new Enemy();
-				obj->ParseFromJson(data);
-			}
-			else {
-				Enemy::data = data;
-			}
-			break;
+
 		case 3:
-			if (visible == true) {
-				obj = new MisteryBox();
-				obj->ParseFromJson(data);
-			}
-			else {
-				MisteryBox::data = data;
-			}
-			break;
+			if (visible != true)
+				MisteryBox::SaveStaticData(data);
 		case 4:
-			if (visible == true) {
-				obj = new Coin();
-				obj->ParseFromJson(data);
-			}
-			else {
-				/*Coin::data = data;*/
+			if (visible != true)
 				Coin::SaveStaticData(data);
-			}
 			break;
 		default:
 			break;
 		}
-		objects.push_back(obj);
+		if (obj != NULL)
+			objects.push_back(obj);
+		else delete obj;
 	}
 
-	// parse from object[] to list of object for each screen
 }
 
 void  CPlayScene::_ParseSection_MAP_FromJson(string mapPath) {

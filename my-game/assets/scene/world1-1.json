@@ -24,6 +24,17 @@
       "x": 100,
       "y": 150,
       "visible": false
+    },
+     {
+      "id": "2",
+      "name": "QuestionBox_Item",
+      "texture": "assets/texture/misc.png",
+      "sprite": "assets/sprite/misc.json",
+      "animation": "assets/animations/misterybox-animation.json",
+      "type": 1,
+      "x": 100,
+      "y": 150,
+      "visible": false
     }
   ]
 }

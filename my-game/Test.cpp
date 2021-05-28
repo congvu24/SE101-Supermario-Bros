@@ -21,6 +21,7 @@ Test::Test()
 	width = 42;
 	height = 54;
 	SetState("indie");
+	//this->v = Vector(0.01, 0.01);
 	//this->v.x = .05;
 	//v = Vector(0.05, 0.05);
 	//this->dx = 1;
@@ -42,6 +43,7 @@ Test::Test()
 void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
+
 	v = v + g * dt;
 	if (v.y > 0.35f) v.y = 0.35f;
 
