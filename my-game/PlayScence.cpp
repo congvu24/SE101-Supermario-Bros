@@ -319,7 +319,8 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 				obj->ParseFromJson(data);
 			}
 			else {
-				Coin::data = data;
+				/*Coin::data = data;*/
+				Coin::SaveStaticData(data);
 			}
 			break;
 		default:

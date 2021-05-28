@@ -363,9 +363,9 @@ void CGameObject::ParseFromJson(json data) {
 	SetActiveAnimationSet(type);
 }
 void CGameObject::ParseFromOwnJson() {
-	if (this->data != NULL) {
+	/*if (this->data != NULL) {
 		this->ParseFromJson(this->data);
-	}
+	}*/
 	//DebugOut(L"[INFOR] Add animation set ! %s\n", IntToLPCWSTR(CGameObject::data));
 
 }
