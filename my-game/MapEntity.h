@@ -26,14 +26,15 @@ class MapEntity : public CGameObject
 	//virtual void SaveStaticData(json data);
 	virtual void  Render()
 	{
-		float width = 0;
-		float height = 0;
-		T::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
+		float w = width;
+		float h = height;
+		T::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h);
+		this->width = w;
+		this->height = h;
 		RenderBoundingBox();
 	}
 
 public:
-
 
 	MapEntity() {
 		SetState("running");
@@ -45,9 +46,11 @@ public:
 	void ParseFromOwnJson() {
 		if (T::data != NULL) {
 			int id = stoi(string(T::data["id"])); //object id;
+			string name = T::data["name"]; //object name;
 			string type = to_string(T::data["type"]); //object type;
 			this->id = id;
 			this->type = type;
+			this->name = name;
 			SetActiveAnimationSet(type);
 		}
 	}
@@ -60,15 +63,8 @@ public:
 	void SetState(string state) {
 		this->state = state;
 	}
-
-
-	//static json data;
-
-	//static LPDIRECT3DTEXTURE9 texture;
-	//static unordered_map<string, LPSPRITE> sprites; //save all sprite of animation
-	//static unordered_map<string, LPANIMATION> all_animations; //save all animations
-	//static CAnimationSets animations_set; //save all the animation sets
-
+	virtual void HandleCollision(LPCOLLISIONEVENT e) = 0;
+	 // virtual function help to handle collision of mario to it
 
 	static void SaveStaticData(json data) {
 		if (T::data == NULL) {

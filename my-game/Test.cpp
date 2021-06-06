@@ -1,6 +1,7 @@
 #include "Test.h"
 #include <iostream>
 #include "Quadtree.h"
+#include "MiniPortal.h"
 #include "Game.h"
 
 
@@ -18,8 +19,9 @@
 
 Test::Test()
 {
-	width = 42;
-	height = 54;
+
+	width = 24;
+	height = 30;
 	SetState("indie");
 	//this->v = Vector(0.01, 0.01);
 	//this->v.x = .05;
@@ -57,24 +59,30 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	coEvents.clear();
 
-	/*RECT base = { 0, 0, 400, 300 };
+	RECT base = { 0, 0, 800, 600 };
 	Quadtree* quadtree = new Quadtree(1, &base);
 
-	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
+	/*for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 		if (*i != this) {
 			quadtree->Insert(*i);
-		}*/
+		}
 
-
-		//Quadtree* quadtree = CreateQuadTree(coObjects);
-
-	int count = 0;
+	*/
+	int check = 0;
 
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		//if (*i != this && CGame::GetInstance()->GetCurrentScene()->camera->isInCam(*i, 100) == true) {
-			count++;
+		/*float left = this->p.x - 200;
+		float top = this->p.y - 200;
+		float right = this->p.x + this->width + 200;
+		float bottom = this->p.y + this->height + 200;
+
+		LPGAMEOBJECT obj = *i;
+		if (obj->p.x < left || obj->p.y < top || obj->p.x + obj->width > right || obj->p.y + obj->height > bottom) break;*/
+
+		if ((*i)->isAllowCollision == true) {
+			check++;
 			LPCOLLISIONEVENT e = SweptAABBEx(*i);
 
 			if (e->t > 0 && e->t <= 1.0f) {
@@ -83,23 +91,37 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else {
 				delete e;
 			}
-		//}
+		}
 
 	}
+
+	//DebugOut(L"[INFOR] tat ca object!!!!! %s \n", IntToLPCWSTR(coObjects->size()));
+	//DebugOut(L"[INFOR] checked object!!!!! %s \n", IntToLPCWSTR(check));
+
+
+	//}
 
 
 
 
 	//vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
 
-	//quadtree->Retrieve(return_objects_list, this);
+	//for (auto i = coObjects->begin(); i != coObjects->end(); i++)
+	//	if (*i != this) {
+	//		Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
+
+	//		if (camera->isInCamPosition(*i, 100) == true)
+	//			return_objects_list->push_back(*i);
+	//	}
+
+	////quadtree->Retrieve(return_objects_list, this);
 
 	//if (return_objects_list->size() > 0) {
 	//	DebugOut(L"[INFOR] Co kha nang!!!!! %s \n", IntToLPCWSTR(return_objects_list->size()));
 
 	//}
 
-	////Get all objects that can collide with current entity
+	//////Get all objects that can collide with current entity
 
 	//for (auto x = return_objects_list->begin(); x != return_objects_list->end(); x++)
 	//{
@@ -118,9 +140,9 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	//return_objects_list->clear();
 
-	//////quadtree->Release();
+	////////quadtree->Release();
 
-	////return_objects_list->clear();
+	//////return_objects_list->clear();
 	//delete return_objects_list;
 	//delete quadtree;
 
@@ -133,7 +155,6 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		float rdx = 0;
 		float rdy = 0;
 
-		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
@@ -144,9 +165,54 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		p.x += min_tx * d.x + nx * 0.4f;
 		p.y += min_ty * d.y + ny * 0.4f;
 
+		Vector tempV = v;
+
 		if (nx != 0) v.x = 0;
 		if (ny != 0) v.y = 0;
 
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			if (coEvents[i]->obj->name != "") {
+
+				DebugOut(L"[INFOR] Collision with %s !!!!!\n", ToLPCWSTR(coEvents[i]->obj->name));
+
+				coEvents[i]->obj->HandleCollision(coEvents[i]);
+			}
+			if (coEvents[i]->obj->name == "RectPlatform") {
+				v = tempV;
+				p.x = p.x + d.x;
+			}
+			if (coEvents[i]->obj->name == "Leaf") {
+				this->type = "2"; // move to next size
+
+				this->p.x = p.x - (42 - this->width);
+				this->p.y = p.y - (54 - this->height);
+
+				width = 42;
+				height = 54;
+			}
+			if (coEvents[i]->obj->name == "MiniPortal") {
+
+				MiniPortal* start = dynamic_cast<MiniPortal*>(coEvents[i]->obj);
+				MiniPortal* destination = NULL;
+				         
+				for (auto i = coObjects->begin(); i != coObjects->end(); i++)
+				{
+					if (MiniPortal* obj = dynamic_cast<MiniPortal*>(*i)) {
+						if (obj->portalName == start->portalName && obj->type == "Out") {
+							destination = obj;
+							break;
+						}
+					}
+				}
+
+				if (destination != NULL) {
+					CGame::GetInstance()->GetCurrentScene()->getCamera()->setCamPos(destination->camera_x, destination->camera_y);
+					p = destination->p;
+				}
+
+			}
+		}
 
 
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -165,12 +231,23 @@ void Test::Render()
 	//if (v.x > 0) this->state = "running-right";
 	//if (v.x < 0) this->state = "running-left";
 
-	float width = 0;
-	float height = 0;
-	animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
+	float w = width;
+	float h = height;
+	animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h);
 
-	//SetSize(width, height);
 
+	/*int changex = p.x - (w - this->width);
+	int changey = p.y - (h - this->height);
+	if (changex >= 3) {
+		p.x = p.x - (w - this->width);
+		this->width = w;
+
+	}
+	if (changey >= 3) {
+		p.y = p.y - (h - this->height);
+		this->height = h;
+
+	}*/
 
 	RenderBoundingBox();
 }
@@ -188,15 +265,15 @@ void Test::SetState(string state)
 	}
 	else if (state == "running-up") {
 		v.y = -0.15f;
-		ny = -1;
+		//ny = -1;
 	}
 	else if (state == "running-down") {
 		v.y = 0.15f;
-		ny = -1;
+		//ny = -1;
 	}
 	else if (state == "jumping" && this->state != "jumping") {
 		v.y = -0.4f;
-		ny = -1;
+		//ny = -1;
 	}
 	else if (state == "indie") {
 		v.x = 0;
@@ -223,4 +300,9 @@ void Test::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 	//right = x + MARIO_SMALL_BBOX_WIDTH;
 	//bottom = y + MARIO_SMALL_BBOX_HEIGHT;
+}
+
+
+void Test::HandleCollision(LPCOLLISIONEVENT e) {
+
 }

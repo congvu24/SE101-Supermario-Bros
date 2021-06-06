@@ -1,5 +1,16 @@
 {
   "1": {
-    "running": [{"name":"8.png","time":100},{"name":"9.png","time":100},{"name":"11.png","time":100}]
+    "running": [
+      { "name": "8.png", "time": 100 },
+      { "name": "9.png", "time": 100 },
+      { "name": "11.png", "time": 100 },
+      { "name": "9.png", "time": 100 }
+    ],
+    "fromMisteryBox": [
+      { "name": "8.png", "time": 100 },
+      { "name": "9.png", "time": 100 },
+      { "name": "11.png", "time": 100 },
+      { "name": "9.png", "time": 100 }
+    ]
   }
 }

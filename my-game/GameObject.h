@@ -51,6 +51,8 @@ class CGameObject
 
 public:
 	int id = 0;
+	string name;
+	bool isAllowCollision;
 	Vector p;
 	Vector d;
 	Vector g = Vector(0, 0.001f);
@@ -67,7 +69,6 @@ public:
 
 	DWORD dt;
 
-	LPDIRECT3DTEXTURE9 bboxtex;
 
 
 	LPDIRECT3DTEXTURE9 texture;
@@ -75,6 +76,9 @@ public:
 
 
 public:
+	static void LoadBoundedBox();
+	static LPDIRECT3DTEXTURE9 bboxtex;
+
 	void SetPosition(float x, float y) { this->p.x = x, this->p.y = y; }
 	void SetSpeed(float vx, float vy) { this->v.x = vx, this->v.y = vy; }
 	void SetSize(float w, float h) { this->width = w, this->height = h; }
@@ -106,6 +110,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render() = 0;
 	virtual void SetState(string state) { this->state = state; }
+	virtual void HandleCollision(LPCOLLISIONEVENT e) = 0;
 	~CGameObject();
 };
 

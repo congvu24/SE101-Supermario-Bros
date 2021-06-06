@@ -1,0 +1,6 @@
+{
+  "1": {
+    "running": [{"name":"1.png","time":100},{"name":"0.png","time":100}],
+    "die": [{"name":"31.png","time":100}]
+  }
+}

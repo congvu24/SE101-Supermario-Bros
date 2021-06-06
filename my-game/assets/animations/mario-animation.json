@@ -1,5 +1,19 @@
 {
   "1": {
+    "indie": [{ "name": "8.png", "time": 100 }],
+    "running-up": [{ "name": "33.png", "time": 100 }],
+    "jumping": [{ "name": "28.png", "time": 100 }],
+    "running-down": [{ "name": "7.png", "time": 100 }],
+    "running-right": [
+      { "name": "10.png", "time": 100 },
+      { "name": "9.png", "time": 100 }
+    ],
+    "running-left": [
+      { "name": "4.png", "time": 100 },
+      { "name": "5.png", "time": 100 }
+    ]
+  },
+  "2": {
     "indie": [{ "name": "108.png", "time": 100 }],
     "running-up": [{ "name": "111.png", "time": 100 }],
     "jumping": [

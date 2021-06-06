@@ -1,25 +1,26 @@
 #pragma once
 #include "GameObject.h"
+#include "MapEntity.h"
+#include "Game.h"
+#include <iostream>
 
-#define GOOMBA_WALKING_SPEED 0.05f;
-
-#define GOOMBA_BBOX_WIDTH 16
-#define GOOMBA_BBOX_HEIGHT 15
-#define GOOMBA_BBOX_HEIGHT_DIE 9
-
-#define GOOMBA_STATE_WALKING 100
-#define GOOMBA_STATE_DIE 200
-
-#define GOOMBA_ANI_WALKING 0
-#define GOOMBA_ANI_DIE 1
-
-class CGoomba : public CGameObject
+class Goomba :public MapEntity<Goomba>
 {
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
-	virtual void Render();
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	Vector oldP;
+	//int maxMoveX = 200;
+	//virtual void  Render();
+public:
+	Goomba();
 
-public: 	
-	CGoomba();
-	virtual void SetState(int state);
+	virtual void SetState(string state);
+	virtual void HandleCollision(LPCOLLISIONEVENT e);
+
+
+	static json data;
+	static LPDIRECT3DTEXTURE9 texture;
+	static unordered_map<string, LPSPRITE> sprites; //save all sprite of animation
+	static unordered_map<string, LPANIMATION> all_animations; //save all animations
+	static CAnimationSets animations_set; //save all the animation 
 };

@@ -4,18 +4,20 @@
 #include "Game.h"
 #include <iostream>
 
-class Coin :public MapEntity<Coin>
+class MiniPortal :public MapEntity<MiniPortal>
 {
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	Vector oldP;
-	//virtual void  Render();
+	virtual void Render();
+
 public:
-	Coin();
+	MiniPortal();
+	string portalName;
+	float camera_x;
+	float camera_y;
 
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
-
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

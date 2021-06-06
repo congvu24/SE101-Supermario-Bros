@@ -89,16 +89,23 @@ void CPlayScene::Update(DWORD dt)
 			objects[i]->Update(dt, &objects);
 		}
 
-		else if (this->getCamera()->isInCam(objects[i], 100) == true) {
-			// only render in camera zone
+		//else if (this->getCamera()->isInCam(objects[i], 100) == true) {
+		//	// only render in camera zone
+		//	objects[i]->Update(dt, &objects);
+		//}
+		else if (objects[i]->state != "hidden") {
 			objects[i]->Update(dt, &objects);
-		}
-		else {
+
 			//DebugOut(L"[INFO] NO UPDATE \n");
 
 		}
+		else {
+			// remove unuse element
+			objects.erase(std::remove(objects.begin(), objects.end(), objects[i]), objects.end());
+			//objects.erase(i);
+		}
 	}
-	//DebugOut(L"[INFO] ELEMENT COUNT: %s \n", IntToLPCWSTR(listCollider.size()));
+	//DebugOut(L"[INFO] ELEMENT COUNT: %s \n", IntToLPCWSTR(objects.size()));
 
 
 
@@ -128,8 +135,10 @@ void CPlayScene::Render()
 
 	//if (map->isRendered == false) {
 	map->render();
-	for (int i = 0; i < objects.size(); i++)
-		objects[i]->Render();
+	for (int i = 0; i < objects.size(); i++) {
+		if (objects[i]->state != "hidden")
+			objects[i]->Render();
+	}
 	//map->isRendered = true;
 //}
 
@@ -302,6 +311,18 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			if (visible != true)
 				Coin::SaveStaticData(data);
 			break;
+		case 5:
+			if (visible != true)
+				Goomba::SaveStaticData(data);
+			break;
+		case 6:
+			if (visible != true)
+				RectPlatform::SaveStaticData(data);
+			break;
+		case 7:
+			if (visible != true)
+				Leaf::SaveStaticData(data);
+			break;
 		default:
 			break;
 		}
@@ -322,4 +343,8 @@ void  CPlayScene::_ParseSection_MAP_FromJson(string mapPath) {
 	{
 		objects.push_back(obCollision[i]);
 	}
+}
+
+void CPlayScene::addObject(LPGAMEOBJECT obj) {
+	objects.push_back(obj);
 }

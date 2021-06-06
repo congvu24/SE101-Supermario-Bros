@@ -197,13 +197,84 @@ void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
 				float y = float(value["y"]);
 
 
+
 				obj->width = width;
 				obj->height = height;
+				obj->name = "RectCollision";
 				obj->p = Vector(x, y);
 
 				obCollisions->push_back(obj);
 			}
 		}
+		else if (type == "objectgroup" && name == "MiniPortal") {
+			json objects = data["objects"];
+
+			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+				json value = objData.value();
+				MiniPortal* obj = new MiniPortal();
+
+				obj->ParseFromOwnJson();
+
+				float width = float(value["width"]);
+				float height = float(value["height"]);
+				float x = float(value["x"]);
+				float y = float(value["y"]);
+				string portalName = value["name"];
+				string type = value["type"];
+
+				/*float can = float(value["y"]);
+				float y = float(value["y"]);*/
+
+				if (type == "Out") {
+					json properties = value["properties"];
+					for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
+						json data = property.value();
+						string name = data["name"];
+						if (name == "CameraLeftTopLimitX") {
+							obj->camera_x = float(data["value"]);
+						}
+						else if (name == "CameraLeftTopLimitY") {
+							obj->camera_y = float(data["value"]);
+						}
+					}
+				}
+
+
+				obj->width = width;
+				obj->height = height;
+				obj->portalName = portalName;
+				obj->name = "MiniPortal";
+				obj->type = type;
+				obj->p = Vector(x, y);
+
+				obCollisions->push_back(obj);
+			}
+		}
+		else if (type == "objectgroup" && name == "RectPlatform") {
+			json objects = data["objects"];
+
+			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+				json value = objData.value();
+				LPGAMEOBJECT obj = new RectPlatform();
+
+				obj->ParseFromOwnJson();
+
+				float width = float(value["width"]);
+				float height = float(value["height"]);
+				float x = float(value["x"]);
+				float y = float(value["y"]);
+
+
+
+				obj->width = width;
+				obj->height = height;
+				obj->name = name;
+				obj->p = Vector(x, y);
+
+				obCollisions->push_back(obj);
+			}
+		}
+
 		else if (type == "objectgroup" && name != "RectCollision") {
 			DebugOut(L"[INFO] Load name: %s \n", ToLPCWSTR(name));
 
@@ -227,6 +298,11 @@ void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
 				case 4:
 					obj = new Coin();
 					break;
+					break;
+				case 5:
+					obj = new Goomba();
+					break;
+
 				default:
 					break;
 				}
@@ -235,9 +311,10 @@ void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
 					obj->ParseFromOwnJson();
 					obj->width = width;
 					obj->height = height;
+					obj->name = name;
 					obj->p.x = x;
 					obj->p.y = y;
-					DebugOut(L"[INFO] Size Of Coin: %s \n", IntToLPCWSTR(sizeof(*obj)));
+					DebugOut(L"[INFO] Size Of Object: %s \n", IntToLPCWSTR(sizeof(*obj)));
 
 					obCollisions->push_back(obj);
 				}

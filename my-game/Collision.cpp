@@ -42,3 +42,7 @@ void  Collision::Render()
 	animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
 	RenderBoundingBox();*/
 }
+
+void Collision::HandleCollision(LPCOLLISIONEVENT e) {
+
+}

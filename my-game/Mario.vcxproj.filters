@@ -51,9 +51,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\Games</Filter>
     </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Source Files\Games</Filter>
-    </ClCompile>
     <ClCompile Include="Koopas.cpp">
       <Filter>Source Files\Character</Filter>
     </ClCompile>
@@ -116,6 +113,18 @@
     </ClCompile>
     <ClCompile Include="Sapmle.cpp">
       <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="RectPlatform.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniPortal.cpp">
+      <Filter>Source Files\Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +202,15 @@
     </ClInclude>
     <ClInclude Include="MapEntity.h">
       <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="RectPlatform.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniPortal.h">
+      <Filter>Header Files\Character</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

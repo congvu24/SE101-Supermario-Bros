@@ -39,6 +39,7 @@ public:
 
 	void ParseFromJson(json data); // use this function to parse from data to object
 	void ParseFromOwnJson(); // use this function to parse from data to object
+	virtual void HandleCollision(LPCOLLISIONEVENT e) = 0;
 
 
 	void AddSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);

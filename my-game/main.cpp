@@ -180,7 +180,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game = CGame::GetInstance();
 	game->Init(hWnd);
 	game->InitKeyboard();
-
+	CGameObject::LoadBoundedBox(); // load bounded box to debug 
 	game->Load(L"assets/game.json"); //load all sence
 
 

@@ -8,6 +8,9 @@
 #include "Collision.h"
 #include "MisteryBox.h"
 #include "Coin.h"
+#include "Goomba.h"
+#include "RectPlatform.h"
+#include "MiniPortal.h"
 
 
 #include "Utils.h"

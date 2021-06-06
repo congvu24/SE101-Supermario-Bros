@@ -13,6 +13,8 @@ public:
 	Collision();
 
 	virtual void SetState(string state);
+	virtual void HandleCollision(LPCOLLISIONEVENT e);
+
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;
 	static unordered_map<string, LPSPRITE> sprites; //save all sprite of animation

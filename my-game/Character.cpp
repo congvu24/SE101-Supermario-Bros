@@ -171,6 +171,7 @@ void Character::ParseFromJson(json data) {
 
 
 	string type = to_string(data["type"]); //object type;
+	string name = to_string(data["name"]); //object type;
 
 	float x = data["x"]; //object x;
 	float y = data["y"]; //object y;
@@ -184,6 +185,7 @@ void Character::ParseFromJson(json data) {
 	this->type = type;
 	this->p.x = x;
 	this->p.y = y;
+	this->name = name;
 	//
 	D3DCOLOR transcolor;
 	SetTexture(texture, D3DCOLOR_XRGB(255, 0, 255));

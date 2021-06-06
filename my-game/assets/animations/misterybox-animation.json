@@ -6,6 +6,7 @@
       { "name": "15.png", "time": 100 },
       { "name": "16.png", "time": 100 }
     ],
-    "stop": [{ "name": "17.png", "time": 100 }]
+    "hitting": [{ "name": "17.png", "time": 100 }],
+    "hitted": [{ "name": "17.png", "time": 100 }]
   }
 }

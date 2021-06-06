@@ -4,14 +4,22 @@
 #include "Game.h"
 #include <iostream>
 
-class Coin :public MapEntity<Coin>
+
+#define LEAF_SPEED	    0.003f
+#define LEAF_AMPLITUDE	60 
+#define PI 3.1415926535897932384626433832795028841971693993751058209 
+
+
+class Leaf :public MapEntity<Leaf>
 {
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	Vector oldP;
 	//virtual void  Render();
+	int beginFalling = 0;
+
 public:
-	Coin();
+	Leaf();
 
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);

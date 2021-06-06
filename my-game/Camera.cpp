@@ -11,6 +11,17 @@ void Camera::setCamPos(float x, float y) {
 	cam_y = y;
 }
 
+bool Camera::isInCamPosition(LPGAMEOBJECT entity, int margin = 100) {
+
+	if (
+		entity->p.x < cam_x
+		|| entity->p.x + entity->width > cam_x + cam_width
+		|| entity->p.y < cam_y
+		|| entity->p.y + entity->height > cam_y + cam_height
+		) return false;
+	return true;
+}
+
 bool Camera::isInCam(LPGAMEOBJECT entity, int margin = 100) {
 
 	if (entity->p.x <= cam_width + margin

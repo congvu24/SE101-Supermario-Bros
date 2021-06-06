@@ -10,12 +10,12 @@
       "sprite": "assets/sprite/mario.json",
       "animation": "assets/animations/mario-animation.json",
       "type": 1,
-      "x": 100,
-      "y": 1000,
+      "x": 6480.00,
+      "y": 816.00,
       "visible": true
     },
     {
-      "id": "3",
+      "id": "2",
       "name": "Coin",
       "texture": "assets/texture/misc.png",
       "sprite": "assets/sprite/misc.json",
@@ -26,11 +26,33 @@
       "visible": false
     },
      {
-      "id": "2",
+      "id": "3",
       "name": "QuestionBox_Item",
       "texture": "assets/texture/misc.png",
       "sprite": "assets/sprite/misc.json",
       "animation": "assets/animations/misterybox-animation.json",
+      "type": 1,
+      "x": 100,
+      "y": 150,
+      "visible": false
+    },
+    {
+      "id": "4",
+      "name": "Goomba",
+      "texture": "assets/texture/enemy.png",
+      "sprite": "assets/sprite/enemy.json",
+      "animation": "assets/animations/goomba-animation.json",
+      "type": 1,
+      "x": 100,
+      "y": 150,
+      "visible": false
+    },
+     {
+      "id": "5",
+      "name": "Leaf",
+      "texture": "assets/texture/misc.png",
+      "sprite": "assets/sprite/misc.json",
+      "animation": "assets/animations/leaf-animation.json",
       "type": 1,
       "x": 100,
       "y": 150,

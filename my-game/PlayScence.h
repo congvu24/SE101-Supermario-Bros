@@ -8,6 +8,8 @@
 #include "Goomba.h"
 #include "Koopas.h"
 #include "Map.h"
+#include "RectPlatform.h"
+#include "Leaf.h"
 
 enum CameraMoveDirection {
 	UP,
@@ -39,6 +41,7 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+	virtual void addObject(LPGAMEOBJECT obj);
 	LPMAP GetMap() { return this->map; };
 	void restart();
 	void moveCamera(CameraMoveDirection);
