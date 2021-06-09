@@ -10,8 +10,8 @@
       "sprite": "assets/sprite/mario.json",
       "animation": "assets/animations/mario-animation.json",
       "type": 1,
-      "x": 6480.00,
-      "y": 816.00,
+      "x": 100,
+      "y": 1000,
       "visible": true
     },
     {

@@ -11,7 +11,7 @@ class Quadtree
 {
 private:
 	int            m_level;
-	RECT* m_region;
+	RECT* m_region = new RECT{ 0,0,0,0 };
 	vector<CGameObject*>* m_objects_list = new vector<CGameObject*>();
 	Quadtree** m_nodes;
 

@@ -23,7 +23,6 @@ class CPlayScene : public CScene
 protected:
 	CGameObject* player;					// A play scene has to have player, right? 
 
-	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES_FromJson(LPCWSTR filePath, int id);
 	void _ParseSection_SPRITES_FromJson(LPCWSTR filePath, int textID);
@@ -36,7 +35,6 @@ protected:
 public:
 	Map* map;
 	CPlayScene(int id, LPCWSTR filePath);
-
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();

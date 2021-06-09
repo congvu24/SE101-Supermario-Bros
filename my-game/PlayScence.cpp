@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "MisteryBox.h"
 #include "Coin.h"
+#include "Quadtree.h"
 
 using namespace std;
 
@@ -68,53 +69,37 @@ void CPlayScene::Load()
 
 void CPlayScene::Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 
+	RECT base = { camera->cam_x, camera->cam_y, camera->cam_x + 800 ,camera->cam_y + 600 };
+	Quadtree* quadtree = new Quadtree(1, new RECT(base));
 
-	/*for (size_t i = 0; i < objects.size(); i++)
-	{
-		coObjects.push_back(objects[i]);
-	}*/
-	vector<LPGAMEOBJECT> listCollider;
-
+	for (auto i = objects.begin(); i != objects.end(); i++) {
+		quadtree->Insert(*i);
+	}
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
-		//if (this->getCamera()->isInCam(objects[i], 100) == true) {
-		//	listCollider.push_back(objects[i]);
-		//}
+		vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
+		quadtree->Retrieve(return_objects_list, objects[i]);
 
 		if (Test* v = dynamic_cast<Test*>(objects[i])) {
-			objects[i]->Update(dt, &objects);
+			objects[i]->Update(dt, return_objects_list);
 		}
 
-		//else if (this->getCamera()->isInCam(objects[i], 100) == true) {
-		//	// only render in camera zone
-		//	objects[i]->Update(dt, &objects);
-		//}
 		else if (objects[i]->state != "hidden") {
-			objects[i]->Update(dt, &objects);
-
-			//DebugOut(L"[INFO] NO UPDATE \n");
-
+			objects[i]->Update(dt, return_objects_list);
 		}
 		else {
-			// remove unuse element
 			objects.erase(std::remove(objects.begin(), objects.end(), objects[i]), objects.end());
-			//objects.erase(i);
 		}
+		delete return_objects_list;
 	}
-	//DebugOut(L"[INFO] ELEMENT COUNT: %s \n", IntToLPCWSTR(objects.size()));
+	quadtree->Clear();
+	delete quadtree;
 
-
-
-
-
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
 
-	//Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
 
@@ -122,27 +107,37 @@ void CPlayScene::Update(DWORD dt)
 	cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;
 
-	//CGame::GetInstance()->SetCamPos(cx, cy);
-	if (CGame::GetInstance()->GetCurrentScene()->camera->isCameraMoving == false) {
-		CGame::GetInstance()->GetCurrentScene()->camera->setCamPos(cx, cy);
+	if (camera->isCameraMoving == false) {
+		camera->setCamPos(cx, cy);
 	}
-
-	listCollider.clear();
 }
 
 void CPlayScene::Render()
 {
 
-	//if (map->isRendered == false) {
 	map->render();
-	for (int i = 0; i < objects.size(); i++) {
-		if (objects[i]->state != "hidden")
-			objects[i]->Render();
+	player->Render();
+
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
+	RECT base = { camera->cam_x - 200  , camera->cam_y - 200, camera->cam_x + 800 + 200 ,camera->cam_y + 600 + 200 };
+	Quadtree* quadtree = new Quadtree(5, new RECT(base)); // set the level to 5 to stop split function
+
+
+	vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
+
+	for (auto i = objects.begin(); i != objects.end(); i++) {
+		quadtree->Insert(*i);
 	}
-	//map->isRendered = true;
-//}
+	quadtree->Retrieve(return_objects_list, this->player);
 
-
+	// only render entity inside camera
+	for (int i = 0; i < return_objects_list->size(); i++) {
+		if (return_objects_list->at(i)->state != "hidden")
+			return_objects_list->at(i)->Render();
+	}
+	delete return_objects_list;
+	quadtree->Clear();
+	delete quadtree;
 }
 
 /*
@@ -177,7 +172,6 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
-	//CMario* mario = ((CPlayScene*)scence)->GetPlayer();
 	CGameObject* player = ((CPlayScene*)scence)->GetPlayer();
 
 	//// disable control key when Mario die 

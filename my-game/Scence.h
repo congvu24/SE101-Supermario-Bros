@@ -14,7 +14,7 @@ protected:
 public:
 	CScene(int id, LPCWSTR filePath);
 	Camera* camera;
-
+	vector<LPGAMEOBJECT> objects;
 	CKeyEventHandler* GetKeyEventHandler() { return key_handler; }
 	virtual void Load() = 0;
 	virtual void Unload() = 0;
