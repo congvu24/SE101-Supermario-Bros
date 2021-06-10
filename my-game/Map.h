@@ -11,6 +11,8 @@
 #include "Goomba.h"
 #include "RectPlatform.h"
 #include "MiniPortal.h"
+#include "SelectNode.h"
+#include "SelectPortal.h"
 
 
 #include "Utils.h"
@@ -77,7 +79,7 @@ public:
 	unordered_map<int, LPLAYER> all_layer;
 
 	Map() {};
-	void load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions);
+	void load(string path, vector<LPGAMEOBJECT>* obCollisions);
 	void render();
 };
 

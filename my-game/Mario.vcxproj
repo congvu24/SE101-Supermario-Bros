@@ -135,12 +135,15 @@
     <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapEntity.cpp" />
+    <ClCompile Include="MarioSelection.cpp" />
     <ClCompile Include="MiniPortal.cpp" />
     <ClCompile Include="MisteryBox.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="RectPlatform.cpp" />
     <ClCompile Include="Sapmle.cpp" />
+    <ClCompile Include="SelectNode.cpp" />
+    <ClCompile Include="SelectPortal.cpp" />
     <ClCompile Include="SweptAABB.cpp" />
     <ClCompile Include="SweptAABB.h" />
     <ClCompile Include="Test.cpp" />
@@ -154,6 +157,7 @@
     <ClCompile Include="Scence.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="WorldSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
@@ -168,11 +172,14 @@
     <ClInclude Include="library\json.hpp" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapEntity.h" />
+    <ClInclude Include="MarioSelection.h" />
     <ClInclude Include="MiniPortal.h" />
     <ClInclude Include="MisteryBox.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="RectPlatform.h" />
+    <ClInclude Include="SelectNode.h" />
+    <ClInclude Include="SelectPortal.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Game.h" />
@@ -184,6 +191,7 @@
     <ClInclude Include="Scence.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="WorldSelect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

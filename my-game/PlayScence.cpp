@@ -64,11 +64,24 @@ void CPlayScene::Load()
 
 	_ParseSection_MAP_FromJson(map);
 
-
+	animationDirection = OPENING;
+	animationStartedTime = GetTickCount64();
+	animationProgress = 0;
+	lastTime = 0;
+	animationDuration = 5000;
 }
 
 void CPlayScene::Update(DWORD dt)
 {
+	if (animationDirection != UNACTIVE) {
+		float currentTime = GetTickCount64() - animationStartedTime;
+
+		animationProgress = (currentTime / animationDuration);
+		if (animationProgress > 1) {
+			animationDirection = UNACTIVE;
+		}
+	}
+
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 
 	RECT base = { camera->cam_x, camera->cam_y, camera->cam_x + 800 ,camera->cam_y + 600 };
@@ -114,11 +127,11 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 
 	map->render();
 	player->Render();
 
-	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 	RECT base = { camera->cam_x - 200  , camera->cam_y - 200, camera->cam_x + 800 + 200 ,camera->cam_y + 600 + 200 };
 	Quadtree* quadtree = new Quadtree(5, new RECT(base)); // set the level to 5 to stop split function
 
@@ -138,6 +151,18 @@ void CPlayScene::Render()
 	delete return_objects_list;
 	quadtree->Clear();
 	delete quadtree;
+
+
+	//if (animationDirection != UNACTIVE) {
+	//	//left to center
+	//	CGame::GetInstance()->Draw(camera->cam_x - (camera->cam_width * (1 - animationProgress)), camera->cam_y, blackTexture, 0, 0, camera->cam_width, camera->cam_height, 255);
+	//	//right to center
+	//	CGame::GetInstance()->Draw(camera->cam_x + camera->cam_width - (camera->cam_width * animationProgress), camera->cam_y, blackTexture, 0, 0, camera->cam_width, camera->cam_height, 255);
+	//	//top to center
+	//	CGame::GetInstance()->Draw(camera->cam_x, camera->cam_y - (camera->cam_height * (1 - animationProgress)), blackTexture, 0, 0, camera->cam_width, camera->cam_height, 255);
+	//	////bottom to center
+	//	CGame::GetInstance()->Draw(camera->cam_x, camera->cam_y + camera->cam_height - (camera->cam_height * animationProgress), blackTexture, 0, 0, camera->cam_width, camera->cam_height, 255);
+	//}
 }
 
 /*
@@ -272,7 +297,6 @@ void  CPlayScene::_ParseSection_ANIMATIONS_FromJson(LPCWSTR filePath) {
 void  CPlayScene::_ParseSection_ANIMATION_SETS_FromJson(LPCWSTR filePath) {
 }
 void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
-	//each sence has many object
 	for (json::iterator it = allObjects.begin(); it != allObjects.end(); ++it) {
 
 		json data = it.value();
@@ -281,9 +305,6 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 		bool visible = bool(data["visible"]); //object name;
 
 		CGameObject* obj = NULL;
-
-		//DebugOut(L"[ERROR] Texture ID %d not found!\n", IntToLPCWSTR(character_code[name]));
-
 
 		switch (fromNameToCode(name))
 		{
@@ -331,7 +352,7 @@ void  CPlayScene::_ParseSection_MAP_FromJson(string mapPath) {
 	vector<LPGAMEOBJECT> obCollision;
 
 	this->map = new Map();
-	map->load(ToLPCWSTR(mapPath), &obCollision);
+	map->load(mapPath, &obCollision);
 
 	for (size_t i = 0; i < obCollision.size(); i++)
 	{

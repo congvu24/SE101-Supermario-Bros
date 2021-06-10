@@ -6,6 +6,7 @@ LPTILESET getTileSetFromMin(unordered_map<int, LPTILESET>* tileset, int cell) {
 		int id = it->first;
 		if (cell > id) return it->second;
 	}
+	return tileset->begin()->second;
 }
 
 
@@ -21,7 +22,7 @@ void Layer::render(unordered_map<int, LPTILESET>* tileset) {
 	for (int i = 0; i < width * height; i++) {
 		int cell = data[i];
 		if (cell > 0) {
-			LPTILESET activeTileset = getTileSetFromMin(tileset, 100);
+			LPTILESET activeTileset = getTileSetFromMin(tileset, cell);
 
 			Vector p;
 			RECT r;
@@ -85,8 +86,8 @@ void Layer::draw(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity) {
 	//game->Draw(p.x, p.y, texture, r.left, r.top, r.right, r.bottom, 255);
 }
 
-void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
-	json mapData = ReadJsonFIle(path);
+void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions) {
+	json mapData = ReadJsonFIle(ToLPCWSTR(path));
 	this->data = mapData;
 
 	//load all tileset first
@@ -108,7 +109,16 @@ void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
 		tile->columns = data["columns"];
 		//load texture here
 
-		LPCWSTR filePath = ToLPCWSTR("assets/map/" + tile->name + "/" + tile->image);  // have to fix here
+		//LPCWSTR filePath = ToLPCWSTR(tile->image);  // have to fix here
+		//LPCWSTR filePath = ToLPCWSTR("assets/map/World1-1/World1-1.png");  // have to fix here
+		string directory;
+		const size_t last_slash_idx = path.rfind('/');
+		if (std::string::npos != last_slash_idx)
+		{
+			directory = path.substr(0, last_slash_idx);
+		}
+
+		LPCWSTR filePath = ToLPCWSTR(directory + "/" + tile->image);
 
 		D3DXIMAGE_INFO info;
 		HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
@@ -197,7 +207,6 @@ void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
 				float y = float(value["y"]);
 
 
-
 				obj->width = width;
 				obj->height = height;
 				obj->name = "RectCollision";
@@ -247,6 +256,75 @@ void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
 				obj->type = type;
 				obj->p = Vector(x, y);
 
+				obCollisions->push_back(obj);
+			}
+		}
+		else if (type == "objectgroup" && name == "SelectionNode") {
+			json objects = data["objects"];
+
+			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+				json value = objData.value();
+				SelectNode* obj = new SelectNode();
+
+				obj->ParseFromOwnJson();
+
+				float width = float(value["width"]);
+				float height = float(value["height"]);
+				float x = float(value["x"]);
+				float y = float(value["y"]);
+
+				json properties = value["properties"];
+				for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
+					json data = property.value();
+					string name = data["name"];
+					if (name == "up") {
+						obj->up = data["value"];
+					}
+					else if (name == "down") {
+						obj->down = data["value"];
+					}
+					else if (name == "right") {
+						obj->right = data["value"];
+					}
+					else if (name == "left") {
+						obj->left = data["value"];
+					}
+				}
+
+				obj->width = width;
+				obj->height = height;
+				obj->name = "SelectionNode";
+				obj->p = Vector(x, y);
+				obCollisions->push_back(obj);
+			}
+		}
+		else if (type == "objectgroup" && name == "SelectionPortal") {
+			json objects = data["objects"];
+
+			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+				json value = objData.value();
+				SelectPortal* obj = new SelectPortal();
+
+				obj->ParseFromOwnJson();
+
+				float width = float(value["width"]);
+				float height = float(value["height"]);
+				float x = float(value["x"]);
+				float y = float(value["y"]);
+
+				json properties = value["properties"];
+				for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
+					json data = property.value();
+					string name = data["name"];
+					if (name == "scene_id") {
+						obj->scene_id = data["value"];
+					}
+				}
+
+				obj->width = width;
+				obj->height = height;
+				obj->name = "SelectPortal";
+				obj->p = Vector(x, y);
 				obCollisions->push_back(obj);
 			}
 		}
@@ -302,7 +380,6 @@ void Map::load(LPCWSTR path, vector<LPGAMEOBJECT>* obCollisions) {
 				case 5:
 					obj = new Goomba();
 					break;
-
 				default:
 					break;
 				}

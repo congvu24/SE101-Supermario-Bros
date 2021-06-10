@@ -1,8 +1,13 @@
 #include "Quadtree.h"
 #include "GameObject.h"
 #include <math.h>
+
+
+
 #define MAX_LEVEL                5
 #define MAX_OBJECT_IN_REGION     4
+
+
 Quadtree::Quadtree(int level, RECT* region) {
 	this->m_level = level;
 	this->m_region = region;
@@ -120,4 +125,3 @@ void Quadtree::Retrieve(vector<CGameObject*>* return_objects_list, CGameObject* 
 		}
 	}
 }
-

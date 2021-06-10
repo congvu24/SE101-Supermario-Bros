@@ -4,6 +4,13 @@
 #include "KeyEventHandler.h"
 #include "Camera.h"
 
+
+enum AnimationDirection {
+	CLOSING,
+	OPENING,
+	UNACTIVE,
+};
+
 class CScene
 {
 protected:
@@ -15,6 +22,13 @@ public:
 	CScene(int id, LPCWSTR filePath);
 	Camera* camera;
 	vector<LPGAMEOBJECT> objects;
+	static LPDIRECT3DTEXTURE9 blackTexture; // texture to render opening and closing animation
+	float animationDuration;
+	float animationProgress; //  = (getTickcount64 - animationStartedTime) / animationDuration;
+	float animationStartedTime; // get tick count 64 when start loading;
+	float lastTime;
+	AnimationDirection animationDirection; 
+
 	CKeyEventHandler* GetKeyEventHandler() { return key_handler; }
 	virtual void Load() = 0;
 	virtual void Unload() = 0;
@@ -24,6 +38,8 @@ public:
 	Camera* getCamera() {
 		return this->camera;
 	}
+
+	static void LoadBlackTexture(LPCWSTR filePath);
 };
 typedef CScene* LPSCENE;
 

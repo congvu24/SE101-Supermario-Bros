@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="8" nextobjectid="69">
  <editorsettings>
-  <export target="Resources/World1-Selection/World1-Selection.xml" format="tmx"/>
+  <export target="World1-Selection.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="World1-Selection" tilewidth="48" tileheight="48" tilecount="32" columns="8">
   <image source="World1-Selection.png" width="384" height="192"/>
@@ -26,9 +26,21 @@
  </layer>
  <objectgroup id="5" name="SelectionPortal">
   <object id="1" name="start-0" x="96" y="144" width="48" height="48"/>
-  <object id="2" name="gate-1" x="192" y="48" width="48" height="48"/>
-  <object id="3" name="gate-2" x="384" y="48" width="48" height="48"/>
-  <object id="4" name="gate-3" x="480" y="48" width="48" height="48"/>
+  <object id="2" name="gate-1" x="192" y="48" width="48" height="48">
+   <properties>
+    <property name="scene_id" value="2"/>
+   </properties>
+  </object>
+  <object id="3" name="gate-2" x="384" y="48" width="48" height="48">
+   <properties>
+    <property name="scene_id" value="2"/>
+   </properties>
+  </object>
+  <object id="4" name="gate-3" x="480" y="48" width="48" height="48">
+   <properties>
+    <property name="scene_id" value="3"/>
+   </properties>
+  </object>
   <object id="5" name="gate-4" x="480" y="144" width="48" height="48"/>
   <object id="6" name="gate-5" x="192" y="432" width="48" height="48"/>
   <object id="7" name="gate-6" x="384" y="432" width="48" height="48"/>
@@ -102,7 +114,7 @@
     <property name="right" value="node-3"/>
    </properties>
   </object>
-  <object id="59" name="node-3" x="480" y="48" width="48" height="48">
+  <object id="59" name="node-3" x="488.054" y="105.385" width="48" height="48">
    <properties>
     <property name="left" value="node-2"/>
     <property name="right" value="node-9"/>

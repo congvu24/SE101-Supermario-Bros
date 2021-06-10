@@ -8,6 +8,7 @@
 #include "Utils.h"
 
 #include "PlayScence.h"
+#include "WorldSelect.h"
 
 using json = nlohmann::json;
 
@@ -77,9 +78,9 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	r.top = top;
 	r.right = right;
 	r.bottom = bottom;
-	if (camera->isInCam(p.x, p.y, 100) == true) {
-		spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-	}
+	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	//if (camera->isInCam(p.x, p.y, 100) == true) {
+	//}
 }
 
 void CGame::DrawWithScale(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity, D3DXVECTOR2 pos, D3DXVECTOR2 scale)
@@ -208,7 +209,6 @@ void CGame::ProcessKeyboard()
 	hr = didv->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), keyEvents, &dwElements, 0);
 	if (FAILED(hr))
 	{
-		//DebugOut(L"[ERROR] DINPUT::GetDeviceData failed. Error: %d\n", hr);
 		return;
 	}
 
@@ -252,9 +252,6 @@ void CGame::SweptAABB(
 	t = -1.0f;			// no collision
 	nx = ny = 0;
 
-	//
-	// Broad-phase test 
-	//
 
 	float bl = dx > 0 ? ml : ml + dx;
 	float bt = dy > 0 ? mt : mt + dy;
@@ -263,7 +260,6 @@ void CGame::SweptAABB(
 
 	if (br < sl || bl > sr || bb < st || bt > sb)
 	{
-		//DebugOut(L"[INFO] nam trong roi\n");
 		return;
 	}
 
@@ -368,9 +364,6 @@ void CGame::_ParseSection_SETTINGS(string line)
 void CGame::_ParseSection_SETTINGS_FromJson(json data)
 {
 	DebugOut(L"DATAAAAAAAAAA %s\n", IntToLPCWSTR(stoi(data["active"].dump())));
-
-	//int active = stoi(data["active"].dump());
-	//current_scene = active;
 }
 
 void CGame::_ParseSection_SCENES(string line)
@@ -387,22 +380,20 @@ void CGame::_ParseSection_SCENES(string line)
 
 void CGame::_ParseSection_SCENES_FromJson(json data)
 {
-	/*vector<string> tokens = split(line);
-
-	if (tokens.size() < 2) return;
-	int id = atoi(tokens[0].c_str());
-	LPCWSTR path = ToLPCWSTR(tokens[1]);
-
-	LPSCENE scene = new CPlayScene(id, path);
-	scenes[id] = scene;*/
-
 	for (json::iterator it = data.begin(); it != data.end(); ++it) {
 
 		LPCWSTR path = ToLPCWSTR(it.value());
 		DebugOut(L"[INFO] Load data : %s\n", path);
 		int id = stoi(it.key());
-		LPSCENE scene = new CPlayScene(id, path);
-		scenes[id] = scene;
+		json value = it.value();
+		//string name = string(value["name"]);
+
+		LPSCENE scene = NULL;
+		if (id == 1) scene = new WorldSelect(id, path);
+		else if (id == 2) scene = new CPlayScene(id, path);
+
+		if (scene != NULL)
+			scenes[id] = scene;
 	}
 
 }
@@ -413,95 +404,19 @@ void CGame::_ParseSection_SCENES_FromJson(json data)
 */
 void CGame::Load(LPCWSTR gameFile)
 {
-
-	// read file here and init data 
-	// 
-	// 
-	// 
-
-	//DebugOut(L"[INFO] Load data : %s\n", j2["pi"]);
-
-
-
-
-	//read get scene detail: id, name, objects
 	json gameData = ReadJsonFIle(gameFile);
-
 	string active = gameData["active"];
 
-
-
 	DebugOut(L"[INFO] Active id : %s\n", ToLPCWSTR(active));
-
-	//gotcha, now read the objects and identify them by name;
-
 	_ParseSection_SCENES_FromJson(gameData["scene"]); // now parse the json to game data;
-	//_ParseSection_SETTINGS_FromJson(active);
-//int active = stoi(data["active"].dump());
 	current_scene = stoi(active);
 	SwitchScene(stoi(active));
-
-
-
-
-
-
-
-
-	//for (json::iterator it = j["frames"].begin(); it != j["frames"].end(); ++it) {
-		//std::cout << it.key() << " : " << it.value() << "\n";
-		//OutputDebugStringW(ToLPCWSTR(it.key()));
-		//OutputDebugStringW(ToLPCWSTR(it.value()["animation"][0]["w"].dump()));
-		/*for (json::iterator k = it.value()["animation"].begin(); k != it.value()["animation"].end(); ++k) {
-			OutputDebugStringW(ToLPCWSTR(k.value()["w"].dump()));
-
-		}*/
-
-		//}
-
-	//DebugOut(L"[INFO] Start loading game file : %s\n", gameFile);
-
-	//ifstream f;
-	//f.open(gameFile);
-	//char str[MAX_GAME_LINE];
-
-	////current resource section flag
-	//int section = GAME_FILE_SECTION_UNKNOWN;
-
-	//while (f.getline(str, MAX_GAME_LINE))
-	//{
-	//	string line(str);
-
-	//	if (line[0] == '#') continue;	// skip comment lines	
-
-	//	if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
-	//	if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
-
-	//	//
-	//	// data section
-	//	//
-	//	switch (section)
-	//	{
-	//	case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
-	//	case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
-	//	}
-	//}
-	//f.close();
-
-	//DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", gameFile);
-
 }
 
 void CGame::SwitchScene(int scene_id)
 {
 	DebugOut(L"[INFO] Switching to scene %d\n", scene_id);
-
 	scenes[current_scene]->Unload();
-
-	//CTextures::GetInstance()->Clear();
-	//CSprites::GetInstance()->Clear();
-	//CAnimations::GetInstance()->Clear();
-
 	current_scene = scene_id;
 	LPSCENE s = scenes[scene_id];
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
