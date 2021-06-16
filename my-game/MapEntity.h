@@ -49,7 +49,7 @@ public:
 			string name = T::data["name"]; //object name;
 			string type = to_string(T::data["type"]); //object type;
 			this->id = id;
-			this->type = type;
+			if (this->type == "") this->type = type;
 			this->name = name;
 			SetActiveAnimationSet(type);
 		}
@@ -64,7 +64,7 @@ public:
 		this->state = state;
 	}
 	virtual void HandleCollision(LPCOLLISIONEVENT e) = 0;
-	 // virtual function help to handle collision of mario to it
+	// virtual function help to handle collision of mario to it
 
 	static void SaveStaticData(json data) {
 		if (T::data == NULL) {
@@ -76,6 +76,8 @@ public:
 			MapEntity::SetTexture(texture, D3DCOLOR_XRGB(255, 0, 255));
 			MapEntity::ParseSpriteFromJson(sprite);
 			MapEntity::ParseAnimationFromJson(animation);
+			DebugOut(L"[INFO] Save static data complete!\n");
+
 		}
 
 	}

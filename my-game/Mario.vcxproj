@@ -131,6 +131,9 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Intro.cpp" />
+    <ClCompile Include="IntroCursor.cpp" />
+    <ClCompile Include="IntroText.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -168,6 +171,9 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Intro.h" />
+    <ClInclude Include="IntroCursor.h" />
+    <ClInclude Include="IntroText.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="Leaf.h" />
     <ClInclude Include="library\json.hpp" />

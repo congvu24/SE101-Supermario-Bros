@@ -1,0 +1,11 @@
+{
+  "0": {
+    "indie": [{ "name": "0about.png", "time": 100 }]
+  },
+  "1": {
+    "indie": [{ "name": "1player.png", "time": 100 }]
+  },
+  "2": {
+    "indie": [{ "name": "2player.png", "time": 100 }]
+  }
+}

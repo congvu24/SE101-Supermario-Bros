@@ -1,0 +1,29 @@
+{
+  "id": 1,
+  "name": "Intro map",
+  "map": "assets/map/IntroScene/IntroScene.json",
+  "object": [
+    {
+      "id": "1",
+      "name": "IntroText",
+      "texture": "assets/texture/intro.png",
+      "sprite": "assets/sprite/intro.json",
+      "animation": "assets/animations/intro-text-animation.json",
+      "type": 1,
+      "x": 96,
+      "y": 144,
+      "visible": false
+    },
+    {
+      "id": "2",
+      "name": "OptionCursor",
+      "texture": "assets/texture/intro.png",
+      "sprite": "assets/sprite/intro.json",
+      "animation": "assets/animations/intro-cursor-animation.json",
+      "type": 1,
+      "x": 185.00,
+      "y": 486.00,
+      "visible": true
+    }
+  ]
+}

@@ -14,6 +14,9 @@
 #include "SelectNode.h"
 #include "SelectPortal.h"
 #include "SelectionTree.h"
+#include "IntroText.h"
+#include "IntroCursor.h"
+
 
 
 #include "Utils.h"

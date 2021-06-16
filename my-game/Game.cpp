@@ -9,6 +9,7 @@
 
 #include "PlayScence.h"
 #include "WorldSelect.h"
+#include "Intro.h"
 
 using json = nlohmann::json;
 
@@ -391,6 +392,7 @@ void CGame::_ParseSection_SCENES_FromJson(json data)
 		LPSCENE scene = NULL;
 		if (id == 1) scene = new WorldSelect(id, path);
 		else if (id == 2) scene = new CPlayScene(id, path);
+		else if (id == 3) scene = new Intro(id, path);
 
 		if (scene != NULL)
 			scenes[id] = scene;

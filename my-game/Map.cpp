@@ -367,6 +367,7 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions) {
 				float height = float(value["height"]);
 				float x = float(value["x"]);
 				float y = float(value["y"]);
+				string type = value["type"];
 
 				CGameObject* obj = NULL;
 
@@ -384,6 +385,10 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions) {
 					break;
 				case 8:
 					obj = new SelectionTree();
+					break;
+				case 9:
+					obj = new IntroText();
+					obj->type = type;
 					break;
 				default:
 					break;

@@ -1,8 +1,8 @@
 {
-  "active": "1",
+  "active": "3",
   "scene": {
     "1": "assets/scene/select-map.json",
-    "2": "assets/scene/world1-1.json"
-
+    "2": "assets/scene/world1-1.json",
+    "3": "assets/scene/intro.json"
   }
 }

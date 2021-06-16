@@ -87,6 +87,7 @@ void MarioSelection::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else
 				if (coEvents[i]->obj->name == "SelectPortal") {
+					isMoving = false;
 					DebugOut(L"collision with selection portal %s \n", ToLPCWSTR(coEvents[i]->obj->name));
 					if (SelectPortal* obj = dynamic_cast<SelectPortal*>(coEvents[i]->obj)) {
 						DebugOut(L"collision with selection portal %s \n", ToLPCWSTR(obj->scene_id));
