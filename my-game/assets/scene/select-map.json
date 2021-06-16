@@ -4,59 +4,26 @@
   "map": "assets/map/World1-Selection/World1-Selection.json",
   "object": [
     {
+      "id": "2",
+      "name": "SelectionTree",
+      "texture": "assets/texture/World1-Selection - extend.png",
+      "sprite": "assets/sprite/World1-Selection - extend.json",
+      "animation": "assets/animations/selectionTree-animation.json",
+      "type": 1,
+      "x": 96,
+      "y": 144,
+      "visible": false
+    },
+    {
       "id": "1",
       "name": "test",
       "texture": "assets/texture/mario.png",
       "sprite": "assets/sprite/mario.json",
       "animation": "assets/animations/mario-animation.json",
       "type": 1,
-      "x": 96,
-      "y": 144,
+      "x": 48,
+      "y": 150,
       "visible": true
-    },
-    {
-      "id": "2",
-      "name": "Coin",
-      "texture": "assets/texture/misc.png",
-      "sprite": "assets/sprite/misc.json",
-      "animation": "assets/animations/coin-animation.json",
-      "type": 1,
-      "x": 100,
-      "y": 150,
-      "visible": false
-    },
-     {
-      "id": "3",
-      "name": "QuestionBox_Item",
-      "texture": "assets/texture/misc.png",
-      "sprite": "assets/sprite/misc.json",
-      "animation": "assets/animations/misterybox-animation.json",
-      "type": 1,
-      "x": 100,
-      "y": 150,
-      "visible": false
-    },
-    {
-      "id": "4",
-      "name": "Goomba",
-      "texture": "assets/texture/enemy.png",
-      "sprite": "assets/sprite/enemy.json",
-      "animation": "assets/animations/goomba-animation.json",
-      "type": 1,
-      "x": 100,
-      "y": 150,
-      "visible": false
-    },
-     {
-      "id": "5",
-      "name": "Leaf",
-      "texture": "assets/texture/misc.png",
-      "sprite": "assets/sprite/misc.json",
-      "animation": "assets/animations/leaf-animation.json",
-      "type": 1,
-      "x": 100,
-      "y": 150,
-      "visible": false
     }
   ]
 }

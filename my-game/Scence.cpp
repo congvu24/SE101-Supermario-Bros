@@ -14,10 +14,10 @@ void CScene::LoadBlackTexture(LPCWSTR filePath) {
 	if (CScene::blackTexture == NULL) {
 
 		D3DXIMAGE_INFO info;
-		HRESULT result = D3DXGetImageInfoFromFile(L"assets/texture/bbox.png", &info);
+		HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
 		if (result != D3D_OK)
 		{
-			DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", L"assets/texture/bbox.png");
+			DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
 			return;
 		}
 
@@ -26,7 +26,7 @@ void CScene::LoadBlackTexture(LPCWSTR filePath) {
 
 		result = D3DXCreateTextureFromFileEx(
 			d3ddv,								// Pointer to Direct3D device object
-			L"assets/texture/bbox.png",							// Path to the image to load
+			filePath,							// Path to the image to load
 			info.Width,							// Texture width
 			info.Height,						// Texture height
 			1,

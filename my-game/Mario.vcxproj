@@ -142,6 +142,7 @@
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="RectPlatform.cpp" />
     <ClCompile Include="Sapmle.cpp" />
+    <ClCompile Include="SelectionTree.cpp" />
     <ClCompile Include="SelectNode.cpp" />
     <ClCompile Include="SelectPortal.cpp" />
     <ClCompile Include="SweptAABB.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="RectPlatform.h" />
+    <ClInclude Include="SelectionTree.h" />
     <ClInclude Include="SelectNode.h" />
     <ClInclude Include="SelectPortal.h" />
     <ClInclude Include="Test.h" />

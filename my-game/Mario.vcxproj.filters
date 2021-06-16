@@ -138,6 +138,9 @@
     <ClCompile Include="SelectPortal.cpp">
       <Filter>Source Files\Character</Filter>
     </ClCompile>
+    <ClCompile Include="SelectionTree.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -234,6 +237,9 @@
       <Filter>Header Files\Character</Filter>
     </ClInclude>
     <ClInclude Include="SelectPortal.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionTree.h">
       <Filter>Header Files\Character</Filter>
     </ClInclude>
   </ItemGroup>

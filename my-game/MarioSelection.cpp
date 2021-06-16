@@ -4,6 +4,7 @@
 #include "MiniPortal.h"
 #include "SelectNode.h"
 #include "SelectPortal.h"
+#include "WorldSelect.h"
 #include "Game.h"
 
 
@@ -14,10 +15,11 @@ MarioSelection::MarioSelection()
 	height = 30;
 	SetState("indie");
 	g = Vector(0, 0);
-	right = "";
-	right = "";
-	right = "";
-	right = "";
+	//v = Vector(0.15f, 0);
+	right = "start";
+	left = "";
+	down = "";
+	up = "";
 }
 
 
@@ -63,29 +65,38 @@ void MarioSelection::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		p = p + d;
 
-		for (UINT i = 0; i < coEventsResult.size(); i++)
+		for (UINT i = 0; i < coEvents.size(); i++)
 		{
 			if (coEvents[i]->obj->name == "SelectionNode") {
+
+				if (WorldSelect* scene = dynamic_cast<WorldSelect*>(CGame::GetInstance()->GetCurrentScene())) {
+					if (SelectNode* obj = dynamic_cast<SelectNode*>(coEvents[i]->obj)) {
+						scene->currentNode = obj;
+						scene->isMoving = true;
+
+						this->right = obj->right;
+						this->left = obj->left;
+						this->down = obj->down;
+						this->up = obj->up;
+					}
+				}
+
 				isMoving = false;
+				v = Vector(0, 0);
 				DebugOut(L"collision with selection node %s \n", ToLPCWSTR(coEvents[i]->obj->name));
-
-				if (SelectNode* obj = dynamic_cast<SelectNode*>(coEvents[i]->obj)) {
-					this->right = obj->right;
-					this->left = obj->left;
-					this->down = obj->down;
-					this->up = obj->up;
-				}
 			}
-			if (coEvents[i]->obj->name == "SelectPortal") {
-				isMoving = false;
-				DebugOut(L"collision with selection portal %s \n", ToLPCWSTR(coEvents[i]->obj->name));
-
-				if (SelectPortal* obj = dynamic_cast<SelectPortal*>(coEvents[i]->obj)) {
-					DebugOut(L"collision with selection portal %s \n", ToLPCWSTR(obj->scene_id));
-					CGame::GetInstance()->GetCurrentScene()->animationDirection = CLOSING;
-					//CGame::GetInstance()->SwitchScene(stoi(obj->scene_id));
+			else
+				if (coEvents[i]->obj->name == "SelectPortal") {
+					DebugOut(L"collision with selection portal %s \n", ToLPCWSTR(coEvents[i]->obj->name));
+					if (SelectPortal* obj = dynamic_cast<SelectPortal*>(coEvents[i]->obj)) {
+						DebugOut(L"collision with selection portal %s \n", ToLPCWSTR(obj->scene_id));
+						if (WorldSelect* scene = dynamic_cast<WorldSelect*>(CGame::GetInstance()->GetCurrentScene())) {
+							scene->currentPortal = obj;
+						}
+					}
+					if (nx != 0) v.x = 0;
+					if (ny != 0) v.y = 0;
 				}
-			}
 		}
 
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -102,24 +113,25 @@ void MarioSelection::Render()
 
 void MarioSelection::SetState(string state)
 {
+
 	if (isMoving == false) {
 
-		if (state == "running-right" ) {
+		if (state == "running-right" && right != "") {
 			v.x = 0.15f;
 			v.y = 0;
 			isMoving = true;
 		}
-		else if (state == "running-left" ) {
+		else if (state == "running-left" && left != "") {
 			v.x = -0.15f;
 			v.y = 0;
 			isMoving = true;
 		}
-		else if (state == "running-up" ) {
+		else if (state == "running-up" && up != "") {
 			v.y = -0.15f;
 			v.x = 0;
 			isMoving = true;
 		}
-		else if (state == "running-down" ) {
+		else if (state == "running-down" && down != "") {
 			v.y = 0.15f;
 			v.x = 0;
 			isMoving = true;
@@ -129,8 +141,6 @@ void MarioSelection::SetState(string state)
 			v.y = 0;
 		}
 	}
-
-
 	CGameObject::SetState(state);
 
 }

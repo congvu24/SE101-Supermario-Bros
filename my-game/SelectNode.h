@@ -12,6 +12,7 @@ class SelectNode :public MapEntity<SelectNode>
 
 public:
 	SelectNode();
+	string nodeName;
 	string right;
 	string left;
 	string down;

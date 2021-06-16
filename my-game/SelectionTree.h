@@ -4,19 +4,17 @@
 #include "Game.h"
 #include <iostream>
 
-class MiniPortal :public MapEntity<MiniPortal>
+
+class SelectionTree :public MapEntity<SelectionTree>
 {
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void Render();
 
 public:
-	MiniPortal();
-	string portalName;
-	float camera_x;
-	float camera_y;
+	SelectionTree();
 
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
+
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

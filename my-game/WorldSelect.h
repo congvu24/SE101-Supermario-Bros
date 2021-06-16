@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "RectPlatform.h"
 #include "Leaf.h"
+#include "SelectNode.h"
 
 
 class WorldSelect : public CScene
@@ -28,12 +29,17 @@ protected:
 
 public:
 	Map* map;
+	SelectNode* currentNode;
+	SelectPortal* currentPortal;
+
+	bool isMoving = true;
 	WorldSelect(int id, LPCWSTR filePath);
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
 	virtual void addObject(LPGAMEOBJECT obj);
+	virtual void switchScene(int sence_id);
 	LPMAP GetMap() { return this->map; };
 
 	CGameObject* GetPlayer() { return player; }
@@ -41,3 +47,12 @@ public:
 	//friend class CPlayScenceKeyHandler;
 };
 
+
+class CSelectScenceKeyHandler : public CScenceKeyHandler
+{
+public:
+	virtual void KeyState(BYTE* states);
+	virtual void OnKeyDown(int KeyCode);
+	virtual void OnKeyUp(int KeyCode) {};
+	CSelectScenceKeyHandler(CScene* s) :CScenceKeyHandler(s) {};
+};

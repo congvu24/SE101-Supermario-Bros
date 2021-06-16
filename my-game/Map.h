@@ -13,6 +13,7 @@
 #include "MiniPortal.h"
 #include "SelectNode.h"
 #include "SelectPortal.h"
+#include "SelectionTree.h"
 
 
 #include "Utils.h"

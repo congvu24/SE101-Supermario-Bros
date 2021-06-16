@@ -72,23 +72,23 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		p.y += min_ty * d.y + ny * 0.4f;
 
 		Vector tempV = v;
-
 		if (nx != 0) v.x = 0;
 		if (ny != 0) v.y = 0;
 
+
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
-			if (coEvents[i]->obj->name != "") {
+			if (coEventsResult[i]->obj->name != "") {
 
-				DebugOut(L"[INFOR] Collision with %s !!!!!\n", ToLPCWSTR(coEvents[i]->obj->name));
+				DebugOut(L"[INFOR] Collision with %s !!!!!\n", ToLPCWSTR(coEventsResult[i]->obj->name));
 
-				coEvents[i]->obj->HandleCollision(coEvents[i]);
+				coEventsResult[i]->obj->HandleCollision(coEventsResult[i]);
 			}
-			if (coEvents[i]->obj->name == "RectPlatform") {
+			if (coEventsResult[i]->obj->name == "RectPlatform") {
 				v = tempV;
 				p.x = p.x + d.x;
 			}
-			if (coEvents[i]->obj->name == "Leaf") {
+			if (coEventsResult[i]->obj->name == "Leaf") {
 				this->type = "2"; // move to next size
 
 				this->p.x = p.x - (42 - this->width);
@@ -97,9 +97,9 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				width = 42;
 				height = 54;
 			}
-			if (coEvents[i]->obj->name == "MiniPortal") {
+			if (coEventsResult[i]->obj->name == "MiniPortal") {
 
-				MiniPortal* start = dynamic_cast<MiniPortal*>(coEvents[i]->obj);
+				MiniPortal* start = dynamic_cast<MiniPortal*>(coEventsResult[i]->obj);
 				MiniPortal* destination = NULL;
 				vector<CGameObject*>* allObjectOfSence = &(CGame::GetInstance()->GetCurrentScene()->objects);
 				for (auto i = allObjectOfSence->begin(); i != allObjectOfSence->end(); i++)

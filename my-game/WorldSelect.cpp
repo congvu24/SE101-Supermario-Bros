@@ -11,15 +11,15 @@
 #include "MisteryBox.h"
 #include "Coin.h"
 #include "Quadtree.h"
-#include "PlayScence.h"
 #include "MarioSelection.h"
 #include "SelectNode.h"
+#include "SelectionTree.h"
 
 
 WorldSelect::WorldSelect(int id, LPCWSTR filePath) :
 	CScene(id, filePath)
 {
-	key_handler = new CPlayScenceKeyHandler(this);
+	key_handler = new CSelectScenceKeyHandler(this);
 }
 
 void WorldSelect::Load()
@@ -52,12 +52,16 @@ void WorldSelect::Load()
 
 void WorldSelect::Update(DWORD dt)
 {
-	if (animationDirection != UNACTIVE) {
+	if (animationDirection != UNACTIVE && animationDirection != DONE) {
 		//float currentTime = GetTickCount64() - animationStartedTime;
 		lastTime = lastTime + dt;
 		animationProgress = (lastTime / animationDuration);
-		if (animationProgress > 1) {
-			animationDirection = UNACTIVE;
+		if (animationProgress > 0.5) {
+			DebugOut(L"compelte");
+			animationDirection = DONE;
+			if (nextScene != 0) {
+				CGame::GetInstance()->SwitchScene(nextScene);
+			}
 		}
 	}
 
@@ -102,9 +106,26 @@ void WorldSelect::Render()
 	player->Render();
 
 	for (int i = 0; i < objects.size(); i++) {
-		if (objects[i]->state != "hidden")
-			objects[i]->Render();
+		/*if (objects[i]->state != "hidden")*/
+		objects[i]->Render();
 	}
+
+	if (currentNode != NULL && player != NULL)
+		if (isMoving) {
+			Vector centerObj = Vector(currentNode->p.x + currentNode->width / 2, currentNode->p.y + currentNode->height / 2);
+
+			int destinationX = centerObj.x - player->width / 2;
+			int destinationy = centerObj.y - player->height / 2;
+			int distanceX = player->p.x - destinationX;
+			int distanceY = player->p.y - destinationy;
+
+
+			if (distanceX == 0 && distanceY == 0) isMoving = false;
+			if (abs(distanceX) < 3.5) player->p.x -= distanceX;
+			else player->p.x += 3.5 * (distanceX < 0 ? 1 : -1);
+			if (abs(distanceY) < 3.5) player->p.y -= distanceY;
+			else player->p.y += 3.5 * (distanceY < 0 ? 1 : -1);
+		}
 
 
 	if (animationDirection == CLOSING) {
@@ -134,28 +155,42 @@ void WorldSelect::Unload()
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
-//void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
-//{
-//}
-//
-//void CPlayScenceKeyHandler::KeyState(BYTE* states)
-//{
-//	CGame* game = CGame::GetInstance();
-//	CGameObject* player = ((WorldSelect*)scence)->GetPlayer();
-//
-//	//// disable control key when Mario die 
-//	if (player->GetState() == "die") return;
-//	if (game->IsKeyDown(DIK_RIGHT))
-//		player->SetState("running-right");
-//	else if (game->IsKeyDown(DIK_LEFT))
-//		player->SetState("running-left");
-//	else if (game->IsKeyDown(DIK_UP))
-//		player->SetState("running-up");
-//	else if (game->IsKeyDown(DIK_DOWN))
-//		player->SetState("running-down");
-//	else
-//		player->SetState("indie");
-//}
+void CSelectScenceKeyHandler::OnKeyDown(int KeyCode)
+{
+
+	CGameObject* player = ((WorldSelect*)scence)->GetPlayer();
+	WorldSelect* scene = ((WorldSelect*)scence);
+	switch (KeyCode)
+	{
+	case DIK_S:
+
+		if (scene->currentPortal != NULL) {
+			scene->switchScene(stoi(scene->currentPortal->scene_id));
+			//CGame::GetInstance()->SwitchScene(stoi(scene->currentPortal->scene_id));
+		}
+		break;
+	}
+
+}
+
+void CSelectScenceKeyHandler::KeyState(BYTE* states)
+{
+	CGame* game = CGame::GetInstance();
+	CGameObject* player = ((WorldSelect*)scence)->GetPlayer();
+
+	//// disable control key when Mario die 
+	if (player->GetState() == "die") return;
+	if (game->IsKeyDown(DIK_RIGHT))
+		player->SetState("running-right");
+	else if (game->IsKeyDown(DIK_LEFT))
+		player->SetState("running-left");
+	else if (game->IsKeyDown(DIK_UP))
+		player->SetState("running-up");
+	else if (game->IsKeyDown(DIK_DOWN))
+		player->SetState("running-down");
+	else
+		player->SetState("indie");
+}
 
 
 void  WorldSelect::_ParseSection_TEXTURES_FromJson(LPCWSTR filePath, int id) {
@@ -226,6 +261,10 @@ void  WorldSelect::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			obj->ParseFromJson(data); //remember to set position, animation_set in this function
 			player = obj;
 			break;
+		case 8:
+			if (visible != true)
+				SelectionTree::SaveStaticData(data);
+			break;
 		default:
 			break;
 		}
@@ -244,9 +283,22 @@ void  WorldSelect::_ParseSection_MAP_FromJson(string mapPath) {
 	for (size_t i = 0; i < obCollision.size(); i++)
 	{
 		objects.push_back(obCollision[i]);
+		/*if (SelectNode* obj = dynamic_cast<SelectNode*>(obCollision[i])) {
+			if (obj->nodeName == "node-0") {
+				currentNode = obj;
+			}
+		}*/
 	}
+
+
 }
 
 void WorldSelect::addObject(LPGAMEOBJECT obj) {
 	objects.push_back(obj);
+}
+
+
+void WorldSelect::switchScene(int sence_id) {
+	this->animationDirection = CLOSING;
+	this->nextScene = sence_id;
 }

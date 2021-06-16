@@ -99,6 +99,7 @@ int fromNameToCode(string name) {
 	character_code["Goomba"] = 5;
 	character_code["RectPlatform"] = 6;
 	character_code["Leaf"] = 7;
+	character_code["SelectionTree"] = 8;
 	
 	if (character_code.find(name) != character_code.end()) {
 		return character_code.at(name);

@@ -272,6 +272,7 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions) {
 				float height = float(value["height"]);
 				float x = float(value["x"]);
 				float y = float(value["y"]);
+				string nodeName = value["name"];
 
 				json properties = value["properties"];
 				for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
@@ -293,6 +294,7 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions) {
 
 				obj->width = width;
 				obj->height = height;
+				obj->nodeName = nodeName;
 				obj->name = "SelectionNode";
 				obj->p = Vector(x, y);
 				obCollisions->push_back(obj);
@@ -379,6 +381,9 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions) {
 					break;
 				case 5:
 					obj = new Goomba();
+					break;
+				case 8:
+					obj = new SelectionTree();
 					break;
 				default:
 					break;

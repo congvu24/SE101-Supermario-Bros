@@ -9,6 +9,7 @@ enum AnimationDirection {
 	CLOSING,
 	OPENING,
 	UNACTIVE,
+	DONE
 };
 
 class CScene
@@ -21,6 +22,7 @@ protected:
 public:
 	CScene(int id, LPCWSTR filePath);
 	Camera* camera;
+	int nextScene = 0;
 	vector<LPGAMEOBJECT> objects;
 	static LPDIRECT3DTEXTURE9 blackTexture; // texture to render opening and closing animation
 	float animationDuration;

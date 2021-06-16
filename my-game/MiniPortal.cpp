@@ -27,13 +27,6 @@ void MiniPortal::SetState(string state)
 
 }
 
-void MiniPortal::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = p.x;
-	top = p.y;
-	right = p.x + width;
-	bottom = p.y + height;
-}
 
 void  MiniPortal::Render()
 {
