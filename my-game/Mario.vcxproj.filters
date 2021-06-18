@@ -16,23 +16,47 @@
     <Filter Include="Header Files\Game">
       <UniqueIdentifier>{4c29e216-3910-47c7-a2af-589aa7ad1d83}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Character">
-      <UniqueIdentifier>{817ec4f4-1101-4399-8af3-d7e138aabc32}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Sences">
-      <UniqueIdentifier>{6fecb3a0-edf1-4c2f-bde8-482662b6399b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Games">
-      <UniqueIdentifier>{f75f607f-56c4-4bd6-b417-d1aa95aa1ee3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Character">
-      <UniqueIdentifier>{771bb6ef-52e0-4710-b704-df2786c109b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Sences">
-      <UniqueIdentifier>{d59f4fb3-1e62-43ae-9ed1-6d0159f5f3f9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="library">
       <UniqueIdentifier>{d462e54f-120e-4057-aeb6-fce89025ff6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{a4e74c1d-8c49-4200-bd79-e02106d8f4a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helper">
+      <UniqueIdentifier>{795896e9-a6d2-4f2c-89c5-4008724d036c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object">
+      <UniqueIdentifier>{817ec4f4-1101-4399-8af3-d7e138aabc32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Player">
+      <UniqueIdentifier>{85ee5acb-5605-42ac-a8d1-17e9589df845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Enemy">
+      <UniqueIdentifier>{f0314b7a-0d8a-49c6-9b0c-bd1f581d735d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Entity">
+      <UniqueIdentifier>{83fffb5b-0d76-4eef-a792-a737bcd1764b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object">
+      <UniqueIdentifier>{771bb6ef-52e0-4710-b704-df2786c109b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Map">
+      <UniqueIdentifier>{027f4add-0eb7-4ca2-991f-1043a5fb53bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helper">
+      <UniqueIdentifier>{22598789-845f-452a-9010-fe7cefac7299}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{f75f607f-56c4-4bd6-b417-d1aa95aa1ee3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\Enemy">
+      <UniqueIdentifier>{d40ba594-3b99-41ef-b627-c31dba07ee77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\Entity">
+      <UniqueIdentifier>{1c39e68a-e22d-4bca-91aa-a30bbdae7b87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\Player">
+      <UniqueIdentifier>{71856968-a1c8-42ee-8a6b-16fadc9190b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -40,121 +64,115 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Animations.cpp">
-      <Filter>Source Files\Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files\Character</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Source Files\Games</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Koopas.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScence.cpp">
-      <Filter>Source Files\Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Scence.cpp">
-      <Filter>Source Files\Games</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="Sprites.cpp">
-      <Filter>Source Files\Games</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
-      <Filter>Source Files\Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Quadtree.cpp">
-      <Filter>Source Files\Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Test.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="SweptAABB.h">
-      <Filter>Header Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="SweptAABB.cpp">
-      <Filter>Source Files\Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files\Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="MisteryBox.cpp">
-      <Filter>Source Files\Character</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source Files\Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Source Files\Character</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="Character.cpp">
-      <Filter>Source Files\Games</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="MapEntity.cpp">
-      <Filter>Source Files\Games</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Sapmle.cpp">
-      <Filter>Source Files\Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="RectPlatform.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Leaf.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="MiniPortal.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="MarioSelection.cpp">
-      <Filter>Source Files\Character</Filter>
+    <ClCompile Include="SweptAABB.h">
+      <Filter>Header Files\Helper</Filter>
     </ClCompile>
     <ClCompile Include="WorldSelect.cpp">
-      <Filter>Source Files\Games</Filter>
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="SelectNode.cpp">
-      <Filter>Source Files\Character</Filter>
+    <ClCompile Include="Scence.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="SelectPortal.cpp">
-      <Filter>Source Files\Character</Filter>
+    <ClCompile Include="PlayScence.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="SelectionTree.cpp">
-      <Filter>Source Files\Character</Filter>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="Intro.cpp">
-      <Filter>Source Files\Games</Filter>
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="IntroText.cpp">
-      <Filter>Source Files\Character</Filter>
+    <ClCompile Include="SweptAABB.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="IntroCursor.cpp">
-      <Filter>Source Files\Character</Filter>
+      <Filter>Source Files\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroText.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopas.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Source Files\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioSelection.cpp">
+      <Filter>Source Files\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniPortal.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="MisteryBox.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="RectPlatform.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectionTree.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectNode.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectPortal.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>Source Files\Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
@@ -164,62 +182,17 @@
     <ClInclude Include="Animations.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="PlayScence.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Sprites.h">
       <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files\Character</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Koopas.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Scence.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEventHandler.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Quadtree.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Test.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
     <ClInclude Include="library\json.hpp">
       <Filter>library</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="MisteryBox.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files\Character</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>Header Files\Game</Filter>
@@ -227,38 +200,86 @@
     <ClInclude Include="MapEntity.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="RectPlatform.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Leaf.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniPortal.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioSelection.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
     <ClInclude Include="WorldSelect.h">
-      <Filter>Header Files\Game</Filter>
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="SelectNode.h">
-      <Filter>Header Files\Character</Filter>
+    <ClInclude Include="PlayScence.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="SelectPortal.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectionTree.h">
-      <Filter>Header Files\Character</Filter>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="Intro.h">
-      <Filter>Header Files\Game</Filter>
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="IntroText.h">
-      <Filter>Header Files\Character</Filter>
+    <ClInclude Include="Scence.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>Header Files\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Header Files\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioSelection.h">
+      <Filter>Header Files\Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="IntroCursor.h">
-      <Filter>Header Files\Character</Filter>
+      <Filter>Header Files\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Koopas.h">
+      <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroText.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniPortal.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="MisteryBox.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="RectPlatform.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectNode.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectPortal.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionTree.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files\Helper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

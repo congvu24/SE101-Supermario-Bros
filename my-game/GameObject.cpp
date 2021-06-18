@@ -132,7 +132,7 @@ void CGameObject::FilterCollision(
 
 void CGameObject::RenderBoundingBox()
 {
-	/*D3DXVECTOR3 p(p.x, p.y, 0);
+	D3DXVECTOR3 p(p.x, p.y, 0);
 	RECT rect;
 
 	float l, t, r, b;
@@ -144,49 +144,20 @@ void CGameObject::RenderBoundingBox()
 	rect.bottom = (int)b - (int)t;
 
 	if (CGameObject::bboxtex != NULL)
-		CGame::GetInstance()->Draw(p.x, p.y, CGameObject::bboxtex, rect.left, rect.top, rect.right, rect.bottom, 100);*/
+		CGame::GetInstance()->Draw(p.x, p.y, CGameObject::bboxtex, rect.left, rect.top, rect.right, rect.bottom, 100);
 }
 
-CGameObject::~CGameObject()
+
+CGameObject::~CGameObject() {}
+
+void CGameObject::clear()
 {
+	texture = NULL;
+	active_animation_set.clear();
 }
 
 void CGameObject::LoadBoundedBox() {
 	if (CGameObject::bboxtex == NULL) {
-
-		D3DXIMAGE_INFO info;
-		HRESULT result = D3DXGetImageInfoFromFile(L"assets/texture/bbox.png", &info);
-		if (result != D3D_OK)
-		{
-			DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", L"assets/texture/bbox.png");
-			return;
-		}
-
-		LPDIRECT3DDEVICE9 d3ddv = CGame::GetInstance()->GetDirect3DDevice();
-		LPDIRECT3DTEXTURE9 textu;
-
-		result = D3DXCreateTextureFromFileEx(
-			d3ddv,								// Pointer to Direct3D device object
-			L"assets/texture/bbox.png",							// Path to the image to load
-			info.Width,							// Texture width
-			info.Height,						// Texture height
-			1,
-			D3DUSAGE_DYNAMIC,
-			D3DFMT_UNKNOWN,
-			D3DPOOL_DEFAULT,
-			D3DX_DEFAULT,
-			D3DX_DEFAULT,
-			D3DCOLOR_XRGB(255, 0, 255),		// transparentColor	
-			&info,
-			NULL,
-			&textu);								// Created texture pointer
-
-		if (result != D3D_OK)
-		{
-			OutputDebugString(L"[ERROR] CreateTextureFromFile failed\n");
-			return;
-		}
-
-		CGameObject::bboxtex = textu;
+		CGameObject::bboxtex = CGame::LoadTexture(L"assets/texture/bbox.png");
 	}
 }

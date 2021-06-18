@@ -43,31 +43,15 @@ void WorldSelect::Load()
 
 	_ParseSection_MAP_FromJson(map);
 
-	animationDirection = UNACTIVE;
 	animationStartedTime = GetTickCount64();
 	animationProgress = 0;
-	lastTime = 0;
-	animationDuration = 5000;
 }
 
 void WorldSelect::Update(DWORD dt)
 {
-	if (animationDirection != UNACTIVE && animationDirection != DONE) {
-		//float currentTime = GetTickCount64() - animationStartedTime;
-		lastTime = lastTime + dt;
-		animationProgress = (lastTime / animationDuration);
-		if (animationProgress > 0.5) {
-			DebugOut(L"compelte");
-			animationDirection = DONE;
-			if (nextScene != 0) {
-				CGame::GetInstance()->SwitchScene(nextScene);
-			}
-		}
-	}
+	CScene::Update(dt);
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
-	camera->cam_x = 0;
-	camera->cam_y = 0;
 
 	RECT base = { camera->cam_x, camera->cam_y, camera->cam_x + 800 ,camera->cam_y + 600 };
 	Quadtree* quadtree = new Quadtree(1, new RECT(base));
@@ -126,18 +110,7 @@ void WorldSelect::Render()
 			if (abs(distanceY) < 3.5) player->p.y -= distanceY;
 			else player->p.y += 3.5 * (distanceY < 0 ? 1 : -1);
 		}
-
-
-	if (animationDirection == CLOSING) {
-		//left to center
-		CGame::GetInstance()->Draw(camera->cam_x - (camera->cam_width * (1 - animationProgress)), camera->cam_y, blackTexture, 0, 0, camera->cam_width, camera->cam_height, 255);
-		//right to center
-		CGame::GetInstance()->Draw(camera->cam_x + camera->cam_width - (camera->cam_width * animationProgress), camera->cam_y, blackTexture, 0, 0, camera->cam_width, camera->cam_height, 255);
-		//top to center
-		CGame::GetInstance()->Draw(camera->cam_x, camera->cam_y - (camera->cam_height * (1 - animationProgress)), blackTexture, 0, 0, camera->cam_width, camera->cam_height, 255);
-		////bottom to center
-		CGame::GetInstance()->Draw(camera->cam_x, camera->cam_y + camera->cam_height - (camera->cam_height * animationProgress), blackTexture, 0, 0, camera->cam_width, camera->cam_height, 255);
-	}
+	CScene::Render();
 }
 
 /*
@@ -145,14 +118,9 @@ void WorldSelect::Render()
 */
 void WorldSelect::Unload()
 {
-	for (int i = 0; i < objects.size(); i++)
-		delete objects[i];
-
-	objects.clear();
 	player = NULL;
-	// delete map data here;
-
-	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
+	map->unload();
+	CScene::Unload();
 }
 
 void CSelectScenceKeyHandler::OnKeyDown(int KeyCode)
@@ -193,52 +161,7 @@ void CSelectScenceKeyHandler::KeyState(BYTE* states)
 }
 
 
-void  WorldSelect::_ParseSection_TEXTURES_FromJson(LPCWSTR filePath, int id) {
 
-	DebugOut(L"[INFO] Start loading texture resources from : %s \n", filePath);
-
-	int R = 0;
-	int G = 0;
-	int B = 0;
-
-	CTextures::GetInstance()->Add(id, filePath, D3DCOLOR_XRGB(R, G, B));
-
-
-}
-void  WorldSelect::_ParseSection_SPRITES_FromJson(LPCWSTR filePath, int textID) {
-
-	json sprite = ReadJsonFIle(filePath);
-	json frames = sprite["frames"];
-
-
-	for (json::iterator it = frames.begin(); it != frames.end(); ++it) {
-
-		json data = it.value();
-		string id = it.key();
-		json frame = data["frame"];
-
-
-		int l = stoi(frame["x"].dump());
-		int t = stoi(frame["y"].dump());
-		int r = l + stoi(frame["w"].dump());
-		int b = t + stoi(frame["h"].dump());
-
-		LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(textID);
-		if (tex == NULL)
-		{
-			DebugOut(L"[ERROR] Texture ID %d not found!\n", IntToLPCWSTR(textID));
-			return;
-		}
-
-		CSprites::GetInstance()->Add(id, l, t, r, b, tex);
-	}
-
-}
-void  WorldSelect::_ParseSection_ANIMATIONS_FromJson(LPCWSTR filePath) {
-
-}
-void  WorldSelect::_ParseSection_ANIMATION_SETS_FromJson(LPCWSTR filePath) {
-}
 void  WorldSelect::_ParseSection_OBJECTS_FromJson(json allObjects) {
 	for (json::iterator it = allObjects.begin(); it != allObjects.end(); ++it) {
 
@@ -254,7 +177,6 @@ void  WorldSelect::_ParseSection_OBJECTS_FromJson(json allObjects) {
 		case 1:
 			if (player != NULL)
 			{
-				DebugOut(L"[ERROR] MARIO object was created before!\n");
 				return;
 			}
 			obj = new MarioSelection();
@@ -278,16 +200,11 @@ void  WorldSelect::_ParseSection_MAP_FromJson(string mapPath) {
 	vector<LPGAMEOBJECT> obCollision;
 
 	this->map = new Map();
-	map->load(mapPath, &obCollision);
+	map->load(mapPath, &obCollision, this);
 
 	for (size_t i = 0; i < obCollision.size(); i++)
 	{
 		objects.push_back(obCollision[i]);
-		/*if (SelectNode* obj = dynamic_cast<SelectNode*>(obCollision[i])) {
-			if (obj->nodeName == "node-0") {
-				currentNode = obj;
-			}
-		}*/
 	}
 
 
@@ -301,4 +218,137 @@ void WorldSelect::addObject(LPGAMEOBJECT obj) {
 void WorldSelect::switchScene(int sence_id) {
 	this->animationDirection = CLOSING;
 	this->nextScene = sence_id;
+}
+
+
+void WorldSelect::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
+	string type = string(data["type"]);
+	string name = string(data["name"]);
+
+	if (type == "objectgroup" && name == "SelectionNode") {
+		json objects = data["objects"];
+
+		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+			json value = objData.value();
+			SelectNode* obj = new SelectNode();
+
+			obj->ParseFromOwnJson();
+
+			float width = float(value["width"]);
+			float height = float(value["height"]);
+			float x = float(value["x"]);
+			float y = float(value["y"]);
+			string nodeName = value["name"];
+
+			json properties = value["properties"];
+			for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
+				json data = property.value();
+				string name = data["name"];
+				if (name == "up") {
+					obj->up = data["value"];
+				}
+				else if (name == "down") {
+					obj->down = data["value"];
+				}
+				else if (name == "right") {
+					obj->right = data["value"];
+				}
+				else if (name == "left") {
+					obj->left = data["value"];
+				}
+			}
+
+			obj->width = width;
+			obj->height = height;
+			obj->nodeName = nodeName;
+			obj->name = "SelectionNode";
+			obj->p = Vector(x, y);
+			obCollisions->push_back(obj);
+		}
+	}
+	else if (type == "objectgroup" && name == "SelectionPortal") {
+		json objects = data["objects"];
+
+		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+			json value = objData.value();
+			SelectPortal* obj = new SelectPortal();
+
+			obj->ParseFromOwnJson();
+
+			float width = float(value["width"]);
+			float height = float(value["height"]);
+			float x = float(value["x"]);
+			float y = float(value["y"]);
+
+			json properties = value["properties"];
+			for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
+				json data = property.value();
+				string name = data["name"];
+				if (name == "scene_id") {
+					obj->scene_id = data["value"];
+				}
+			}
+
+			obj->width = width;
+			obj->height = height;
+			obj->name = "SelectPortal";
+			obj->p = Vector(x, y);
+			obCollisions->push_back(obj);
+		}
+	}
+
+	else if (type == "objectgroup" && name != "RectCollision") {
+		DebugOut(L"[INFO] Load name: %s \n", ToLPCWSTR(name));
+
+		json objects = data["objects"];
+
+		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+			json value = objData.value();
+
+			float width = float(value["width"]);
+			float height = float(value["height"]);
+			float x = float(value["x"]);
+			float y = float(value["y"]);
+			string type = value["type"];
+
+			CGameObject* obj = NULL;
+			Camera* camera = CGame::GetInstance()->GetCurrentScene()->getCamera();
+
+			switch (fromNameToCode(name))
+			{
+			case 8:
+				obj = new SelectionTree();
+				break;
+			case 9:
+				obj = new IntroText();
+				obj->type = type;
+				break;
+			case 9999:
+				camera->setCamPos(x, y);
+				camera->cam_x_limit = x;
+				camera->cam_y_limit = y;
+
+				break;
+			default:
+				break;
+			}
+
+			if (obj != NULL) {
+				obj->ParseFromOwnJson();
+				obj->width = width;
+				obj->height = height;
+				obj->name = name;
+				obj->p.x = x;
+				obj->p.y = y;
+				DebugOut(L"[INFO] Size Of Object: %s \n", IntToLPCWSTR(sizeof(*obj)));
+
+				obCollisions->push_back(obj);
+			}
+			else delete obj;
+
+		}
+
+
+	}
+
 }

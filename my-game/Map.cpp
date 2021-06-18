@@ -14,11 +14,13 @@ void Tileset::load(LPCWSTR path) {
 
 }
 
+void Tileset::unload() {
+	texture = NULL;
+		//delete ;
+}
+
 void Layer::render(unordered_map<int, LPTILESET>* tileset) {
 	//DebugOut(L"[INFOR] Render tile layer %s\n", ToLPCWSTR(this->name));
-
-
-
 	for (int i = 0; i < width * height; i++) {
 		int cell = data[i];
 		if (cell > 0) {
@@ -35,11 +37,6 @@ void Layer::render(unordered_map<int, LPTILESET>* tileset) {
 
 			int tilecol = floor(cell / activeTileset->imageWidth);
 			int tileRow = cell % int(activeTileset->imageWidth);
-
-			//int left = tileRow * activeTileset->tileWidth;
-			//int top = tilecol * activeTileset->tileHeight;
-			//int right = left + activeTileset->tileWidth;
-			//int bottom = top + activeTileset->tileHeight; //calc from the cell
 
 			r.top = ((cell - activeTileset->firstGrid) / activeTileset->columns) * activeTileset->tileHeight;
 			r.left = ((cell - activeTileset->firstGrid) % activeTileset->columns) * activeTileset->tileWidth;
@@ -61,8 +58,6 @@ void Layer::draw(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity) {
 	CGame* game = CGame::GetInstance();
 
 	D3DXVECTOR2 pos, scale;
-
-
 
 	float width = r.right - r.left;
 	float height = r.bottom - r.top;
@@ -86,7 +81,11 @@ void Layer::draw(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity) {
 	//game->Draw(p.x, p.y, texture, r.left, r.top, r.right, r.bottom, 255);
 }
 
-void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions) {
+void Layer::unload() {
+
+}
+
+void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions, LPSCENE scene) {
 	json mapData = ReadJsonFIle(ToLPCWSTR(path));
 	this->data = mapData;
 
@@ -107,10 +106,8 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions) {
 		tile->spacing = data["spacing"];
 		tile->name = data["name"];
 		tile->columns = data["columns"];
-		//load texture here
 
-		//LPCWSTR filePath = ToLPCWSTR(tile->image);  // have to fix here
-		//LPCWSTR filePath = ToLPCWSTR("assets/map/World1-1/World1-1.png");  // have to fix here
+
 		string directory;
 		const size_t last_slash_idx = path.rfind('/');
 		if (std::string::npos != last_slash_idx)
@@ -120,40 +117,8 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions) {
 
 		LPCWSTR filePath = ToLPCWSTR(directory + "/" + tile->image);
 
-		D3DXIMAGE_INFO info;
-		HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
-		if (result != D3D_OK)
-		{
-			DebugOut(L"[ERROR] Get world texture failed: %s\n", filePath);
-			return;
-		}
 
-		LPDIRECT3DDEVICE9 d3ddv = CGame::GetInstance()->GetDirect3DDevice();
-		LPDIRECT3DTEXTURE9 textu;
-
-		result = D3DXCreateTextureFromFileEx(
-			d3ddv,								// Pointer to Direct3D device object
-			filePath,							// Path to the image to load
-			info.Width,							// Texture width
-			info.Height,						// Texture height
-			1,
-			D3DUSAGE_DYNAMIC,
-			D3DFMT_UNKNOWN,
-			D3DPOOL_DEFAULT,
-			D3DX_DEFAULT,
-			D3DX_DEFAULT,
-			D3DCOLOR_XRGB(255, 0, 255),		// transparentColor	
-			&info,
-			NULL,
-			&textu);								// Created texture pointer
-
-		if (result != D3D_OK)
-		{
-			OutputDebugString(L"[ERROR] CreateTextureFromFile failed\n");
-			return;
-		}
-
-		tile->texture = textu;
+		tile->texture = CGame::LoadTexture(filePath);
 
 		this->all_typeset[firstGrid] = tile;
 
@@ -164,9 +129,9 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions) {
 	json layerData = mapData["layers"];
 	for (json::iterator set = layerData.begin(); set != layerData.end(); ++set) {
 		json data = set.value();
-		Layer* layer = new Layer();
 		string type = string(data["type"]);
 		string name = string(data["name"]);
+		Layer* layer = new Layer();
 		if (type == "tilelayer") {
 			int id = data["id"];
 			int height = data["height"];
@@ -188,251 +153,30 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions) {
 				layer->data[i] = value;
 				i = i + 1;
 			}
-
 			this->all_layer[id] = layer;
 		}
-
-		else if (type == "objectgroup" && name == "RectCollision") {
-			json objects = data["objects"];
-
-			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
-				json value = objData.value();
-				LPGAMEOBJECT obj = new Collision();
-
-				obj->ParseFromOwnJson();
-
-				float width = float(value["width"]);
-				float height = float(value["height"]);
-				float x = float(value["x"]);
-				float y = float(value["y"]);
-
-
-				obj->width = width;
-				obj->height = height;
-				obj->name = "RectCollision";
-				obj->p = Vector(x, y);
-
-				obCollisions->push_back(obj);
-			}
-		}
-		else if (type == "objectgroup" && name == "MiniPortal") {
-			json objects = data["objects"];
-
-			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
-				json value = objData.value();
-				MiniPortal* obj = new MiniPortal();
-
-				obj->ParseFromOwnJson();
-
-				float width = float(value["width"]);
-				float height = float(value["height"]);
-				float x = float(value["x"]);
-				float y = float(value["y"]);
-				string portalName = value["name"];
-				string type = value["type"];
-
-				/*float can = float(value["y"]);
-				float y = float(value["y"]);*/
-
-				if (type == "Out") {
-					json properties = value["properties"];
-					for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
-						json data = property.value();
-						string name = data["name"];
-						if (name == "CameraLeftTopLimitX") {
-							obj->camera_x = float(data["value"]);
-						}
-						else if (name == "CameraLeftTopLimitY") {
-							obj->camera_y = float(data["value"]);
-						}
-					}
-				}
-
-
-				obj->width = width;
-				obj->height = height;
-				obj->portalName = portalName;
-				obj->name = "MiniPortal";
-				obj->type = type;
-				obj->p = Vector(x, y);
-
-				obCollisions->push_back(obj);
-			}
-		}
-		else if (type == "objectgroup" && name == "SelectionNode") {
-			json objects = data["objects"];
-
-			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
-				json value = objData.value();
-				SelectNode* obj = new SelectNode();
-
-				obj->ParseFromOwnJson();
-
-				float width = float(value["width"]);
-				float height = float(value["height"]);
-				float x = float(value["x"]);
-				float y = float(value["y"]);
-				string nodeName = value["name"];
-
-				json properties = value["properties"];
-				for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
-					json data = property.value();
-					string name = data["name"];
-					if (name == "up") {
-						obj->up = data["value"];
-					}
-					else if (name == "down") {
-						obj->down = data["value"];
-					}
-					else if (name == "right") {
-						obj->right = data["value"];
-					}
-					else if (name == "left") {
-						obj->left = data["value"];
-					}
-				}
-
-				obj->width = width;
-				obj->height = height;
-				obj->nodeName = nodeName;
-				obj->name = "SelectionNode";
-				obj->p = Vector(x, y);
-				obCollisions->push_back(obj);
-			}
-		}
-		else if (type == "objectgroup" && name == "SelectionPortal") {
-			json objects = data["objects"];
-
-			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
-				json value = objData.value();
-				SelectPortal* obj = new SelectPortal();
-
-				obj->ParseFromOwnJson();
-
-				float width = float(value["width"]);
-				float height = float(value["height"]);
-				float x = float(value["x"]);
-				float y = float(value["y"]);
-
-				json properties = value["properties"];
-				for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
-					json data = property.value();
-					string name = data["name"];
-					if (name == "scene_id") {
-						obj->scene_id = data["value"];
-					}
-				}
-
-				obj->width = width;
-				obj->height = height;
-				obj->name = "SelectPortal";
-				obj->p = Vector(x, y);
-				obCollisions->push_back(obj);
-			}
-		}
-		else if (type == "objectgroup" && name == "RectPlatform") {
-			json objects = data["objects"];
-
-			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
-				json value = objData.value();
-				LPGAMEOBJECT obj = new RectPlatform();
-
-				obj->ParseFromOwnJson();
-
-				float width = float(value["width"]);
-				float height = float(value["height"]);
-				float x = float(value["x"]);
-				float y = float(value["y"]);
-
-
-
-				obj->width = width;
-				obj->height = height;
-				obj->name = name;
-				obj->p = Vector(x, y);
-
-				obCollisions->push_back(obj);
-			}
-		}
-
-		else if (type == "objectgroup" && name != "RectCollision") {
-			DebugOut(L"[INFO] Load name: %s \n", ToLPCWSTR(name));
-
-			json objects = data["objects"];
-
-			for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
-				json value = objData.value();
-
-				float width = float(value["width"]);
-				float height = float(value["height"]);
-				float x = float(value["x"]);
-				float y = float(value["y"]);
-				string type = value["type"];
-
-				CGameObject* obj = NULL;
-
-				switch (fromNameToCode(name))
-				{
-				case 3:
-					obj = new MisteryBox();
-					break;
-				case 4:
-					obj = new Coin();
-					break;
-					break;
-				case 5:
-					obj = new Goomba();
-					break;
-				case 8:
-					obj = new SelectionTree();
-					break;
-				case 9:
-					obj = new IntroText();
-					obj->type = type;
-					break;
-				default:
-					break;
-				}
-
-				if (obj != NULL) {
-					obj->ParseFromOwnJson();
-					obj->width = width;
-					obj->height = height;
-					obj->name = name;
-					obj->p.x = x;
-					obj->p.y = y;
-					DebugOut(L"[INFO] Size Of Object: %s \n", IntToLPCWSTR(sizeof(*obj)));
-
-					obCollisions->push_back(obj);
-				}
-				else delete obj;
-
-			}
-
-
-		}
-		else {
+		else if (type == "objectgroup") {
 			delete layer;
+			DebugOut(L"[INFO] Load name: %s \n", ToLPCWSTR(name));
+			scene->ParseMapObject(data, obCollisions);
 		}
 	}
 }
 
 void Map::render() {
-
-	//CGame* game = CGame::GetInstance();
-	//DebugOut(L"[INFO] render %s \n", ToLPCWSTR(id));
-	//game->Draw(x, y, texture, left, top, right, bottom, alpha);
-
-
-
-	/*for (auto it = all_layer.begin(); it != all_layer.end(); ++it) {
-		int id = it->first;
-		LPLAYER layer = it->second;
-		layer->render(&all_typeset);
-	}*/
-
 	for (auto layer : all_layer) {
 		layer.second->render(&all_typeset);
 	}
 };
 
+
+void Map::unload() {
+	for (auto layer : all_layer) {
+		layer.second->unload();
+	}
+	all_layer.clear();
+	for (auto tileset : all_typeset) {
+		tileset.second->unload();
+	}
+	all_typeset.clear();
+}

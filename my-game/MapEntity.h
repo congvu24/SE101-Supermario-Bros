@@ -82,41 +82,7 @@ public:
 
 	}
 	static void SetTexture(LPCWSTR filePath, D3DCOLOR transparentColor = D3DCOLOR_XRGB(255, 0, 255)) {
-
-		D3DXIMAGE_INFO info;
-		HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
-		if (result != D3D_OK)
-		{
-			DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
-			return;
-		}
-
-		LPDIRECT3DDEVICE9 d3ddv = CGame::GetInstance()->GetDirect3DDevice();
-		LPDIRECT3DTEXTURE9 textu;
-
-		result = D3DXCreateTextureFromFileEx(
-			d3ddv,								// Pointer to Direct3D device object
-			filePath,							// Path to the image to load
-			info.Width,							// Texture width
-			info.Height,						// Texture height
-			1,
-			D3DUSAGE_DYNAMIC,
-			D3DFMT_UNKNOWN,
-			D3DPOOL_DEFAULT,
-			D3DX_DEFAULT,
-			D3DX_DEFAULT,
-			transparentColor,		// transparentColor	
-			&info,
-			NULL,
-			&textu);								// Created texture pointer
-
-		if (result != D3D_OK)
-		{
-			OutputDebugString(L"[ERROR] CreateTextureFromFile failed\n");
-			return;
-		}
-
-		T::texture = textu;
+		T::texture = CGame::LoadTexture(filePath);
 	}
 	static void ParseSpriteFromJson(LPCWSTR filePath) {
 		OutputDebugString(filePath);
@@ -194,5 +160,13 @@ public:
 	}
 	static void AddAnimationSet(string id, LPANIMATION_SET ani_set) {
 		T::animations_set.Add(id, ani_set);
+	}
+
+	void clear() {
+		T::all_animations.clear();
+		T::animations_set.Clear();
+		T::sprites.clear();
+		T::texture = NULL;
+		CGameObject::clear();
 	}
 };

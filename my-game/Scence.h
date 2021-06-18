@@ -2,6 +2,7 @@
 
 #include <d3dx9.h>
 #include "KeyEventHandler.h"
+#include "Textures.h"
 #include "Camera.h"
 
 
@@ -29,7 +30,7 @@ public:
 	float animationProgress; //  = (getTickcount64 - animationStartedTime) / animationDuration;
 	float animationStartedTime; // get tick count 64 when start loading;
 	float lastTime;
-	AnimationDirection animationDirection; 
+	AnimationDirection animationDirection;
 
 	CKeyEventHandler* GetKeyEventHandler() { return key_handler; }
 	virtual void Load() = 0;
@@ -37,6 +38,11 @@ public:
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0;
 	virtual void addObject(LPGAMEOBJECT obj) = 0;
+
+	virtual void _ParseSection_TEXTURES_FromJson(LPCWSTR filePath, int id);
+	virtual void _ParseSection_SPRITES_FromJson(LPCWSTR filePath, int textID);
+	virtual void ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) = 0;
+
 	Camera* getCamera() {
 		return this->camera;
 	}

@@ -20,28 +20,6 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	key_handler = new CPlayScenceKeyHandler(this);
 }
 
-/*
-	Load scene resources from scene file (textures, sprites, animations and objects)
-	See scene1.txt, scene2.txt for detail format specification
-*/
-
-#define SCENE_SECTION_UNKNOWN -1
-#define SCENE_SECTION_TEXTURES 2
-#define SCENE_SECTION_SPRITES 3
-#define SCENE_SECTION_ANIMATIONS 4
-#define SCENE_SECTION_ANIMATION_SETS	5
-#define SCENE_SECTION_OBJECTS	6
-
-#define OBJECT_TYPE_MARIO	0
-#define OBJECT_TYPE_BRICK	1
-#define OBJECT_TYPE_GOOMBA	2
-#define OBJECT_TYPE_KOOPAS	3
-
-#define OBJECT_TYPE_PORTAL	50
-
-#define MAX_SCENE_LINE 1024
-
-
 
 void CPlayScene::Load()
 {
@@ -64,24 +42,13 @@ void CPlayScene::Load()
 
 	_ParseSection_MAP_FromJson(map);
 
-	animationDirection = OPENING;
 	animationStartedTime = GetTickCount64();
 	animationProgress = 0;
-	lastTime = 0;
-	animationDuration = 5000;
 }
 
 void CPlayScene::Update(DWORD dt)
 {
-	if (animationDirection != UNACTIVE) {
-		float currentTime = GetTickCount64() - animationStartedTime;
-
-		animationProgress = (currentTime / animationDuration);
-		if (animationProgress > 1) {
-			animationDirection = UNACTIVE;
-		}
-	}
-
+	CScene::Update(dt);
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 
 	RECT base = { camera->cam_x, camera->cam_y, camera->cam_x + 800 ,camera->cam_y + 600 };
@@ -121,12 +88,13 @@ void CPlayScene::Update(DWORD dt)
 	cy -= game->GetScreenHeight() / 2;
 
 	if (camera->isCameraMoving == false) {
-		camera->setCamPos(cx, cy);
+		camera->setCamPos(cx, cy - 170);
 	}
 }
 
 void CPlayScene::Render()
 {
+
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 
 	map->render();
@@ -153,16 +121,7 @@ void CPlayScene::Render()
 	delete quadtree;
 
 
-	//if (animationDirection != UNACTIVE) {
-	//	//left to center
-	//	CGame::GetInstance()->Draw(camera->cam_x - (camera->cam_width * (1 - animationProgress)), camera->cam_y, blackTexture, 0, 0, camera->cam_width, camera->cam_height, 255);
-	//	//right to center
-	//	CGame::GetInstance()->Draw(camera->cam_x + camera->cam_width - (camera->cam_width * animationProgress), camera->cam_y, blackTexture, 0, 0, camera->cam_width, camera->cam_height, 255);
-	//	//top to center
-	//	CGame::GetInstance()->Draw(camera->cam_x, camera->cam_y - (camera->cam_height * (1 - animationProgress)), blackTexture, 0, 0, camera->cam_width, camera->cam_height, 255);
-	//	////bottom to center
-	//	CGame::GetInstance()->Draw(camera->cam_x, camera->cam_y + camera->cam_height - (camera->cam_height * animationProgress), blackTexture, 0, 0, camera->cam_width, camera->cam_height, 255);
-	//}
+	CScene::Render();
 }
 
 /*
@@ -170,14 +129,9 @@ void CPlayScene::Render()
 */
 void CPlayScene::Unload()
 {
-	for (int i = 0; i < objects.size(); i++)
-		delete objects[i];
-
-	objects.clear();
 	player = NULL;
-	// delete map data here;
-
-	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
+	map->unload();
+	CScene::Unload();
 }
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
@@ -248,54 +202,6 @@ void CPlayScene::moveCamera(CameraMoveDirection direction) {
 	}
 }
 
-void  CPlayScene::_ParseSection_TEXTURES_FromJson(LPCWSTR filePath, int id) {
-
-	DebugOut(L"[INFO] Start loading texture resources from : %s \n", filePath);
-
-	int R = 0;
-	int G = 0;
-	int B = 0;
-
-	CTextures::GetInstance()->Add(id, filePath, D3DCOLOR_XRGB(R, G, B));
-
-
-}
-void  CPlayScene::_ParseSection_SPRITES_FromJson(LPCWSTR filePath, int textID) {
-
-	json sprite = ReadJsonFIle(filePath);
-	json frames = sprite["frames"];
-
-
-	for (json::iterator it = frames.begin(); it != frames.end(); ++it) {
-
-		json data = it.value();
-		string id = it.key();
-		json frame = data["frame"];
-
-
-		int l = stoi(frame["x"].dump());
-		int t = stoi(frame["y"].dump());
-		int r = l + stoi(frame["w"].dump());
-		int b = t + stoi(frame["h"].dump());
-
-		LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(textID);
-		if (tex == NULL)
-		{
-			DebugOut(L"[ERROR] Texture ID %d not found!\n", IntToLPCWSTR(textID));
-			return;
-		}
-
-		CSprites::GetInstance()->Add(id, l, t, r, b, tex);
-	}
-
-}
-void  CPlayScene::_ParseSection_ANIMATIONS_FromJson(LPCWSTR filePath) {
-
-
-
-}
-void  CPlayScene::_ParseSection_ANIMATION_SETS_FromJson(LPCWSTR filePath) {
-}
 void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 	for (json::iterator it = allObjects.begin(); it != allObjects.end(); ++it) {
 
@@ -352,7 +258,7 @@ void  CPlayScene::_ParseSection_MAP_FromJson(string mapPath) {
 	vector<LPGAMEOBJECT> obCollision;
 
 	this->map = new Map();
-	map->load(mapPath, &obCollision);
+	map->load(mapPath, &obCollision, this);
 
 	for (size_t i = 0; i < obCollision.size(); i++)
 	{
@@ -362,4 +268,160 @@ void  CPlayScene::_ParseSection_MAP_FromJson(string mapPath) {
 
 void CPlayScene::addObject(LPGAMEOBJECT obj) {
 	objects.push_back(obj);
+}
+
+
+void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
+	string type = string(data["type"]);
+	string name = string(data["name"]);
+
+	if (type == "objectgroup" && name == "RectCollision") {
+		json objects = data["objects"];
+
+		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+			json value = objData.value();
+			LPGAMEOBJECT obj = new Collision();
+
+			obj->ParseFromOwnJson();
+
+			float width = float(value["width"]);
+			float height = float(value["height"]);
+			float x = float(value["x"]);
+			float y = float(value["y"]);
+
+
+			obj->width = width;
+			obj->height = height;
+			obj->name = "RectCollision";
+			obj->p = Vector(x, y);
+
+			obCollisions->push_back(obj);
+		}
+	}
+	else if (type == "objectgroup" && name == "MiniPortal") {
+		json objects = data["objects"];
+
+		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+			json value = objData.value();
+			MiniPortal* obj = new MiniPortal();
+
+			obj->ParseFromOwnJson();
+
+			float width = float(value["width"]);
+			float height = float(value["height"]);
+			float x = float(value["x"]);
+			float y = float(value["y"]);
+			string portalName = value["name"];
+			string type = value["type"];
+
+			/*float can = float(value["y"]);
+			float y = float(value["y"]);*/
+
+			if (type == "Out") {
+				json properties = value["properties"];
+				for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
+					json data = property.value();
+					string name = data["name"];
+					if (name == "CameraLeftTopLimitX") {
+						obj->camera_x = float(data["value"]);
+					}
+					else if (name == "CameraLeftTopLimitY") {
+						obj->camera_y = float(data["value"]);
+					}
+				}
+			}
+
+
+			obj->width = width;
+			obj->height = height;
+			obj->portalName = portalName;
+			obj->name = "MiniPortal";
+			obj->type = type;
+			obj->p = Vector(x, y);
+
+			obCollisions->push_back(obj);
+		}
+	}
+
+	else if (type == "objectgroup" && name == "RectPlatform") {
+		json objects = data["objects"];
+
+		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+			json value = objData.value();
+			LPGAMEOBJECT obj = new RectPlatform();
+
+			obj->ParseFromOwnJson();
+
+			float width = float(value["width"]);
+			float height = float(value["height"]);
+			float x = float(value["x"]);
+			float y = float(value["y"]);
+
+
+
+			obj->width = width;
+			obj->height = height;
+			obj->name = name;
+			obj->p = Vector(x, y);
+
+			obCollisions->push_back(obj);
+		}
+	}
+	else if (type == "objectgroup" && name != "RectCollision") {
+		DebugOut(L"[INFO] Load name: %s \n", ToLPCWSTR(name));
+
+		json objects = data["objects"];
+
+		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+			json value = objData.value();
+
+			float width = float(value["width"]);
+			float height = float(value["height"]);
+			float x = float(value["x"]);
+			float y = float(value["y"]);
+			string type = value["type"];
+
+			CGameObject* obj = NULL;
+			Camera* camera = CGame::GetInstance()->GetCurrentScene()->getCamera();
+
+			switch (fromNameToCode(name))
+			{
+			case 3:
+				obj = new MisteryBox();
+				break;
+			case 4:
+				obj = new Coin();
+				break;
+				break;
+			case 5:
+				obj = new Goomba();
+				break;
+			case 9999:
+				camera->setCamPos(x, y);
+				camera->cam_x_limit = x;
+				camera->cam_y_limit = y;
+				break;
+			default:
+				break;
+			}
+
+			if (obj != NULL) {
+				obj->ParseFromOwnJson();
+				obj->width = width;
+				obj->height = height;
+				obj->name = name;
+				obj->p.x = x;
+				obj->p.y = y;
+				DebugOut(L"[INFO] Size Of Object: %s \n", IntToLPCWSTR(sizeof(*obj)));
+
+				obCollisions->push_back(obj);
+			}
+			else delete obj;
+
+		}
+
+
+	}
+
+
 }

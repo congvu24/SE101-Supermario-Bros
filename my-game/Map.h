@@ -49,6 +49,7 @@ public:
 
 	Tileset() {  };
 	void load(LPCWSTR path);
+	void unload();
 };
 typedef Tileset* LPTILESET;
 
@@ -68,6 +69,7 @@ public:
 	Layer() {  };
 	void render(unordered_map<int, LPTILESET>* tileset);
 	void draw(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity);
+	void unload();
 };
 
 typedef Layer* LPLAYER;
@@ -83,7 +85,8 @@ public:
 	unordered_map<int, LPLAYER> all_layer;
 
 	Map() {};
-	void load(string path, vector<LPGAMEOBJECT>* obCollisions);
+	void load(string path, vector<LPGAMEOBJECT>* obCollisions, LPSCENE scene);
+	void unload();
 	void render();
 };
 

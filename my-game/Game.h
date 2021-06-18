@@ -94,6 +94,7 @@ public:
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
 
 	static CGame* GetInstance();
+	static LPDIRECT3DTEXTURE9 LoadTexture(LPCWSTR filePath);
 
 	~CGame();
 };

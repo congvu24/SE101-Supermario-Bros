@@ -8,6 +8,8 @@ public:
 	Camera();
 	float cam_x;
 	float cam_y;
+	float cam_x_limit;
+	float cam_y_limit;
 	float move_x = 0;
 	float move_y = 0;
 	float cam_width = 800;

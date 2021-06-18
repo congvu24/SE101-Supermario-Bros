@@ -144,7 +144,6 @@
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="RectPlatform.cpp" />
-    <ClCompile Include="Sapmle.cpp" />
     <ClCompile Include="SelectionTree.cpp" />
     <ClCompile Include="SelectNode.cpp" />
     <ClCompile Include="SelectPortal.cpp" />

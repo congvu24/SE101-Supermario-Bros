@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="23" nextobjectid="100">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="24" nextobjectid="103">
  <editorsettings>
   <export target="IntroScene.json" format="json"/>
  </editorsettings>
@@ -29,12 +29,8 @@
  <objectgroup id="16" name="Curtain">
   <object id="45" x="380" y="20" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="21" name="Ani3">
-  <object id="95" x="375.292" y="370.151" width="17.9935" height="17.9935"/>
- </objectgroup>
- <objectgroup id="16" name="Title">
-  <object id="1" x="376.285" y="192.885" width="16" height="16"/>
- </objectgroup>
+ <objectgroup id="21" name="Ani3"/>
+ <objectgroup id="16" name="Title"/>
  <objectgroup id="20" name="OptionCursor">
   <object id="94" x="185" y="485" width="16" height="16"/>
  </objectgroup>
@@ -57,5 +53,18 @@
     <property name="tyoe" value="1"/>
    </properties>
   </object>
+  <object id="101" type="4" x="324" y="348.5">
+   <properties>
+    <property name="type" value="2"/>
+   </properties>
+  </object>
+  <object id="102" type="5" x="152.167" y="102.917">
+   <properties>
+    <property name="type" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="23" name="Camera">
+  <object id="100" x="-14.6667" y="80" width="800" height="600"/>
  </objectgroup>
 </map>

@@ -7,8 +7,11 @@ Camera::Camera() {
 
 }
 void Camera::setCamPos(float x, float y) {
-	cam_x = x;
+	if (x >= cam_x_limit)
+		cam_x = x;
 	cam_y = y;
+	/*if (y >= cam_y_limit)
+		cam_y = y;*/
 }
 
 bool Camera::isInCamPosition(LPGAMEOBJECT entity, int margin = 100) {
@@ -52,10 +55,5 @@ void Camera::move(float x, float y) {
 }
 
 D3DXVECTOR3 Camera::calcInCamPosition(float x, float y) {
-	/*if (isCameraMoving == true) {
-		return D3DXVECTOR3(x, y, 0);
-
-	}
-	else*/
 	return D3DXVECTOR3(x - cam_x - move_x, y - cam_y - move_y, 0); // +170 here 
 }

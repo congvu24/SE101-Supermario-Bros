@@ -21,8 +21,8 @@
       "sprite": "assets/sprite/intro.json",
       "animation": "assets/animations/intro-cursor-animation.json",
       "type": 1,
-      "x": 185.00,
-      "y": 486.00,
+      "x": 185.0,
+      "y": 486.0,
       "visible": true
     }
   ]

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="8" nextobjectid="69">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="9" nextobjectid="72">
  <editorsettings>
   <export target="World1-Selection.json" format="json"/>
  </editorsettings>
@@ -231,4 +231,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="8" name="Camera">
+  <object id="71" x="-12" y="-2.66667" width="800" height="600"/>
+ </objectgroup>
 </map>

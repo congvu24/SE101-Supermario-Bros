@@ -91,6 +91,7 @@ json ReadJsonFIle(LPCWSTR file) {
 
 int fromNameToCode(string name) {
 	unordered_map <string, int> character_code;
+	character_code["Camera"] = 9999;
 	character_code["test"] = 1;
 	character_code["enemy"] = 2;
 	character_code["QuestionBox_Item"] = 3;

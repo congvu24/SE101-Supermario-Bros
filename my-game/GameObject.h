@@ -111,6 +111,7 @@ public:
 	virtual void Render() = 0;
 	virtual void SetState(string state) { this->state = state; }
 	virtual void HandleCollision(LPCOLLISIONEVENT e) = 0;
+	virtual void clear();
 	~CGameObject();
 };
 

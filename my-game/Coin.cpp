@@ -37,15 +37,15 @@ void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//}
 }
 
-//void Coin::Render() {
-//	if (state == "hidden") return;
-//	else {
-//		float width = 0;
-//		float height = 0;
-//		Coin::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
-//		RenderBoundingBox();
-//	}
-//}
+void Coin::Render() {
+	if (state == "hidden") return;
+	else {
+		float width = 0;
+		float height = 0;
+		Coin::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
+		RenderBoundingBox();
+	}
+}
 
 void Coin::SetState(string state)
 {

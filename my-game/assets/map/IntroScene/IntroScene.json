@@ -48,18 +48,7 @@
          "draworder":"topdown",
          "id":21,
          "name":"Ani3",
-         "objects":[
-                {
-                 "height":17.9935,
-                 "id":95,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":17.9935,
-                 "x":375.292,
-                 "y":370.151
-                }],
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -70,18 +59,7 @@
          "draworder":"topdown",
          "id":16,
          "name":"Title",
-         "objects":[
-                {
-                 "height":16,
-                 "id":1,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":376.285,
-                 "y":192.885
-                }],
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -129,8 +107,8 @@
                  "type":"1",
                  "visible":true,
                  "width":0,
-                 "x":277.531624827948,
-                 "y":489.30545541937
+                 "x":277.532,
+                 "y":489.305
                 }, 
                 {
                  "height":0,
@@ -146,8 +124,8 @@
                  "type":"2",
                  "visible":true,
                  "width":0,
-                 "x":277.35820716174,
-                 "y":537.969587730222
+                 "x":277.358,
+                 "y":537.97
                 }, 
                 {
                  "height":0,
@@ -163,8 +141,42 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":276.518122828866,
-                 "y":586.180026654432
+                 "x":276.518,
+                 "y":586.18
+                }, 
+                {
+                 "height":0,
+                 "id":101,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"2"
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":0,
+                 "x":324,
+                 "y":348.5
+                }, 
+                {
+                 "height":0,
+                 "id":102,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"2"
+                        }],
+                 "rotation":0,
+                 "type":"5",
+                 "visible":true,
+                 "width":0,
+                 "x":152.166666666667,
+                 "y":102.916666666667
                 }],
          "opacity":1,
          "properties":[
@@ -177,9 +189,31 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":23,
+         "name":"Camera",
+         "objects":[
+                {
+                 "height":600,
+                 "id":100,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":800,
+                 "x":-14.6666666666666,
+                 "y":80
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":23,
- "nextobjectid":100,
+ "nextlayerid":24,
+ "nextobjectid":103,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

@@ -7,5 +7,16 @@
   },
   "2": {
     "indie": [{ "name": "2player.png", "time": 100 }]
+  },
+  "4": {
+    "indie": [
+      { "name": "1.png", "time": 100 },
+      { "name": "2.png", "time": 100 },
+      { "name": "3.png", "time": 100 },
+      { "name": "4.png", "time": 100 }
+    ]
+  },
+  "5": {
+    "indie": [{ "name": "0.png", "time": 100 }]
   }
 }

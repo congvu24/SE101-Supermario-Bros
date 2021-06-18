@@ -411,16 +411,64 @@ void CGame::Load(LPCWSTR gameFile)
 
 	DebugOut(L"[INFO] Active id : %s\n", ToLPCWSTR(active));
 	_ParseSection_SCENES_FromJson(gameData["scene"]); // now parse the json to game data;
-	current_scene = stoi(active);
+	current_scene = -1;
 	SwitchScene(stoi(active));
 }
 
 void CGame::SwitchScene(int scene_id)
 {
-	DebugOut(L"[INFO] Switching to scene %d\n", scene_id);
-	scenes[current_scene]->Unload();
-	current_scene = scene_id;
-	LPSCENE s = scenes[scene_id];
-	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
-	s->Load();
+	if (current_scene != scene_id && current_scene != -1) {
+		scenes[current_scene]->Unload();
+		DebugOut(L"[INFO] Switching to scene %d\n", scene_id);
+		current_scene = scene_id;
+		LPSCENE s = scenes[scene_id];
+		CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
+		s->Load();
+	}
+	else if (current_scene == -1) {
+		DebugOut(L"[INFO] Start with scene %d\n", scene_id);
+		current_scene = scene_id;
+		LPSCENE s = scenes[scene_id];
+		CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
+		s->Load();
+	}
+}
+
+
+LPDIRECT3DTEXTURE9 CGame::LoadTexture(LPCWSTR filePath) {
+
+	D3DXIMAGE_INFO info;
+	HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
+	if (result != D3D_OK)
+	{
+		DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
+		return NULL;
+	}
+
+	LPDIRECT3DDEVICE9 d3ddv = CGame::GetInstance()->GetDirect3DDevice();
+	LPDIRECT3DTEXTURE9 texture;
+
+	result = D3DXCreateTextureFromFileEx(
+		d3ddv,								// Pointer to Direct3D device object
+		filePath,							// Path to the image to load
+		info.Width,							// Texture width
+		info.Height,						// Texture height
+		1,
+		D3DUSAGE_DYNAMIC,
+		D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT,
+		D3DX_DEFAULT,
+		D3DX_DEFAULT,
+		D3DCOLOR_XRGB(255, 0, 255),		// transparentColor	
+		&info,
+		NULL,
+		&texture);								// Created texture pointer
+
+	if (result != D3D_OK)
+	{
+		DebugOut(L"[INFOR] GetImageInfoFromFile success: %s\n", filePath);
+		return NULL;
+	}
+
+	return texture;
 }
