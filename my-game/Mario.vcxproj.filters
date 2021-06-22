@@ -138,9 +138,6 @@
     <ClCompile Include="Koopas.cpp">
       <Filter>Source Files\Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Leaf.cpp">
-      <Filter>Source Files\Object\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="Mario.cpp">
       <Filter>Source Files\Object\Player</Filter>
     </ClCompile>
@@ -170,6 +167,18 @@
     </ClCompile>
     <ClCompile Include="Test.cpp">
       <Filter>Source Files\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Death.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Death.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>Header Files\Object\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

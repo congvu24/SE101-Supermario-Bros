@@ -12,9 +12,6 @@ json SelectionTree::data = NULL;
 SelectionTree::SelectionTree()
 {
 	SetState("indie");
-	width = 14;
-	height = 16;
-	p = Vector(0, 0);
 
 }
 

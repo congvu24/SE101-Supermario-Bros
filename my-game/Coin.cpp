@@ -12,10 +12,7 @@ json Coin::data = NULL;
 Coin::Coin()
 {
 	SetState("running");
-	width = 14;
-	height = 16;
-	p = Vector(0, 0);
-
+	isBlockPlayer = false;
 }
 
 void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

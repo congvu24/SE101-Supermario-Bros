@@ -10,7 +10,9 @@
 #include "Enemy.h"
 #include "MisteryBox.h"
 #include "Coin.h"
+#include "Mushroom.h"
 #include "Quadtree.h"
+#include "Death.h"
 
 using namespace std;
 
@@ -42,8 +44,10 @@ void CPlayScene::Load()
 
 	_ParseSection_MAP_FromJson(map);
 
+	animationDirection = UNACTIVE;
 	animationStartedTime = GetTickCount64();
 	animationProgress = 0;
+	lastTime = 0;
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -119,8 +123,6 @@ void CPlayScene::Render()
 	delete return_objects_list;
 	quadtree->Clear();
 	delete quadtree;
-
-
 	CScene::Render();
 }
 
@@ -130,7 +132,7 @@ void CPlayScene::Render()
 void CPlayScene::Unload()
 {
 	player = NULL;
-	map->unload();
+	//map->unload();
 	CScene::Unload();
 }
 
@@ -159,10 +161,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 		player->SetState("running-right");
 	else if (game->IsKeyDown(DIK_LEFT))
 		player->SetState("running-left");
-	else if (game->IsKeyDown(DIK_UP))
-		player->SetState("running-up");
 	else if (game->IsKeyDown(DIK_DOWN))
-		player->SetState("running-down");
+		player->SetState("sitting");
 	else if (game->IsKeyDown(DIK_R))
 		((CPlayScene*)scence)->restart();
 	else
@@ -243,6 +243,10 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 		case 7:
 			if (visible != true)
 				Leaf::SaveStaticData(data);
+			break;
+		case 11:
+			if (visible != true)
+				Mushroom::SaveStaticData(data);
 			break;
 		default:
 			break;
@@ -342,7 +346,6 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 			obCollisions->push_back(obj);
 		}
 	}
-
 	else if (type == "objectgroup" && name == "RectPlatform") {
 		json objects = data["objects"];
 
@@ -362,6 +365,29 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 			obj->width = width;
 			obj->height = height;
 			obj->name = name;
+			obj->p = Vector(x, y);
+
+			obCollisions->push_back(obj);
+		}
+	}
+	else if (type == "objectgroup" && name == "Death") {
+		json objects = data["objects"];
+
+		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+			json value = objData.value();
+			LPGAMEOBJECT obj = new Death();
+
+			obj->ParseFromOwnJson();
+
+			float width = float(value["width"]);
+			float height = float(value["height"]);
+			float x = float(value["x"]);
+			float y = float(value["y"]);
+
+
+			obj->width = width;
+			obj->height = height;
+			obj->name = "Death";
 			obj->p = Vector(x, y);
 
 			obCollisions->push_back(obj);
@@ -422,6 +448,8 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 
 
 	}
+}
 
-
+void CPlayScene::GameOver() {
+	switchScene(3);
 }

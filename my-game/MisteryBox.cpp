@@ -1,4 +1,5 @@
 #include "MisteryBox.h"
+#include "Mushroom.h"
 #include "Vector.h"
 #include <iostream>
 
@@ -12,9 +13,6 @@ json MisteryBox::data = NULL;
 MisteryBox::MisteryBox()
 {
 	SetState("running");
-	width = 14;
-	height = 16;
-	p = Vector(0, 0);
 	oldP = Vector(0, 0);
 	d = Vector(0, 0);
 	v = Vector(0, 0);
@@ -71,7 +69,7 @@ void MisteryBox::GetBoundingBox(float& left, float& top, float& right, float& bo
 
 
 void MisteryBox::HandleCollision(LPCOLLISIONEVENT e) {
-	if (isHitted == false && e->ny > 0) {
+	if (isHitted == false && e->ny >= 0 && e->nx == 0) {
 		this->SetState("hitting");
 		isHitted = true;
 		LPGAMEOBJECT reward = NULL;
@@ -84,9 +82,19 @@ void MisteryBox::HandleCollision(LPCOLLISIONEVENT e) {
 			CGame::GetInstance()->GetCurrentScene()->addObject(reward);
 			reward->SetState("fromMisteryBox");
 		}
+		else if (name == "QuestionBox_Mushroom") {
+			reward = new Mushroom();
+			reward->ParseFromOwnJson();
+			reward->p.y = p.y + height / 2;
+			reward->p.x = p.x;
+			reward->name = "Mushroom";
+			reward->isAllowCollision = true;
+			CGame::GetInstance()->GetCurrentScene()->addObject(reward);
+			reward->SetState("fromMisteryBox");
+		}
 		else {
 			reward = new Leaf();
- 			reward->ParseFromOwnJson();
+			reward->ParseFromOwnJson();
 			reward->p.y = p.y - 100;
 			reward->p.x = p.x;
 			reward->name = "Leaf";
@@ -95,4 +103,5 @@ void MisteryBox::HandleCollision(LPCOLLISIONEVENT e) {
 			reward->SetState("fromMisteryBox");
 		}
 	}
+
 }

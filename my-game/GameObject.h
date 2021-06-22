@@ -10,6 +10,7 @@
 #include "Utils.h"
 #include "Vector.h"
 
+
 using json = nlohmann::json;
 
 using namespace std;
@@ -69,7 +70,7 @@ public:
 
 	DWORD dt;
 
-
+	bool isBlockPlayer = true;
 
 	LPDIRECT3DTEXTURE9 texture;
 	LPANIMATION_SET active_animation_set;

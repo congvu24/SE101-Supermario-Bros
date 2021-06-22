@@ -157,7 +157,6 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions, LPSCENE scene) {
 		}
 		else if (type == "objectgroup") {
 			delete layer;
-			DebugOut(L"[INFO] Load name: %s \n", ToLPCWSTR(name));
 			scene->ParseMapObject(data, obCollisions);
 		}
 	}

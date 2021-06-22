@@ -1,33 +1,51 @@
 {
   "1": {
-    "indie": [{ "name": "8.png", "time": 100 }],
+    "indie-right": [{ "name": "8.png", "time": 100 }],
+    "indie-left": [{ "name": "6.png", "time": 100 }],
+    "jumping-right": [{ "name": "42.png", "time": 100 }],
     "running-up": [{ "name": "33.png", "time": 100 }],
-    "jumping": [{ "name": "28.png", "time": 100 }],
     "running-down": [{ "name": "7.png", "time": 100 }],
+    "jumping-left": [{ "name": "31.png", "time": 100 }],
     "running-right": [
-      { "name": "10.png", "time": 100 },
-      { "name": "9.png", "time": 100 }
+      { "name": "8.png", "time": 100 },
+      { "name": "10.png", "time": 100 }
     ],
     "running-left": [
-      { "name": "4.png", "time": 100 },
-      { "name": "5.png", "time": 100 }
-    ]
+      { "name": "6.png", "time": 100 },
+      { "name": "4.png", "time": 100 }
+    ],
+    "die": [{ "name": "7.png", "time": 100 }]
   },
   "2": {
-    "indie": [{ "name": "108.png", "time": 100 }],
+    "indie-right": [{ "name": "67.png", "time": 100 }],
+    "indie-left": [{ "name": "65.png", "time": 100 }],
     "running-up": [{ "name": "111.png", "time": 100 }],
-    "jumping": [
-      { "name": "129.png", "time": 100 },
-      { "name": "130.png", "time": 100 }
-    ],
+    "jumping-right": [{ "name": "117.png", "time": 100 }],
+    "jumping-left": [{ "name": "105.png", "time": 100 }],
     "running-down": [{ "name": "110.png", "time": 100 }],
     "running-right": [
-      { "name": "129.png", "time": 100 },
-      { "name": "130.png", "time": 100 }
+      { "name": "67.png", "time": 100 },
+      { "name": "68.png", "time": 100 }
     ],
     "running-left": [
-      { "name": "124.png", "time": 100 },
-      { "name": "122.png", "time": 100 }
-    ]
+      { "name": "65.png", "time": 100 },
+      { "name": "64.png", "time": 100 }
+    ],
+    "sitting-right": [{ "name": "103.png", "time": 100 }],
+    "sitting-left": [{ "name": "89.png", "time": 100 }],
+    "die": [{ "name": "96.png", "time": 100 }]
+  },
+  "3": {
+    "indie": [{ "name": "34.png", "time": 100 }],
+    "running-right": [
+      { "name": "8.png", "time": 100 },
+      { "name": "10.png", "time": 100 }
+    ],
+    "running-left": [
+      { "name": "6.png", "time": 100 },
+      { "name": "4.png", "time": 100 }
+    ],
+    "running-up": [{ "name": "33.png", "time": 100 }],
+    "running-down": [{ "name": "7.png", "time": 100 }]
   }
 }

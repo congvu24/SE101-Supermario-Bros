@@ -12,7 +12,6 @@ json SelectPortal::data = NULL;
 SelectPortal::SelectPortal()
 {
 	SetState("running");
-	p = Vector(0, 0);
 }
 
 void SelectPortal::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

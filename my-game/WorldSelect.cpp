@@ -43,8 +43,10 @@ void WorldSelect::Load()
 
 	_ParseSection_MAP_FromJson(map);
 
+	animationDirection = UNACTIVE;
 	animationStartedTime = GetTickCount64();
 	animationProgress = 0;
+	lastTime = 0;
 }
 
 void WorldSelect::Update(DWORD dt)
@@ -119,7 +121,7 @@ void WorldSelect::Render()
 void WorldSelect::Unload()
 {
 	player = NULL;
-	map->unload();
+	//map->unload();
 	CScene::Unload();
 }
 
@@ -214,11 +216,6 @@ void WorldSelect::addObject(LPGAMEOBJECT obj) {
 	objects.push_back(obj);
 }
 
-
-void WorldSelect::switchScene(int sence_id) {
-	this->animationDirection = CLOSING;
-	this->nextScene = sence_id;
-}
 
 
 void WorldSelect::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {

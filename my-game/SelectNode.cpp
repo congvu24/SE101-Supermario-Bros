@@ -12,8 +12,6 @@ json SelectNode::data = NULL;
 SelectNode::SelectNode()
 {
 	SetState("running");
-	p = Vector(0, 0);
-
 }
 
 void SelectNode::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

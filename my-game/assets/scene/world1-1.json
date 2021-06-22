@@ -25,7 +25,7 @@
       "y": 150,
       "visible": false
     },
-     {
+    {
       "id": "3",
       "name": "QuestionBox_Item",
       "texture": "assets/texture/misc.png",
@@ -47,12 +47,23 @@
       "y": 150,
       "visible": false
     },
-     {
+    {
       "id": "5",
       "name": "Leaf",
       "texture": "assets/texture/misc.png",
       "sprite": "assets/sprite/misc.json",
       "animation": "assets/animations/leaf-animation.json",
+      "type": 1,
+      "x": 100,
+      "y": 150,
+      "visible": false
+    },
+    {
+      "id": "6",
+      "name": "Mushroom",
+      "texture": "assets/texture/misc.png",
+      "sprite": "assets/sprite/misc.json",
+      "animation": "assets/animations/mushroom-animation.json",
       "type": 1,
       "x": 100,
       "y": 150,

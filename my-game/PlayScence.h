@@ -30,15 +30,17 @@ protected:
 public:
 	Map* map;
 	CPlayScene(int id, LPCWSTR filePath);
+	LPMAP GetMap() { return this->map; };
+
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
 	virtual void addObject(LPGAMEOBJECT obj);
 	virtual void ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions);
-	LPMAP GetMap() { return this->map; };
-	void restart();
-	void moveCamera(CameraMoveDirection);
+	virtual void restart();
+	virtual void moveCamera(CameraMoveDirection);
+	virtual void GameOver();
 
 	CGameObject* GetPlayer() { return player; }
 

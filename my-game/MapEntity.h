@@ -167,6 +167,7 @@ public:
 		T::animations_set.Clear();
 		T::sprites.clear();
 		T::texture = NULL;
+		T::data = NULL;
 		CGameObject::clear();
 	}
 };

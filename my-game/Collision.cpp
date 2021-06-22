@@ -11,8 +11,7 @@ json Collision::data = NULL;
 
 Collision::Collision()
 {
-	SetState("running");
-	p = Vector(0, 0);
+	isBlockPlayer = true;
 }
 
 void Collision::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

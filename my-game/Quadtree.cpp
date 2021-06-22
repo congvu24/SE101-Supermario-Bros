@@ -5,7 +5,7 @@
 
 
 #define MAX_LEVEL                5
-#define MAX_OBJECT_IN_REGION     4
+#define MAX_OBJECT_IN_REGION     20
 
 
 Quadtree::Quadtree(int level, RECT* region) {

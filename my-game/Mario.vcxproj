@@ -130,6 +130,8 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Death.cpp" />
+    <ClCompile Include="Death.h" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Intro.cpp" />
     <ClCompile Include="IntroCursor.cpp" />
@@ -141,6 +143,7 @@
     <ClCompile Include="MarioSelection.cpp" />
     <ClCompile Include="MiniPortal.cpp" />
     <ClCompile Include="MisteryBox.cpp" />
+    <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="RectPlatform.cpp" />
@@ -181,6 +184,7 @@
     <ClInclude Include="MarioSelection.h" />
     <ClInclude Include="MiniPortal.h" />
     <ClInclude Include="MisteryBox.h" />
+    <ClInclude Include="Mushroom.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="RectPlatform.h" />

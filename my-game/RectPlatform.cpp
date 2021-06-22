@@ -11,8 +11,6 @@ json RectPlatform::data = NULL;
 
 RectPlatform::RectPlatform()
 {
-	SetState("running");
-	p = Vector(0, 0);
 }
 
 void RectPlatform::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

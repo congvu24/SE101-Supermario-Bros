@@ -12,7 +12,6 @@ json MiniPortal::data = NULL;
 MiniPortal::MiniPortal()
 {
 	SetState("running");
-	p = Vector(0, 0);
 }
 
 void MiniPortal::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

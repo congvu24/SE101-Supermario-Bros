@@ -12,9 +12,6 @@ json IntroText::data = NULL;
 IntroText::IntroText()
 {
 	SetState("indie");
-	width = 14;
-	height = 16;
-	p = Vector(0, 0);
 
 }
 

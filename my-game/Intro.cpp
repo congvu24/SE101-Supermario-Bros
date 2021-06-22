@@ -46,8 +46,10 @@ void Intro::Load()
 
 	_ParseSection_MAP_FromJson(map);
 
+	animationDirection = UNACTIVE;
 	animationStartedTime = GetTickCount64();
 	animationProgress = 0;
+	lastTime = 0;
 }
 
 void Intro::Update(DWORD dt)
@@ -85,7 +87,7 @@ void Intro::Render()
 void Intro::Unload()
 {
 	player = NULL;
-	map->unload();
+	//map->unload();
 	CScene::Unload();
 }
 
@@ -182,11 +184,6 @@ void Intro::addObject(LPGAMEOBJECT obj) {
 	objects.push_back(obj);
 }
 
-
-void Intro::switchScene(int sence_id) {
-	this->animationDirection = CLOSING;
-	this->nextScene = sence_id;
-}
 
 void Intro::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 	string type = string(data["type"]);

@@ -244,6 +244,7 @@ void CGame::SweptAABB(
 	float& t, float& nx, float& ny)
 {
 
+
 	float dx_entry, dx_exit, tx_entry, tx_exit;
 	float dy_entry, dy_exit, ty_entry, ty_exit;
 
@@ -253,24 +254,20 @@ void CGame::SweptAABB(
 	t = -1.0f;			// no collision
 	nx = ny = 0;
 
+	//
+	// Broad-phase test 
+	//
 
 	float bl = dx > 0 ? ml : ml + dx;
 	float bt = dy > 0 ? mt : mt + dy;
 	float br = dx > 0 ? mr + dx : mr;
 	float bb = dy > 0 ? mb + dy : mb;
 
-	if (br < sl || bl > sr || bb < st || bt > sb)
-	{
-		return;
-	}
+	if (br < sl || bl > sr || bb < st || bt > sb) return;
 
 
 	if (dx == 0 && dy == 0) return;		// moving object is not moving > obvious no collision
 
-	if (mr > sl && mt > st && dx != 0) {
-		DebugOut(L"[ERROR] khong on roi\n");
-
-	}
 	if (dx > 0)
 	{
 		dx_entry = sl - mr;
@@ -293,6 +290,7 @@ void CGame::SweptAABB(
 		dy_entry = sb - mt;
 		dy_exit = st - mb;
 	}
+
 	if (dx == 0)
 	{
 		tx_entry = -999999.0f;
@@ -335,6 +333,7 @@ void CGame::SweptAABB(
 		nx = 0.0f;
 		dy > 0 ? ny = -1.0f : ny = 1.0f;
 	}
+
 
 }
 

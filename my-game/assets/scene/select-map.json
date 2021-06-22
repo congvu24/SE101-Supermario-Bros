@@ -20,7 +20,7 @@
       "texture": "assets/texture/mario.png",
       "sprite": "assets/sprite/mario.json",
       "animation": "assets/animations/mario-animation.json",
-      "type": 1,
+      "type": 3,
       "x": 48,
       "y": 150,
       "visible": true

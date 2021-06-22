@@ -42,6 +42,7 @@ public:
 	virtual void _ParseSection_TEXTURES_FromJson(LPCWSTR filePath, int id);
 	virtual void _ParseSection_SPRITES_FromJson(LPCWSTR filePath, int textID);
 	virtual void ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) = 0;
+	virtual void switchScene(int sence_id);
 
 	Camera* getCamera() {
 		return this->camera;

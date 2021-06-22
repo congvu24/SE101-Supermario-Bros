@@ -33,7 +33,6 @@ public:
 	virtual void Render();
 	virtual void Unload();
 	virtual void addObject(LPGAMEOBJECT obj);
-	virtual void switchScene(int sence_id);
 	virtual void ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions);
 	LPMAP GetMap() { return this->map; };
 

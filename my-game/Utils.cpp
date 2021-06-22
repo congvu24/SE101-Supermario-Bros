@@ -96,6 +96,7 @@ int fromNameToCode(string name) {
 	character_code["enemy"] = 2;
 	character_code["QuestionBox_Item"] = 3;
 	character_code["QuestionBox_Coin"] = 3;
+	character_code["QuestionBox_Mushroom"] = 3;
 	character_code["Coin"] = 4;
 	character_code["Goomba"] = 5;
 	character_code["RectPlatform"] = 6;
@@ -103,6 +104,8 @@ int fromNameToCode(string name) {
 	character_code["SelectionTree"] = 8;
 	character_code["IntroText"] = 9;
 	character_code["OptionCursor"] = 10;
+	character_code["Mushroom"] = 11;
+
 	
 	if (character_code.find(name) != character_code.end()) {
 		return character_code.at(name);
