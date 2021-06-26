@@ -45,3 +45,7 @@ void IntroCursor::GetBoundingBox(float& left, float& top, float& right, float& b
 void IntroCursor::HandleCollision(LPCOLLISIONEVENT e) {
 
 }
+
+void IntroCursor::ProcessKeyboard(KeyboardEvent kEvent) {
+
+}

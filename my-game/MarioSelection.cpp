@@ -158,3 +158,8 @@ void MarioSelection::GetBoundingBox(float& left, float& top, float& right, float
 void MarioSelection::HandleCollision(LPCOLLISIONEVENT e) {
 
 }
+
+
+void MarioSelection::ProcessKeyboard(KeyboardEvent kEvent) {
+
+}

@@ -6,17 +6,16 @@
 
 class Goomba :public MapEntity<Goomba>
 {
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	Vector oldP;
-	//int maxMoveX = 200;
-	//virtual void  Render();
+	
 public:
 	Goomba();
 
+	Vector oldP;
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
-
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void Die();
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

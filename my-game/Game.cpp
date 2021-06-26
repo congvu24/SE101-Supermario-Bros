@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include "library/json.hpp"
 
@@ -84,24 +84,34 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	//}
 }
 
-void CGame::DrawWithScale(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity, D3DXVECTOR2 pos, D3DXVECTOR2 scale)
+
+
+void CGame::DrawWithScale(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity, D3DXVECTOR2 scale)
 {
 	Camera* camera = this->GetCurrentScene()->camera;
 	D3DXVECTOR3 position = camera->calcInCamPosition(p.x, p.y);
 
 	D3DXMATRIX oldMatrix, newMatrix;
-	D3DXVECTOR2 deltaToCenter = D3DXVECTOR2((r.right - r.left) / 2, (r.bottom - r.top) / 2);
+	D3DXVECTOR3 deltaToCenter = D3DXVECTOR3((r.right - r.left) / 2, (r.bottom - r.top) / 2, 0);
 	D3DXVECTOR3 pCenter = D3DXVECTOR3(deltaToCenter.x + 0, deltaToCenter.y + 0, 0); //pivot x, y instead of 0 ?
 
 	spriteHandler->GetTransform(&oldMatrix);
-	D3DXMatrixTransformation2D(&newMatrix, &(pos), 0.0f, &scale, &pos, 0.0f, NULL);
-	spriteHandler->SetTransform(&newMatrix);
-
-	if (camera->isInCam(position.x, position.y, 100) == true) {
+	if (scale.x == 1 && scale.y == 1) {
 		spriteHandler->Draw(texture, &r, NULL, &position, D3DCOLOR_ARGB(opacity, 255, 255, 255));
 	}
-	spriteHandler->SetTransform(&oldMatrix);
+	else {
+		D3DXVECTOR2 ppp = D3DXVECTOR2(position.x, position.y);
 
+		D3DXMatrixTransformation2D(&newMatrix, &(ppp), 0.0f, &scale, &ppp, 0.0f, NULL);
+		spriteHandler->SetTransform(&newMatrix);
+
+
+		//position.x = position.x - 100;
+		position.x = position.x - deltaToCenter.x;
+		position.y = position.y + deltaToCenter.y;
+		spriteHandler->Draw(texture, &r, &pCenter, &position, D3DCOLOR_ARGB(opacity, 255, 255, 255));
+		spriteHandler->SetTransform(&oldMatrix);
+	}
 }
 
 int CGame::IsKeyDown(int KeyCode)
@@ -266,7 +276,7 @@ void CGame::SweptAABB(
 	if (br < sl || bl > sr || bb < st || bt > sb) return;
 
 
-	if (dx == 0 && dy == 0) return;		// moving object is not moving > obvious no collision
+	//if (dx == 0 && dy == 0) return;		// moving object is not moving > obvious no collision
 
 	if (dx > 0)
 	{
@@ -431,6 +441,17 @@ void CGame::SwitchScene(int scene_id)
 		CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
 		s->Load();
 	}
+}
+
+void CGame::Restart()
+{
+	scenes[current_scene]->Unload();
+	DebugOut(L"[INFO] Switching to scene %d\n", current_scene);
+	current_scene = current_scene;
+	LPSCENE s = scenes[current_scene];
+	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
+	s->Load();
+
 }
 
 

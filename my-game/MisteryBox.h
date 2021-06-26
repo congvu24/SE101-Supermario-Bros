@@ -8,16 +8,16 @@
 
 class MisteryBox :public MapEntity<MisteryBox>
 {
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
-	Vector oldP;
-	bool isHitted = false;
 public:
 	MisteryBox();
 
+	Vector oldP;
+	bool isHitted = false;
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetState(string state);
-	virtual void HandleCollision(LPCOLLISIONEVENT e);
+	virtual void CollisionWithMario(LPCOLLISIONEVENT e);
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

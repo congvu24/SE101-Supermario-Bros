@@ -7,13 +7,13 @@
 
 class IntroText :public MapEntity<IntroText>
 {
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
 public:
 	IntroText();
 
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
 
 	static json data;

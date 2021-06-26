@@ -13,6 +13,8 @@
 #include "Mushroom.h"
 #include "Quadtree.h"
 #include "Death.h"
+#include "Venus.h"
+#include "VenusBullet.h"
 
 using namespace std;
 
@@ -58,29 +60,45 @@ void CPlayScene::Update(DWORD dt)
 	RECT base = { camera->cam_x, camera->cam_y, camera->cam_x + 800 ,camera->cam_y + 600 };
 	Quadtree* quadtree = new Quadtree(1, new RECT(base));
 
+
+	//DebugOut(L"[INFO] NUMBER OF OBJECT: %s \n", IntToLPCWSTR(objects.size()));
+
+
 	for (auto i = objects.begin(); i != objects.end(); i++) {
 		quadtree->Insert(*i);
 	}
+	int count = 0;
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
-		vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
-		quadtree->Retrieve(return_objects_list, objects[i]);
+		if (quadtree->IsContain(objects[i])) {
+			count++;
+			vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
+			quadtree->Retrieve(return_objects_list, objects[i]);
 
-		if (Test* v = dynamic_cast<Test*>(objects[i])) {
-			objects[i]->Update(dt, return_objects_list);
+			if (Test* v = dynamic_cast<Test*>(objects[i])) {
+				objects[i]->Update(dt, return_objects_list);
+			}
+
+			else if (objects[i]->state != "hidden") {
+				objects[i]->Update(dt, return_objects_list);
+			}
+			else {
+				objects.erase(std::remove(objects.begin(), objects.end(), objects[i]), objects.end());
+			}
+			delete return_objects_list;
 		}
 
-		else if (objects[i]->state != "hidden") {
-			objects[i]->Update(dt, return_objects_list);
+		else if (objects[i]->isUniversal == true) {
+			count++;
+			objects[i]->Update(dt, &objects);
 		}
-		else {
-			objects.erase(std::remove(objects.begin(), objects.end(), objects[i]), objects.end());
-		}
-		delete return_objects_list;
+
 	}
 	quadtree->Clear();
 	delete quadtree;
+
+	//DebugOut(L"[INFO] UPDATE: %s \n", IntToLPCWSTR(count));
 
 	if (player == NULL) return;
 
@@ -92,22 +110,20 @@ void CPlayScene::Update(DWORD dt)
 	cy -= game->GetScreenHeight() / 2;
 
 	if (camera->isCameraMoving == false) {
-		camera->setCamPos(cx, cy - 170);
+		camera->setCamPos(cx, camera->cam_y);
 	}
 }
+
+bool comparePtrToNode(CGameObject* a, CGameObject* b) { return (a->renderOrder < b->renderOrder); }
+
 
 void CPlayScene::Render()
 {
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 
-	map->render();
-	player->Render();
-
 	RECT base = { camera->cam_x - 200  , camera->cam_y - 200, camera->cam_x + 800 + 200 ,camera->cam_y + 600 + 200 };
 	Quadtree* quadtree = new Quadtree(5, new RECT(base)); // set the level to 5 to stop split function
-
-
 	vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
 
 	for (auto i = objects.begin(); i != objects.end(); i++) {
@@ -115,15 +131,32 @@ void CPlayScene::Render()
 	}
 	quadtree->Retrieve(return_objects_list, this->player);
 
-	// only render entity inside camera
-	for (int i = 0; i < return_objects_list->size(); i++) {
-		if (return_objects_list->at(i)->state != "hidden")
+	sort(return_objects_list->begin(), return_objects_list->end(), comparePtrToNode);
+
+	for (int i = 0; i < return_objects_list->size(); i++) { // order < 1
+		if (return_objects_list->at(i)->state != "hidden" && return_objects_list->at(i)->renderOrder < 1)
 			return_objects_list->at(i)->Render();
 	}
-	delete return_objects_list;
+
+	map->render();  // render map here
+
+
+	for (int i = 0; i < return_objects_list->size(); i++) { // order >= 1
+		if (return_objects_list->at(i)->state != "hidden" && return_objects_list->at(i)->renderOrder >= 1)
+			return_objects_list->at(i)->Render();
+	}
+
+
+	player->Render(); // render player 
+
+	CScene::Render();  //render scene animation
+
+
+	// clear data
 	quadtree->Clear();
+	return_objects_list->clear();
+	delete return_objects_list;
 	delete quadtree;
-	CScene::Render();
 }
 
 /*
@@ -140,34 +173,72 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 
 	CGameObject* player = ((CPlayScene*)scence)->GetPlayer();
-	switch (KeyCode)
+	((Character*)player)->ProcessKeyboard(CGame::GenerateKeyboardEvent(KeyCode));
+
+	/*switch (KeyCode)
 	{
 	case DIK_SPACE:
 		player->SetState("jumping");
 		DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 		break;
-	}
+	}*/
 
 }
+
+void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
+{
+
+	CGameObject* player = ((CPlayScene*)scence)->GetPlayer();
+
+	((Character*)player)->ProcessKeyboard(CGame::GenerateKeyboardEvent(KeyCode, false, true));
+
+
+	/*switch (KeyCode)
+	{
+	case DIK_SPACE:
+		player->SetState("jumping");
+		DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+		break;
+	}*/
+
+}
+
 
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
 	CGameObject* player = ((CPlayScene*)scence)->GetPlayer();
 
-	//// disable control key when Mario die 
-	if (player->GetState() == "die") return;
-	if (game->IsKeyDown(DIK_RIGHT))
-		player->SetState("running-right");
-	else if (game->IsKeyDown(DIK_LEFT))
-		player->SetState("running-left");
-	else if (game->IsKeyDown(DIK_DOWN))
-		player->SetState("sitting");
-	else if (game->IsKeyDown(DIK_R))
+
+
+	std::vector<int> UnOrderProcessKey = { DIK_A, DIK_S };
+	std::vector<int> OrderProcessKey = { DIK_LEFT,DIK_RIGHT, DIK_DOWN, DIK_UP };
+
+
+	for (int i = 0; i < UnOrderProcessKey.size(); i++) {
+		if (game->IsKeyDown(UnOrderProcessKey[i])) {
+			((Character*)player)->ProcessKeyboard(CGame::GenerateKeyboardEvent(UnOrderProcessKey[i], true));
+		}
+	}
+
+	for (int i = 0; i < OrderProcessKey.size(); i++) {
+		if (game->IsKeyDown(OrderProcessKey[i])) {
+			((Character*)player)->ProcessKeyboard(CGame::GenerateKeyboardEvent(OrderProcessKey[i], true));
+			return;
+		}
+	}
+
+
+	 if (game->IsKeyDown(DIK_R))
 		((CPlayScene*)scence)->restart();
 	else
 		player->SetState("indie");
 
+
+	//CGame::GenerateKeyboardEvent(UnOrderProcessKey[i], true);
+
+	//// disable control key when Mario die 
+	
 	// move camera
 	if (game->IsKeyDown(DIK_J))
 		((CPlayScene*)scence)->moveCamera(LEFT);
@@ -180,10 +251,11 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 }
 
 void CPlayScene::restart() {
-	this->player->SetPosition(100, 1000);
-	this->camera->move_x = 0;
-	this->camera->move_y = 0;
-	this->camera->isCameraMoving = false;
+	//this->player->SetPosition(100, 1000);
+	//this->camera->move_x = 0;
+	//this->camera->move_y = 0;
+	//this->camera->isCameraMoving = false;
+	CGame::GetInstance()->Restart();
 }
 
 void CPlayScene::moveCamera(CameraMoveDirection direction) {
@@ -247,6 +319,18 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 		case 11:
 			if (visible != true)
 				Mushroom::SaveStaticData(data);
+			break;
+		case 12:
+			if (visible != true)
+				Venus::SaveStaticData(data);
+			break;
+		case 13:
+			if (visible != true)
+				VenusBullet::SaveStaticData(data);
+			break;
+		case 14:
+			if (visible != true)
+				Koopas::SaveStaticData(data);
 			break;
 		default:
 			break;
@@ -418,9 +502,14 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 			case 4:
 				obj = new Coin();
 				break;
-				break;
 			case 5:
 				obj = new Goomba();
+				break;
+			case 12:
+				obj = new Venus();
+				break;
+			case 14:
+				obj = new Koopas();
 				break;
 			case 9999:
 				camera->setCamPos(x, y);
@@ -432,12 +521,12 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 			}
 
 			if (obj != NULL) {
-				obj->ParseFromOwnJson();
 				obj->width = width;
 				obj->height = height;
 				obj->name = name;
 				obj->p.x = x;
 				obj->p.y = y;
+				obj->ParseFromOwnJson();
 				DebugOut(L"[INFO] Size Of Object: %s \n", IntToLPCWSTR(sizeof(*obj)));
 
 				obCollisions->push_back(obj);
@@ -452,4 +541,9 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 
 void CPlayScene::GameOver() {
 	switchScene(3);
+}
+
+bool CPlayScene::IsPlayer(LPGAMEOBJECT obj) {
+	if (Test* player = dynamic_cast<Test*>(obj))  return true;
+	return false;
 }

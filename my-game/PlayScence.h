@@ -21,7 +21,6 @@ enum CameraMoveDirection {
 class CPlayScene : public CScene
 {
 protected:
-	CGameObject* player;					// A play scene has to have player, right? 
 
 	void _ParseSection_OBJECTS_FromJson(json data);
 	void _ParseSection_MAP_FromJson(string mapPath);
@@ -29,8 +28,10 @@ protected:
 
 public:
 	Map* map;
+
 	CPlayScene(int id, LPCWSTR filePath);
 	LPMAP GetMap() { return this->map; };
+	CGameObject* player;					// A play scene has to have player, right? 
 
 	virtual void Load();
 	virtual void Update(DWORD dt);
@@ -41,6 +42,8 @@ public:
 	virtual void restart();
 	virtual void moveCamera(CameraMoveDirection);
 	virtual void GameOver();
+	
+	static bool IsPlayer(LPGAMEOBJECT obj);
 
 	CGameObject* GetPlayer() { return player; }
 
@@ -52,7 +55,7 @@ class CPlayScenceKeyHandler : public CScenceKeyHandler
 public:
 	virtual void KeyState(BYTE* states);
 	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode) {};
+	virtual void OnKeyUp(int KeyCode);
 	CPlayScenceKeyHandler(CScene* s) :CScenceKeyHandler(s) {};
 };
 

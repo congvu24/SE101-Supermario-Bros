@@ -6,8 +6,6 @@
 
 class MiniPortal :public MapEntity<MiniPortal>
 {
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void Render();
 
 public:
 	MiniPortal();
@@ -15,6 +13,8 @@ public:
 	float camera_x;
 	float camera_y;
 
+	virtual void Render();
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
 

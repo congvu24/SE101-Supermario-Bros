@@ -105,7 +105,9 @@ int fromNameToCode(string name) {
 	character_code["IntroText"] = 9;
 	character_code["OptionCursor"] = 10;
 	character_code["Mushroom"] = 11;
-
+	character_code["Venus"] = 12;
+	character_code["Venus_Bullet"] = 13;
+	character_code["Koopas"] = 14;
 	
 	if (character_code.find(name) != character_code.end()) {
 		return character_code.at(name);

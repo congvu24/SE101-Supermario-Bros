@@ -12,6 +12,8 @@ json MiniPortal::data = NULL;
 MiniPortal::MiniPortal()
 {
 	SetState("running");
+	isAllowCollision = false;
+	
 }
 
 void MiniPortal::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

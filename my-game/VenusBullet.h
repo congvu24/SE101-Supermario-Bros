@@ -4,23 +4,22 @@
 #include "Game.h"
 #include <iostream>
 
-class SelectNode :public MapEntity<SelectNode>
+class VenusBullet :public MapEntity<VenusBullet>
 {
 	
-
+	//virtual void  Render();
 public:
-	SelectNode();
-	string nodeName;
-	string right;
-	string left;
-	string down;
-	string up;
+	VenusBullet();
 
-	virtual void SetState(string state);
-	virtual void HandleCollision(LPCOLLISIONEVENT e);
+	Vector direction;
+	Vector distance;
+	float angle;
+	Vector oldP;
+
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void Render();
+	virtual void HandleCollision(LPCOLLISIONEVENT e);
+	virtual void SetState(string state);
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

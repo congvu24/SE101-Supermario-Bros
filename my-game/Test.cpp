@@ -7,8 +7,8 @@
 
 
 #define VX_SMALL 0.15f
-#define VY_SMALL 0.4f
-#define VY_BIG 0.5f
+#define VY_SMALL 0.6f
+#define VY_BIG 0.6f
 
 
 Test::Test()
@@ -18,6 +18,8 @@ Test::Test()
 	SetState("indie");
 	max_move_x = VX_SMALL;
 	max_move_y = VY_SMALL;
+	renderOrder = 99999; //player should be rendered lastly
+	name = "player";
 }
 
 
@@ -33,13 +35,13 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	coEvents.clear();
 
-	DebugOut(L"[INFOR] Check collision with: %s !!!!!\n", IntToLPCWSTR(coObjects->size()));
+	//DebugOut(L"[INFOR] Check collision with: %s !!!!!\n", IntToLPCWSTR(coObjects->size()));
 
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
 		if (state != "die") {
-			if ((*i)->isAllowCollision == true && (*i)->isBlockPlayer == true) {
+			if ((*i)->isBlockPlayer == true) {
 				LPCOLLISIONEVENT e = SweptAABBEx(*i);
 				if (e->t > 0 && e->t <= 1.0f) {
 					coEvents.push_back(e);
@@ -77,7 +79,6 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			p.x += nx * abs(rdx);
 
 
-		Vector tempV = v;
 		if (nx != 0) v.x = 0;
 		if (ny != 0) v.y = 0;
 
@@ -85,52 +86,8 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (ny < 0) canJump = true;
 
-			if (coEventsResult[i]->obj->isBlockPlayer == true) {
-
-			}
-
-			DebugOut(L"[INFOR] Collision ny %s !!!!!\n", ToLPCWSTR(to_string(ny)));
 			if (coEventsResult[i]->obj->name != "") {
-
-				//DebugOut(L"[INFOR] Collision with %s !!!!!\n", ToLPCWSTR(coEventsResult[i]->obj->name));
-
-				coEventsResult[i]->obj->HandleCollision(coEventsResult[i]);
-
-			}
-
-			if (coEventsResult[i]->obj->name == "Goomba") {
-				if (coEventsResult[i]->nx != 0) {
-					this->Die();
-				}
-			}
-
-			if (coEventsResult[i]->obj->name == "RectPlatform") {
-				v = tempV;
-				p.x = p.x + d.x;
-			}
-
-			if (coEventsResult[i]->obj->name == "MiniPortal") {
-				MiniPortal* start = dynamic_cast<MiniPortal*>(coEventsResult[i]->obj);
-				MiniPortal* destination = NULL;
-				vector<CGameObject*>* allObjectOfSence = &(CGame::GetInstance()->GetCurrentScene()->objects);
-				for (auto i = allObjectOfSence->begin(); i != allObjectOfSence->end(); i++)
-				{
-					if (MiniPortal* obj = dynamic_cast<MiniPortal*>(*i)) {
-						if (obj->portalName == start->portalName && obj->type == "Out") {
-							destination = obj;
-							break;
-						}
-					}
-				}
-				if (destination != NULL) {
-					CGame::GetInstance()->GetCurrentScene()->getCamera()->setCamPos(destination->camera_x, destination->camera_y);
-					p = destination->p;
-				}
-
-			}
-
-			if (coEventsResult[i]->obj->name == "Death") {
-				((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GameOver();
+				HandleCollision(coEventsResult[i]);
 			}
 		}
 
@@ -161,7 +118,20 @@ void Test::SetState(string state)
 
 	if (isReadyChangeState == true) {
 
+		if (state == "running-up") {
+			v.y = -0.15f;
+			v.x = 0;
+			CGameObject::SetState("jumping-right");
+
+		}
+		if (state == "running-down") {
+			v.y = 0.15f;
+			v.x = 0;
+			CGameObject::SetState("jumping-right");
+		}
+
 		if (state == "running-right") {
+			//v.y = 0;
 			v.x = max_move_x;
 			nx = 1;
 			if (canJump == true)
@@ -170,6 +140,7 @@ void Test::SetState(string state)
 
 		}
 		else if (state == "running-left") {
+			//v.y = 0;
 			v.x = -max_move_x;
 			nx = -1;
 			if (canJump == true)
@@ -195,13 +166,21 @@ void Test::SetState(string state)
 		}
 		else if (state == "indie" && canJump == true) {
 			v.x = 0;
+			//v.y = 0;
 			if (nx < 0)
 				CGameObject::SetState("indie-left");
 			else
 				CGameObject::SetState("indie-right");
 		}
+		else if (state == "kick") {
+			if (nx < 0)
+				CGameObject::SetState("kick-left");
+			else
+				CGameObject::SetState("kick-right");
+		}
 		else if (state == "die") {
 			v.y = -0.3f;
+			v.x = 0;
 			CGameObject::SetState(state);
 			isReadyChangeState = false;
 		}
@@ -220,12 +199,47 @@ void Test::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 
 void Test::HandleCollision(LPCOLLISIONEVENT e) {
+	LPGAMEOBJECT obj = e->obj;
+	if (MisteryBox* box = dynamic_cast<MisteryBox*>(obj)) {
+		box->CollisionWithMario(e);
+	}
+
+	if (obj->name == "RectPlatform") {
+		p.x = p.x + d.x;
+	}
+
+	if (obj->name == "MiniPortal") {
+		MiniPortal* start = dynamic_cast<MiniPortal*>(obj);
+		MiniPortal* destination = NULL;
+		vector<CGameObject*>* allObjectOfSence = &(CGame::GetInstance()->GetCurrentScene()->objects);
+
+		for (auto i = allObjectOfSence->begin(); i != allObjectOfSence->end(); i++)
+		{
+			if (MiniPortal* obj = dynamic_cast<MiniPortal*>(*i)) {
+				if (obj->portalName == start->portalName && obj->type == "Out") {
+					destination = obj;
+					break;
+				}
+			}
+		}
+
+		if (destination != NULL) {
+			CGame::GetInstance()->GetCurrentScene()->getCamera()->setCamPos(destination->camera_x, destination->camera_y);
+			p = destination->p;
+		}
+
+	}
+
+	if (obj->name == "Death") {
+		((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GameOver();
+	}
 
 }
 
 void Test::Die() {
 	// handle event die here
 	SetState("die");
+	isAllowCollision = false;
 }
 
 void Test::Transform() {
@@ -235,4 +249,72 @@ void Test::Transform() {
 	width = 42;
 	height = 54;
 	max_move_y = VY_BIG;
+}
+
+void Test::ProcessKeyboard(KeyboardEvent kEvent)
+{
+	switch (kEvent.key) {
+	case DIK_RIGHT:
+		SetState("running-right");
+		break;
+	case DIK_LEFT:
+		SetState("running-left");
+		break;
+	case DIK_UP:
+		SetState("running-up");
+		break;
+	case DIK_DOWN:
+		SetState("running-down");
+		break;
+	case DIK_SPACE:
+		SetState("jumping");
+		break;
+	default:
+		break;
+	}
+
+	/*if (state.action == MarioAction::EXPLODE || state.action == MarioAction::UPGRADE_LV || finishStep > 0) return;
+
+	if (kEvent.isKeyUp == true) {
+		holdingKeys[kEvent.key] = false;
+		return;
+	}
+
+	if (kEvent.isHold == false) holdingKeys[kEvent.key] = true;
+
+	switch (kEvent.key)
+	{
+
+	case DIK_LEFT:
+		ax = -ACCELERATION_X_WALK;
+		nx = -1;
+		break;
+
+	case DIK_RIGHT:
+		ax = ACCELERATION_X_WALK;
+		nx = 1;
+		break;
+
+	case DIK_DOWN:
+		if (kEvent.isHold) ChangeAction(MarioAction::CROUCH);
+		break;
+
+	case DIK_S:
+		if (!kEvent.isHold) {
+			if(!kEvent.isKeyUp) ChangeAction(MarioAction::JUMP);
+		}
+		else ChangeAction(MarioAction::HIGH_JUMP);
+
+		break;
+	case DIK_X:
+		if (!kEvent.isHold) {
+			if (!kEvent.isKeyUp) ChangeAction(MarioAction::JUMP);
+		}
+
+	default:
+		if (this->state.action == MarioAction::CROUCH)
+			ChangeAction(MarioAction::IDLE);
+		break;
+	}*/
+
 }

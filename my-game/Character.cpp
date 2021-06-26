@@ -170,3 +170,7 @@ Character::~Character()
 	ClearSprite();
 	ClearAnimation();
 }
+
+//void Character::ProcessKeyboard(KeyboardEvent kEvent) {
+//
+//}

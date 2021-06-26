@@ -12,18 +12,15 @@
 
 class Leaf :public MapEntity<Leaf>
 {
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	Vector oldP;
-	//virtual void  Render();
-	int beginFalling = 0;
 
 public:
 	Leaf();
-
+	Vector oldP;
+	int beginFalling = 0;
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
-
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

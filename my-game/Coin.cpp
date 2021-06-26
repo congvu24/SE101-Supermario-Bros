@@ -1,5 +1,6 @@
 #include "Coin.h"
 #include "Vector.h"
+#include "Test.h"
 #include <iostream>
 
 
@@ -13,6 +14,7 @@ Coin::Coin()
 {
 	SetState("running");
 	isBlockPlayer = false;
+	isAllowCollision = false;
 }
 
 void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -31,18 +33,51 @@ void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			p = newPos;
 		}
 	}
-	//}
+
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+
+	coEvents.clear();
+	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
+	{
+
+		if (Test* obj = dynamic_cast<Test*>((*i))) {
+			LPCOLLISIONEVENT e = SweptAABBEx(*i);
+
+			if (e->t > 0 && e->t <= 1.0f) {
+				coEvents.push_back(e);
+			}
+			else {
+				delete e;
+			}
+		}
+	}
+
+	float min_tx, min_ty, nx = 0, ny;
+	float rdx = 0;
+	float rdy = 0;
+
+	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+	if (rdx != 0 && rdx != d.x)
+		p.x += nx * abs(rdx);
+
+	// block every object first!
+
+	for (UINT i = 0; i < coEventsResult.size(); i++) {
+
+		if (Test* obj = dynamic_cast<Test*>(coEventsResult[i]->obj)) {
+			this->SetState("hidden");
+		}
+
+	}
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+	coEvents.clear();
+	coEventsResult.clear();
 }
 
-void Coin::Render() {
-	if (state == "hidden") return;
-	else {
-		float width = 0;
-		float height = 0;
-		Coin::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
-		RenderBoundingBox();
-	}
-}
 
 void Coin::SetState(string state)
 {

@@ -18,7 +18,7 @@ void CAnimation::Add(LPSPRITE sprite, DWORD time)
 }
 
 // NOTE: sometimes Animation object is NULL ??? HOW ??? 
-void CAnimation::Render(float x, float y, int alpha, float& width, float& height)
+void CAnimation::Render(float x, float y, int alpha, float& width, float& height, Vector scale)
 {
 	this->currentFrame = this->currentFrame;
 	DWORD now = GetTickCount();
@@ -41,7 +41,7 @@ void CAnimation::Render(float x, float y, int alpha, float& width, float& height
 	width = sprite->width;
 	height = sprite->height;
 
-	sprite->Draw(x, y, alpha);
+	sprite->DrawWithScale(x, y, scale, alpha);
 }
 
 

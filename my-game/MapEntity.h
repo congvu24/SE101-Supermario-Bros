@@ -11,36 +11,20 @@ using json = nlohmann::json;
 template <class T>
 class MapEntity : public CGameObject
 {
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom)
-	{
-		left = p.x;
-		top = p.y;
-		right = p.x + width;
-		bottom = p.y + height;
-	}
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
-	{
-		CGameObject::Update(dt, coObjects);
-
-	}
-	//virtual void SaveStaticData(json data);
-	virtual void  Render()
-	{
-		float w = width;
-		float h = height;
-		T::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h);
-		this->width = w;
-		this->height = h;
-		RenderBoundingBox();
-	}
-
 public:
 
 	MapEntity() {
 		SetState("running");
-		width = 14;
-		height = 16;
-		p = Vector(0, 0);
+	}
+	virtual void  Render()
+	{
+		float w = width;
+		float h = height;
+		Vector scale = Vector(-nx, 1.0f);
+		T::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h, scale);
+		this->width = w;
+		this->height = h;
+		RenderBoundingBox();
 	}
 
 	void ParseFromOwnJson() {
@@ -52,6 +36,8 @@ public:
 			if (this->type == "") this->type = type;
 			this->name = name;
 			SetActiveAnimationSet(type);
+
+			HandleAfterCreated();
 		}
 	}
 	void ParseFromJson(json data) {};
@@ -63,8 +49,6 @@ public:
 	void SetState(string state) {
 		this->state = state;
 	}
-	virtual void HandleCollision(LPCOLLISIONEVENT e) = 0;
-	// virtual function help to handle collision of mario to it
 
 	static void SaveStaticData(json data) {
 		if (T::data == NULL) {
@@ -169,5 +153,9 @@ public:
 		T::texture = NULL;
 		T::data = NULL;
 		CGameObject::clear();
+	}
+
+	virtual void HandleAfterCreated() {
+		DebugOut(L"out here");
 	}
 };

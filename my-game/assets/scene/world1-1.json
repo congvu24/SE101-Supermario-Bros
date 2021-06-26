@@ -21,8 +21,6 @@
       "sprite": "assets/sprite/misc.json",
       "animation": "assets/animations/coin-animation.json",
       "type": 1,
-      "x": 100,
-      "y": 150,
       "visible": false
     },
     {
@@ -32,8 +30,6 @@
       "sprite": "assets/sprite/misc.json",
       "animation": "assets/animations/misterybox-animation.json",
       "type": 1,
-      "x": 100,
-      "y": 150,
       "visible": false
     },
     {
@@ -43,8 +39,6 @@
       "sprite": "assets/sprite/enemy.json",
       "animation": "assets/animations/goomba-animation.json",
       "type": 1,
-      "x": 100,
-      "y": 150,
       "visible": false
     },
     {
@@ -54,8 +48,6 @@
       "sprite": "assets/sprite/misc.json",
       "animation": "assets/animations/leaf-animation.json",
       "type": 1,
-      "x": 100,
-      "y": 150,
       "visible": false
     },
     {
@@ -65,8 +57,33 @@
       "sprite": "assets/sprite/misc.json",
       "animation": "assets/animations/mushroom-animation.json",
       "type": 1,
-      "x": 100,
-      "y": 150,
+      "visible": false
+    },
+    {
+      "id": "7",
+      "name": "Venus",
+      "texture": "assets/texture/enemy2.png",
+      "sprite": "assets/sprite/enemy2.json",
+      "animation": "assets/animations/venus-animation.json",
+      "type": 1,
+      "visible": false
+    },
+    {
+      "id": "8",
+      "name": "Venus_Bullet",
+      "texture": "assets/texture/enemy2.png",
+      "sprite": "assets/sprite/enemy2.json",
+      "animation": "assets/animations/venus-bullet-animation.json",
+      "type": 1,
+      "visible": false
+    },
+    {
+      "id": "8",
+      "name": "Koopas",
+      "texture": "assets/texture/enemy2.png",
+      "sprite": "assets/sprite/enemy2.json",
+      "animation": "assets/animations/koopas-animation.json",
+      "type": 1,
       "visible": false
     }
   ]

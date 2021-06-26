@@ -10,6 +10,7 @@
 #include "library/json.hpp"
 #include "Utils.h"
 #include "Vector.h"
+#include "Game.h"
 
 using json = nlohmann::json;
 
@@ -59,6 +60,7 @@ public:
 
 	void ParseSpriteFromJson(LPCWSTR filePath);
 	void ParseAnimationFromJson(LPCWSTR filePath);
+	virtual void ProcessKeyboard(KeyboardEvent kEvent) = 0;
 
 	~Character();
 };

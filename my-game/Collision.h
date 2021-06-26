@@ -6,16 +6,17 @@
 
 class Collision :public MapEntity<Collision>
 {
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void Render();
+	
 public:
 	Collision();
 
+	static json data;
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void Render();
 
-	static json data;
 	static LPDIRECT3DTEXTURE9 texture;
 	static unordered_map<string, LPSPRITE> sprites; //save all sprite of animation
 	static unordered_map<string, LPANIMATION> all_animations; //save all animations

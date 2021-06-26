@@ -12,6 +12,7 @@ json Collision::data = NULL;
 Collision::Collision()
 {
 	isBlockPlayer = true;
+	isUniversal = true;
 }
 
 void Collision::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -40,6 +41,7 @@ void  Collision::Render()
 	float height = 0;
 	animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
 	RenderBoundingBox();*/
+	RenderBoundingBox();
 }
 
 void Collision::HandleCollision(LPCOLLISIONEVENT e) {

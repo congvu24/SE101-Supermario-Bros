@@ -14,7 +14,9 @@
       { "name": "6.png", "time": 100 },
       { "name": "4.png", "time": 100 }
     ],
-    "die": [{ "name": "7.png", "time": 100 }]
+    "die": [{ "name": "7.png", "time": 100 }],
+    "kick-left": [{ "name": "118.png", "time": 100 }],
+    "kick-right": [{ "name": "118.png", "time": 100 }]
   },
   "2": {
     "indie-right": [{ "name": "67.png", "time": 100 }],
@@ -33,7 +35,9 @@
     ],
     "sitting-right": [{ "name": "103.png", "time": 100 }],
     "sitting-left": [{ "name": "89.png", "time": 100 }],
-    "die": [{ "name": "96.png", "time": 100 }]
+    "die": [{ "name": "96.png", "time": 100 }],
+    "kick-left": [{ "name": "16.png", "time": 100 }],
+    "kick-right": [{ "name": "28.png", "time": 100 }]
   },
   "3": {
     "indie": [{ "name": "34.png", "time": 100 }],

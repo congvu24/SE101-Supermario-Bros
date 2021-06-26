@@ -4,20 +4,25 @@
 #include "Game.h"
 #include <iostream>
 
-class SelectNode :public MapEntity<SelectNode>
+
+enum class VenusAction {
+	HIDING,
+	ATTACK,
+	SHOWING
+};
+
+class Venus :public MapEntity<Venus>
 {
-	
 
 public:
-	SelectNode();
-	string nodeName;
-	string right;
-	string left;
-	string down;
-	string up;
+	Venus();
+	VenusAction action;
 
+	Vector oldP;
 	virtual void SetState(string state);
+	virtual void SetAction(VenusAction newAction);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
+	virtual void HandleAfterCreated();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();

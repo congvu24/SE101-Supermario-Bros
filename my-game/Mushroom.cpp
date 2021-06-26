@@ -14,6 +14,7 @@ Mushroom::Mushroom()
 {
 	SetState("fromMisteryBox");
 	isBlockPlayer = false;
+	isAllowCollision = false;
 }
 
 void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

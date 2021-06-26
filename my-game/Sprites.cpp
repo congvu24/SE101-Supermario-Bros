@@ -29,6 +29,18 @@ void CSprite::Draw(float x, float y, int alpha)
 	game->Draw(x, y, texture, left, top, right, bottom, alpha);
 }
 
+void CSprite::DrawWithScale(float x, float y, Vector scale, int alpha)
+{
+	CGame* game = CGame::GetInstance();
+	//DebugOut(L"[INFO] render %s \n", ToLPCWSTR(id));
+	Vector p = Vector(x, y);
+	RECT r = { left ,top,right ,bottom };
+	D3DXVECTOR2 scal = D3DXVECTOR2(scale.x, scale.y);
+
+	game->DrawWithScale(p, texture, r, alpha, scal);
+}
+
+
 void CSprites::Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
 	LPSPRITE s = new CSprite(id, left, top, right, bottom, right - left, bottom - top, tex);

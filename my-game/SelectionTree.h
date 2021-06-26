@@ -7,14 +7,13 @@
 
 class SelectionTree :public MapEntity<SelectionTree>
 {
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
 public:
 	SelectionTree();
 
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
-
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

@@ -64,6 +64,7 @@ public:
 
 	float width;
 	float height;
+	int renderOrder;
 
 	string state;
 	string type;
@@ -71,6 +72,7 @@ public:
 	DWORD dt;
 
 	bool isBlockPlayer = true;
+	bool isUniversal = false;
 
 	LPDIRECT3DTEXTURE9 texture;
 	LPANIMATION_SET active_animation_set;
@@ -94,7 +96,6 @@ public:
 
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
-	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 	void FilterCollision(
 		vector<LPCOLLISIONEVENT>& coEvents,
 		vector<LPCOLLISIONEVENT>& coEventsResult,
@@ -107,11 +108,11 @@ public:
 
 	CGameObject();
 
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render() = 0;
 	virtual void SetState(string state) { this->state = state; }
-	virtual void HandleCollision(LPCOLLISIONEVENT e) = 0;
+	virtual void HandleCollision(LPCOLLISIONEVENT e);
 	virtual void clear();
 	~CGameObject();
 };

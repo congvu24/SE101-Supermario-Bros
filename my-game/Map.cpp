@@ -69,14 +69,9 @@ void Layer::draw(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity) {
 	scale.x = 1;
 	scale.y = 1;
 
-	//p.x = 0;
-	//p.y = 0;
-
-	pos.x = p.x;
-	pos.y = p.y;
 
 
-	game->DrawWithScale(p, texture, r, 255, pos, scale);
+	game->DrawWithScale(p, texture, r, 255, scale);
 
 	//game->Draw(p.x, p.y, texture, r.left, r.top, r.right, r.bottom, 255);
 }

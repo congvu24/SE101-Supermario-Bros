@@ -180,6 +180,12 @@
     <ClCompile Include="Death.cpp">
       <Filter>Source Files\Object\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Venus.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="VenusBullet.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -291,6 +297,12 @@
       <Filter>Header Files\Helper</Filter>
     </ClInclude>
     <ClInclude Include="Mushroom.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Venus.h">
+      <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="VenusBullet.h">
       <Filter>Header Files\Object\Entity</Filter>
     </ClInclude>
   </ItemGroup>

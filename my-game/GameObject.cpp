@@ -13,10 +13,6 @@ LPDIRECT3DTEXTURE9 CGameObject::bboxtex = NULL;
 
 CGameObject::CGameObject()
 {
-	/*p.x = p.y = 0;
-	v.x = v.y = 0;*/
-
-
 	p = Vector(0, 0);
 	v = Vector(0, 0);
 	d = Vector(0, 0);
@@ -24,6 +20,7 @@ CGameObject::CGameObject()
 	name = "";
 	nx = 1;
 	type = "";
+	renderOrder = 1; // initial render order should be 1;
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -47,8 +44,8 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 	float svx, svy;
 	coO->GetSpeed(svx, svy);
 
-	float sdx = svx*dt;
-	float sdy = svy*dt;
+	float sdx = svx * dt;
+	float sdy = svy * dt;
 
 	// (rdx, rdy) is RELATIVE movement distance/velocity 
 	float rdx = this->d.x - sdx;
@@ -63,36 +60,10 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 		t, nx, ny
 	);
 
-	CCollisionEvent * e = new CCollisionEvent(t, nx, ny, rdx, rdy, coO);
+	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, rdx, rdy, coO);
 	return e;
 }
 
-/*
-	Calculate potential collisions with the list of colliable objects
-
-	coObjects: the list of colliable objects
-	coEvents: list of potential collisions
-*/
-void CGameObject::CalcPotentialCollisions(
-	vector<LPGAMEOBJECT>* coObjects,
-	vector<LPCOLLISIONEVENT>& coEvents)
-{
-	for (UINT i = 0; i < coObjects->size(); i++)
-	{
-		if (this != coObjects->at(i)) {
-			LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
-
-			if (e->t > 0 && e->t <= 1.0f) {
-				coEvents.push_back(e);
-			}
-			else {
-				delete e;
-			}
-		}
-	}
-
-	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
-}
 
 //filter collision with moving object 
 void CGameObject::FilterCollision(
@@ -150,6 +121,16 @@ void CGameObject::RenderBoundingBox()
 
 CGameObject::~CGameObject() {}
 
+void CGameObject::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+{
+	left = p.x;
+	top = p.y;
+	right = p.x + width;
+	bottom = p.y + height;
+}
+
+
+
 void CGameObject::clear()
 {
 	texture = NULL;
@@ -160,4 +141,8 @@ void CGameObject::LoadBoundedBox() {
 	if (CGameObject::bboxtex == NULL) {
 		CGameObject::bboxtex = CGame::LoadTexture(L"assets/texture/bbox.png");
 	}
+}
+
+void CGameObject::HandleCollision(LPCOLLISIONEVENT e) {
+
 }

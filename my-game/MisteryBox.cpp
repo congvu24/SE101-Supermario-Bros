@@ -17,6 +17,8 @@ MisteryBox::MisteryBox()
 	d = Vector(0, 0);
 	v = Vector(0, 0);
 	g = Vector(0, 0);
+	nx = -1;
+	isAllowCollision = false;
 }
 
 void MisteryBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -68,7 +70,7 @@ void MisteryBox::GetBoundingBox(float& left, float& top, float& right, float& bo
 }
 
 
-void MisteryBox::HandleCollision(LPCOLLISIONEVENT e) {
+void MisteryBox::CollisionWithMario(LPCOLLISIONEVENT e) {
 	if (isHitted == false && e->ny >= 0 && e->nx == 0) {
 		this->SetState("hitting");
 		isHitted = true;

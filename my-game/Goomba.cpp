@@ -1,5 +1,6 @@
 #include "Goomba.h"
 #include "Vector.h"
+#include "Test.h"
 #include <iostream>
 
 
@@ -12,9 +13,9 @@ json Goomba::data = NULL;
 Goomba::Goomba()
 {
 	SetState("running");
-	width = 14;
-	height = 16;
 	v = Vector(0.05f, 0);
+	isAllowCollision = true;
+	isBlockPlayer = false;
 }
 
 void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -31,9 +32,8 @@ void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear();
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		if ((*i)->isAllowCollision == true && (*i)->name == "RectCollision") {
+		if ((*i)->isAllowCollision == true) {
 			LPCOLLISIONEVENT e = SweptAABBEx(*i);
-
 			if (e->t > 0 && e->t <= 1.0f) {
 				coEvents.push_back(e);
 			}
@@ -54,39 +54,27 @@ void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		if (rdx != 0 && rdx != d.x)
-			p.x += nx * abs(rdx);
-
-		// block every object first!
-		p.x += min_tx * d.x + nx * 0.4f;
-		p.y += min_ty * d.y + ny * 0.4f;
 
 		if (nx != 0) v.x = -v.x;
 		if (ny != 0) v.y = 0;
 
+		for (UINT i = 0; i < coEventsResult.size(); i++) {
+			HandleCollision(coEventsResult[i]);
+		}
 
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-
 	}
+	coEvents.clear();
+	coEventsResult.clear();
 }
 
-//void Goomba::Render() {
-//	if (state == "hidden") return;
-//	else {
-//		float width = 0;
-//		float height = 0;
-//		Goomba::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
-//		RenderBoundingBox();
-//	}
-//}
 
 void Goomba::SetState(string state)
 {
 	if (state == "running") {
 	}
 	else if (state == "die") {
-		v = Vector(0, 0);
-		//g = Vector(0, 0);
+		v = Vector(0, -0.15f);
 	}
 	else if (state == "hidden") {
 
@@ -106,8 +94,19 @@ void Goomba::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 
 void Goomba::HandleCollision(LPCOLLISIONEVENT e) {
-	if (isAllowCollision == true && state != "hidden" && e->ny < 0) {
-		isAllowCollision = false;
-		SetState("die");
+
+	LPGAMEOBJECT obj = e->obj;
+	if (Test* player = dynamic_cast<Test*>(obj)) {
+		if (e->ny > 0) {
+			SetState("die");
+		}
+		else if (e->nx != 0 && state != "die") {
+			//player->Die();
+		}
 	}
+}
+
+void Goomba::Die() {
+	this->SetState("die");
+	isAllowCollision = false;
 }

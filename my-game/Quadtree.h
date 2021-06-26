@@ -14,13 +14,13 @@ private:
 	vector<CGameObject*>* m_objects_list = new vector<CGameObject*>();
 	Quadtree** m_nodes;
 
-	bool           IsContain(CGameObject* entity);
 	void           Split();
 public:
 	Quadtree();
 	Quadtree(int level, RECT* region);
 	//~Quadtree();
 
+	bool  IsContain(CGameObject* entity);
 	void  Clear();
 	void  Insert(CGameObject* entity);
 	void  Retrieve(vector<CGameObject*>* return_objects_list, CGameObject* entity);

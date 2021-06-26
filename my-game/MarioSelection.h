@@ -7,9 +7,6 @@
 
 class MarioSelection : public Character
 {
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void Render();
 
 
 public:
@@ -20,6 +17,11 @@ public:
 	string left;
 	bool isMoving = false;
 
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void Render();
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
+	virtual void ProcessKeyboard(KeyboardEvent kEvent);
+
 };

@@ -1,27 +1,25 @@
-//#pragma once
-//
-//#include "GameObject.h"
-//
-//#define KOOPAS_WALKING_SPEED 0.03f;
-//
-//#define KOOPAS_BBOX_WIDTH 16
-//#define KOOPAS_BBOX_HEIGHT 26
-//#define KOOPAS_BBOX_HEIGHT_DIE 16
-//
-//#define KOOPAS_STATE_WALKING 100
-//#define KOOPAS_STATE_DIE 200
-//
-//#define KOOPAS_ANI_WALKING_LEFT 0
-//#define KOOPAS_ANI_WALKING_RIGHT 1
-//#define KOOPAS_ANI_DIE 2
-//
-//class CKoopas : public CGameObject
-//{
-//	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-//	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
-//	virtual void Render();
-//
-//public:
-//	CKoopas();
-//	virtual void SetState(int state);
-//};
+#pragma once
+#include "GameObject.h"
+#include "MapEntity.h"
+#include "Game.h"
+#include <iostream>
+
+class Koopas :public MapEntity<Koopas>
+{
+
+public:
+	Koopas();
+
+	Vector oldP;
+	bool isHitted = false;
+	virtual void SetState(string state);
+	virtual void HandleCollision(LPCOLLISIONEVENT e);
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+
+	static json data;
+	static LPDIRECT3DTEXTURE9 texture;
+	static unordered_map<string, LPSPRITE> sprites; //save all sprite of animation
+	static unordered_map<string, LPANIMATION> all_animations; //save all animations
+	static CAnimationSets animations_set; //save all the animation 
+};

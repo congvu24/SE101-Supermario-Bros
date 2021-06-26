@@ -14,6 +14,7 @@ Leaf::Leaf()
 {
 	SetState("fromMisteryBox");
 	isBlockPlayer = false;
+	isAllowCollision = false;
 }
 
 void Leaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -26,18 +27,19 @@ void Leaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	//if (state != "running") {
 
 	coEvents.clear();
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		LPCOLLISIONEVENT e = SweptAABBEx(*i);
+		if (Test* player = dynamic_cast<Test*>((*i))) {
+			LPCOLLISIONEVENT e = SweptAABBEx(*i);
 
-		if (e->t > 0 && e->t <= 1.0f) {
-			coEvents.push_back(e);
-		}
-		else {
-			delete e;
+			if (e->t > 0 && e->t <= 1.0f) {
+				coEvents.push_back(e);
+			}
+			else {
+				delete e;
+			}
 		}
 
 	}
@@ -45,55 +47,25 @@ void Leaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	p.y = p.y + d.y;
 	if (v.y > 0)
 		p.x = oldP.x + LEAF_AMPLITUDE * cos(LEAF_SPEED * time * 1.0f - PI / 2);
-	if (coEvents.size() == 0) {
+
+	if (LEAF_AMPLITUDE * cos(LEAF_SPEED * time * 1.0f - PI / 2) > 0) nx = 1;
+	else nx = - 1;
+
+	float min_tx, min_ty, nx = 0, ny;
+	float rdx = 0;
+	float rdy = 0;
+
+	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+
+	for (UINT i = 0; i < coEventsResult.size(); i++) {
+
+		HandleCollision(coEventsResult[i]);
 	}
-	else {
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		/*if (rdx != 0 && rdx != d.x)
-			p.x += nx * abs(rdx);*/
-
-		// block every object first!
-		/*p.x += min_tx * d.x + nx * 0.4f;
-		p.y += min_ty * d.y + ny * 0.4f;*/
-
-		/*if (nx != 0) v.x = -v.x;
-		if (ny != 0) v.y = 0;*/
-
-		//stop move here
-
-		/*if (nx == 0 && ny != 0) {
-			SetState("running");
-		}*/
-
-		for (UINT i = 0; i < coEventsResult.size(); i++) {
-
-			if (Test* obj = dynamic_cast<Test*>(coEventsResult[i]->obj)) {
-				obj->Transform();
-				SetState("hidden");
-			}
-		}
-
-		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-
-	}
-	//}
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 }
-
-//void Leaf::Render() {
-//	if (state == "hidden") return;
-//	else {
-//		float width = 0;
-//		float height = 0;
-//		Leaf::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
-//		RenderBoundingBox();
-//	}
-//}
 
 void Leaf::SetState(string state)
 {
@@ -105,9 +77,6 @@ void Leaf::SetState(string state)
 	else if (state == "fromMisteryBox") {
 		p.y = p.y - 20;
 		oldP = p;
-		//oldP.y = oldP.y - 50;
-		/*v.y = -0.5f;
-		g.y = 0.0015f;*/
 	}
 	else if (state == "hidden") {
 
@@ -127,4 +96,10 @@ void Leaf::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 
 void Leaf::HandleCollision(LPCOLLISIONEVENT e) {
+	LPGAMEOBJECT obj = e->obj;
+
+	if (Test* player = dynamic_cast<Test*>(e->obj)) {
+		player->Transform();
+		SetState("hidden");
+	}
 }
