@@ -31,28 +31,3 @@ LPCWSTR IntToLPCWSTR(int st);
 
 json ReadJsonFIle(LPCWSTR file);
 
-enum class ObjectType
-{
-	NOT_FOUND,
-	Camera,
-	Test,
-	Enemy,
-	QuestionBox_Item,
-	QuestionBox_Coin,
-	QuestionBox_Mushroom,
-	Coin,
-	Goomba,
-	RectPlatform,
-	Leaf,
-	SelectionTree,
-	IntroText,
-	OptionCursor,
-	Mushroom,
-	Venus,
-	Venus_Bullet,
-	Koopas
-};
-
-
-ObjectType fromNameToCode(string name);
-

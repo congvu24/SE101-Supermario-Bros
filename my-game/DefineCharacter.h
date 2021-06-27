@@ -1,3 +1,4 @@
+#pragma once
 #include <Windows.h>
 
 #include <signal.h>
@@ -15,3 +16,29 @@ using json = nlohmann::json;
 
 
 using namespace std;
+
+
+enum class ObjectType
+{
+	NOT_FOUND,
+	Camera,
+	Test,
+	Enemy,
+	QuestionBox_Item,
+	QuestionBox_Coin,
+	QuestionBox_Mushroom,
+	Coin,
+	Goomba,
+	RectPlatform,
+	Leaf,
+	SelectionTree,
+	IntroText,
+	OptionCursor,
+	Mushroom,
+	Venus,
+	Venus_Bullet,
+	Koopas
+};
+
+
+ObjectType fromNameToCode(string name);
