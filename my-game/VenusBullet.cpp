@@ -13,7 +13,7 @@ json VenusBullet::data = NULL;
 VenusBullet::VenusBullet()
 {
 	SetState("running");
-	isBlockPlayer = true;
+	isBlockPlayer = false;
 	isAllowCollision = false;
 	v = Vector(0.10f, 0.10f);
 	g = Vector(0, 0);

@@ -102,9 +102,6 @@ void  CScene::_ParseSection_SPRITES_FromJson(LPCWSTR filePath, int textID) {
 
 
 void CScene::switchScene(int sence_id) {
-
-	
-
 	this->animationDirection = CLOSING;
 	this->nextScene = sence_id;
 }

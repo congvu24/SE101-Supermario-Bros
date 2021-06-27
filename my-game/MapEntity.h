@@ -22,7 +22,7 @@ public:
 		float w = width;
 		float h = height;
 		Vector scale = Vector((float)-nx, 1.0f);
-		T::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h);
+		T::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h, scale);
 		p.y = p.y - (h - this->height);
 		p.x = p.x - (w - this->width);
 		width = w;

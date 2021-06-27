@@ -132,6 +132,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Death.cpp" />
     <ClCompile Include="Death.h" />
+    <ClCompile Include="DefineCharacter.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Intro.cpp" />
     <ClCompile Include="IntroCursor.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="RectPlatform.cpp" />
+    <ClCompile Include="RedGoomba.cpp" />
     <ClCompile Include="SelectionTree.cpp" />
     <ClCompile Include="SelectNode.cpp" />
     <ClCompile Include="SelectPortal.cpp" />
@@ -174,6 +176,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="DefineCharacter.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Intro.h" />
     <ClInclude Include="IntroCursor.h" />
@@ -190,6 +193,7 @@
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="RectPlatform.h" />
+    <ClInclude Include="RedGoomba.h" />
     <ClInclude Include="SelectionTree.h" />
     <ClInclude Include="SelectNode.h" />
     <ClInclude Include="SelectPortal.h" />

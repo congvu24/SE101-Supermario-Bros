@@ -15,6 +15,7 @@
 #include "Death.h"
 #include "Venus.h"
 #include "VenusBullet.h"
+#include "DefineCharacter.h"
 
 using namespace std;
 
@@ -123,8 +124,8 @@ void CPlayScene::Render()
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 
 	RECT* base = new RECT();
-	base->left = camera->cam_x - 200; 
-	base->top = camera->cam_y - 200; 
+	base->left = camera->cam_x - 200;
+	base->top = camera->cam_y - 200;
 	base->right = camera->cam_x + 800 + 200;
 	base->bottom = camera->cam_y + 600 + 200;
 
@@ -292,7 +293,7 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 
 		switch (fromNameToCode(name))
 		{
-		case 1:
+		case ObjectType::Test:
 			if (player != NULL)
 			{
 				DebugOut(L"[ERROR] MARIO object was created before!\n");
@@ -303,38 +304,38 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			player = obj;
 			break;
 
-		case 3:
+		case  ObjectType::QuestionBox_Item:
 			if (visible != true)
 				MisteryBox::SaveStaticData(data);
-		case 4:
+		case  ObjectType::Coin:
 			if (visible != true)
 				Coin::SaveStaticData(data);
 			break;
-		case 5:
+		case  ObjectType::Goomba:
 			if (visible != true)
 				Goomba::SaveStaticData(data);
 			break;
-		case 6:
+		case  ObjectType::RectPlatform:
 			if (visible != true)
 				RectPlatform::SaveStaticData(data);
 			break;
-		case 7:
+		case  ObjectType::Leaf:
 			if (visible != true)
 				Leaf::SaveStaticData(data);
 			break;
-		case 11:
+		case  ObjectType::Mushroom:
 			if (visible != true)
 				Mushroom::SaveStaticData(data);
 			break;
-		case 12:
+		case  ObjectType::Venus:
 			if (visible != true)
 				Venus::SaveStaticData(data);
 			break;
-		case 13:
+		case  ObjectType::Venus_Bullet:
 			if (visible != true)
 				VenusBullet::SaveStaticData(data);
 			break;
-		case 14:
+		case  ObjectType::Koopas:
 			if (visible != true)
 				Koopas::SaveStaticData(data);
 			break;
@@ -502,22 +503,22 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 
 			switch (fromNameToCode(name))
 			{
-			case 3:
+			case ObjectType::QuestionBox_Item:
 				obj = new MisteryBox();
 				break;
-			case 4:
+			case ObjectType::Coin:
 				obj = new Coin();
 				break;
-			case 5:
+			case ObjectType::Goomba:
 				obj = new Goomba();
 				break;
-			case 12:
+			case ObjectType::Venus:
 				obj = new Venus();
 				break;
-			case 14:
+			case ObjectType::Koopas:
 				obj = new Koopas();
 				break;
-			case 9999:
+			case ObjectType::Camera:
 				camera->setCamPos(x, y);
 				camera->cam_x_limit = x;
 				camera->cam_y_limit = y;

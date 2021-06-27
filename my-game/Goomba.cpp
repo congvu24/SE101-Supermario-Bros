@@ -17,13 +17,14 @@ Goomba::Goomba()
 	v = Vector(0.05f, 0);
 	isAllowCollision = true;
 	isBlockPlayer = true;
+	useLimit = false;
 }
 
 void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
-
 	CGameObject::Update(dt, coObjects);
+	Enemy::CheckToChangeDirection();
+
 	v = v + g * dt;
 	if (v.y > 0.35f) v.y = 0.35f;
 
@@ -37,8 +38,8 @@ void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		if ((*i)->isAllowCollision == true && state !="die") {
-			checkObjects->push_back(*i);
+		if ((*i)->isAllowCollision == true && (*i)->name !="RectPlatform") {
+			checkObjects->push_back((*i));
 		}
 	}
 
@@ -50,6 +51,8 @@ void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		p = p + d;
 	}
 	else {
+		p.x = p.x + d.x;
+
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
@@ -57,7 +60,7 @@ void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 
-		if (nx != 0) v.x = -v.x;
+		/*	if (nx != 0) v.x = -v.x;*/
 		if (ny != 0) v.y = 0;
 
 		for (UINT i = 0; i < coEventsResult.size(); i++) {
@@ -98,6 +101,7 @@ void Goomba::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 
 void Goomba::HandleCollision(LPCOLLISIONEVENT e) {
+	Enemy::HandleCollision(e);
 }
 
 void Goomba::Die() {
@@ -106,12 +110,19 @@ void Goomba::Die() {
 void Goomba::BeingKill() {
 	Enemy::BeingKill();
 	isAllowCollision = false;
-	isBlockPlayer = false;
-	//Test* player = ((Test*)((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->player);
-	//player->canJump = true;
-	//player->SetState("jumping");
 }
 
 void Goomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	Enemy::OnHadCollided(obj, event);
+
+	if (state == "die") {
+		if (Test* player = dynamic_cast<Test*>(obj)) {
+			if (isBlockPlayer == true) {
+				player->canJump = true;
+				player->SetState("jumping");
+				isAllowCollision = false;
+				isBlockPlayer = false;
+			}
+		}
+	}
 }

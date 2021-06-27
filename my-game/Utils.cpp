@@ -89,28 +89,29 @@ json ReadJsonFIle(LPCWSTR file) {
 	return jsonData;
 }
 
-int fromNameToCode(string name) {
-	unordered_map <string, int> character_code;
-	character_code["Camera"] = 9999;
-	character_code["test"] = 1;
-	character_code["enemy"] = 2;
-	character_code["QuestionBox_Item"] = 3;
-	character_code["QuestionBox_Coin"] = 3;
-	character_code["QuestionBox_Mushroom"] = 3;
-	character_code["Coin"] = 4;
-	character_code["Goomba"] = 5;
-	character_code["RectPlatform"] = 6;
-	character_code["Leaf"] = 7;
-	character_code["SelectionTree"] = 8;
-	character_code["IntroText"] = 9;
-	character_code["OptionCursor"] = 10;
-	character_code["Mushroom"] = 11;
-	character_code["Venus"] = 12;
-	character_code["Venus_Bullet"] = 13;
-	character_code["Koopas"] = 14;
-	
+
+ObjectType fromNameToCode(string name) {
+	unordered_map <string, ObjectType> character_code;
+	character_code["Camera"] = ObjectType::Camera;
+	character_code["test"] = ObjectType::Test;
+	character_code["enemy"] = ObjectType::Enemy;
+	character_code["QuestionBox_Item"] = ObjectType::QuestionBox_Item;
+	character_code["QuestionBox_Coin"] = ObjectType::QuestionBox_Item;
+	character_code["QuestionBox_Mushroom"] = ObjectType::QuestionBox_Item;
+	character_code["Coin"] = ObjectType::Coin;
+	character_code["Goomba"] = ObjectType::Goomba;
+	character_code["RectPlatform"] = ObjectType::RectPlatform;
+	character_code["Leaf"] = ObjectType::Leaf;
+	character_code["SelectionTree"] = ObjectType::SelectionTree;
+	character_code["IntroText"] = ObjectType::IntroText;
+	character_code["OptionCursor"] = ObjectType::OptionCursor;
+	character_code["Mushroom"] = ObjectType::Mushroom;
+	character_code["Venus"] = ObjectType::Venus;
+	character_code["Venus_Bullet"] = ObjectType::Venus_Bullet;
+	character_code["Koopas"] = ObjectType::Koopas;
+
 	if (character_code.find(name) != character_code.end()) {
 		return character_code.at(name);
 	}
-	else return 0;
+	else return ObjectType::NOT_FOUND;
 }

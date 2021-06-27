@@ -16,6 +16,7 @@
 #include "SelectionTree.h"
 #include "IntroText.h"
 #include "IntroCursor.h"
+#include "DefineCharacter.h"
 
 
 Intro::Intro(int id, LPCWSTR filePath) :
@@ -134,11 +135,11 @@ void  Intro::_ParseSection_OBJECTS_FromJson(json allObjects) {
 
 		switch (fromNameToCode(name))
 		{
-		case 9:
+		case ObjectType::IntroText:
 			if (visible != true)
 				IntroText::SaveStaticData(data);
 			break;
-		case 10:
+		case ObjectType::OptionCursor:
 			if (player != NULL)
 			{
 				DebugOut(L"[ERROR] Curosr object was created before!\n");
@@ -148,6 +149,7 @@ void  Intro::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			obj->ParseFromJson(data); //remember to set position, animation_set in this function
 			player = obj;
 			break;
+
 		default:
 			break;
 		}
@@ -208,11 +210,11 @@ void Intro::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 
 			switch (fromNameToCode(name))
 			{
-			case 9:
+			case ObjectType::IntroText:
 				obj = new IntroText();
 				obj->type = type;
 				break;
-			case 9999:
+			case ObjectType::Camera:
 				camera->setCamPos(x, y);
 				camera->cam_x_limit = x;
 				camera->cam_y_limit = y;

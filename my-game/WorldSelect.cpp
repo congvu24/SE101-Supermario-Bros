@@ -14,6 +14,7 @@
 #include "MarioSelection.h"
 #include "SelectNode.h"
 #include "SelectionTree.h"
+#include "DefineCharacter.h"
 
 
 WorldSelect::WorldSelect(int id, LPCWSTR filePath) :
@@ -176,7 +177,7 @@ void  WorldSelect::_ParseSection_OBJECTS_FromJson(json allObjects) {
 
 		switch (fromNameToCode(name))
 		{
-		case 1:
+		case ObjectType::Test:
 			if (player != NULL)
 			{
 				return;
@@ -185,7 +186,7 @@ void  WorldSelect::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			obj->ParseFromJson(data); //remember to set position, animation_set in this function
 			player = obj;
 			break;
-		case 8:
+		case ObjectType::SelectionTree:
 			if (visible != true)
 				SelectionTree::SaveStaticData(data);
 			break;
@@ -313,14 +314,14 @@ void WorldSelect::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) 
 
 			switch (fromNameToCode(name))
 			{
-			case 8:
+			case ObjectType::SelectionTree:
 				obj = new SelectionTree();
 				break;
-			case 9:
+			case ObjectType::IntroText:
 				obj = new IntroText();
 				obj->type = type;
 				break;
-			case 9999:
+			case ObjectType::Camera:
 				camera->setCamPos(x, y);
 				camera->cam_x_limit = x;
 				camera->cam_y_limit = y;

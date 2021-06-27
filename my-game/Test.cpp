@@ -7,7 +7,7 @@
 
 
 #define VX_SMALL 0.15f
-#define VY_SMALL 0.6f
+#define VY_SMALL 0.4f
 #define VY_BIG 0.6f
 
 

@@ -21,6 +21,8 @@ Koopas::Koopas()
 void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
+	Enemy::CheckToChangeDirection();
+
 	v = v + g * dt;
 	if (v.y > 0.35f) v.y = 0.35f;
 
@@ -51,22 +53,19 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CalcPotentialCollisions(checkObjects, coEvents);
 
 	if (coEvents.size() == 0) {
-
 		p = p + d;
 	}
 	else {
+		p.x = p.x + d.x;
+
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-
-		//if (state != "die") {
-		if (nx != 0) v.x = -v.x;
 		if (ny != 0) v.y = 0;
-		//}
-
+		/*if (nx != 0) v.x = -v.x;
+		if (ny != 0) v.y = 0;*/
 
 		for (UINT i = 0; i < coEventsResult.size(); i++) {
 
@@ -108,12 +107,11 @@ void Koopas::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 
 void Koopas::HandleCollision(LPCOLLISIONEVENT e) { // xử lí collision do chính mình detect: chạm Goomba khi đã bị hit
-
+	Enemy::HandleCollision(e);
 	if (state == "die" && isHitted == true && e->nx != 0) {
-		if (Goomba* obj = dynamic_cast<Goomba*>(e->obj)) {
+		if (Enemy* obj = dynamic_cast<Enemy*>(e->obj)) {
 			obj->BeingKill();
 			this->v.x = 0.5f * -e->nx;
-
 		}
 	}
 }
@@ -132,6 +130,7 @@ void Koopas::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 				this->v.x = 0.5f * event->nx;
 				isHitted = true;
 				isBlockPlayer = true;
+				useLimit = false;
 			}
 			else if (isHitted == true && event->nx != 0) {
 				KillPlayer(player);
