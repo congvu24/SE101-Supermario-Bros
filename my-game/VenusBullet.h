@@ -3,8 +3,9 @@
 #include "MapEntity.h"
 #include "Game.h"
 #include <iostream>
+#include "Enemy.h"
 
-class VenusBullet :public MapEntity<VenusBullet>
+class VenusBullet :public Enemy<VenusBullet>
 {
 	
 	//virtual void  Render();
@@ -20,6 +21,8 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
 	virtual void SetState(string state);
+	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
+	virtual void BeingKill() {};
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

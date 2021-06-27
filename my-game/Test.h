@@ -23,4 +23,5 @@ public:
 	virtual void Die();
 	virtual void Transform();
 	virtual void ProcessKeyboard(KeyboardEvent kEvent);
+	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {}
 };

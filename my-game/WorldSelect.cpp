@@ -100,10 +100,10 @@ void WorldSelect::Render()
 		if (isMoving) {
 			Vector centerObj = Vector(currentNode->p.x + currentNode->width / 2, currentNode->p.y + currentNode->height / 2);
 
-			int destinationX = centerObj.x - player->width / 2;
-			int destinationy = centerObj.y - player->height / 2;
-			int distanceX = player->p.x - destinationX;
-			int distanceY = player->p.y - destinationy;
+			float destinationX = centerObj.x - player->width / 2;
+			float destinationy = centerObj.y - player->height / 2;
+			float distanceX = player->p.x - destinationX;
+			float distanceY = player->p.y - destinationy;
 
 
 			if (distanceX == 0 && distanceY == 0) isMoving = false;

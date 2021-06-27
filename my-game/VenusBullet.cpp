@@ -13,7 +13,7 @@ json VenusBullet::data = NULL;
 VenusBullet::VenusBullet()
 {
 	SetState("running");
-	isBlockPlayer = false;
+	isBlockPlayer = true;
 	isAllowCollision = false;
 	v = Vector(0.10f, 0.10f);
 	g = Vector(0, 0);
@@ -106,5 +106,14 @@ void VenusBullet::GetBoundingBox(float& left, float& top, float& right, float& b
 
 
 void VenusBullet::HandleCollision(LPCOLLISIONEVENT e) {
-	
+	if (Test* player = dynamic_cast<Test*>(e->obj)) {
+		player->Die();
+	}
+}
+
+void VenusBullet::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+	if (Test* player = dynamic_cast<Test*>(event->obj)) {
+		KillPlayer(player);
+		SetState("hidden");
+	}
 }

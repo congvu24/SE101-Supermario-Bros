@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Utils.h"
 
-CSprite::CSprite(string id, int left, int top, int right, int bottom, int width, int height, LPDIRECT3DTEXTURE9 tex)
+CSprite::CSprite(string id, float left, float top, float right, float bottom, float width, float height, LPDIRECT3DTEXTURE9 tex)
 {
 	this->id = id;
 	this->left = left;
@@ -12,6 +12,7 @@ CSprite::CSprite(string id, int left, int top, int right, int bottom, int width,
 	this->width = width;
 	this->height = height;
 	this->texture = tex;
+	DebugOut(L"hello");
 }
 
 CSprites* CSprites::__instance = NULL;
@@ -41,7 +42,7 @@ void CSprite::DrawWithScale(float x, float y, Vector scale, int alpha)
 }
 
 
-void CSprites::Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+void CSprites::Add(string id, float left, float top, float right, float bottom, LPDIRECT3DTEXTURE9 tex)
 {
 	LPSPRITE s = new CSprite(id, left, top, right, bottom, right - left, bottom - top, tex);
 	sprites[id] = s;

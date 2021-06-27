@@ -22,7 +22,7 @@ public:
 	}
 	static Vector Normalize(Vector source)
 	{
-		float magnitude = sqrt(source.x * source.x + source.y * source.y);
+		float magnitude = (float)sqrt(source.x * source.x + source.y * source.y);
 		return Vector((source.x / magnitude), (source.y / magnitude));
 	}
 };

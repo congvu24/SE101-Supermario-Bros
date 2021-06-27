@@ -96,6 +96,7 @@ public:
 
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
+	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
 	void FilterCollision(
 		vector<LPCOLLISIONEVENT>& coEvents,
 		vector<LPCOLLISIONEVENT>& coEventsResult,
@@ -105,6 +106,7 @@ public:
 		float& ny,
 		float& rdx,
 		float& rdy);
+	static bool CGameObject::HasOverLap(Vector l1, Vector r1, Vector l2, Vector r2);
 
 	CGameObject();
 
@@ -114,6 +116,9 @@ public:
 	virtual void SetState(string state) { this->state = state; }
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
 	virtual void clear();
+	virtual void UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects, int& o_ny, int& o_nx);
+	virtual void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
+	virtual bool VerifyCollidedLeftRight(LPGAMEOBJECT obj);
 	~CGameObject();
 };
 

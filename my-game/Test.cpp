@@ -30,39 +30,35 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	v = v + g * dt;
 	if (v.y > max_move_y) v.y = max_move_y;
 
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	coEvents.clear();
-
-	//DebugOut(L"[INFOR] Check collision with: %s !!!!!\n", IntToLPCWSTR(coObjects->size()));
+	vector<LPGAMEOBJECT>* checkObjects = new vector<LPGAMEOBJECT>();
 
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
 		if (state != "die") {
 			if ((*i)->isBlockPlayer == true) {
-				LPCOLLISIONEVENT e = SweptAABBEx(*i);
-				if (e->t > 0 && e->t <= 1.0f) {
-					coEvents.push_back(e);
-				}
-				else {
-					delete e;
-				}
+				checkObjects->push_back((*i));
 			}
 		}
 		else {
 			if ((*i)->name == "Death") {
-				LPCOLLISIONEVENT e = SweptAABBEx(*i);
-				if (e->t > 0 && e->t <= 1.0f) {
-					coEvents.push_back(e);
-				}
-				else {
-					delete e;
-				}
+				checkObjects->push_back((*i));
 			}
 		}
 	}
+
+
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+	int ny;
+	int nx;
+
+	//UpdateWithCollision(checkObjects, ny, nx);
+	
+	CalcPotentialCollisions(checkObjects, coEvents);
 
 	if (coEvents.size() == 0) {
 
@@ -85,9 +81,9 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			if (ny < 0) canJump = true;
-
 			if (coEventsResult[i]->obj->name != "") {
 				HandleCollision(coEventsResult[i]);
+				coEventsResult[i]->obj->OnHadCollided(this, coEventsResult[i]);
 			}
 		}
 
@@ -99,6 +95,10 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		coEventsResult.clear();
 		coEvents.clear();
 	}
+
+	checkObjects->clear();
+	delete checkObjects;
+
 }
 
 void Test::Render()
@@ -200,12 +200,13 @@ void Test::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void Test::HandleCollision(LPCOLLISIONEVENT e) {
 	LPGAMEOBJECT obj = e->obj;
+
 	if (MisteryBox* box = dynamic_cast<MisteryBox*>(obj)) {
 		box->CollisionWithMario(e);
 	}
 
 	if (obj->name == "RectPlatform") {
-		p.x = p.x + d.x;
+		p. x = p.x + d.x;
 	}
 
 	if (obj->name == "MiniPortal") {

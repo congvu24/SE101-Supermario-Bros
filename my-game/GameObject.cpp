@@ -1,4 +1,4 @@
-#include <d3dx9.h>
+﻿#include <d3dx9.h>
 #include <algorithm>
 
 
@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "Sprites.h"
+#include "RectPlatform.h"
 
 
 LPDIRECT3DTEXTURE9 CGameObject::bboxtex = NULL;
@@ -61,6 +62,17 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 	);
 
 	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, rdx, rdy, coO);
+
+	if (ml < mr && mt < mb && sl != sr && st != sb) {
+		if (
+			CGameObject::HasOverLap(Vector(ml, mt), Vector(mr, mb), Vector(sl, st), Vector(sr, sb))
+			) {
+			//coO->OnHadCollided(this);
+			this->OnHadCollided(coO, e);
+		}
+	}
+
+
 	return e;
 }
 
@@ -103,7 +115,7 @@ void CGameObject::FilterCollision(
 
 void CGameObject::RenderBoundingBox()
 {
-	D3DXVECTOR3 p(p.x, p.y, 0);
+	/*D3DXVECTOR3 p(p.x, p.y, 0);
 	RECT rect;
 
 	float l, t, r, b;
@@ -115,7 +127,7 @@ void CGameObject::RenderBoundingBox()
 	rect.bottom = (int)b - (int)t;
 
 	if (CGameObject::bboxtex != NULL)
-		CGame::GetInstance()->Draw(p.x, p.y, CGameObject::bboxtex, rect.left, rect.top, rect.right, rect.bottom, 100);
+		CGame::GetInstance()->Draw(p.x, p.y, CGameObject::bboxtex, rect.left, rect.top, rect.right, rect.bottom, 100);*/
 }
 
 
@@ -145,4 +157,110 @@ void CGameObject::LoadBoundedBox() {
 
 void CGameObject::HandleCollision(LPCOLLISIONEVENT e) {
 
+}
+
+bool CGameObject::HasOverLap(Vector l1, Vector r1, Vector l2, Vector r2) {
+	if (l1.x >= r2.x || l2.x >= r1.x)
+		return false;
+
+	// If one rectangle is above other 
+	if (l1.y >= r2.y || l2.y >= r1.y)
+		return false;
+
+	return true;
+}
+
+void CGameObject::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+}
+
+void CGameObject::CalcPotentialCollisions(
+	vector<LPGAMEOBJECT>* coObjects,
+	vector<LPCOLLISIONEVENT>& coEvents)
+{
+	for (UINT i = 0; i < coObjects->size(); i++)
+	{
+
+		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
+
+		if (e->t > 0 && e->t <= 1.0f)
+			coEvents.push_back(e);
+		else
+			delete e;
+	}
+
+	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
+}
+
+
+void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects, int& o_ny, int& o_nx) {
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+
+	coEvents.clear();
+
+	CalcPotentialCollisions(coObjects, coEvents);
+
+	if (coEvents.size() == 0)
+	{
+		p = p + d;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny = 0;
+		float rdx = 0;
+		float rdy = 0;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		for (int i = 0; i < coEventsResult.size(); i++) {
+
+			if (coEventsResult[i]->nx != 0) {
+			/*	if (!VerifyCollidedLeftRight(coEventsResult[i]->obj) || coEventsResult[i]->obj->name == "RectPlatform") {
+					min_tx = 1;
+				}
+				else {
+					v.x = 0;
+				}*/
+				/* if (coEventsResult[i]->nx > 0) CollidedRight(coEventsResult[i]->obj);
+				 else CollidedLeft(coEventsResult[i]->obj);*/
+			}
+			else if (coEventsResult[i]->ny != 0) {
+			/*	if (coEventsResult[i]->obj->name == "RectPlatform") {
+					min_ty = 1;
+				}
+				else {
+					if (ny != 2) v.y = 0;
+				}*/
+				/* if (coEventsResult[i]->ny > 0) CollidedBottom(coEventsResult[i]->obj);
+				 else CollidedTop(coEventsResult[i]->obj);*/
+			}
+
+			//if (coEventsResult[i]->obj->name != "") {
+				HandleCollision(coEventsResult[i]);
+			//}
+
+		}
+
+
+		// block every object first!
+		p.x += min_tx * d.x + nx * 0.4f;
+		//if(ny != 0)
+		p.y += min_ty * d.y + ny * 0.4f;
+
+		o_ny = ny;
+		o_nx = nx;
+
+	}
+
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+}
+
+bool CGameObject::VerifyCollidedLeftRight(LPGAMEOBJECT obj) {
+
+	float ml, mt, mr, mb, sl, st, sr, sb = 0;
+	obj->GetBoundingBox(sl, st, sr, sb);
+	this->GetBoundingBox(ml, mt, mr, mb);
+	if ((mb > st && sb > mt) || abs(v.y) > 0.1f) return true;
+	return false;
 }

@@ -1,4 +1,4 @@
-#include "Koopas.h"
+﻿#include "Koopas.h"
 #include "Vector.h"
 #include "Test.h"
 #include "PlayScence.h"
@@ -15,13 +15,11 @@ Koopas::Koopas()
 {
 	SetState("running");
 	v = Vector(0.05f, 0);
-	isBlockPlayer = false;
+	isBlockPlayer = true;
 }
 
 void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
-
 	CGameObject::Update(dt, coObjects);
 	v = v + g * dt;
 	if (v.y > 0.35f) v.y = 0.35f;
@@ -31,65 +29,27 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
+	vector<LPGAMEOBJECT>* checkObjects = new vector<LPGAMEOBJECT>();
 
 	coEvents.clear();
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		//if (state != "die" || (state == "die" && isHitted == false)) {
-
-		//	if ((*i)->isAllowCollision == true) {
-		//		LPCOLLISIONEVENT e = SweptAABBEx(*i);
-
-		//		if (e->t > 0 && e->t <= 1.0f) {
-		//			coEvents.push_back(e);
-		//		}
-		//		else {
-		//			delete e;
-		//		}
-		//	}
-		//}
-		//else if (state == "die" && isHitted == true && (*i)->isAllowCollision == true) {
-		//	//if (CPlayScene::IsPlayer(*i) == true || (*i)->name == "RectCollision") {
-		//	//if ((*i)->name != "RectPlatform") {
-
-		//	LPCOLLISIONEVENT e = SweptAABBEx(*i);
-
-		//	if (e->t > 0 && e->t <= 1.0f) {
-		//		coEvents.push_back(e);
-		//	}
-		//	else {
-		//		delete e;
-
-		//	}
-		//	//}
-		//	//}
-		//}
 		if (state == "die") {
-			if (((*i)->isAllowCollision == true && (*i)->name != "RectPlatform") || CPlayScene::IsPlayer(*i)) {
-				LPCOLLISIONEVENT e = SweptAABBEx(*i);
-
-				if (e->t > 0 && e->t <= 1.0f) {
-					coEvents.push_back(e);
-				}
-				else {
-					delete e;
-				}
+			if (((*i)->isAllowCollision == true && (*i)->name != "RectPlatform")) {
+				checkObjects->push_back((*i));
 			}
 		}
 		else {
 			if ((*i)->isAllowCollision == true) {
-				LPCOLLISIONEVENT e = SweptAABBEx(*i);
-
-				if (e->t > 0 && e->t <= 1.0f) {
-					coEvents.push_back(e);
-				}
-				else {
-					delete e;
-				}
+				checkObjects->push_back((*i));
 			}
 		}
 
-	}
+	} 
+
+	coEvents.clear();
+	CalcPotentialCollisions(checkObjects, coEvents);
+
 	if (coEvents.size() == 0) {
 
 		p = p + d;
@@ -117,6 +77,8 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	coEvents.clear();
 	coEventsResult.clear();
+	checkObjects->clear();
+	delete checkObjects;
 }
 
 
@@ -144,38 +106,37 @@ void Koopas::GetBoundingBox(float& left, float& top, float& right, float& bottom
 }
 
 
-void Koopas::HandleCollision(LPCOLLISIONEVENT e) {
 
-	if (Test* player = dynamic_cast<Test*>(e->obj)) {
-
-		if (state != "die") {
-
-			if (e->nx != 0 && e->ny == 0) {
-				player->Die();
-			}
-			else if (e->ny > 0) {
-				SetState("die");
-			}
-		}
-		else if (state == "die") {
-			if (isHitted == false && e->nx != 0) {
-				player->SetState("kick");
-				isUniversal = true;
-				this->v.x = 0.5f * e->nx;
-				isHitted = true;
-			}
-			else if (isHitted == true && e->nx != 0) {
-				player->Die();
-				this->v.x = 0.5f * -e->nx;
-			}
-		}
-	}
+void Koopas::HandleCollision(LPCOLLISIONEVENT e) { // xử lí collision do chính mình detect: chạm Goomba khi đã bị hit
 
 	if (state == "die" && isHitted == true && e->nx != 0) {
 		if (Goomba* obj = dynamic_cast<Goomba*>(e->obj)) {
-			obj->Die();
+			obj->BeingKill();
 			this->v.x = 0.5f * -e->nx;
 
+		}
+	}
+}
+
+
+void Koopas::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+	// xử lí collision do đối tượng khác đụng phải: Mario đụng koopas
+
+	Enemy::OnHadCollided(obj, event);
+
+	if (Test* player = dynamic_cast<Test*>(obj)) {
+		if (state == "die") {
+			if (isHitted == false && event->nx != 0) {
+				player->SetState("kick");
+				isUniversal = true;
+				this->v.x = 0.5f * event->nx;
+				isHitted = true;
+				isBlockPlayer = true;
+			}
+			else if (isHitted == true && event->nx != 0) {
+				KillPlayer(player);
+				this->v.x = 0.5f * event->nx;
+			}
 		}
 	}
 }

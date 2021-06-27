@@ -1,6 +1,7 @@
 #include "Goomba.h"
 #include "Vector.h"
 #include "Test.h"
+#include "PlayScence.h"
 #include <iostream>
 
 
@@ -15,7 +16,7 @@ Goomba::Goomba()
 	SetState("running");
 	v = Vector(0.05f, 0);
 	isAllowCollision = true;
-	isBlockPlayer = false;
+	isBlockPlayer = true;
 }
 
 void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -29,20 +30,21 @@ void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
+	vector<LPGAMEOBJECT>* checkObjects = new vector<LPGAMEOBJECT>();
+
 	coEvents.clear();
+
+
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		if ((*i)->isAllowCollision == true) {
-			LPCOLLISIONEVENT e = SweptAABBEx(*i);
-			if (e->t > 0 && e->t <= 1.0f) {
-				coEvents.push_back(e);
-			}
-			else {
-				delete e;
-			}
+		if ((*i)->isAllowCollision == true && state !="die") {
+			checkObjects->push_back(*i);
 		}
-
 	}
+
+	CalcPotentialCollisions(coObjects, coEvents);
+
+
 	if (coEvents.size() == 0) {
 
 		p = p + d;
@@ -66,6 +68,8 @@ void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	coEvents.clear();
 	coEventsResult.clear();
+	checkObjects->clear();
+	delete checkObjects;
 }
 
 
@@ -94,19 +98,20 @@ void Goomba::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 
 void Goomba::HandleCollision(LPCOLLISIONEVENT e) {
-
-	LPGAMEOBJECT obj = e->obj;
-	if (Test* player = dynamic_cast<Test*>(obj)) {
-		if (e->ny > 0) {
-			SetState("die");
-		}
-		else if (e->nx != 0 && state != "die") {
-			//player->Die();
-		}
-	}
 }
 
 void Goomba::Die() {
-	this->SetState("die");
+}
+
+void Goomba::BeingKill() {
+	Enemy::BeingKill();
 	isAllowCollision = false;
+	isBlockPlayer = false;
+	//Test* player = ((Test*)((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->player);
+	//player->canJump = true;
+	//player->SetState("jumping");
+}
+
+void Goomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+	Enemy::OnHadCollided(obj, event);
 }

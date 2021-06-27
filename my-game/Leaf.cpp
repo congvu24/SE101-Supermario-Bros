@@ -2,6 +2,7 @@
 #include "Vector.h"
 #include "Test.h"
 #include <iostream>
+#include "PlayScence.h"
 
 
 LPDIRECT3DTEXTURE9 Leaf::texture = NULL;
@@ -23,33 +24,27 @@ void Leaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (v.y > 0.15f) v.y = 0.15f;
 
 	CGameObject::Update(dt, coObjects);
-
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-
-	coEvents.clear();
-	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
-	{
-		if (Test* player = dynamic_cast<Test*>((*i))) {
-			LPCOLLISIONEVENT e = SweptAABBEx(*i);
-
-			if (e->t > 0 && e->t <= 1.0f) {
-				coEvents.push_back(e);
-			}
-			else {
-				delete e;
-			}
-		}
-
-	}
 	float time = GetTickCount64() - beginFalling;
 	p.y = p.y + d.y;
 	if (v.y > 0)
 		p.x = oldP.x + LEAF_AMPLITUDE * cos(LEAF_SPEED * time * 1.0f - PI / 2);
 
 	if (LEAF_AMPLITUDE * cos(LEAF_SPEED * time * 1.0f - PI / 2) > 0) nx = 1;
-	else nx = - 1;
+	else nx = -1;
+
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+	vector<LPGAMEOBJECT>* checkObjects = new vector<LPGAMEOBJECT>();
+
+	coEvents.clear();
+	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
+	{
+		if (CPlayScene::IsPlayer(*i) || (*i)->isAllowCollision == true) {
+			checkObjects->push_back(*i);
+		}
+	}
+	CalcPotentialCollisions(checkObjects, coEvents);
+
 
 	float min_tx, min_ty, nx = 0, ny;
 	float rdx = 0;
@@ -99,6 +94,13 @@ void Leaf::HandleCollision(LPCOLLISIONEVENT e) {
 	LPGAMEOBJECT obj = e->obj;
 
 	if (Test* player = dynamic_cast<Test*>(e->obj)) {
+		player->Transform();
+		SetState("hidden");
+	}
+}
+
+void Leaf::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+	if (Test* player = dynamic_cast<Test*>(obj)) {
 		player->Transform();
 		SetState("hidden");
 	}

@@ -19,6 +19,7 @@ Venus::Venus()
 	g = Vector(0, 0);
 	action = VenusAction::HIDING;
 	renderOrder = 0;
+	isBlockPlayer = true;
 }
 
 void Venus::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -34,13 +35,11 @@ void Venus::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else nx = -1;
 
 	if (action == VenusAction::HIDING && p.y >= oldP.y + height) {
-		DebugOut(L"het han");
 		SetAction(VenusAction::SHOWING);
 	}
 
 
 	if (action == VenusAction::SHOWING && p.y <= oldP.y) {
-		DebugOut(L"het han");
 		SetAction(VenusAction::ATTACK);
 	}
 
@@ -63,41 +62,6 @@ void Venus::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	/*coEvents.clear();
-	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
-	{
-		if ((*i)->isAllowCollision == true && (*i)->name == "RectCollision") {
-			LPCOLLISIONEVENT e = SweptAABBEx(*i);
-
-			if (e->t > 0 && e->t <= 1.0f) {
-				coEvents.push_back(e);
-			}
-			else {
-				delete e;
-			}
-		}
-
-	}*/
-	//if (coEvents.size() == 0) {
-
-	//	p = p + d;
-	//}
-	//else {
-		//float min_tx, min_ty, nx = 0, ny;
-		//float rdx = 0;
-		//float rdy = 0;
-
-		//FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		//if (rdx != 0 && rdx != d.x)
-		//	p.x += nx * abs(rdx);
-
-		//// block every object first!
-
-		//for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-
-	//}
 }
 
 void Venus::Render() {
@@ -148,4 +112,11 @@ void Venus::HandleAfterCreated() {
 	DebugOut(L"here");
 	oldP = p;
 	SetAction(VenusAction::HIDING);
+}
+
+void Venus::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+	Enemy::OnHadCollided(obj, event);
+	if (Test* player = dynamic_cast<Test*>(obj)) {
+		KillPlayer(player);
+	}
 }

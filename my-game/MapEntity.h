@@ -15,15 +15,18 @@ public:
 
 	MapEntity() {
 		SetState("running");
+		nx = -1;
 	}
 	virtual void  Render()
 	{
 		float w = width;
 		float h = height;
-		Vector scale = Vector(-nx, 1.0f);
-		T::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h, scale);
-		this->width = w;
-		this->height = h;
+		Vector scale = Vector((float)-nx, 1.0f);
+		T::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h);
+		p.y = p.y - (h - this->height);
+		p.x = p.x - (w - this->width);
+		width = w;
+		height = h;
 		RenderBoundingBox();
 	}
 

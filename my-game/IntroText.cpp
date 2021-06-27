@@ -12,7 +12,6 @@ json IntroText::data = NULL;
 IntroText::IntroText()
 {
 	SetState("indie");
-
 }
 
 void IntroText::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

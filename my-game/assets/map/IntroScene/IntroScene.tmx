@@ -32,39 +32,39 @@
  <objectgroup id="21" name="Ani3"/>
  <objectgroup id="16" name="Title"/>
  <objectgroup id="20" name="OptionCursor">
-  <object id="94" x="185" y="485" width="16" height="16"/>
+  <object id="94" x="187.667" y="482.333" width="25.3333" height="21.3333"/>
  </objectgroup>
  <objectgroup id="22" name="IntroText">
   <properties>
    <property name="type" value="0"/>
   </properties>
-  <object id="97" type="1" x="277.532" y="489.305">
+  <object id="97" type="1" x="240" y="479.701" width="289.333" height="25.9308">
    <properties>
     <property name="type" value="2"/>
    </properties>
   </object>
-  <object id="98" type="2" x="277.358" y="537.97">
+  <object id="98" type="2" x="240" y="527.804" width="289.333" height="28.3925">
    <properties>
     <property name="type" value="0"/>
    </properties>
   </object>
-  <object id="99" type="0" x="276.518" y="586.18">
+  <object id="99" type="0" x="240" y="576" width="288" height="25.3333">
    <properties>
     <property name="tyoe" value="1"/>
    </properties>
   </object>
-  <object id="101" type="4" x="324" y="348.5">
+  <object id="101" type="4" x="290.667" y="312.5" width="177.333" height="166.667">
    <properties>
     <property name="type" value="2"/>
    </properties>
   </object>
-  <object id="102" type="5" x="152.167" y="102.917">
+  <object id="102" type="5" x="158.834" y="142.917" width="485.333" height="160">
    <properties>
     <property name="type" value="2"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="23" name="Camera">
+ <objectgroup id="23" name="Camera" visible="0">
   <object id="100" x="-14.6667" y="80" width="800" height="600"/>
  </objectgroup>
 </map>

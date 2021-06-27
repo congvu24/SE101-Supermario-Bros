@@ -122,8 +122,13 @@ void CPlayScene::Render()
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 
-	RECT base = { camera->cam_x - 200  , camera->cam_y - 200, camera->cam_x + 800 + 200 ,camera->cam_y + 600 + 200 };
-	Quadtree* quadtree = new Quadtree(5, new RECT(base)); // set the level to 5 to stop split function
+	RECT* base = new RECT();
+	base->left = camera->cam_x - 200; 
+	base->top = camera->cam_y - 200; 
+	base->right = camera->cam_x + 800 + 200;
+	base->bottom = camera->cam_y + 600 + 200;
+
+	Quadtree* quadtree = new Quadtree(5, base); // set the level to 5 to stop split function
 	vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
 
 	for (auto i = objects.begin(); i != objects.end(); i++) {
@@ -157,6 +162,7 @@ void CPlayScene::Render()
 	return_objects_list->clear();
 	delete return_objects_list;
 	delete quadtree;
+	//delete base;
 }
 
 /*
@@ -229,7 +235,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	}
 
 
-	 if (game->IsKeyDown(DIK_R))
+	if (game->IsKeyDown(DIK_R))
 		((CPlayScene*)scence)->restart();
 	else
 		player->SetState("indie");
@@ -238,7 +244,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	//CGame::GenerateKeyboardEvent(UnOrderProcessKey[i], true);
 
 	//// disable control key when Mario die 
-	
+
 	// move camera
 	if (game->IsKeyDown(DIK_J))
 		((CPlayScene*)scence)->moveCamera(LEFT);

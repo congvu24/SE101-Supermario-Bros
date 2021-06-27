@@ -2,8 +2,7 @@
 #include "GameObject.h"
 #include "MapEntity.h"
 #include "Game.h"
-#include <iostream>
-
+#include "Enemy.h"
 
 enum class VenusAction {
 	HIDING,
@@ -11,7 +10,7 @@ enum class VenusAction {
 	SHOWING
 };
 
-class Venus :public MapEntity<Venus>
+class Venus :public Enemy<Venus>
 {
 
 public:
@@ -26,6 +25,9 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
+	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
+	virtual void BeingKill() {};
+
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

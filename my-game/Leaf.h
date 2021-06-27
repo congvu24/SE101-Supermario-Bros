@@ -21,6 +21,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
+	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;
