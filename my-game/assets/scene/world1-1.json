@@ -9,7 +9,7 @@
       "texture": "assets/texture/mario.png",
       "sprite": "assets/sprite/mario.json",
       "animation": "assets/animations/mario-animation.json",
-      "type": 1,
+      "type": 2,
       "x": 100,
       "y": 1000,
       "visible": true
@@ -39,6 +39,15 @@
       "sprite": "assets/sprite/enemy.json",
       "animation": "assets/animations/goomba-animation.json",
       "type": 1,
+      "visible": false
+    },
+    {
+      "id": "4",
+      "name": "RedGoomba",
+      "texture": "assets/texture/enemy2.png",
+      "sprite": "assets/sprite/enemy2.json",
+      "animation": "assets/animations/goomba-animation.json",
+      "type": 2,
       "visible": false
     },
     {
@@ -83,6 +92,24 @@
       "texture": "assets/texture/enemy2.png",
       "sprite": "assets/sprite/enemy2.json",
       "animation": "assets/animations/koopas-animation.json",
+      "type": 1,
+      "visible": false
+    },
+    {
+      "id": "9",
+      "name": "GoldenBrick",
+      "texture": "assets/texture/misc.png",
+      "sprite": "assets/sprite/misc.json",
+      "animation": "assets/animations/golden-brick-animation.json",
+      "type": 1,
+      "visible": false
+    },
+    {
+      "id": "10",
+      "name": "PButton",
+      "texture": "assets/texture/misc.png",
+      "sprite": "assets/sprite/misc.json",
+      "animation": "assets/animations/p-button-animation.json",
       "type": 1,
       "visible": false
     }

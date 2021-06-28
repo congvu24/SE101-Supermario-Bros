@@ -14,7 +14,8 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
-	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {}
+	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
+	virtual void Render();
 
 
 	static json data;

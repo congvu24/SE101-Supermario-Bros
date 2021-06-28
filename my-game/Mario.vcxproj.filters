@@ -192,6 +192,12 @@
     <ClCompile Include="RedGoomba.cpp">
       <Filter>Source Files\Object\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="GoldenBrick.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="PButton.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -316,6 +322,12 @@
     </ClInclude>
     <ClInclude Include="DefineCharacter.h">
       <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="GoldenBrick.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="PButton.h">
+      <Filter>Header Files\Object\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

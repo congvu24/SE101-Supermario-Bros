@@ -7,7 +7,7 @@
 
 
 #define VX_SMALL 0.15f
-#define VY_SMALL 0.4f
+#define VY_SMALL 0.6f
 #define VY_BIG 0.6f
 
 
@@ -25,11 +25,29 @@ Test::Test()
 
 void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt, coObjects);
 
 	v = v + g * dt;
-	if (v.y > max_move_y) v.y = max_move_y;
+	if (v.x != 0 && powerX != 0) {
+		if (canJump == false) {
+			v.x = (v.x / abs(v.x)) * 0.15f + (v.x / abs(v.x)) * 0.2f * (abs(powerX) / 1000);
+		}
+		else
+			v.x = v.x + powerX * 0.0003;
+	}
+	else {
+		if (canJump == true) {
+			powerX = 0;
+		}
+		if (v.x != 0)
+			v.x = (v.x / abs(v.x)) * max_move_x;
+	}
 
+	if (v.y > max_move_y) v.y = max_move_y;
+	if (abs(v.x) > 0.5f) {
+		v.x = (v.x / abs(v.x)) * 0.5f;
+	}
+
+	CGameObject::Update(dt, coObjects);
 
 	vector<LPGAMEOBJECT>* checkObjects = new vector<LPGAMEOBJECT>();
 
@@ -57,11 +75,10 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	int nx;
 
 	//UpdateWithCollision(checkObjects, ny, nx);
-	
+
 	CalcPotentialCollisions(checkObjects, coEvents);
 
 	if (coEvents.size() == 0) {
-
 		p = p + d;
 	}
 	else {
@@ -78,13 +95,16 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (nx != 0) v.x = 0;
 		if (ny != 0) v.y = 0;
 
+
+
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
+			if (ny < 0 && canJump == false) powerX = 0;
 			if (ny < 0) canJump = true;
-			if (coEventsResult[i]->obj->name != "") {
-				HandleCollision(coEventsResult[i]);
-				coEventsResult[i]->obj->OnHadCollided(this, coEventsResult[i]);
-			}
+			//if (coEventsResult[i]->obj->name != "") {
+			HandleCollision(coEventsResult[i]);
+			coEventsResult[i]->obj->OnHadCollided(this, coEventsResult[i]);
+			//}
 		}
 
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -98,7 +118,15 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	checkObjects->clear();
 	delete checkObjects;
+	// collision done
 
+
+
+	if (v.x != 0)
+		DebugOut(L"V.x: %s\n", ToLPCWSTR(to_string(v.x)));
+	if (powerX != 0)
+
+		DebugOut(L"Power: %s\n", ToLPCWSTR(to_string(powerX)));
 }
 
 void Test::Render()
@@ -201,12 +229,15 @@ void Test::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 void Test::HandleCollision(LPCOLLISIONEVENT e) {
 	LPGAMEOBJECT obj = e->obj;
 
-	if (MisteryBox* box = dynamic_cast<MisteryBox*>(obj)) {
-		box->CollisionWithMario(e);
+	if (e->nx != 0) {
+		HandleCollisionHorizontal(e);
+	}
+	if (e->ny != 0) {
+		HandleCollisionVertical(e);
 	}
 
 	if (obj->name == "RectPlatform") {
-		p. x = p.x + d.x;
+		p.x = p.x + d.x;
 	}
 
 	if (obj->name == "MiniPortal") {
@@ -238,7 +269,6 @@ void Test::HandleCollision(LPCOLLISIONEVENT e) {
 }
 
 void Test::Die() {
-	// handle event die here
 	SetState("die");
 	isAllowCollision = false;
 }
@@ -274,48 +304,31 @@ void Test::ProcessKeyboard(KeyboardEvent kEvent)
 		break;
 	}
 
-	/*if (state.action == MarioAction::EXPLODE || state.action == MarioAction::UPGRADE_LV || finishStep > 0) return;
+}
 
-	if (kEvent.isKeyUp == true) {
-		holdingKeys[kEvent.key] = false;
-		return;
+
+void Test::HandleCollisionVertical(LPCOLLISIONEVENT e) {
+	if (this->nx != powerX / abs(powerX)) {
+		powerX = 0;
 	}
 
-	if (kEvent.isHold == false) holdingKeys[kEvent.key] = true;
-
-	switch (kEvent.key)
-	{
-
-	case DIK_LEFT:
-		ax = -ACCELERATION_X_WALK;
-		nx = -1;
-		break;
-
-	case DIK_RIGHT:
-		ax = ACCELERATION_X_WALK;
-		nx = 1;
-		break;
-
-	case DIK_DOWN:
-		if (kEvent.isHold) ChangeAction(MarioAction::CROUCH);
-		break;
-
-	case DIK_S:
-		if (!kEvent.isHold) {
-			if(!kEvent.isKeyUp) ChangeAction(MarioAction::JUMP);
+	if (v.x != 0) {
+		if (abs(powerX + 10 * this->nx) <= 1000) {
+			powerX = powerX + 10 * this->nx;
 		}
-		else ChangeAction(MarioAction::HIGH_JUMP);
-
-		break;
-	case DIK_X:
-		if (!kEvent.isHold) {
-			if (!kEvent.isKeyUp) ChangeAction(MarioAction::JUMP);
+	}
+	else if (v.x == 0) {
+		if (powerX >= 0)
+			if (powerX - 30 >= 0)
+				powerX = powerX - 30;
+			else powerX = 0;
+		else if (powerX <= 0) {
+			if (powerX + 30 <= 0)
+				powerX = powerX + 30;
+			else powerX = 0;
 		}
-
-	default:
-		if (this->state.action == MarioAction::CROUCH)
-			ChangeAction(MarioAction::IDLE);
-		break;
-	}*/
+	}
+}
+void Test::HandleCollisionHorizontal(LPCOLLISIONEVENT e) {
 
 }

@@ -78,6 +78,20 @@ void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEventsResult.clear();
 }
 
+ void  Coin::Render()
+{
+	float w = width;
+	float h = height;
+	Vector scale = Vector((float)-nx, 1.0f);
+	Coin::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h, scale);
+	p.y = p.y - (h - this->height) / 2;
+	p.x = p.x - (w - this->width) /2;
+	width = w;
+	height = h;
+	RenderBoundingBox();
+}
+
+
 
 void Coin::SetState(string state)
 {
@@ -86,7 +100,6 @@ void Coin::SetState(string state)
 	else if (state == "fromMisteryBox") {
 		p.y = p.y - 20;
 		oldP = p;
-		//oldP.y = oldP.y - 50;
 		v.y = -0.5f;
 		g.y = 0.0015f;
 	}
@@ -108,10 +121,14 @@ void Coin::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 
 void Coin::HandleCollision(LPCOLLISIONEVENT e) {
-	//SetState("fromMisteryBox");
 	if (isAllowCollision == true && state != "hidden") {
-		// handle score logic here
 		SetState("hidden");
 		isAllowCollision = false;
+	}
+}
+
+void Coin::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+	if (Test* player = dynamic_cast<Test*>(obj)) {
+		this->SetState("hidden");
 	}
 }

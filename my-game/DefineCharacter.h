@@ -29,6 +29,7 @@ enum class ObjectType
 	QuestionBox_Mushroom,
 	Coin,
 	Goomba,
+	RedGoomba,
 	RectPlatform,
 	Leaf,
 	SelectionTree,
@@ -37,7 +38,9 @@ enum class ObjectType
 	Mushroom,
 	Venus,
 	Venus_Bullet,
-	Koopas
+	Koopas,
+	GoldenBrick,
+	PButton
 };
 
 

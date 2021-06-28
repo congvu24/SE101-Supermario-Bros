@@ -20,6 +20,9 @@ ObjectType fromNameToCode(string name) {
 	character_code["Venus"] = ObjectType::Venus;
 	character_code["Venus_Bullet"] = ObjectType::Venus_Bullet;
 	character_code["Koopas"] = ObjectType::Koopas;
+	character_code["RedGoomba"] = ObjectType::RedGoomba;
+	character_code["GoldenBrick"] = ObjectType::GoldenBrick;
+	character_code["PButton"] = ObjectType::PButton;
 
 	if (character_code.find(name) != character_code.end()) {
 		return character_code.at(name);

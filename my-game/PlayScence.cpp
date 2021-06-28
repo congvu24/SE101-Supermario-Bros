@@ -16,6 +16,9 @@
 #include "Venus.h"
 #include "VenusBullet.h"
 #include "DefineCharacter.h"
+#include "RedGoomba.h"
+#include "GoldenBrick.h"
+#include "PButton.h"
 
 using namespace std;
 
@@ -339,6 +342,18 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			if (visible != true)
 				Koopas::SaveStaticData(data);
 			break;
+		case  ObjectType::RedGoomba:
+			if (visible != true)
+				RedGoomba::SaveStaticData(data);
+			break;
+		case  ObjectType::GoldenBrick:
+			if (visible != true)
+				GoldenBrick::SaveStaticData(data);
+			break;
+		case  ObjectType::PButton:
+			if (visible != true)
+				PButton::SaveStaticData(data);
+			break;
 		default:
 			break;
 		}
@@ -518,6 +533,12 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 			case ObjectType::Koopas:
 				obj = new Koopas();
 				break;
+			case ObjectType::RedGoomba:
+				obj = new RedGoomba();
+				break;
+			case ObjectType::GoldenBrick:
+				obj = new GoldenBrick();
+				break;
 			case ObjectType::Camera:
 				camera->setCamPos(x, y);
 				camera->cam_x_limit = x;
@@ -533,6 +554,10 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 				obj->name = name;
 				obj->p.x = x;
 				obj->p.y = y;
+				
+				if (type != "") {
+					obj->type = type;
+				}
 				obj->ParseFromOwnJson();
 				DebugOut(L"[INFO] Size Of Object: %s \n", IntToLPCWSTR(sizeof(*obj)));
 

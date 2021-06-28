@@ -134,6 +134,7 @@
     <ClCompile Include="Death.h" />
     <ClCompile Include="DefineCharacter.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="GoldenBrick.cpp" />
     <ClCompile Include="Intro.cpp" />
     <ClCompile Include="IntroCursor.cpp" />
     <ClCompile Include="IntroText.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="MiniPortal.cpp" />
     <ClCompile Include="MisteryBox.cpp" />
     <ClCompile Include="Mushroom.cpp" />
+    <ClCompile Include="PButton.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="RectPlatform.cpp" />
@@ -178,6 +180,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DefineCharacter.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GoldenBrick.h" />
     <ClInclude Include="Intro.h" />
     <ClInclude Include="IntroCursor.h" />
     <ClInclude Include="IntroText.h" />
@@ -190,6 +193,7 @@
     <ClInclude Include="MiniPortal.h" />
     <ClInclude Include="MisteryBox.h" />
     <ClInclude Include="Mushroom.h" />
+    <ClInclude Include="PButton.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="RectPlatform.h" />

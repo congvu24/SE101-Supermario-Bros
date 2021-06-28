@@ -23,8 +23,8 @@ public:
 		float h = height;
 		Vector scale = Vector((float)-nx, 1.0f);
 		T::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h, scale);
-		p.y = p.y - (h - this->height);
-		p.x = p.x - (w - this->width);
+		p.y = p.y - (h - this->height) / 2;
+		p.x = p.x - (w - this->width) / 2;
 		width = w;
 		height = h;
 		RenderBoundingBox();
@@ -37,7 +37,7 @@ public:
 			string type = to_string(T::data["type"]); //object type;
 			this->id = id;
 			if (this->type == "") this->type = type;
-			this->name = name;
+			//this->name = name;
 			SetActiveAnimationSet(type);
 
 			HandleAfterCreated();

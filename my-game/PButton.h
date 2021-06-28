@@ -2,25 +2,21 @@
 #include "GameObject.h"
 #include "MapEntity.h"
 #include "Game.h"
-#include "Enemy.h"
 #include <iostream>
 
-class RedGoomba :public Enemy<RedGoomba>
+class PButton :public MapEntity<PButton>
 {
-
+	//virtual void  Render();
 public:
-	RedGoomba();
-	int countJump = 0;
+	PButton();
 	Vector oldP;
-	virtual void SetState(string state);
-	virtual void HandleCollision(LPCOLLISIONEVENT e);
+	vector<LPGAMEOBJECT>* listEffect;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void Jump(float vy);
+	virtual void SetState(string state);
+	virtual void HandleCollision(LPCOLLISIONEVENT e);
 	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
-	virtual void BeingKill();
-	virtual void CollisionVertical(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
-	virtual void HandleAfterCreated();
+
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

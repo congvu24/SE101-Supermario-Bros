@@ -23,7 +23,7 @@ public:
 	Vector walkingLimit = Vector(0, 0);
 
 	virtual void KillPlayer(Test* obj) {
-		obj->Die();
+		//obj->Die();
 	}
 	virtual void BeingKill() {
 		SetState("die");
@@ -37,7 +37,11 @@ public:
 			FindWalkingLimit(e->obj);
 		}
 		if (e->nx != 0) {
-			ChangeDirection();
+			if (e->obj->name == "RectPlatform" && e->ny == 0) {
+				p.x = p.x + d.x;
+			}
+			else
+				ChangeDirection();
 		}
 	}
 
@@ -89,7 +93,7 @@ public:
 
 	virtual void CheckToChangeDirection() {
 		if (useLimit == true) {
-			if ((p.x + d.x < walkingLimit.x || p.x + d.x > walkingLimit.y) && (walkingLimit.x != 0 || walkingLimit.y != 0)) {
+			if ((p.x + d.x < walkingLimit.x || p.x + d.x + width> walkingLimit.y) && (walkingLimit.x != 0 || walkingLimit.y != 0)) {
 				ChangeDirection();
 			}
 		}

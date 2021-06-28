@@ -9,5 +9,15 @@
       { "name": "25.png", "time": 100 },
       { "name": "26.png", "time": 100 }
     ]
+  },
+  "2": {
+    "running": [
+      { "name": "3.png", "time": 100 },
+      { "name": "13.png", "time": 100 }
+    ],
+    "die": [
+      { "name": "5.png", "time": 100 },
+      { "name": "6.png", "time": 100 }
+    ]
   }
 }
