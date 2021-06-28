@@ -94,14 +94,14 @@ void Leaf::HandleCollision(LPCOLLISIONEVENT e) {
 	LPGAMEOBJECT obj = e->obj;
 
 	if (Test* player = dynamic_cast<Test*>(e->obj)) {
-		player->Transform();
+		player->Transform(RacconMario);
 		SetState("hidden");
 	}
 }
 
 void Leaf::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	if (Test* player = dynamic_cast<Test*>(obj)) {
-		player->Transform();
+		player->Transform(RacconMario);
 		SetState("hidden");
 	}
 }

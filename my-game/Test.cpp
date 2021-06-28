@@ -152,23 +152,24 @@ void Test::SetState(string state)
 			CGameObject::SetState("jumping-right");
 
 		}
-		if (state == "running-down") {
+		else if (state == "running-down") {
 			v.y = 0.15f;
 			v.x = 0;
 			CGameObject::SetState("jumping-right");
 		}
 
-		if (state == "running-right") {
+		else if (state == "running-right") {
 			//v.y = 0;
+			SetAction(MarioAction::RUN);
 			v.x = max_move_x;
 			nx = 1;
 			if (canJump == true)
 				CGameObject::SetState(state);
 			else CGameObject::SetState("jumping-right");
-
 		}
 		else if (state == "running-left") {
 			//v.y = 0;
+			SetAction(MarioAction::RUN);
 			v.x = -max_move_x;
 			nx = -1;
 			if (canJump == true)
@@ -177,6 +178,7 @@ void Test::SetState(string state)
 		}
 		else if (state == "sitting" && type != "1") {
 			if (this->state == "indie") {
+				SetAction(MarioAction::CROUCH);
 				v.x = 0;
 				v.y = 0;
 				if (nx > 0)
@@ -186,6 +188,7 @@ void Test::SetState(string state)
 			}
 		}
 		else if (state == "jumping" && canJump == true) {
+			SetAction(MarioAction::JUMP);
 			v.y = -max_move_y;
 			canJump = false;
 			if (nx > 0)
@@ -193,6 +196,7 @@ void Test::SetState(string state)
 			else CGameObject::SetState("jumping-left");
 		}
 		else if (state == "indie" && canJump == true) {
+			SetAction(MarioAction::IDLE);
 			v.x = 0;
 			//v.y = 0;
 			if (nx < 0)
@@ -200,13 +204,36 @@ void Test::SetState(string state)
 			else
 				CGameObject::SetState("indie-right");
 		}
+
 		else if (state == "kick") {
+			SetAction(MarioAction::KICK);
 			if (nx < 0)
 				CGameObject::SetState("kick-left");
 			else
 				CGameObject::SetState("kick-right");
 		}
+		else if (state == "flying" && canJump == false) {
+			SetAction(MarioAction::FLY);
+			v.y = -0.03f;
+			if (nx < 0)
+				CGameObject::SetState("flying-left");
+			else
+				CGameObject::SetState("flying-right");
+		}
+		else if (state == "flying-left" && canJump == false) {
+			SetAction(MarioAction::FLY);
+			v.x = -max_move_x;
+			nx = -1;
+			CGameObject::SetState("flying-left");
+		}
+		else if (state == "flying-right" && canJump == false) {
+			SetAction(MarioAction::FLY);
+			v.x = max_move_x;
+			nx = 1;
+			CGameObject::SetState("flying-right");
+		}
 		else if (state == "die") {
+			SetAction(MarioAction::DIE);
 			v.y = -0.3f;
 			v.x = 0;
 			CGameObject::SetState(state);
@@ -217,6 +244,10 @@ void Test::SetState(string state)
 
 }
 
+
+void Test::SetAction(MarioAction newAction) {
+	this->action = newAction;
+}
 void Test::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = p.x;
@@ -273,32 +304,68 @@ void Test::Die() {
 	isAllowCollision = false;
 }
 
-void Test::Transform() {
-	this->type = "2"; // move to next size
-	this->p.x = p.x - (42 - this->width);
-	this->p.y = p.y - (54 - this->height);
-	width = 42;
-	height = 54;
-	max_move_y = VY_BIG;
+void Test::Transform(int marioType) {
+
+	switch (marioType)
+	{
+	case SmallMario:
+		this->type = to_string(marioType);
+		max_move_y = VY_SMALL;
+		break;
+	case BigMario:
+		this->type = to_string(marioType);
+		max_move_y = VY_BIG;
+	case RacconMario:
+		this->type = to_string(marioType);
+		max_move_y = VY_BIG;
+	default:
+		break;
+	}
+
 }
 
 void Test::ProcessKeyboard(KeyboardEvent kEvent)
 {
+	if (kEvent.key == DIK_S) {
+		DebugOut(L"click \n");
+	}
+
+	if (kEvent.isKeyUp == true) {
+		holdingKeys[kEvent.key] = false;
+		//return;
+	}
+
+	if (kEvent.isHolding == true) holdingKeys[kEvent.key] = true;
+
 	switch (kEvent.key) {
 	case DIK_RIGHT:
-		SetState("running-right");
+		if (action == MarioAction::FLY) SetState("flying-right");
+		else
+			SetState("running-right");
 		break;
 	case DIK_LEFT:
-		SetState("running-left");
+		if (action == MarioAction::FLY) SetState("flying-left");
+		else
+			SetState("running-left");
 		break;
-	case DIK_UP:
-		SetState("running-up");
+	case DIK_S:
+		if (holdingKeys[kEvent.key] == false && stoi(type) == RacconMario)
+			SetState("flying");
 		break;
 	case DIK_DOWN:
 		SetState("running-down");
 		break;
 	case DIK_SPACE:
 		SetState("jumping");
+		break;
+	case DIK_1:
+		Transform(SmallMario);
+		break;
+	case DIK_2:
+		Transform(BigMario);
+		break;
+	case DIK_3:
+		Transform(RacconMario);
 		break;
 	default:
 		break;

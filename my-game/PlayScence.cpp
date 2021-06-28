@@ -72,6 +72,10 @@ void CPlayScene::Update(DWORD dt)
 		quadtree->Insert(*i);
 	}
 	int count = 0;
+	vector<CGameObject*>* coObjectsWithMario = new vector<CGameObject*>();
+	quadtree->Retrieve(coObjectsWithMario, player);
+
+	player->Update(dt, coObjectsWithMario);
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
@@ -81,7 +85,7 @@ void CPlayScene::Update(DWORD dt)
 			quadtree->Retrieve(return_objects_list, objects[i]);
 
 			if (Test* v = dynamic_cast<Test*>(objects[i])) {
-				objects[i]->Update(dt, return_objects_list);
+				// prevent re update player;
 			}
 
 			else if (objects[i]->state != "hidden") {
@@ -90,6 +94,7 @@ void CPlayScene::Update(DWORD dt)
 			else {
 				objects.erase(std::remove(objects.begin(), objects.end(), objects[i]), objects.end());
 			}
+
 			delete return_objects_list;
 		}
 
@@ -101,6 +106,7 @@ void CPlayScene::Update(DWORD dt)
 	}
 	quadtree->Clear();
 	delete quadtree;
+	delete coObjectsWithMario;
 
 	//DebugOut(L"[INFO] UPDATE: %s \n", IntToLPCWSTR(count));
 
@@ -114,7 +120,12 @@ void CPlayScene::Update(DWORD dt)
 	cy -= game->GetScreenHeight() / 2;
 
 	if (camera->isCameraMoving == false) {
-		camera->setCamPos(cx, camera->cam_y);
+		if (player->p.y < camera->cam_y_limit) {
+			camera->setCamPos(cx, player->p.y - 450);
+		}
+		else {
+			camera->setCamPos(cx, camera->cam_y_limit);
+		}
 	}
 }
 
@@ -554,7 +565,7 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 				obj->name = name;
 				obj->p.x = x;
 				obj->p.y = y;
-				
+
 				if (type != "") {
 					obj->type = type;
 				}

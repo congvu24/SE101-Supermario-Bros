@@ -72,15 +72,15 @@ void MisteryBox::GetBoundingBox(float& left, float& top, float& right, float& bo
 
 void MisteryBox::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	if (CPlayScene::IsPlayer(obj)) {
-		//if (isHitted == false && event->ny >= 0 && event->nx == 0) {
+		if (isHitted == false && event->ny >= 0 && event->nx == 0) {
 			GiveReward();
-		//}
+		}
 	}
 }
 
 void MisteryBox::GiveReward() {
 
-	//if (isHitted == false) {
+	if (isHitted == false) {
 		this->SetState("hitting");
 		isHitted = true;
 		LPGAMEOBJECT reward = NULL;
@@ -125,7 +125,7 @@ void MisteryBox::GiveReward() {
 			CGame::GetInstance()->GetCurrentScene()->addObject(reward);
 			reward->SetState("fromMisteryBox");
 		}
-	//}
+	}
 
 }
 

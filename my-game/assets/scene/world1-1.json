@@ -6,10 +6,10 @@
     {
       "id": "1",
       "name": "test",
-      "texture": "assets/texture/mario.png",
-      "sprite": "assets/sprite/mario.json",
+      "texture": "assets/texture/real-mario.png",
+      "sprite": "assets/sprite/real-mario.json",
       "animation": "assets/animations/mario-animation.json",
-      "type": 2,
+      "type": 4,
       "x": 100,
       "y": 1000,
       "visible": true

@@ -7,8 +7,8 @@ Camera::Camera() {
 
 }
 void Camera::setCamPos(float x, float y) {
-	//if (x >= cam_x_limit)
-		cam_x = x;
+	if (x >= cam_x_limit)
+	cam_x = x;
 	cam_y = y;
 	/*if (y >= cam_y_limit)
 		cam_y = y;*/

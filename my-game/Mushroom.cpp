@@ -67,7 +67,7 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++) {
 
 			if (Test* obj = dynamic_cast<Test*>(coEventsResult[i]->obj)) {
-				obj->Transform();
+				obj->Transform(BigMario);
 				SetState("hidden");
 			}
 		}

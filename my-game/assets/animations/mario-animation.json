@@ -3,53 +3,110 @@
     "indie-right": [{ "name": "8.png", "time": 100 }],
     "indie-left": [{ "name": "6.png", "time": 100 }],
     "jumping-right": [{ "name": "42.png", "time": 100 }],
-    "running-up": [{ "name": "33.png", "time": 100 }],
-    "running-down": [{ "name": "7.png", "time": 100 }],
     "jumping-left": [{ "name": "31.png", "time": 100 }],
+    "running-up": [
+      { "name": "32.png", "time": 100 },
+      { "name": "41.png", "time": 100 }
+    ],
+    "running-down": [{ "name": "7.png", "time": 100 }],
     "running-right": [
-      { "name": "8.png", "time": 100 },
-      { "name": "10.png", "time": 100 }
+      { "name": "10.png", "time": 100 },
+      { "name": "8.png", "time": 100 }
     ],
     "running-left": [
-      { "name": "6.png", "time": 100 },
-      { "name": "4.png", "time": 100 }
+      { "name": "4.png", "time": 100 },
+      { "name": "6.png", "time": 100 }
     ],
-    "die": [{ "name": "7.png", "time": 100 }],
-    "kick-left": [{ "name": "118.png", "time": 100 }],
-    "kick-right": [{ "name": "118.png", "time": 100 }]
+    "die": [{ "name": "51.png", "time": 100 }],
+    "kick-left": [{ "name": "30.png", "time": 100 }],
+    "kick-right": [{ "name": "43.png", "time": 100 }]
   },
   "2": {
     "indie-right": [{ "name": "67.png", "time": 100 }],
     "indie-left": [{ "name": "65.png", "time": 100 }],
-    "running-up": [{ "name": "111.png", "time": 100 }],
-    "jumping-right": [{ "name": "117.png", "time": 100 }],
-    "jumping-left": [{ "name": "105.png", "time": 100 }],
-    "running-down": [{ "name": "110.png", "time": 100 }],
+    "running-up": [
+      { "name": "107.png", "time": 100 },
+      { "name": "115.png", "time": 100 }
+    ],
+    "running-down": [{ "name": "66.png", "time": 100 }],
+    "jumping-right": [{ "name": "105.png", "time": 100 }],
+    "jumping-left": [{ "name": "117.png", "time": 100 }],
     "running-right": [
-      { "name": "67.png", "time": 100 },
-      { "name": "68.png", "time": 100 }
+      { "name": "68.png", "time": 100 },
+      { "name": "67.png", "time": 100 }
     ],
     "running-left": [
-      { "name": "65.png", "time": 100 },
-      { "name": "64.png", "time": 100 }
+      { "name": "64.png", "time": 100 },
+      { "name": "65.png", "time": 100 }
     ],
     "sitting-right": [{ "name": "103.png", "time": 100 }],
     "sitting-left": [{ "name": "89.png", "time": 100 }],
     "die": [{ "name": "96.png", "time": 100 }],
-    "kick-left": [{ "name": "16.png", "time": 100 }],
-    "kick-right": [{ "name": "28.png", "time": 100 }]
+    "kick-left": [{ "name": "118.png", "time": 100 }],
+    "kick-right": [{ "name": "104.png", "time": 100 }]
   },
   "3": {
-    "indie": [{ "name": "34.png", "time": 100 }],
+    "indie": [
+      { "name": "135.png", "time": 100 },
+      { "name": "134.png", "time": 100 },
+      { "name": "133.png", "time": 100 },
+      { "name": "132.png", "time": 100 }
+    ],
     "running-right": [
-      { "name": "8.png", "time": 100 },
-      { "name": "10.png", "time": 100 }
+      { "name": "135.png", "time": 100 },
+      { "name": "134.png", "time": 100 },
+      { "name": "133.png", "time": 100 },
+      { "name": "132.png", "time": 100 }
     ],
     "running-left": [
-      { "name": "6.png", "time": 100 },
-      { "name": "4.png", "time": 100 }
+      { "name": "135.png", "time": 100 },
+      { "name": "134.png", "time": 100 },
+      { "name": "133.png", "time": 100 },
+      { "name": "132.png", "time": 100 }
     ],
-    "running-up": [{ "name": "33.png", "time": 100 }],
-    "running-down": [{ "name": "7.png", "time": 100 }]
+    "running-up": [
+      { "name": "135.png", "time": 100 },
+      { "name": "134.png", "time": 100 },
+      { "name": "133.png", "time": 100 },
+      { "name": "132.png", "time": 100 }
+    ],
+    "running-down": [
+      { "name": "135.png", "time": 100 },
+      { "name": "134.png", "time": 100 },
+      { "name": "133.png", "time": 100 },
+      { "name": "132.png", "time": 100 }
+    ]
+  },
+  "4": {
+    "indie-right": [{ "name": "153.png", "time": 100 }],
+    "indie-left": [{ "name": "151.png", "time": 100 }],
+    "jumping-right": [{ "name": "191.png", "time": 100 }],
+    "jumping-left": [{ "name": "203.png", "time": 100 }],
+    "running-up": [
+      { "name": "193.png", "time": 100 },
+      { "name": "201.png", "time": 100 }
+    ],
+    "running-down": [{ "name": "182.png", "time": 100 }],
+    "running-right": [
+      { "name": "154.png", "time": 100 },
+      { "name": "153.png", "time": 100 }
+    ],
+    "running-left": [
+      { "name": "150.png", "time": 100 },
+      { "name": "151.png", "time": 100 }
+    ],
+    "die": [{ "name": "182.png", "time": 100 }],
+    "kick-left": [{ "name": "204.png", "time": 100 }],
+    "kick-right": [{ "name": "190.png", "time": 100 }],
+    "flying-left": [
+      { "name": "202.png", "time": 100 },
+      { "name": "178.png", "time": 100 },
+      { "name": "177.png", "time": 100 }
+    ],
+    "flying-right": [
+      { "name": "192.png", "time": 100 },
+      { "name": "186.png", "time": 100 },
+      { "name": "187.png", "time": 100 }
+    ]
   }
 }
