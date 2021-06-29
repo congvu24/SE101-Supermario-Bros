@@ -18,6 +18,7 @@ enum class MarioAction {
 	JUMP,
 	CROUCH,
 	FLY,
+	JUMP_HEIGHT,
 	FALL,
 	HOLD,
 	ATTACK,
@@ -35,6 +36,7 @@ public:
 	float max_move_x;
 	float max_move_y;
 	float powerX = 0;
+	int timeMaxPower = 0;
 	MarioAction action;
 	unordered_map<int, bool> holdingKeys;
 
@@ -50,4 +52,6 @@ public:
 	virtual void Transform(int marioType);
 	virtual void ProcessKeyboard(KeyboardEvent kEvent);
 	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {}
+	virtual void IncreasePowerX();
+	virtual void DecreasePowerX();
 };
