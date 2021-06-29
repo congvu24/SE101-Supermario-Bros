@@ -253,7 +253,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	if (game->IsKeyDown(DIK_R))
 		((CPlayScene*)scence)->restart();
 	else
-		player->SetState("indie");
+		((Test*)player)->SetAction(MarioAction::IDLE);
 
 
 	//CGame::GenerateKeyboardEvent(UnOrderProcessKey[i], true);

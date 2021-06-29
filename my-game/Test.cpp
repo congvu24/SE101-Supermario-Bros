@@ -34,11 +34,8 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 
-	if (action == MarioAction::FLY) {
-		DebugOut(L"Action: %s \n", ToLPCWSTR("Flying"));
-	}
-	else
-		DebugOut(L"Action: %s \n", ToLPCWSTR("another"));
+
+	DebugOut(L"State: %s \n", ToLPCWSTR(state));
 
 	if (action != MarioAction::FLY)
 		v = v + g * dt;
@@ -51,9 +48,9 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			v.x = v.x + powerX * 0.0003;
 	}
 	else {
-			if (canJump == true) {
-				powerX = 0;
-			}
+		if (canJump == true) {
+			powerX = 0;
+		}
 		if (v.x != 0)
 			v.x = (v.x / abs(v.x)) * max_move_x;
 	}
@@ -164,93 +161,54 @@ void Test::SetState(string state)
 	if (isReadyChangeState == true) {
 
 		if (state == "running-up") {
-			v.y = -0.15f;
-			v.x = 0;
-			CGameObject::SetState("jumping-right");
-
+			CGameObject::SetState("running-up");
 		}
 		else if (state == "running-down") {
-			v.y = 0.15f;
-			v.x = 0;
-			CGameObject::SetState("jumping-right");
+			CGameObject::SetState("running-down");
 		}
-
 		else if (state == "running-right") {
-			//v.y = 0;
-			SetAction(MarioAction::RUN);
-			v.x = max_move_x;
-			nx = 1;
-			if (canJump == true)
-				CGameObject::SetState(state);
-			else CGameObject::SetState("jumping-right");
+			CGameObject::SetState(state);
 		}
 		else if (state == "running-left") {
-			//v.y = 0;
-			SetAction(MarioAction::RUN);
-			v.x = -max_move_x;
-			nx = -1;
-			if (canJump == true)
-				CGameObject::SetState(state);
-			else CGameObject::SetState("jumping-left");
+			CGameObject::SetState(state);
 		}
-		else if (state == "sitting" && type != "1") {
-			if (this->state == "indie") {
-				SetAction(MarioAction::CROUCH);
-				v.x = 0;
-				v.y = 0;
-				if (nx > 0)
-					CGameObject::SetState("sitting-right");
-				else
-					CGameObject::SetState("sitting-left");
-			}
+		else if (state == "sitting") {
+			if (nx > 0)
+				CGameObject::SetState("sitting-right");
+			else
+				CGameObject::SetState("sitting-left");
 		}
-		else if (state == "jumping" && canJump == true) {
-			SetAction(MarioAction::JUMP);
-			v.y = -max_move_y;
-			canJump = false;
+		else if (state == "jumping") {
 			if (nx > 0)
 				CGameObject::SetState("jumping-right");
 			else CGameObject::SetState("jumping-left");
 		}
-		else if (state == "high-jump" && canJump == true && abs(powerX) == 1000) {
-			SetAction(MarioAction::JUMP_HEIGHT);
-			v.y = -max_move_y;
-			canJump = false;
+
+		else if (state == "jump-height") {
 			if (nx > 0)
 				CGameObject::SetState("jumping-right");
 			else CGameObject::SetState("jumping-left");
 		}
 		else if (state == "fly-up" && canJump == false) {
-			if (abs(powerX) == 1000) {
-			SetAction(MarioAction::FLY);
-			v.y = -0.3f;
-			canJump = false;
 			if (nx > 0)
 				CGameObject::SetState("jumping-right");
 			else CGameObject::SetState("jumping-left");
-			}
 		}
 		else if (state == "fall-down" && canJump == false) {
-			if (holdingKeys[DIK_S] == false) {
-				SetAction(MarioAction::FALL);
-				if (nx > 0)
-					CGameObject::SetState("jumping-right");
-				else CGameObject::SetState("jumping-left");
-			}
+			if (nx > 0)
+				CGameObject::SetState("jumping-right");
+			else CGameObject::SetState("jumping-left");
 		}
 		else if (state == "indie" && canJump == false) {
 			if (holdingKeys[DIK_S] == false) {
-				SetAction(MarioAction::JUMP_HEIGHT);
+				action = MarioAction::JUMP_HEIGHT;
 				if (nx < 0)
 					CGameObject::SetState("flying-left");
 				else
 					CGameObject::SetState("flying-right");
 			}
 		}
-		else if (state == "indie" && canJump == true) {
-			SetAction(MarioAction::IDLE);
-			v.x = 0;
-			//v.y = 0;
+		else if (state == "indie") {
 			if (nx < 0)
 				CGameObject::SetState("indie-left");
 			else
@@ -258,55 +216,34 @@ void Test::SetState(string state)
 		}
 
 		else if (state == "kick") {
-			SetAction(MarioAction::KICK);
 			if (nx < 0)
 				CGameObject::SetState("kick-left");
 			else
 				CGameObject::SetState("kick-right");
 		}
 		else if (state == "flying" && canJump == false) {
-			//SetAction(MarioAction::JUMP);
-			v.y = -0.03f;
-			v.x = 0;
 			if (nx < 0)
 				CGameObject::SetState("flying-left");
 			else
 				CGameObject::SetState("flying-right");
 		}
 		else if (state == "flying-left" && canJump == false) {
-			SetAction(MarioAction::JUMP);
-			v.x = -max_move_x;
-			nx = -1;
 			CGameObject::SetState("flying-left");
 		}
-		else if (state == "flying-right" && canJump == false) {
-			SetAction(MarioAction::JUMP);
-			v.x = max_move_x;
-			nx = 1;
+		else if (state == "flying-right") {
 			CGameObject::SetState("flying-right");
 		}
 		else if (state == "fly-up-left" && canJump == false) {
-			if (holdingKeys[DIK_S] == false) {
-				SetAction(MarioAction::JUMP_HEIGHT);
-				v.x = -max_move_x;
-				nx = -1;
-				CGameObject::SetState("flying-left");
-			}
+			CGameObject::SetState("flying-left");
 		}
 		else if (state == "fly-up-right" && canJump == false) {
-			if (holdingKeys[DIK_S] == false) {
-				SetAction(MarioAction::JUMP_HEIGHT);
-				v.x = max_move_x;
-				nx = 1;
-				CGameObject::SetState("flying-right");
-			}
+			CGameObject::SetState("flying-right");
 		}
 		else if (state == "die") {
-			SetAction(MarioAction::DIE);
-			v.y = -0.3f;
-			v.x = 0;
 			CGameObject::SetState(state);
-			isReadyChangeState = false;
+		}
+		else {
+			CGameObject::SetState(state);
 		}
 
 	}
@@ -315,7 +252,93 @@ void Test::SetState(string state)
 
 
 void Test::SetAction(MarioAction newAction) {
-	this->action = newAction;
+	switch (newAction)
+	{
+	case MarioAction::IDLE:
+		if (canJump == true) {
+			v.x = 0;
+			SetState("indie");
+			action = newAction;
+		}
+		else if (action == MarioAction::FLY && canJump == false) {
+			SetAction(MarioAction::JUMP_HEIGHT);
+		}
+		break;
+	case MarioAction::WALK:
+		action = newAction;
+		break;
+	case MarioAction::RUN:
+		action = newAction;
+		break;
+	case MarioAction::JUMP:
+		if (abs(powerX) == 1000 && stoi(type) == RacconMario) {
+			SetAction(MarioAction::JUMP_HEIGHT);
+			break;
+		}
+		else {
+			if (canJump == true) {
+				v.y = -max_move_y;
+				canJump = false;
+				SetState("jumping");
+				action = newAction;
+			}
+		}
+		break;
+	case MarioAction::CROUCH:
+		break;
+	case MarioAction::FLY:
+		if (abs(powerX) == 1000 && (action == MarioAction::FLY || action == MarioAction::JUMP_HEIGHT)) {
+			v.y = -0.3f;
+			SetState("fly-up");
+			action = MarioAction::FLY;
+		}
+		else if ((action == MarioAction::JUMP || action == MarioAction::JUMP_HEIGHT) && stoi(type) == RacconMario) {
+			v.y = -0.03f;
+			v.x = 0;
+			SetState("flying");
+			action = MarioAction::JUMP;
+		}
+		break;
+	case MarioAction::JUMP_HEIGHT:
+		if (action == MarioAction::FLY) {
+			action = MarioAction::JUMP_HEIGHT;
+		}
+		else if (canJump == true && abs(powerX) == 1000) {
+			v.y = -max_move_y;
+			canJump = false;
+			SetState("jump-height");
+			action = newAction;
+		}
+		break;
+	case MarioAction::FALL:
+		if (holdingKeys[DIK_S] == false && action == MarioAction::FLY) {
+			SetState("fall-down");
+			action = newAction;
+		}
+		break;
+	case MarioAction::HOLD:
+		break;
+	case MarioAction::ATTACK:
+		break;
+	case MarioAction::KICK:
+		SetState("kick");
+		action = newAction;
+		break;
+	case MarioAction::DIE:
+		v.y = -0.3f;
+		v.x = 0;
+		isReadyChangeState = false;
+		isAllowCollision = false;
+		SetState("die");
+		break;
+	case MarioAction::GETTING_INTO_THE_HOLE:
+		break;
+	default:
+		break;
+	}
+
+
+	//this->action = newAction;
 }
 void Test::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -369,8 +392,7 @@ void Test::HandleCollision(LPCOLLISIONEVENT e) {
 }
 
 void Test::Die() {
-	SetState("die");
-	isAllowCollision = false;
+	SetAction(MarioAction::DIE);
 }
 
 void Test::Transform(int marioType) {
@@ -404,37 +426,89 @@ void Test::ProcessKeyboard(KeyboardEvent kEvent)
 
 	switch (kEvent.key) {
 	case DIK_RIGHT:
-		if (action == MarioAction::FLY && stoi(type) == RacconMario) SetState("fly-up-right");
-		else if (action == MarioAction::JUMP_HEIGHT && stoi(type) == RacconMario) SetState("fly-up-right");
-		else if (action == MarioAction::JUMP && stoi(type) == RacconMario) SetState("flying-right");
-		else
-			SetState("running-right");
-		break;
-	case DIK_LEFT:
-		if (action == MarioAction::FLY && stoi(type) == RacconMario) SetState("fly-up-left");
-		else if (action == MarioAction::JUMP_HEIGHT && stoi(type) == RacconMario) SetState("fly-up-left");
-		else if (action == MarioAction::JUMP && stoi(type) == RacconMario) SetState("flying-left");
-		else
-			SetState("running-left");
-		break;
-	case DIK_S:
-		if (action == MarioAction::JUMP_HEIGHT || action == MarioAction::FLY) {
-			if (!kEvent.isHolding && !kEvent.isKeyUp) SetState("fly-up");
-			if (!kEvent.isHolding && !kEvent.isKeyUp) SetState("fall-down");
-			break;
+		v.x = max_move_x;
+		nx = 1;
+
+		if (action == MarioAction::FLY && stoi(type) == RacconMario) {
+			if (holdingKeys[DIK_S] == false) {
+				SetAction(MarioAction::JUMP_HEIGHT);
+				SetState("flying-right");
+			}
+		}
+		else if (action == MarioAction::JUMP_HEIGHT && stoi(type) == RacconMario) {
+			if (holdingKeys[DIK_S] == false) {
+				SetAction(MarioAction::JUMP_HEIGHT);
+				SetState("flying-right");
+			}
+		}
+		else if (action == MarioAction::JUMP && stoi(type) == RacconMario) {
+			SetState("flying-right");
+		}
+		else if (canJump == false) {
+			SetState("jumping-right");
 		}
 		else {
-			if (holdingKeys[kEvent.key] == false && stoi(type) == RacconMario)
-				SetState("flying");
-			break;
+			SetState("running-right");
+			SetAction(MarioAction::RUN);
 		}
+		break;
+	case DIK_LEFT:
+		v.x = -max_move_x;
+		nx = -1;
 
+		if (action == MarioAction::FLY && stoi(type) == RacconMario) {
+			if (holdingKeys[DIK_S] == false) {
+				SetAction(MarioAction::JUMP_HEIGHT);
+				SetState("flying-left");
+			}
+		}
+		else if (action == MarioAction::JUMP_HEIGHT && stoi(type) == RacconMario) {
+			if (holdingKeys[DIK_S] == false) {
+				SetAction(MarioAction::JUMP_HEIGHT);
+				SetState("flying-left");
+			}
+		}
+		else if (action == MarioAction::JUMP && stoi(type) == RacconMario) {
+			SetState("flying-left");
+		}
+		else if (canJump == false) {
+			SetState("jumping-left");
+		}
+		else {
+			SetState("running-left");
+			SetAction(MarioAction::RUN);
+		}
+		break;
+	case DIK_S:
+		if (!kEvent.isHolding && !kEvent.isKeyUp) {
+			SetAction(MarioAction::FLY);
+		}
+		if (!kEvent.isHolding && !kEvent.isKeyUp) {
+			SetAction(MarioAction::FALL);
+		}
+		break;
+	case DIK_UP:
+		//develop propose
+		v.y = -0.15f;
+		v.x = 0;
+		SetState("running-up");
+		SetAction(MarioAction::RUN);
 	case DIK_DOWN:
-		SetState("running-down");
+		if (action == MarioAction::IDLE && stoi(type) != SmallMario) {
+			v.x = 0;
+			v.y = 0;
+			SetAction(MarioAction::CROUCH);
+		}
+		else {
+			//develop propose
+			v.y = 0.15f;
+			v.x = 0;
+			SetState("running-down");
+			SetAction(MarioAction::RUN);
+		}
 		break;
 	case DIK_SPACE:
-		if (abs(powerX) == 1000 && stoi(type) == RacconMario) SetState("high-jump"); else
-			SetState("jumping");
+		if (!kEvent.isHolding && !kEvent.isKeyUp) SetAction(MarioAction::JUMP);
 		break;
 	case DIK_1:
 		Transform(SmallMario);
@@ -481,6 +555,7 @@ void Test::IncreasePowerX() {
 		}
 	}
 }
+
 void Test::DecreasePowerX() {
 	if (powerX >= 0)
 		if (powerX - 40 >= 0)

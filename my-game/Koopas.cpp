@@ -137,7 +137,7 @@ void Koopas::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	if (Test* player = dynamic_cast<Test*>(obj)) {
 		if (state == "die") {
 			if (isHitted == false && event->nx != 0) {
-				player->SetState("kick");
+				player->SetAction(MarioAction::KICK);
 				isUniversal = true;
 				this->v.x = 0.5f * -event->nx;
 				isHitted = true;
