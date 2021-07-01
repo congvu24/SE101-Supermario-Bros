@@ -2,28 +2,24 @@
 #include "GameObject.h"
 #include "MapEntity.h"
 #include "Game.h"
-#include "Coin.h"
-#include "Leaf.h"
-#include "Box.h"
 #include <iostream>
 
-class MisteryBox :public Box<MisteryBox>
+
+class Effect :public MapEntity<Effect>
 {
 
 public:
-	MisteryBox();
+	int time;
 
-	Vector oldP;
-	bool isHitted = false;
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	Effect(string type, int time);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void SetState(string state);
-	virtual void GiveReward();
-	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
+
+	virtual void Render();
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;
 	static unordered_map<string, LPSPRITE> sprites; //save all sprite of animation
 	static unordered_map<string, LPANIMATION> all_animations; //save all animations
 	static CAnimationSets animations_set; //save all the animation 
+
 };

@@ -16,6 +16,7 @@ class Mushroom :public MapEntity<Mushroom>
 
 public:
 	Mushroom();
+	Mushroom(string type);
 
 	Vector oldP;
 	int beginFalling = 0;

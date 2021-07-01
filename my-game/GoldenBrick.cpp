@@ -2,6 +2,7 @@
 #include "Vector.h"
 #include "PButton.h"
 #include "PlayScence.h"
+#include "Mushroom.h"
 #include <iostream>
 
 
@@ -21,23 +22,16 @@ GoldenBrick::GoldenBrick()
 	nx = -1;
 	isAllowCollision = true;
 	isBlockPlayer = true;
+
+	allowToHitBottom = false;
+	allowToHitTop = false;
+	allowToHitLeft = false;
+	allowToHitRight = false;
 }
 
 void GoldenBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	/*v = v + g * dt;
-	if (v.y > 0.35f) v.y = 0.35f;
-
-	CGameObject::Update(dt, coObjects);
-	Vector newPos = p + d;
-	if (state == "hitting" && newPos.y >= oldP.y) {
-		p = oldP;
-		SetState("hitted");
-	}
-	else {
-		p = p + d;
-	}*/
-
+	Box::Update(dt, coObjects);
 }
 
 
@@ -47,17 +41,9 @@ void GoldenBrick::SetState(string state)
 	if (state == "running") {
 	}
 	else if (state == "hitting") {
-		/*oldP = p;
-		v.y = -0.3f;
-		g.y = 0.001f;
-		ny = -1;*/
 	}
 	else if (state == "hitted") {
-		/*v.y = 0;
-		g.y = 0;
-		ny = -1;*/
 	}
-
 
 	CGameObject::SetState(state);
 
@@ -72,12 +58,22 @@ void GoldenBrick::GetBoundingBox(float& left, float& top, float& right, float& b
 }
 
 
-void GoldenBrick::CollisionWithMario(LPCOLLISIONEVENT e) {
-
-}
+//void GoldenBrick::CollisionWithMario(LPCOLLISIONEVENT e) {
+//
+//}
 
 void GoldenBrick::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
-	if (type == "P" && state == "running" && event->nx != 0) {
+	Box::OnHadCollided(obj, event);
+
+	if (CPlayScene::IsPlayer(obj)) {
+		if (isHitted == false && event->ny > 0 && event->nx == 0) {
+			GiveReward();
+		}
+	}
+}
+
+void GoldenBrick::OnHadCollidedHorizontal(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+	if (type == "P" && isHitted == false) {
 		vector<LPGAMEOBJECT>* effectList = new vector<LPGAMEOBJECT>();
 		vector<LPGAMEOBJECT>* allObjects = &((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->objects;
 
@@ -91,10 +87,11 @@ void GoldenBrick::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 		reward = new PButton();
 		reward->ParseFromOwnJson();
 		reward->p.y = p.y;
-		reward->p.x = p.x + width;
+		reward->p.x = p.x + width /2 ;
 		reward->isAllowCollision = true;
 		((PButton*)reward)->listEffect = effectList;
 		CGame::GetInstance()->GetCurrentScene()->addObject(reward);
+		isHitted = true;
 	}
 }
 
@@ -103,10 +100,40 @@ void GoldenBrick::Explore() {
 		LPGAMEOBJECT reward = NULL;
 		reward = new Coin();
 		reward->ParseFromOwnJson();
-		reward->p.y = p.y + height;
-		reward->p.x = p.x + width;
+		reward->p.y = p.y + height / 2;
+		reward->p.x = p.x + width /2;
 		reward->SetState("stop");
 		CGame::GetInstance()->GetCurrentScene()->addObject(reward);
 		this->SetState("hidden");
 	}
 }
+
+void GoldenBrick::HandleAfterCreated() {
+	if (type == "OneUpGreen") {
+		allowToHitBottom = true;
+		allowToHitTop = false;
+	}
+}
+
+void GoldenBrick::GiveReward() {
+	if (isHitted == false) {
+		isHitted = true;
+		LPGAMEOBJECT reward = NULL;
+		if (type == "OneUpGreen") {
+			reward = new Mushroom("green");
+			reward->ParseFromOwnJson();
+			reward->height = height;
+			reward->width = width;
+			reward->p = p;
+			reward->p.y = p.y - height;
+			reward->v.x = -1 * v.x;
+			reward->name = "Mushroom";
+			reward->isAllowCollision = true;
+			CGame::GetInstance()->GetCurrentScene()->addObject(reward);
+			reward->SetState("fromMisteryBox");
+
+		}
+	}
+}
+
+//void GoldenBrick::GiveReward(){}

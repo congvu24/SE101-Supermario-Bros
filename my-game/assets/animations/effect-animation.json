@@ -1,0 +1,13 @@
+{
+  "smoke": {
+    "running": [
+      { "name": "3.png", "time": 100 },
+      { "name": "2.png", "time": 100 },
+      { "name": "1.png", "time": 100 },
+      { "name": "0.png", "time": 100 },
+      { "name": "1.png", "time": 100 },
+      { "name": "2.png", "time": 100 },
+      { "name": "3.png", "time": 100 }
+    ]
+  }
+}

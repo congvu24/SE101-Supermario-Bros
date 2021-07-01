@@ -17,8 +17,8 @@
     {
       "id": "1",
       "name": "test",
-      "texture": "assets/texture/mario.png",
-      "sprite": "assets/sprite/mario.json",
+      "texture": "assets/texture/real-mario.png",
+      "sprite": "assets/sprite/real-mario.json",
       "animation": "assets/animations/mario-animation.json",
       "type": 3,
       "x": 48,

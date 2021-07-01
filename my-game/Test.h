@@ -24,7 +24,8 @@ enum class MarioAction {
 	ATTACK,
 	KICK,
 	DIE,
-	GETTING_INTO_THE_HOLE
+	GETTING_INTO_THE_HOLE,
+	TRANSFORM
 };
 
 class Test : public Character
@@ -37,6 +38,7 @@ public:
 	float max_move_y;
 	float powerX = 0;
 	int timeMaxPower = 0;
+	int timeBeginAction = 0;
 	MarioAction action;
 	unordered_map<int, bool> holdingKeys;
 
@@ -44,7 +46,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 	virtual void SetState(string state);
-	virtual void SetAction(MarioAction newAction);
+	virtual void SetAction(MarioAction newAction, DWORD time = 0);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
 	virtual void HandleCollisionVertical(LPCOLLISIONEVENT e);
 	virtual void HandleCollisionHorizontal(LPCOLLISIONEVENT e);
@@ -54,4 +56,5 @@ public:
 	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {}
 	virtual void IncreasePowerX();
 	virtual void DecreasePowerX();
+	virtual bool IsReadyToChangeAction();
 };

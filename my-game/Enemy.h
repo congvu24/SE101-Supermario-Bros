@@ -23,7 +23,7 @@ public:
 	Vector walkingLimit = Vector(0, 0);
 
 	virtual void KillPlayer(Test* obj) {
-		//obj->Die();
+		obj->Die();
 	}
 	virtual void BeingKill() {
 		SetState("die");
@@ -47,9 +47,15 @@ public:
 
 	virtual void CollisionHorizontal(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 		if (Test* player = dynamic_cast<Test*>(obj)) {
-			if (state != "die") {
+
+			if (state != "die" && player->action != MarioAction::ATTACK) {
 				if (event->nx != 0 && event->ny == 0) {
 					KillPlayer(player);
+				}
+			}
+			else if (state != "die" && player->action == MarioAction::ATTACK) {
+				if (event->nx != 0 && event->ny == 0) {
+					BeingKill();
 				}
 			}
 		}

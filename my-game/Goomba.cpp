@@ -118,8 +118,7 @@ void Goomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	if (state == "die") {
 		if (Test* player = dynamic_cast<Test*>(obj)) {
 			if (isBlockPlayer == true) {
-				player->canJump = true;
-				player->SetState("jumping");
+				player->SetAction(MarioAction::JUMP);
 				isAllowCollision = false;
 				isBlockPlayer = false;
 			}

@@ -19,7 +19,8 @@
     ],
     "die": [{ "name": "51.png", "time": 100 }],
     "kick-left": [{ "name": "30.png", "time": 100 }],
-    "kick-right": [{ "name": "43.png", "time": 100 }]
+    "kick-right": [{ "name": "43.png", "time": 100 }],
+    "into-hole": [{ "name": "22.png", "time": 100 }]
   },
   "2": {
     "indie-right": [{ "name": "67.png", "time": 100 }],
@@ -43,7 +44,8 @@
     "sitting-left": [{ "name": "89.png", "time": 100 }],
     "die": [{ "name": "96.png", "time": 100 }],
     "kick-left": [{ "name": "118.png", "time": 100 }],
-    "kick-right": [{ "name": "104.png", "time": 100 }]
+    "kick-right": [{ "name": "104.png", "time": 100 }],
+    "into-hole": [{ "name": "96.png", "time": 100 }]
   },
   "3": {
     "indie": [
@@ -107,6 +109,17 @@
       { "name": "192.png", "time": 100 },
       { "name": "186.png", "time": 100 },
       { "name": "187.png", "time": 100 }
-    ]
+    ],
+    "attack-left": [
+      { "name": "152.png", "time": 100 },
+      { "name": "153.png", "time": 100 },
+      { "name": "167.png", "time": 100 }
+    ],
+    "attack-right": [
+      { "name": "167.png", "time": 100 },
+      { "name": "151.png", "time": 100 },
+      { "name": "152.png", "time": 100 }
+    ],
+    "into-hole": [{ "name": "182.png", "time": 100 }]
   }
 }

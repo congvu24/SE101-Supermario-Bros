@@ -4,9 +4,10 @@
 #include "Game.h"
 #include "Coin.h"
 #include "Leaf.h"
+#include "Box.h"
 #include <iostream>
 
-class GoldenBrick :public MapEntity<GoldenBrick>
+class GoldenBrick :public Box<GoldenBrick>
 {
 
 public:
@@ -17,9 +18,11 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetState(string state);
-	virtual void CollisionWithMario(LPCOLLISIONEVENT e);
+	virtual void GiveReward();
 	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
 	virtual void Explore();
+	virtual void OnHadCollidedHorizontal(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
+	virtual void HandleAfterCreated();
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

@@ -1,5 +1,6 @@
 #include "MiniPortal.h"
 #include "Vector.h"
+#include "PlayScence.h"
 #include <iostream>
 
 
@@ -11,14 +12,45 @@ json MiniPortal::data = NULL;
 
 MiniPortal::MiniPortal()
 {
-	SetState("running");
 	isAllowCollision = false;
-	
+	isBlockPlayer = false;
 }
 
 void MiniPortal::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
+
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+	vector<LPGAMEOBJECT>* checkObjects = new vector<LPGAMEOBJECT>();
+
+	coEvents.clear();
+	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
+	{
+		if (CPlayScene::IsPlayer((*i)) == true) {
+			checkObjects->push_back((*i));
+		}
+	}
+
+	CalcPotentialCollisions(checkObjects, coEvents);
+
+	float min_tx, min_ty, nx = 0, ny;
+	float rdx = 0;
+	float rdy = 0;
+
+	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+	for (UINT i = 0; i < coEventsResult.size(); i++) {
+
+		HandleCollision(coEventsResult[i]);
+	}
+
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+	coEvents.clear();
+	coEventsResult.clear();
+	checkObjects->clear();
+	delete checkObjects;
+
 }
 
 
@@ -31,23 +63,50 @@ void MiniPortal::SetState(string state)
 
 void  MiniPortal::Render()
 {
-	/*float width = 0;
-	float height = 0;
-	animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
-	RenderBoundingBox();*/
 }
 
 void MiniPortal::HandleCollision(LPCOLLISIONEVENT e) {
 
-	/*DebugOut(L"nx %s \n", IntToLPCWSTR(e->nx));
-	DebugOut(L"ny %s \n", IntToLPCWSTR(e->ny));*/
+	if (type == "In") {
 
+		if (Test* player = dynamic_cast<Test*>(e->obj)) {
 
+			MiniPortal* destination = NULL;
+			vector<CGameObject*>* allObjectOfSence = &(CGame::GetInstance()->GetCurrentScene()->objects);
 
-	/*if (e->nx == 0 && e->ny < 0) {
-		isAllowCollision = true;
+			for (auto i = allObjectOfSence->begin(); i != allObjectOfSence->end(); i++)
+			{
+				if (MiniPortal* obj = dynamic_cast<MiniPortal*>(*i)) {
+					if (obj->portalName == this->portalName && obj->type == "Out") {
+						destination = obj;
+						break;
+					}
+				}
+			}
+
+			if (destination != NULL) {
+				Camera* camera = CGame::GetInstance()->GetCurrentScene()->getCamera();
+				player->SetAction(MarioAction::GETTING_INTO_THE_HOLE, 100);
+				camera->cam_x = destination->camera_x;
+				camera->cam_y = destination->camera_y;
+				camera->isCameraMoving = true;
+				player->p = destination->p;
+			}
+		}
 	}
-	else {
-		isAllowCollision = false;
-	}*/
+
+}
+
+void MiniPortal::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+	if (this->type == "Out") {
+		if (Test* player = dynamic_cast<Test*>(event->obj)) {
+			if (player->action == MarioAction::GETTING_INTO_THE_HOLE) {
+				player->nx = 1;
+				player->v.x = 0;
+				player->SetState("jumping");
+				player->canJump = false;
+				player->renderOrder = 1;
+			}
+		}
+	}
 }

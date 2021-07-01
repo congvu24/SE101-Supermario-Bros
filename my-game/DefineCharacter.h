@@ -40,7 +40,8 @@ enum class ObjectType
 	Venus_Bullet,
 	Koopas,
 	GoldenBrick,
-	PButton
+	PButton,
+	Effect
 };
 
 

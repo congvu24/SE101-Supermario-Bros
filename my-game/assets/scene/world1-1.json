@@ -9,7 +9,7 @@
       "texture": "assets/texture/real-mario.png",
       "sprite": "assets/sprite/real-mario.json",
       "animation": "assets/animations/mario-animation.json",
-      "type": 4,
+      "type": 1,
       "x": 100,
       "y": 1000,
       "visible": true
@@ -110,6 +110,15 @@
       "texture": "assets/texture/misc.png",
       "sprite": "assets/sprite/misc.json",
       "animation": "assets/animations/p-button-animation.json",
+      "type": 1,
+      "visible": false
+    },
+    {
+      "id": "11",
+      "name": "Effect",
+      "texture": "assets/texture/effect.png",
+      "sprite": "assets/sprite/effect.json",
+      "animation": "assets/animations/effect-animation.json",
       "type": 1,
       "visible": false
     }

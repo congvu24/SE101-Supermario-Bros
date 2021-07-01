@@ -114,9 +114,6 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files\Helper</Filter>
     </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files\Object\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="Coin.cpp">
       <Filter>Source Files\Object\Entity</Filter>
     </ClCompile>
@@ -198,6 +195,15 @@
     <ClCompile Include="PButton.cpp">
       <Filter>Source Files\Object\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -272,9 +278,6 @@
     <ClInclude Include="Collision.h">
       <Filter>Header Files\Object\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files\Object\Entity</Filter>
-    </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Header Files\Object\Entity</Filter>
     </ClInclude>
@@ -327,6 +330,15 @@
       <Filter>Header Files\Object\Entity</Filter>
     </ClInclude>
     <ClInclude Include="PButton.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
       <Filter>Header Files\Object\Entity</Filter>
     </ClInclude>
   </ItemGroup>

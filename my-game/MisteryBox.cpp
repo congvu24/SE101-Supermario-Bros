@@ -24,19 +24,7 @@ MisteryBox::MisteryBox()
 
 void MisteryBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	v = v + g * dt;
-	if (v.y > 0.35f) v.y = 0.35f;
-
-	CGameObject::Update(dt, coObjects);
-	Vector newPos = p + d;
-	if (state == "hitting" && newPos.y >= oldP.y) {
-		p = oldP;
-		SetState("hitted");
-	}
-	else {
-		p = p + d;
-	}
-
+	Box::Update(dt, coObjects);
 }
 
 
@@ -46,15 +34,10 @@ void MisteryBox::SetState(string state)
 	if (state == "running") {
 	}
 	else if (state == "hitting") {
-		oldP = p;
-		v.y = -0.3f;
-		g.y = 0.001f;
-		ny = -1;
+
 	}
 	else if (state == "hitted") {
-		v.y = 0;
-		g.y = 0;
-		ny = -1;
+
 	}
 
 
@@ -71,8 +54,11 @@ void MisteryBox::GetBoundingBox(float& left, float& top, float& right, float& bo
 }
 
 void MisteryBox::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+
+	Box::OnHadCollided(obj, event);
+
 	if (CPlayScene::IsPlayer(obj)) {
-		if (isHitted == false && event->ny >= 0 && event->nx == 0) {
+		if (isHitted == false && event->ny > 0 && event->nx == 0) {
 			GiveReward();
 		}
 	}
@@ -81,18 +67,15 @@ void MisteryBox::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 void MisteryBox::GiveReward() {
 
 	if (isHitted == false) {
-		this->SetState("hitting");
 		isHitted = true;
 		LPGAMEOBJECT reward = NULL;
 		if (name == "QuestionBox_Coin") {
 			reward = new Coin();
 			reward->ParseFromOwnJson();
-			
 			reward->height = height;
 			reward->width = width;
 			reward->p = p;
 			reward->p.y = p.y - height;
-
 			reward->isAllowCollision = false;
 			CGame::GetInstance()->GetCurrentScene()->addObject(reward);
 			reward->SetState("fromMisteryBox");
@@ -100,13 +83,10 @@ void MisteryBox::GiveReward() {
 		else if (name == "QuestionBox_Mushroom") {
 			reward = new Mushroom();
 			reward->ParseFromOwnJson();
-			/*reward->p.y = p.y + height / 2;
-			reward->p.x = p.x;*/
 			reward->height = height;
 			reward->width = width;
 			reward->p = p;
 			reward->p.y = p.y - height;
-
 			reward->name = "Mushroom";
 			reward->isAllowCollision = true;
 			CGame::GetInstance()->GetCurrentScene()->addObject(reward);
@@ -119,7 +99,6 @@ void MisteryBox::GiveReward() {
 			reward->width = width;
 			reward->p = p;
 			reward->p.y = p.y - height;
-
 			reward->name = "Leaf";
 			reward->isAllowCollision = true;
 			CGame::GetInstance()->GetCurrentScene()->addObject(reward);

@@ -1,12 +1,29 @@
 #pragma once
 #include "GameObject.h"
+#include "MapEntity.h"
+#include "Game.h"
+#include "Coin.h"
+#include "Leaf.h"
+#include "Box.h"
+#include <iostream>
 
-#define BRICK_BBOX_WIDTH  16
-#define BRICK_BBOX_HEIGHT 16
-
-class CBrick : public CGameObject
+class Brick :public Box<Brick>
 {
+
 public:
-	virtual void Render();
-	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
+	Brick();
+
+	Vector oldP;
+	bool isHitted = false;
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void SetState(string state);
+	virtual void GiveReward();
+	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
+
+	static json data;
+	static LPDIRECT3DTEXTURE9 texture;
+	static unordered_map<string, LPSPRITE> sprites; //save all sprite of animation
+	static unordered_map<string, LPANIMATION> all_animations; //save all animations
+	static CAnimationSets animations_set; //save all the animation 
 };

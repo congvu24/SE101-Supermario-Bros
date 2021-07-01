@@ -38,8 +38,7 @@ public:
 			this->id = id;
 			if (this->type == "") this->type = type;
 			//this->name = name;
-			SetActiveAnimationSet(type);
-
+			//SetActiveAnimationSet(type);
 			HandleAfterCreated();
 		}
 	}

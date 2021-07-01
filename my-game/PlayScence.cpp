@@ -19,6 +19,8 @@
 #include "RedGoomba.h"
 #include "GoldenBrick.h"
 #include "PButton.h"
+#include "Effect.h"
+#include "Brick.h"
 
 using namespace std;
 
@@ -72,10 +74,8 @@ void CPlayScene::Update(DWORD dt)
 		quadtree->Insert(*i);
 	}
 	int count = 0;
-	vector<CGameObject*>* coObjectsWithMario = new vector<CGameObject*>();
-	quadtree->Retrieve(coObjectsWithMario, player);
 
-	player->Update(dt, coObjectsWithMario);
+	//player->Update(dt, coObjectsWithMario);
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
@@ -86,6 +86,7 @@ void CPlayScene::Update(DWORD dt)
 
 			if (Test* v = dynamic_cast<Test*>(objects[i])) {
 				// prevent re update player;
+				v->Update(dt, return_objects_list);
 			}
 
 			else if (objects[i]->state != "hidden") {
@@ -106,7 +107,6 @@ void CPlayScene::Update(DWORD dt)
 	}
 	quadtree->Clear();
 	delete quadtree;
-	delete coObjectsWithMario;
 
 	//DebugOut(L"[INFO] UPDATE: %s \n", IntToLPCWSTR(count));
 
@@ -118,15 +118,16 @@ void CPlayScene::Update(DWORD dt)
 	CGame* game = CGame::GetInstance();
 	cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;
+	camera->setCamPos(cx, cy);
 
-	if (camera->isCameraMoving == false) {
-		if (player->p.y < camera->cam_y_limit) {
-			camera->setCamPos(cx, player->p.y - 450);
+	/*if (camera->isCameraMoving == false) {
+		if (player->p.y + player->height < camera->cam_y_limit) {
+			camera->setCamPos(cx, cy);
 		}
 		else {
 			camera->setCamPos(cx, camera->cam_y_limit);
 		}
-	}
+	}*/
 }
 
 bool comparePtrToNode(CGameObject* a, CGameObject* b) { return (a->renderOrder < b->renderOrder); }
@@ -157,6 +158,8 @@ void CPlayScene::Render()
 		if (return_objects_list->at(i)->state != "hidden" && return_objects_list->at(i)->renderOrder < 1)
 			return_objects_list->at(i)->Render();
 	}
+	if (player->renderOrder < 1)
+		player->Render(); // render player 
 
 	map->render();  // render map here
 
@@ -166,8 +169,9 @@ void CPlayScene::Render()
 			return_objects_list->at(i)->Render();
 	}
 
-
-	player->Render(); // render player 
+	if (player->renderOrder >= 1)
+		player->Render();
+	//player->Render(); // render player 
 
 	CScene::Render();  //render scene animation
 
@@ -364,6 +368,10 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 		case  ObjectType::PButton:
 			if (visible != true)
 				PButton::SaveStaticData(data);
+			break;
+		case  ObjectType::Effect:
+			if (visible != true)
+				Effect::SaveStaticData(data);
 			break;
 		default:
 			break;
