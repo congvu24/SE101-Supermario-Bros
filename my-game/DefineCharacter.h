@@ -41,7 +41,8 @@ enum class ObjectType
 	Koopas,
 	GoldenBrick,
 	PButton,
-	Effect
+	Effect,
+	UI
 };
 
 

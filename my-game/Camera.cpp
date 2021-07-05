@@ -85,3 +85,6 @@ void Camera::move(float x, float y) {
 D3DXVECTOR3 Camera::calcInCamPosition(float x, float y) {
 	return D3DXVECTOR3(x - cam_x - move_x, y - cam_y - move_y, 0); // +170 here 
 }
+
+
+

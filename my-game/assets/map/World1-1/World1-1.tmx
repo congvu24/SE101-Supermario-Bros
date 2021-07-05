@@ -845,6 +845,6 @@
 </data>
  </layer>
  <objectgroup id="32" name="Camera">
-  <object id="257" x="2" y="770" width="800" height="600"/>
+  <object id="257" x="3.33333" y="816.667" width="800" height="600"/>
  </objectgroup>
 </map>

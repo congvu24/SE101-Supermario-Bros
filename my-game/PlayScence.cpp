@@ -21,6 +21,7 @@
 #include "PButton.h"
 #include "Effect.h"
 #include "Brick.h"
+#include "CUI.h"
 
 using namespace std;
 
@@ -28,6 +29,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	CScene(id, filePath)
 {
 	key_handler = new CPlayScenceKeyHandler(this);
+	UI = new CUI();
 }
 
 
@@ -51,6 +53,7 @@ void CPlayScene::Load()
 	DebugOut(L"[INFO] LOAD MAP : %s \n", ToLPCWSTR(map));
 
 	_ParseSection_MAP_FromJson(map);
+
 
 	animationDirection = UNACTIVE;
 	animationStartedTime = GetTickCount64();
@@ -136,10 +139,8 @@ void CPlayScene::Update(DWORD dt)
 		camera->setCamPos(cx, cy - 170);
 	}
 
-
 	DebugOut(L"[INFO] Camera x: %s \n", IntToLPCWSTR(camera->cam_x));
 	DebugOut(L"[INFO] Camera y: %s \n", IntToLPCWSTR(camera->cam_y));
-
 }
 
 bool comparePtrToNode(CGameObject* a, CGameObject* b) { return (a->renderOrder < b->renderOrder); }
@@ -184,7 +185,7 @@ void CPlayScene::Render()
 	if (player->renderOrder >= 1)
 		player->Render();
 	//player->Render(); // render player 
-
+	DrawUI();
 	CScene::Render();  //render scene animation
 
 
@@ -384,6 +385,10 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 		case  ObjectType::Effect:
 			if (visible != true)
 				Effect::SaveStaticData(data);
+			break;
+		case ObjectType::UI:
+			if (visible != true)
+				CUI::SaveStaticData(data);
 			break;
 		default:
 			break;
@@ -621,4 +626,21 @@ void CPlayScene::GameOver() {
 bool CPlayScene::IsPlayer(LPGAMEOBJECT obj) {
 	if (Test* player = dynamic_cast<Test*>(obj))  return true;
 	return false;
+}
+
+void CPlayScene::DrawUI() {
+	UI->DrawUI("hub", Vector(0, 470));
+	UI->DrawUI("reward-slot", Vector(500, 470));
+	UI->DrawUI("1", Vector(124, 495), Vector(0.8, 0.8));
+	UI->DrawUI("M-icon", Vector(12, 515));
+	UI->DrawUI("1", Vector(90, 514));
+	UI->DrawText("1234567", Vector(150, 515));
+	UI->DrawText("123", Vector(393, 518), Vector(0.8, 0.8));
+	UI->DrawText("456", Vector(413, 493), Vector(0.8, 0.8));
+
+
+	float levelSpeed = (((Test*)player)->powerX / 1000) * 6;
+	for (int i = 0; i < 6; i++) {
+		UI->DrawUI(levelSpeed > i ? "arrow-white" : "arrow", Vector(152 + i * 24, 493));
+	}
 }

@@ -80,7 +80,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	r.right = right;
 	r.bottom = bottom;
 	//if (camera->isInCam(p.x, p.y, 100) == true) {
-		spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	//}
 }
 
@@ -115,8 +115,37 @@ void CGame::DrawWithScale(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opac
 			spriteHandler->SetTransform(&oldMatrix);
 		}
 	}
+}
+
+void CGame::DrawPositionInCamera(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity, D3DXVECTOR2 scale)
+{
+	Camera* camera = this->GetCurrentScene()->camera;
+	D3DXVECTOR3 position = D3DXVECTOR3(p.x, p.y, 0);
+
+	D3DXMATRIX oldMatrix, newMatrix;
+	D3DXVECTOR3 deltaToCenter = D3DXVECTOR3((r.right - r.left) / 2, (r.bottom - r.top) / 2, 0);
+	D3DXVECTOR3 pCenter = D3DXVECTOR3(deltaToCenter.x + 0, deltaToCenter.y + 0, 0); //pivot x, y instead of 0 ?
 
 
+	if (camera->isInCam(position.x, position.y, 100) == true) {
+
+		if (scale.x == 1 && scale.y == 1) {
+			spriteHandler->Draw(texture, &r, NULL, &position, D3DCOLOR_ARGB(opacity, 255, 255, 255));
+		}
+		else {
+			D3DXVECTOR2 ppp = D3DXVECTOR2(position.x, position.y);
+			spriteHandler->GetTransform(&oldMatrix);
+
+			D3DXMatrixTransformation2D(&newMatrix, &(ppp), 0.0f, &scale, &ppp, 0.0f, NULL);
+			spriteHandler->SetTransform(&newMatrix);
+
+			//position.x = position.x - 100;
+			position.x = position.x - deltaToCenter.x;
+			position.y = position.y + deltaToCenter.y;
+			spriteHandler->Draw(texture, &r, &pCenter, &position, D3DCOLOR_ARGB(opacity, 255, 255, 255));
+			spriteHandler->SetTransform(&oldMatrix);
+		}
+	}
 }
 
 int CGame::IsKeyDown(int KeyCode)

@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "RectPlatform.h"
 #include "Leaf.h"
+#include "CUI.h"
 
 enum CameraMoveDirection {
 	UP,
@@ -32,7 +33,7 @@ public:
 	CPlayScene(int id, LPCWSTR filePath);
 	LPMAP GetMap() { return this->map; };
 	CGameObject* player;					// A play scene has to have player, right? 
-
+	CUI* UI;
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
@@ -42,6 +43,7 @@ public:
 	virtual void restart();
 	virtual void moveCamera(CameraMoveDirection);
 	virtual void GameOver();
+	virtual void DrawUI();
 	
 	static bool IsPlayer(LPGAMEOBJECT obj);
 

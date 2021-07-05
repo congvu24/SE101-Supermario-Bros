@@ -121,6 +121,14 @@
       "animation": "assets/animations/effect-animation.json",
       "type": 1,
       "visible": false
+    },
+    {
+      "id": "12",
+      "name": "UI",
+      "texture": "assets/texture/ui.png",
+      "sprite": "assets/sprite/ui.json",
+      "type": 1,
+      "visible": false
     }
   ]
 }

@@ -23,6 +23,7 @@ public:
 
 	void Draw(float x, float y, int alpha = 255);
 	void DrawWithScale(float x, float y, Vector scale = Vector(1.0f, 1.0f), int alpha = 255);
+	void DrawPositionInCamera(float x, float y, Vector scale = Vector(1.0f, 1.0f), int alpha = 255);
 };
 
 typedef CSprite* LPSPRITE;
