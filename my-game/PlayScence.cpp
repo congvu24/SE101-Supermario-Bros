@@ -118,16 +118,28 @@ void CPlayScene::Update(DWORD dt)
 	CGame* game = CGame::GetInstance();
 	cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;
-	camera->setCamPos(cx, cy);
+	//camera->setCamPos(cx, cy);
 
-	/*if (camera->isCameraMoving == false) {
-		if (player->p.y + player->height < camera->cam_y_limit) {
-			camera->setCamPos(cx, cy);
+
+	if (camera->isCameraMoving == false) {
+
+		if (((Test*)player)->isAllowCameraFollow == true) {
+			if (player->p.y + player->height < camera->camera_default_top) {
+				camera->setCamPos(cx, cy);
+			}
+			else {
+				camera->setCamPos(cx, camera->camera_default_top);
+			}
 		}
-		else {
-			camera->setCamPos(cx, camera->cam_y_limit);
-		}
-	}*/
+	}
+	else {
+		camera->setCamPos(cx, cy - 170);
+	}
+
+
+	DebugOut(L"[INFO] Camera x: %s \n", IntToLPCWSTR(camera->cam_x));
+	DebugOut(L"[INFO] Camera y: %s \n", IntToLPCWSTR(camera->cam_y));
+
 }
 
 bool comparePtrToNode(CGameObject* a, CGameObject* b) { return (a->renderOrder < b->renderOrder); }
@@ -453,9 +465,18 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 					string name = data["name"];
 					if (name == "CameraLeftTopLimitX") {
 						obj->camera_x = float(data["value"]);
+						obj->camera_left_limit = float(data["value"]);
 					}
-					else if (name == "CameraLeftTopLimitY") {
+					if (name == "CameraLeftTopLimitY") {
 						obj->camera_y = float(data["value"]);
+						obj->camera_top_limit = float(data["value"]);
+					}
+					if (name == "CameraRightBottomLimitX") {
+						obj->camera_y = float(data["value"]);
+						obj->camera_right_limit = float(data["value"]);
+					}
+					if (name == "CameraRightBottomLimitY") {
+						obj->camera_bottom_limit = float(data["value"]);
 					}
 				}
 			}
@@ -560,8 +581,11 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 				break;
 			case ObjectType::Camera:
 				camera->setCamPos(x, y);
-				camera->cam_x_limit = x;
-				camera->cam_y_limit = y;
+				camera->camera_default_left = x;
+				camera->camera_default_top = y;
+				camera->cam_left_limit = x;
+				camera->cam_top_limit = y;
+				camera->cam_bottom_limit = y + 600;
 				break;
 			default:
 				break;

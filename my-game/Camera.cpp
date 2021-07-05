@@ -7,11 +7,39 @@ Camera::Camera() {
 
 }
 void Camera::setCamPos(float x, float y) {
-	if (x >= cam_x_limit)
+	/*if (x >= cam_left_limit)
 	cam_x = x;
-	cam_y = y;
-	/*if (y >= cam_y_limit)
+	cam_y = y;*/
+	/*if (y >= cam_top_limit)
 		cam_y = y;*/
+
+	if (isCameraMoving == true) {
+		if (x >= cam_left_limit && x <= cam_right_limit) {
+			cam_x = x;
+		}
+		else {
+			if (x < cam_left_limit)
+				cam_x = cam_left_limit;
+			else if (x > cam_right_limit)
+				cam_x = cam_right_limit;
+		}
+
+		if (y >= cam_top_limit && y <= cam_bottom_limit) {
+			cam_y = y;
+		}
+		else {
+			if (y < cam_top_limit)
+				cam_y = cam_top_limit;
+			else if (y > cam_bottom_limit)
+				cam_y = cam_bottom_limit;
+		}
+	}
+	else {
+		if (x >= camera_default_left) {
+			cam_x = x;
+		}
+		cam_y = y;
+	}
 }
 
 bool Camera::isInCamPosition(LPGAMEOBJECT entity, int margin = 100) {

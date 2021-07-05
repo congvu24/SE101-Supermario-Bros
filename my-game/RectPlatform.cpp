@@ -11,6 +11,7 @@ json RectPlatform::data = NULL;
 
 RectPlatform::RectPlatform()
 {
+	isUniversal = true;
 }
 
 void RectPlatform::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

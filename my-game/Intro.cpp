@@ -216,8 +216,8 @@ void Intro::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 				break;
 			case ObjectType::Camera:
 				camera->setCamPos(x, y);
-				camera->cam_x_limit = x;
-				camera->cam_y_limit = y;
+				camera->cam_left_limit = x;
+				camera->cam_top_limit = y;
 				break;
 			default:
 				break;

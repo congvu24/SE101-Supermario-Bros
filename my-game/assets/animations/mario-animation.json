@@ -20,7 +20,17 @@
     "die": [{ "name": "51.png", "time": 100 }],
     "kick-left": [{ "name": "30.png", "time": 100 }],
     "kick-right": [{ "name": "43.png", "time": 100 }],
-    "into-hole": [{ "name": "22.png", "time": 100 }]
+    "into-hole": [{ "name": "22.png", "time": 100 }],
+    "indie-hold-left": [{ "name": "52.png", "time": 100 }],
+    "indie-hold-right": [{ "name": "50.png", "time": 100 }],
+    "running-hold-left": [
+      { "name": "52.png", "time": 100 },
+      { "name": "53.png", "time": 100 }
+    ],
+    "running-hold-right": [
+      { "name": "50.png", "time": 100 },
+      { "name": "49.png", "time": 100 }
+    ]
   },
   "2": {
     "indie-right": [{ "name": "67.png", "time": 100 }],
@@ -45,7 +55,17 @@
     "die": [{ "name": "96.png", "time": 100 }],
     "kick-left": [{ "name": "118.png", "time": 100 }],
     "kick-right": [{ "name": "104.png", "time": 100 }],
-    "into-hole": [{ "name": "96.png", "time": 100 }]
+    "into-hole": [{ "name": "96.png", "time": 100 }],
+    "indie-hold-left": [{ "name": "92.png", "time": 100 }],
+    "indie-hold-right": [{ "name": "100.png", "time": 100 }],
+    "running-hold-left": [
+      { "name": "92.png", "time": 100 },
+      { "name": "124.png", "time": 100 }
+    ],
+    "running-hold-right": [
+      { "name": "100.png", "time": 100 },
+      { "name": "126.png", "time": 100 }
+    ]
   },
   "3": {
     "indie": [
@@ -120,6 +140,16 @@
       { "name": "151.png", "time": 100 },
       { "name": "152.png", "time": 100 }
     ],
-    "into-hole": [{ "name": "182.png", "time": 100 }]
+    "into-hole": [{ "name": "182.png", "time": 100 }],
+    "indie-hold-left": [{ "name": "211.png", "time": 100 }],
+    "indie-hold-right": [{ "name": "213.png", "time": 100 }],
+    "running-hold-left": [
+      { "name": "211.png", "time": 100 },
+      { "name": "210.png", "time": 100 }
+    ],
+    "running-hold-right": [
+      { "name": "213.png", "time": 100 },
+      { "name": "214.png", "time": 100 }
+    ]
   }
 }

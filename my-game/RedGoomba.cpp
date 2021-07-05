@@ -22,6 +22,7 @@ RedGoomba::RedGoomba()
 
 void RedGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	Enemy::Update(dt, coObjects);
 	CGameObject::Update(dt, coObjects);
 	Enemy::CheckToChangeDirection();
 
@@ -38,7 +39,7 @@ void RedGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		if ((*i)->isAllowCollision == true && (*i)->name != "RectPlatform") {
+		if ((*i)->isAllowCollision == true) {
 			checkObjects->push_back((*i));
 		}
 	}

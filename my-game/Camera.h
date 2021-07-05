@@ -1,15 +1,19 @@
 #pragma once
 #include <d3dx9.h>
+#include <limits>
 #include "GameObject.h"
-
 
 class Camera {
 public:
 	Camera();
 	float cam_x;
 	float cam_y;
-	float cam_x_limit;
-	float cam_y_limit;
+	float camera_default_left;
+	float camera_default_top;
+	float cam_left_limit;
+	float cam_top_limit;
+	float cam_right_limit = std::numeric_limits<float>::infinity();
+	float cam_bottom_limit = std::numeric_limits<float>::infinity();
 	float move_x = 0;
 	float move_y = 0;
 	float cam_width = 800;

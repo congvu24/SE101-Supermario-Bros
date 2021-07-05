@@ -22,6 +22,7 @@ Goomba::Goomba()
 
 void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	Enemy::Update(dt, coObjects);
 	CGameObject::Update(dt, coObjects);
 	Enemy::CheckToChangeDirection();
 
@@ -38,7 +39,7 @@ void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		if ((*i)->isAllowCollision == true && (*i)->name !="RectPlatform") {
+		if ((*i)->isAllowCollision == true && !CPlayScene::IsPlayer) {
 			checkObjects->push_back((*i));
 		}
 	}
@@ -115,13 +116,10 @@ void Goomba::BeingKill() {
 void Goomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	Enemy::OnHadCollided(obj, event);
 
-	if (state == "die") {
-		if (Test* player = dynamic_cast<Test*>(obj)) {
-			if (isBlockPlayer == true) {
-				player->SetAction(MarioAction::JUMP);
-				isAllowCollision = false;
-				isBlockPlayer = false;
-			}
+	if (Test* player = dynamic_cast<Test*>(obj)) {
+		if (isBlockPlayer == true) {
+			isAllowCollision = false;
+			isBlockPlayer = false;
 		}
 	}
 }

@@ -22,53 +22,65 @@ Koopas::Koopas()
 
 void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (isHolded == true && ((Test*)holdedBy)->action == MarioAction::HOLD) {
+		p.x = holdedBy->nx < 0 ? holdedBy->p.x - holdedBy->width : holdedBy->p.x + holdedBy->width;
+		p.y = holdedBy->p.y;
+		nx = holdedBy->nx;
+		return;
+	}
+	else if (isHolded == true && ((Test*)holdedBy)->action != MarioAction::HOLD) {
+		isHolded = false;
+		isUniversal = true;
+		this->v.x = 0.5f * holdedBy->nx;
+		isHitted = true;
+		isBlockPlayer = true;
+		useLimit = false;
+	}
+
+	Enemy::Update(dt, coObjects);
 	CGameObject::Update(dt, coObjects);
 	Enemy::CheckToChangeDirection();
 
 	v = v + g * dt;
 	if (v.y > 0.35f) v.y = 0.35f;
-
-	if (v.x > 0) nx = 1;
-	else nx = -1;
+	if (v.x > 0) nx = 1; else nx = -1;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
+
 	vector<LPGAMEOBJECT>* checkObjects = new vector<LPGAMEOBJECT>();
 
 	coEvents.clear();
+
+
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		if (state == "die") {
-			if ((*i)->isAllowCollision == true) {
-				checkObjects->push_back((*i));
-			}
+		if ((*i)->isAllowCollision == true && !CPlayScene::IsPlayer) {
+			checkObjects->push_back((*i));
 		}
-		else {
-			if ((*i)->isAllowCollision == true) {
-				checkObjects->push_back((*i));
-			}
-		}
-
 	}
 
-	coEvents.clear();
-	CalcPotentialCollisions(checkObjects, coEvents);
+	CalcPotentialCollisions(coObjects, coEvents);
+
 
 	if (coEvents.size() == 0) {
+
 		p = p + d;
 	}
 	else {
-		//p.x = p.x + d.x;
+		p.x = p.x + d.x;
 
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+
+		/*	if (nx != 0) v.x = -v.x;*/
 		if (ny != 0) v.y = 0;
 
 		for (UINT i = 0; i < coEventsResult.size(); i++) {
-
 			HandleCollision(coEventsResult[i]);
 		}
 
@@ -136,13 +148,24 @@ void Koopas::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 
 	if (Test* player = dynamic_cast<Test*>(obj)) {
 		if (state == "die") {
-			if (isHitted == false && event->nx != 0) {
+			if (isHitted == false && event->nx != 0 && event->ny != 0) {
 				player->SetAction(MarioAction::KICK);
 				isUniversal = true;
 				this->v.x = 0.5f * -event->nx;
 				isHitted = true;
 				isBlockPlayer = true;
 				useLimit = false;
+			}
+
+			else if (isHitted == false && event->nx != 0 && isHolded == false) {
+				player->SetAction(MarioAction::HOLD);
+				holdedBy = player;
+				isHolded = true;
+			}
+			else if (isHitted == false && event->nx != 0 && player->action == MarioAction::PICK_UP && isHolded == false) {
+				player->SetAction(MarioAction::HOLD);
+				holdedBy = player;
+				isHolded = true;
 			}
 			else if (isHitted == true && event->nx != 0) {
 				KillPlayer(player);

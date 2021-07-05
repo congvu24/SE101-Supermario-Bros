@@ -19,8 +19,14 @@ public:
 	Enemy() {
 
 	}
+
+	
 	bool useLimit = true;
 	Vector walkingLimit = Vector(0, 0);
+
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+		isUniversal = true;
+	}
 
 	virtual void KillPlayer(Test* obj) {
 		obj->Die();
@@ -65,6 +71,7 @@ public:
 			if (state != "die") {
 				if (event->ny < 0) {
 					BeingKill();
+					player->SetAction(MarioAction::JUMP);
 				}
 			}
 		}

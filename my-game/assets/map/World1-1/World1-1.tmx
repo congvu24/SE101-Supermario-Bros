@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="34" nextobjectid="301">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="34" nextobjectid="304">
  <editorsettings>
   <export target="World1-1.json" format="json"/>
  </editorsettings>
@@ -119,19 +119,19 @@
     <property name="CameraLeftTopLimitX" type="float" value="6200"/>
     <property name="CameraLeftTopLimitY" type="float" value="1363"/>
     <property name="CameraRightBottomLimitX" type="float" value="7100"/>
-    <property name="CameraRightBottomLimitY" type="float" value="2130"/>
+    <property name="CameraRightBottomLimitY" type="float" value="1900"/>
    </properties>
   </object>
-  <object id="129" name="MiniP2" type="In" x="6949" y="1465" width="24" height="21"/>
   <object id="130" name="MiniP2" type="Out" x="6912" y="997" width="96" height="29">
    <properties>
     <property name="AccessKeycode" value="UP"/>
-    <property name="CameraLeftTopLimitX" type="float" value="0"/>
-    <property name="CameraLeftTopLimitY" type="float" value="0"/>
+    <property name="CameraLeftTopLimitX" type="float" value="6564"/>
+    <property name="CameraLeftTopLimitY" type="float" value="696"/>
     <property name="CameraRightBottomLimitX" type="float" value="8448"/>
     <property name="CameraRightBottomLimitY" type="float" value="1448"/>
    </properties>
   </object>
+  <object id="302" name="MiniP2" type="In" x="6948" y="1464.17" width="24" height="21"/>
  </objectgroup>
  <objectgroup id="18" name="Coin">
   <object id="57" x="3216" y="960" width="48" height="48">
@@ -259,7 +259,7 @@
     <property name="cellY" value="2"/>
    </properties>
   </object>
-  <object id="268" type="2" x="392" y="1062" width="48" height="88"/>
+  <object id="268" type="2" x="441.333" y="955.333" width="48" height="88"/>
   <object id="297" x="1756" y="1036" width="37.3333" height="85.3333"/>
  </objectgroup>
  <objectgroup id="16" name="QuestionBox_Item">
@@ -308,7 +308,7 @@
   <object id="45" x="3840" y="1056" width="336" height="192"/>
   <object id="46" x="3936" y="960" width="336" height="288"/>
   <object id="47" x="6384" y="1104" width="144" height="144"/>
-  <object id="48" x="6480" y="816" width="144" height="432"/>
+  <object id="48" x="6478.67" y="818.667" width="144" height="432"/>
   <object id="105" x="3890" y="430" width="188" height="32"/>
   <object id="106" x="4178" y="578" width="188" height="46"/>
   <object id="107" x="4418" y="530" width="670" height="44"/>

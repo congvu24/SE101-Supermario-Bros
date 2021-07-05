@@ -10,7 +10,9 @@ public:
 	Koopas();
 
 	Vector oldP;
+	bool isHolded = false;
 	bool isHitted = false;
+	LPGAMEOBJECT holdedBy;
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

@@ -85,12 +85,7 @@ void MiniPortal::HandleCollision(LPCOLLISIONEVENT e) {
 			}
 
 			if (destination != NULL) {
-				Camera* camera = CGame::GetInstance()->GetCurrentScene()->getCamera();
-				player->SetAction(MarioAction::GETTING_INTO_THE_HOLE, 100);
-				camera->cam_x = destination->camera_x;
-				camera->cam_y = destination->camera_y;
-				camera->isCameraMoving = true;
-				player->p = destination->p;
+				player->Teleport(destination, 2000);
 			}
 		}
 	}
@@ -98,15 +93,4 @@ void MiniPortal::HandleCollision(LPCOLLISIONEVENT e) {
 }
 
 void MiniPortal::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
-	if (this->type == "Out") {
-		if (Test* player = dynamic_cast<Test*>(event->obj)) {
-			if (player->action == MarioAction::GETTING_INTO_THE_HOLE) {
-				player->nx = 1;
-				player->v.x = 0;
-				player->SetState("jumping");
-				player->canJump = false;
-				player->renderOrder = 1;
-			}
-		}
-	}
 }

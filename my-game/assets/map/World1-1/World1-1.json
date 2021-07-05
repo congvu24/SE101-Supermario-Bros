@@ -736,7 +736,7 @@
                         {
                          "name":"CameraRightBottomLimitY",
                          "type":"float",
-                         "value":2130
+                         "value":1900
                         }],
                  "rotation":0,
                  "type":"Out",
@@ -744,17 +744,6 @@
                  "width":92,
                  "x":6242.67,
                  "y":1392
-                }, 
-                {
-                 "height":21,
-                 "id":129,
-                 "name":"MiniP2",
-                 "rotation":0,
-                 "type":"In",
-                 "visible":true,
-                 "width":24,
-                 "x":6949,
-                 "y":1465
                 }, 
                 {
                  "height":29,
@@ -769,12 +758,12 @@
                         {
                          "name":"CameraLeftTopLimitX",
                          "type":"float",
-                         "value":0
+                         "value":6564
                         }, 
                         {
                          "name":"CameraLeftTopLimitY",
                          "type":"float",
-                         "value":0
+                         "value":696
                         }, 
                         {
                          "name":"CameraRightBottomLimitX",
@@ -792,6 +781,17 @@
                  "width":96,
                  "x":6912,
                  "y":997
+                }, 
+                {
+                 "height":21,
+                 "id":302,
+                 "name":"MiniP2",
+                 "rotation":0,
+                 "type":"In",
+                 "visible":true,
+                 "width":24,
+                 "x":6948,
+                 "y":1464.17
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1384,8 +1384,8 @@
                  "type":"2",
                  "visible":true,
                  "width":48,
-                 "x":392,
-                 "y":1062
+                 "x":441.333,
+                 "y":955.333
                 }, 
                 {
                  "height":85.3333,
@@ -1670,8 +1670,8 @@
                  "type":"",
                  "visible":true,
                  "width":144,
-                 "x":6480,
-                 "y":816
+                 "x":6478.67,
+                 "y":818.667
                 }, 
                 {
                  "height":32,
@@ -2327,7 +2327,7 @@
          "y":0
         }],
  "nextlayerid":34,
- "nextobjectid":301,
+ "nextobjectid":304,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

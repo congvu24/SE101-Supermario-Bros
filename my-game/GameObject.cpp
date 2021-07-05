@@ -99,11 +99,24 @@ void CGameObject::FilterCollision(
 		LPCOLLISIONEVENT c = coEvents[i];
 
 		if (c->t < min_tx && c->nx != 0) {
-			min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
+
+			if (dynamic_cast<RectPlatform*>(c->obj)) {
+				// Do not thing ( allow Mario go in X-direction )
+			}
+			else {
+				min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
+			}
+
 		}
 
 		if (c->t < min_ty && c->ny != 0) {
-			min_ty = c->t; ny = c->ny; min_iy = i; rdy = c->dy;
+			if (dynamic_cast<RectPlatform*>(c->obj) && c->ny == 1) {
+				min_ty = 1; ny = 2; min_iy = i; rdy = c->dy;
+			}
+			else {
+				min_ty = c->t; ny = c->ny; min_iy = i; rdy = c->dy;
+			}
+
 		}
 	}
 

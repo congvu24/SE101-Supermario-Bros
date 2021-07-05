@@ -12,6 +12,10 @@ public:
 	string portalName;
 	float camera_x;
 	float camera_y;
+	float camera_left_limit;
+	float camera_right_limit;
+	float camera_top_limit;
+	float camera_bottom_limit;
 
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

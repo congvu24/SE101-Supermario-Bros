@@ -11,7 +11,8 @@ json Death::data = NULL;
 
 Death::Death()
 {
-	//DebugOut(L"init death");
+	DebugOut(L"init death");
+	isUniversal = true;
 }
 
 void Death::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

@@ -1,7 +1,7 @@
 {
-  "id": 2,
-  "name": "World 1-1",
-  "map": "assets/map/World1-1/World1-1.json",
+  "id": 4,
+  "name": "World 1-3",
+  "map": "assets/map/World1-3/World1-3.json",
   "object": [
     {
       "id": "1",
@@ -9,7 +9,7 @@
       "texture": "assets/texture/real-mario.png",
       "sprite": "assets/sprite/real-mario.json",
       "animation": "assets/animations/mario-animation.json",
-      "type": 1,
+      "type": 4,
       "x": 100,
       "y": 1000,
       "visible": true

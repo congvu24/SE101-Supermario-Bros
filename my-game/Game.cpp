@@ -407,6 +407,7 @@ void CGame::_ParseSection_SCENES_FromJson(json data)
 		if (id == 1) scene = new WorldSelect(id, path);
 		else if (id == 2) scene = new CPlayScene(id, path);
 		else if (id == 3) scene = new Intro(id, path);
+		else if (id == 4) scene = new CPlayScene(id, path);
 
 		if (scene != NULL)
 			scenes[id] = scene;
