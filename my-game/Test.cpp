@@ -20,6 +20,7 @@ Test::Test()
 	max_move_y = VY_SMALL;
 	renderOrder = 99999; //player should be rendered lastly
 	name = "player";
+	isUniversal = true;
 }
 
 

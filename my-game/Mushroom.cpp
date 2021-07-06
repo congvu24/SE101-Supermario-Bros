@@ -1,6 +1,8 @@
 #include "Mushroom.h"
 #include "Vector.h"
 #include "Test.h"
+#include "Effect.h"
+#include "PlayScence.h"
 #include <iostream>
 
 
@@ -15,6 +17,7 @@ Mushroom::Mushroom()
 	SetState("fromMisteryBox");
 	isBlockPlayer = false;
 	isAllowCollision = false;
+	point = 400;
 }
 
 Mushroom::Mushroom(string type)
@@ -22,7 +25,9 @@ Mushroom::Mushroom(string type)
 	SetState("fromMisteryBox");
 	isBlockPlayer = false;
 	isAllowCollision = false;
-	type = type;
+	this->type = type;
+	point = 400;
+
 }
 
 void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -75,7 +80,8 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++) {
 
 			if (Test* obj = dynamic_cast<Test*>(coEventsResult[i]->obj)) {
-				obj->Transform(BigMario);
+				//obj->Transform(BigMario);
+				GiveReward();
 				SetState("hidden");
 			}
 		}
@@ -129,4 +135,23 @@ void Mushroom::GetBoundingBox(float& left, float& top, float& right, float& bott
 
 void Mushroom::HandleCollision(LPCOLLISIONEVENT e) {
 	SetState("hidden");
+}
+
+void Mushroom::GiveReward() {
+	if (type == "green") {
+		Effect* pointEffect = new Effect("1up", 300);
+		pointEffect->v.y = -0.05f;
+		pointEffect->p = p;
+		CGame::GetInstance()->GetCurrentScene()->addObject(pointEffect);
+		CGame::GetInstance()->GetCurrentScene()->AddPoint(1000);
+		LPGAMEOBJECT player = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->player;
+		((Test*)player)->life++;
+	}
+	else {
+		Effect* pointEffect = new Effect(to_string(point), 300);
+		pointEffect->v.y = -0.05f;
+		pointEffect->p = p;
+		CGame::GetInstance()->GetCurrentScene()->addObject(pointEffect);
+		CGame::GetInstance()->GetCurrentScene()->AddPoint(point);
+	}
 }

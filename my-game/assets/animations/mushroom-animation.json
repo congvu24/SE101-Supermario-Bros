@@ -5,11 +5,9 @@
   },
   "green": {
     "running": [
-      { "name": "22.png", "time": 100 },
       { "name": "47.png", "time": 100 }
     ],
     "fromMisteryBox": [
-      { "name": "22.png", "time": 100 },
       { "name": "47.png", "time": 100 }
     ]
   }

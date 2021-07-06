@@ -25,6 +25,8 @@ ObjectType fromNameToCode(string name) {
 	character_code["PButton"] = ObjectType::PButton;
 	character_code["Effect"] = ObjectType::Effect;
 	character_code["UI"] = ObjectType::UI;
+	character_code["BoomerangBrother"] = ObjectType::BoomerangBrother;
+	character_code["Boomerang"] = ObjectType::Boomerang;
 
 	if (character_code.find(name) != character_code.end()) {
 		return character_code.at(name);

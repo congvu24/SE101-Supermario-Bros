@@ -207,6 +207,12 @@
     <ClCompile Include="CUI.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
+    <ClCompile Include="BoomerangBrother.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -346,6 +352,12 @@
     </ClInclude>
     <ClInclude Include="CUI.h">
       <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangBrother.h">
+      <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Boomerang.h">
+      <Filter>Header Files\Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

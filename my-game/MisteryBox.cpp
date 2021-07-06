@@ -65,8 +65,8 @@ void MisteryBox::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 }
 
 void MisteryBox::GiveReward() {
-
 	if (isHitted == false) {
+		SetState("hitted");
 		isHitted = true;
 		LPGAMEOBJECT reward = NULL;
 		if (name == "QuestionBox_Coin") {

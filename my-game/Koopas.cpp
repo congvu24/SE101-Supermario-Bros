@@ -3,6 +3,7 @@
 #include "Test.h"
 #include "PlayScence.h"
 #include "RedGoomba.h"
+#include "GoldenBrick.h"
 #include <iostream>
 
 
@@ -138,6 +139,9 @@ void Koopas::HandleCollision(LPCOLLISIONEVENT e) { // xử lí collision do chí
 		}
 		if (MisteryBox* obj = dynamic_cast<MisteryBox*>(e->obj)) {
 			obj->GiveReward();
+		}
+		if (GoldenBrick* obj = dynamic_cast<GoldenBrick*>(e->obj)) {
+			if (obj->type == "Break") obj->Explore();
 		}
 	}
 }

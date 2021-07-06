@@ -2,28 +2,33 @@
 #include "GameObject.h"
 #include "MapEntity.h"
 #include "Game.h"
-#include <iostream>
 #include "Enemy.h"
 
-class VenusBullet :public Enemy<VenusBullet>
+enum class BoomerangBrotherAction {
+	ATTACK,
+	MOVING,
+	THROW
+};
+
+class BoomerangBrother :public Enemy<BoomerangBrother>
 {
 
-	//virtual void  Render();
 public:
-	VenusBullet();
+	BoomerangBrother();
+	BoomerangBrotherAction action;
 
-	Vector direction;
-	Vector distance;
-	float angle;
 	Vector oldP;
-
+	int timeWaiting = 5000;
+	virtual void SetState(string state);
+	virtual void SetAction(BoomerangBrotherAction newAction);
+	virtual void HandleCollision(LPCOLLISIONEVENT e);
+	virtual void HandleAfterCreated();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void HandleCollision(LPCOLLISIONEVENT e);
-	virtual void SetState(string state);
+	virtual void Render();
+	virtual void BeingKill();
 	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
-	virtual void BeingKill() {};
-	virtual void GiveReward() {};
+
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

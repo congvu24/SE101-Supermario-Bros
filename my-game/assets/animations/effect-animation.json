@@ -9,5 +9,32 @@
       { "name": "2.png", "time": 100 },
       { "name": "3.png", "time": 100 }
     ]
+  },
+  "100": {
+    "running": [{ "name": "100.png", "time": 100 }]
+  },
+  "200": {
+    "running": [{ "name": "200.png", "time": 100 }]
+  },
+  "400": {
+    "running": [{ "name": "400.png", "time": 100 }]
+  },
+  "800": {
+    "running": [{ "name": "800.png", "time": 100 }]
+  },
+  "1000": {
+    "running": [{ "name": "1000.png", "time": 100 }]
+  },
+  "2000": {
+    "running": [{ "name": "2000.png", "time": 100 }]
+  },
+  "4000": {
+    "running": [{ "name": "4000.png", "time": 100 }]
+  },
+  "8000": {
+    "running": [{ "name": "8000.png", "time": 100 }]
+  },
+  "1up": {
+    "running": [{ "name": "1up.png", "time": 100 }]
   }
 }

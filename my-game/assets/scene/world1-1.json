@@ -2,6 +2,7 @@
   "id": 2,
   "name": "World 1-1",
   "map": "assets/map/World1-1/World1-1.json",
+  "limit-time": 300000,
   "object": [
     {
       "id": "1",

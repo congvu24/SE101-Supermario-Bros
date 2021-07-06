@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="197" height="75" tilewidth="48" tileheight="48" infinite="0" nextlayerid="37" nextobjectid="396">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="197" height="75" tilewidth="48" tileheight="48" infinite="0" nextlayerid="38" nextobjectid="398">
  <editorsettings>
   <export target="World1-3.json" format="json"/>
  </editorsettings>
@@ -66,6 +66,9 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="37" name="BoomerangBrother">
+  <object id="396" x="416" y="1104" width="52" height="72"/>
+ </objectgroup>
  <objectgroup id="18" name="Coin">
   <object id="302" x="3408" y="1008" width="46" height="44"/>
   <object id="303" x="3456" y="1008" width="46" height="44"/>
@@ -81,7 +84,9 @@
   <object id="315" x="6384" y="768" width="44" height="46"/>
   <object id="316" x="6432" y="768" width="44" height="46"/>
  </objectgroup>
- <objectgroup id="20" name="Koopas"/>
+ <objectgroup id="20" name="Koopas">
+  <object id="397" x="2115" y="874" width="48" height="84"/>
+ </objectgroup>
  <objectgroup id="16" name="QuestionBox_Item"/>
  <objectgroup id="17" name="Venus"/>
  <objectgroup id="14" name="RectPlatform">
@@ -96,31 +101,31 @@
   <object id="370" x="7054" y="818" width="192" height="428"/>
  </objectgroup>
  <objectgroup id="23" name="GoldenBrick">
-  <object id="317" x="1872" y="1200" width="48" height="48"/>
-  <object id="318" x="1776" y="1200" width="48" height="48"/>
-  <object id="319" x="1824" y="1200" width="48" height="48"/>
+  <object id="317" type="Break" x="1872" y="1200" width="48" height="48"/>
+  <object id="318" type="Break" x="1776" y="1200" width="48" height="48"/>
+  <object id="319" type="Break" x="1824" y="1200" width="48" height="48"/>
   <object id="320" x="1776" y="1152" width="48" height="48"/>
   <object id="321" x="1776" y="1104" width="48" height="48"/>
   <object id="322" x="1824" y="1056" width="48" height="48"/>
   <object id="323" x="1776" y="1056" width="48" height="48"/>
-  <object id="324" x="1872" y="1056" width="48" height="48"/>
-  <object id="371" x="1920" y="1104" width="48" height="48"/>
-  <object id="372" x="1968" y="1104" width="48" height="48"/>
+  <object id="324" type="Break" x="1872" y="1056" width="48" height="48"/>
+  <object id="371" type="Break" x="1920" y="1104" width="48" height="48"/>
+  <object id="372" type="Break" x="1968" y="1104" width="48" height="48"/>
   <object id="373" x="2112" y="1152" width="48" height="48"/>
   <object id="374" x="1968" y="1152" width="48" height="48"/>
   <object id="375" x="2016" y="1152" width="48" height="48"/>
   <object id="376" x="2064" y="1152" width="48" height="48"/>
-  <object id="377" x="2161" y="1201" width="48" height="48"/>
-  <object id="378" x="2112" y="1200" width="48" height="48"/>
-  <object id="379" x="2064" y="1200" width="48" height="48"/>
+  <object id="377" type="Break" x="2161" y="1201" width="48" height="48"/>
+  <object id="378" type="Break" x="2112" y="1200" width="48" height="48"/>
+  <object id="379" type="Break" x="2064" y="1200" width="48" height="48"/>
   <object id="380" x="2160" y="1152" width="48" height="48"/>
   <object id="381" x="2160" y="1056" width="48" height="48"/>
   <object id="382" x="2160" y="1008" width="48" height="48"/>
   <object id="383" x="2112" y="1008" width="48" height="48"/>
   <object id="384" x="2016" y="1008" width="48" height="48"/>
   <object id="385" x="2064" y="1008" width="48" height="48"/>
-  <object id="386" x="2016" y="1056" width="48" height="48"/>
-  <object id="387" x="2064" y="1056" width="48" height="48"/>
+  <object id="386" type="Break" x="2016" y="1056" width="48" height="48"/>
+  <object id="387" type="Break" x="2064" y="1056" width="48" height="48"/>
  </objectgroup>
  <layer id="1" name="Background" width="197" height="75">
   <data encoding="csv">

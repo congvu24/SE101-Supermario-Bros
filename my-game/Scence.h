@@ -22,6 +22,9 @@ protected:
 public:
 	CScene(int id, LPCWSTR filePath);
 	int id;
+	int timeLimit = 0;
+	int playerPoint = 0;
+	int playerMoney = 0;
 	Camera* camera;
 	int nextScene = 0;
 	vector<LPGAMEOBJECT> objects;
@@ -43,6 +46,8 @@ public:
 	virtual void _ParseSection_SPRITES_FromJson(LPCWSTR filePath, int textID);
 	virtual void ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) = 0;
 	virtual void switchScene(int sence_id);
+	virtual void AddPoint(int point) { playerPoint = playerPoint + point; }
+	virtual void AddMoney(int money) { playerMoney = playerMoney + money; }
 
 	Camera* getCamera() {
 		return this->camera;

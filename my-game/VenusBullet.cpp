@@ -15,6 +15,7 @@ VenusBullet::VenusBullet()
 	SetState("running");
 	isBlockPlayer = false;
 	isAllowCollision = false;
+	point = 0;
 	v = Vector(0.10f, 0.10f);
 	g = Vector(0, 0);
 }
@@ -90,7 +91,7 @@ void VenusBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void VenusBullet::SetState(string state)
 {
-	
+
 
 	CGameObject::SetState(state);
 

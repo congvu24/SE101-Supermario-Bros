@@ -121,6 +121,7 @@ void CGame::DrawPositionInCamera(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, i
 {
 	Camera* camera = this->GetCurrentScene()->camera;
 	D3DXVECTOR3 position = D3DXVECTOR3(p.x, p.y, 0);
+	
 
 	D3DXMATRIX oldMatrix, newMatrix;
 	D3DXVECTOR3 deltaToCenter = D3DXVECTOR3((r.right - r.left) / 2, (r.bottom - r.top) / 2, 0);

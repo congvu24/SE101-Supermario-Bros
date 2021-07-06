@@ -18,6 +18,7 @@ public:
 	Mushroom();
 	Mushroom(string type);
 
+	int point;
 	Vector oldP;
 	int beginFalling = 0;
 
@@ -25,7 +26,8 @@ public:
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {}
+	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {};
+	virtual void GiveReward();
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Test.h"
 #include "MapEntity.h"
+#include "Effect.h"
 
 
 #include "library/json.hpp"
@@ -15,12 +16,10 @@ template <class T>
 class Enemy : public MapEntity<T>
 {
 public:
+	int point = 100;
 
-	Enemy() {
+	Enemy() {}
 
-	}
-
-	
 	bool useLimit = true;
 	Vector walkingLimit = Vector(0, 0);
 
@@ -29,10 +28,14 @@ public:
 	}
 
 	virtual void KillPlayer(Test* obj) {
-		obj->Die();
+		//obj->Die();
 	}
 	virtual void BeingKill() {
-		SetState("die");
+		if (state != "die") {
+			SetState("die");
+			GiveReward();
+			isAllowCollision = false;
+		}
 	}
 	virtual void Transform() {
 
@@ -43,10 +46,11 @@ public:
 			FindWalkingLimit(e->obj);
 		}
 		if (e->nx != 0) {
-			if (e->obj->name == "RectPlatform" && e->ny == 0) {
+			/*if (e->obj->name == "RectPlatform" && e->ny == 0) {
 				p.x = p.x + d.x;
 			}
-			else
+			else*/
+			if (ny == 0)
 				ChangeDirection();
 		}
 	}
@@ -110,5 +114,13 @@ public:
 				ChangeDirection();
 			}
 		}
+	}
+
+	virtual void GiveReward() {
+		Effect* pointEffect = new Effect(to_string(point), 300);
+		pointEffect->v.y = -0.05f;
+		pointEffect->p = p;
+		CGame::GetInstance()->GetCurrentScene()->addObject(pointEffect);
+		CGame::GetInstance()->GetCurrentScene()->AddPoint(point);
 	}
 };

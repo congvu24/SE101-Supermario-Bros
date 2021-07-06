@@ -42,7 +42,9 @@ enum class ObjectType
 	GoldenBrick,
 	PButton,
 	Effect,
-	UI
+	UI,
+	BoomerangBrother,
+	Boomerang
 };
 
 

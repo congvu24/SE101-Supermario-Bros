@@ -22,6 +22,8 @@
 #include "Effect.h"
 #include "Brick.h"
 #include "CUI.h"
+#include "BoomerangBrother.h"
+#include "Boomerang.h"
 
 using namespace std;
 
@@ -42,8 +44,12 @@ void CPlayScene::Load()
 
 	DebugOut(L"[INFO] Scene : %s \n", ToLPCWSTR(scene["name"].dump()));
 
-	//parse texture, sprite, animation
+	//init the time limit, point and money
+	timeLimit = stoi(scene["limit-time"].dump());
+	playerPoint = 0;
+	playerMoney = 0;
 
+	//parse texture, sprite, animation
 	json object = scene["object"];
 
 	_ParseSection_OBJECTS_FromJson(object);
@@ -64,13 +70,11 @@ void CPlayScene::Load()
 void CPlayScene::Update(DWORD dt)
 {
 	CScene::Update(dt);
+	UpdateTime(dt);
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 
 	RECT base = { camera->cam_x, camera->cam_y, camera->cam_x + 800 ,camera->cam_y + 600 };
 	Quadtree* quadtree = new Quadtree(1, new RECT(base));
-
-
-	//DebugOut(L"[INFO] NUMBER OF OBJECT: %s \n", IntToLPCWSTR(objects.size()));
 
 
 	for (auto i = objects.begin(); i != objects.end(); i++) {
@@ -136,7 +140,7 @@ void CPlayScene::Update(DWORD dt)
 		}
 	}
 	else {
-		camera->setCamPos(cx, cy - 170);
+		camera->setCamPos(cx, cy);
 	}
 
 	DebugOut(L"[INFO] Camera x: %s \n", IntToLPCWSTR(camera->cam_x));
@@ -390,6 +394,14 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			if (visible != true)
 				CUI::SaveStaticData(data);
 			break;
+		case ObjectType::BoomerangBrother:
+			if (visible != true)
+				BoomerangBrother::SaveStaticData(data);
+			break;
+		case ObjectType::Boomerang:
+			if (visible != true)
+				Boomerang::SaveStaticData(data);
+			break;
 		default:
 			break;
 		}
@@ -584,6 +596,9 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 			case ObjectType::GoldenBrick:
 				obj = new GoldenBrick();
 				break;
+			case ObjectType::BoomerangBrother:
+				obj = new BoomerangBrother();
+				break;
 			case ObjectType::Camera:
 				camera->setCamPos(x, y);
 				camera->camera_default_left = x;
@@ -633,14 +648,41 @@ void CPlayScene::DrawUI() {
 	UI->DrawUI("reward-slot", Vector(500, 470));
 	UI->DrawUI("1", Vector(124, 495), Vector(0.8, 0.8));
 	UI->DrawUI("M-icon", Vector(12, 515));
-	UI->DrawUI("1", Vector(90, 514));
-	UI->DrawText("1234567", Vector(150, 515));
-	UI->DrawText("123", Vector(393, 518), Vector(0.8, 0.8));
-	UI->DrawText("456", Vector(413, 493), Vector(0.8, 0.8));
 
 
-	float levelSpeed = (((Test*)player)->powerX / 1000) * 6;
+	UI->DrawText("123", Vector(413, 493), Vector(0.8, 0.8));
+
+	//draw mario life
+	UI->DrawUI(to_string(((Test*)player)->life), Vector(90, 514));
+
+	//draw player point
+	string point = to_string(playerPoint);
+	int numberOfZero = 7 - point.length();
+	for (int i = 1; i <= numberOfZero; i++) {
+		point = "0" + point;
+	}
+	UI->DrawText(point, Vector(150, 515));
+
+	//draw remain time
+	int remain = trunc(timeLimit / 1000);
+	UI->DrawText(to_string(remain >= 0 ? remain : 0), Vector(393, 518), Vector(0.8, 0.8));
+
+	//draw mario speed 
+	float levelSpeed = abs((((Test*)player)->powerX / 1000) * 6);
 	for (int i = 0; i < 6; i++) {
 		UI->DrawUI(levelSpeed > i ? "arrow-white" : "arrow", Vector(152 + i * 24, 493));
+	}
+
+	UI->DrawUI(abs(((Test*)player)->powerX) == 1000 ? "power-white" : "power-1", Vector(300, 493));
+
+}
+
+
+void CPlayScene::UpdateTime(DWORD dt) {
+	if (timeLimit >= 0 && timeLimit - dt >= 0) {
+		timeLimit = timeLimit - dt;
+	}
+	else {
+		GameOver();
 	}
 }

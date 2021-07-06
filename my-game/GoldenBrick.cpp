@@ -87,7 +87,7 @@ void GoldenBrick::OnHadCollidedHorizontal(LPGAMEOBJECT obj, LPCOLLISIONEVENT eve
 		reward = new PButton();
 		reward->ParseFromOwnJson();
 		reward->p.y = p.y;
-		reward->p.x = p.x + width /2 ;
+		reward->p.x = p.x + width / 2;
 		reward->isAllowCollision = true;
 		((PButton*)reward)->listEffect = effectList;
 		CGame::GetInstance()->GetCurrentScene()->addObject(reward);
@@ -96,22 +96,34 @@ void GoldenBrick::OnHadCollidedHorizontal(LPGAMEOBJECT obj, LPCOLLISIONEVENT eve
 }
 
 void GoldenBrick::Explore() {
-	if (type != "P" && state == "running") {
+	if (type == "Break" && state == "running") {
+		isAllowCollision = false;
+		this->SetState("hidden");
+	}
+	else if (type != "P" && state == "running") {
 		LPGAMEOBJECT reward = NULL;
 		reward = new Coin();
 		reward->ParseFromOwnJson();
 		reward->p.y = p.y + height / 2;
-		reward->p.x = p.x + width /2;
+		reward->p.x = p.x + width / 2;
 		reward->SetState("stop");
+		reward->isAllowCollision = false;
 		CGame::GetInstance()->GetCurrentScene()->addObject(reward);
 		this->SetState("hidden");
 	}
+
 }
 
 void GoldenBrick::HandleAfterCreated() {
 	if (type == "OneUpGreen") {
 		allowToHitBottom = true;
 		allowToHitTop = false;
+	}
+	if (type == "Break") {
+		allowToHitBottom = false;
+		allowToHitTop = false;
+		allowToHitLeft = true;
+		allowToHitRight = true;
 	}
 }
 

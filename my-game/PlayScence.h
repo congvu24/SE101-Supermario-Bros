@@ -30,10 +30,15 @@ protected:
 public:
 	Map* map;
 
+	int timeLimit = 0;
+	int playerPoint = 0;
+	int playerMoney = 0;
+
 	CPlayScene(int id, LPCWSTR filePath);
 	LPMAP GetMap() { return this->map; };
 	CGameObject* player;					// A play scene has to have player, right? 
 	CUI* UI;
+
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
@@ -44,7 +49,10 @@ public:
 	virtual void moveCamera(CameraMoveDirection);
 	virtual void GameOver();
 	virtual void DrawUI();
-	
+	virtual void AddPoint(int point) { playerPoint = playerPoint + point; }
+	virtual void AddMoney(int money) { playerMoney = playerMoney + money; }
+	virtual void UpdateTime(DWORD dt);
+
 	static bool IsPlayer(LPGAMEOBJECT obj);
 
 	CGameObject* GetPlayer() { return player; }

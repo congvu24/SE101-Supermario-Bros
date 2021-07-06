@@ -2,20 +2,30 @@
 #include "GameObject.h"
 #include "MapEntity.h"
 #include "Game.h"
+#include "BoomerangBrother.h"
 #include <iostream>
 #include "Enemy.h"
 
-class VenusBullet :public Enemy<VenusBullet>
+enum class BoomerangDirection {
+	Forward,
+	Goback
+};
+
+class Boomerang :public Enemy<Boomerang>
 {
 
 	//virtual void  Render();
 public:
-	VenusBullet();
-
+	Boomerang();
+	BoomerangBrother* parent;
+	BoomerangDirection moveDirection = BoomerangDirection::Forward;
+	float count = 0.0f;
 	Vector direction;
 	Vector distance;
+	Vector destination;
 	float angle;
 	Vector oldP;
+	int flyTime = 2000;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
