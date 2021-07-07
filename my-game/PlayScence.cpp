@@ -24,6 +24,7 @@
 #include "CUI.h"
 #include "BoomerangBrother.h"
 #include "Boomerang.h"
+#include "MusicBox.h"
 
 using namespace std;
 
@@ -131,7 +132,7 @@ void CPlayScene::Update(DWORD dt)
 	if (camera->isCameraMoving == false) {
 
 		if (((Test*)player)->isAllowCameraFollow == true) {
-			if (player->p.y + player->height < camera->camera_default_top) {
+			if (player->p.y + player->height + 100 < camera->camera_default_top) {
 				camera->setCamPos(cx, cy);
 			}
 			else {
@@ -402,6 +403,10 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			if (visible != true)
 				Boomerang::SaveStaticData(data);
 			break;
+		case ObjectType::MusicBox:
+			if (visible != true)
+				MusicBox::SaveStaticData(data);
+			break;
 		default:
 			break;
 		}
@@ -598,6 +603,9 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 				break;
 			case ObjectType::BoomerangBrother:
 				obj = new BoomerangBrother();
+				break;
+			case ObjectType::MusicBox:
+				obj = new MusicBox();
 				break;
 			case ObjectType::Camera:
 				camera->setCamPos(x, y);

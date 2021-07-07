@@ -148,6 +148,15 @@
       "animation": "assets/animations/boomerang-animation.json",
       "type": 1,
       "visible": false
+    },
+    {
+      "id": "15",
+      "name": "MusicBox",
+      "texture": "assets/texture/misc.png",
+      "sprite": "assets/sprite/misc.json",
+      "animation": "assets/animations/music-box-animation.json",
+      "type": 1,
+      "visible": false
     }
   ]
 }

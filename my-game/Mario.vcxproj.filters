@@ -213,6 +213,9 @@
     <ClCompile Include="Boomerang.cpp">
       <Filter>Source Files\Object\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="MusicBox.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -358,6 +361,9 @@
     </ClInclude>
     <ClInclude Include="Boomerang.h">
       <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicBox.h">
+      <Filter>Header Files\Object\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

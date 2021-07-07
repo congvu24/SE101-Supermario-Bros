@@ -7,16 +7,17 @@
 #include "Box.h"
 #include <iostream>
 
-class GoldenBrick :public Box<GoldenBrick>
+class MusicBox :public Box<MusicBox>
 {
 
 public:
-	GoldenBrick();
+	MusicBox();
 
 	int countHit = 0;
 	Vector oldP;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void Render();
 	virtual void SetState(string state);
 	virtual void GiveReward();
 	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);

@@ -59,24 +59,22 @@ public:
 	virtual void JumpUp(LPGAMEOBJECT obj) {
 		if (isHitted == false && !isJumping) {
 			isJumping = true;
-			isHitted = true;
+			//isHitted = true;
 			oldP = p;
 			v.y = -0.3f;
 			jumpDirection = -1;
 			g.y = 0.001f;
-			SetState("hitted");
 			//obj->g.y = -0.001f;
 		}
 	}
 	virtual void JumpDown(LPGAMEOBJECT obj) {
 		if (isHitted == false && !isJumping) {
 			isJumping = true;
-			isHitted = true;
+			//isHitted = true;
 			oldP = p;
 			v.y = 0.2f;
 			jumpDirection = 1;
 			g.y = -0.001f;
-			SetState("hitted");
 			hitObject = obj;
 			hitObject->g.y = -0.001f;
 			hitObject->v.y = 0.2f;

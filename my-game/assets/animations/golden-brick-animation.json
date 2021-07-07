@@ -39,5 +39,14 @@
       { "name": "22.png", "time": 100 }
     ],
     "hitted": [{ "name": "17.png", "time": 100 }]
+  },
+   "Coin": {
+    "running": [
+      { "name": "19.png", "time": 100 },
+      { "name": "20.png", "time": 100 },
+      { "name": "21.png", "time": 100 },
+      { "name": "22.png", "time": 100 }
+    ],
+    "hitted": [{ "name": "17.png", "time": 100 }]
   }
 }

@@ -1,0 +1,26 @@
+{
+  "1": {
+    "running": [
+      { "name": "23.png", "time": 100 },
+      { "name": "24.png", "time": 100 },
+      { "name": "25.png", "time": 100 }
+    ],
+    "hitted": [
+      { "name": "23.png", "time": 100 },
+      { "name": "24.png", "time": 100 },
+      { "name": "25.png", "time": 100 }
+    ]
+  },
+  "JumpUp": {
+    "running": [
+      { "name": "23.png", "time": 100 },
+      { "name": "24.png", "time": 100 },
+      { "name": "25.png", "time": 100 }
+    ],
+    "hitted": [
+      { "name": "23.png", "time": 100 },
+      { "name": "24.png", "time": 100 },
+      { "name": "25.png", "time": 100 }
+    ]
+  }
+}

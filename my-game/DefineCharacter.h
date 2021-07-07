@@ -44,7 +44,8 @@ enum class ObjectType
 	Effect,
 	UI,
 	BoomerangBrother,
-	Boomerang
+	Boomerang,
+	MusicBox
 };
 
 

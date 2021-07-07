@@ -119,19 +119,27 @@ void GoldenBrick::HandleAfterCreated() {
 		allowToHitBottom = true;
 		allowToHitTop = false;
 	}
+
 	if (type == "Break") {
 		allowToHitBottom = false;
 		allowToHitTop = false;
 		allowToHitLeft = true;
 		allowToHitRight = true;
 	}
+
+	if (type == "Coin") {
+		allowToHitBottom = true;
+		allowToHitTop = false;
+		allowToHitLeft = false;
+		allowToHitRight = false;
+	}
 }
 
 void GoldenBrick::GiveReward() {
 	if (isHitted == false) {
-		isHitted = true;
 		LPGAMEOBJECT reward = NULL;
 		if (type == "OneUpGreen") {
+			isHitted = true;
 			reward = new Mushroom("green");
 			reward->ParseFromOwnJson();
 			reward->height = height;
@@ -143,9 +151,36 @@ void GoldenBrick::GiveReward() {
 			reward->isAllowCollision = true;
 			CGame::GetInstance()->GetCurrentScene()->addObject(reward);
 			reward->SetState("fromMisteryBox");
+			SetState("hitted");
 
+		}
+		if (type == "Coin" && countHit < 10) {
+			isHitted = false;
+			reward = new Coin();
+			reward->ParseFromOwnJson();
+			reward->height = height;
+			reward->width = width;
+			reward->p = p;
+			reward->p.y = p.y - height;
+			reward->isAllowCollision = false;
+			CGame::GetInstance()->GetCurrentScene()->addObject(reward);
+			reward->SetState("fromMisteryBox");
+			countHit++;
+			if (countHit == 10) {
+				SetState("hitted");
+				isHitted = true;
+			}
 		}
 	}
 }
 
-//void GoldenBrick::GiveReward(){}
+// void GoldenBrick::JumpUp(LPGAMEOBJECT obj) {
+//	if (isHitted == false && !isJumping) {
+//		isJumping = true;
+//		isHitted = true;
+//		oldP = p;
+//		v.y = -0.3f;
+//		jumpDirection = -1;
+//		g.y = 0.001f;
+//	}
+//}

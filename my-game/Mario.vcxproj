@@ -150,6 +150,7 @@
     <ClCompile Include="MiniPortal.cpp" />
     <ClCompile Include="MisteryBox.cpp" />
     <ClCompile Include="Mushroom.cpp" />
+    <ClCompile Include="MusicBox.cpp" />
     <ClCompile Include="PButton.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="MiniPortal.h" />
     <ClInclude Include="MisteryBox.h" />
     <ClInclude Include="Mushroom.h" />
+    <ClInclude Include="MusicBox.h" />
     <ClInclude Include="PButton.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />

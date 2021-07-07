@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="197" height="75" tilewidth="48" tileheight="48" infinite="0" nextlayerid="38" nextobjectid="398">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="197" height="75" tilewidth="48" tileheight="48" infinite="0" nextlayerid="39" nextobjectid="406">
  <editorsettings>
   <export target="World1-3.json" format="json"/>
  </editorsettings>
@@ -35,10 +35,7 @@
   </object>
   <object id="175" x="134.666" y="1122.67" width="48" height="48"/>
   <object id="342" x="2160" y="1104" width="48" height="48"/>
-  <object id="343" x="1824" y="1152" width="48" height="48"/>
-  <object id="344" x="1872" y="1104" width="48" height="48"/>
-  <object id="345" x="1776" y="1008" width="48" height="48"/>
-  <object id="346" x="1680" y="1104" width="48" height="48"/>
+  <object id="343" x="1776" y="1152" width="48" height="48"/>
  </objectgroup>
  <objectgroup id="33" name="QuestionBox_Mushroom"/>
  <objectgroup id="19" name="Goomba"/>
@@ -55,7 +52,7 @@
    </properties>
   </object>
   <object id="391" name="MiniP1" type="In" x="3546.5" y="3251" width="11" height="36"/>
-  <object id="392" name="MiniP2" type="In" x="1780" y="888.5" width="24" height="21"/>
+  <object id="392" name="MiniP2" type="In" x="1921" y="639.5" width="24" height="21"/>
   <object id="393" name="MiniP2" type="Out" x="430" y="3273.5" width="96" height="29">
    <properties>
     <property name="AccessKeycode" value="UP"/>
@@ -101,18 +98,18 @@
   <object id="370" x="7054" y="818" width="192" height="428"/>
  </objectgroup>
  <objectgroup id="23" name="GoldenBrick">
-  <object id="317" type="Break" x="1872" y="1200" width="48" height="48"/>
-  <object id="318" type="Break" x="1776" y="1200" width="48" height="48"/>
-  <object id="319" type="Break" x="1824" y="1200" width="48" height="48"/>
-  <object id="320" x="1776" y="1152" width="48" height="48"/>
-  <object id="321" x="1776" y="1104" width="48" height="48"/>
-  <object id="322" x="1824" y="1056" width="48" height="48"/>
-  <object id="323" x="1776" y="1056" width="48" height="48"/>
-  <object id="324" type="Break" x="1872" y="1056" width="48" height="48"/>
+  <object id="317" type="Break" x="1824" y="1200" width="48" height="48"/>
+  <object id="318" type="Break" x="1728" y="1200" width="48" height="48"/>
+  <object id="319" type="Break" x="1776" y="1200" width="48" height="48"/>
+  <object id="320" x="1728" y="1152" width="48" height="48"/>
+  <object id="321" x="1728" y="1104" width="48" height="48"/>
+  <object id="322" x="1776" y="1056" width="48" height="48"/>
+  <object id="323" x="1728" y="1056" width="48" height="48"/>
+  <object id="324" type="Break" x="1824" y="1056" width="48" height="48"/>
   <object id="371" type="Break" x="1920" y="1104" width="48" height="48"/>
   <object id="372" type="Break" x="1968" y="1104" width="48" height="48"/>
   <object id="373" x="2112" y="1152" width="48" height="48"/>
-  <object id="374" x="1968" y="1152" width="48" height="48"/>
+  <object id="374" type="Break" x="1968" y="1152" width="48" height="48"/>
   <object id="375" x="2016" y="1152" width="48" height="48"/>
   <object id="376" x="2064" y="1152" width="48" height="48"/>
   <object id="377" type="Break" x="2161" y="1201" width="48" height="48"/>
@@ -121,11 +118,20 @@
   <object id="380" x="2160" y="1152" width="48" height="48"/>
   <object id="381" x="2160" y="1056" width="48" height="48"/>
   <object id="382" x="2160" y="1008" width="48" height="48"/>
-  <object id="383" x="2112" y="1008" width="48" height="48"/>
+  <object id="383" type="Coin" x="2112" y="1008" width="48" height="48"/>
   <object id="384" x="2016" y="1008" width="48" height="48"/>
   <object id="385" x="2064" y="1008" width="48" height="48"/>
   <object id="386" type="Break" x="2016" y="1056" width="48" height="48"/>
   <object id="387" type="Break" x="2064" y="1056" width="48" height="48"/>
+  <object id="398" type="Coin" x="2340" y="1070" width="48" height="48"/>
+  <object id="399" type="OneUpGreen" x="2416" y="1066" width="48" height="48"/>
+  <object id="400" type="Break" x="2267" y="1107" width="48" height="48"/>
+  <object id="405" x="1776" y="1104" width="48" height="48"/>
+ </objectgroup>
+ <objectgroup id="38" name="MusicBox">
+  <object id="401" type="JumpUp" x="1824" y="1104" width="48" height="48"/>
+  <object id="402" x="1728" y="1008" width="48" height="48"/>
+  <object id="403" x="1632" y="1104" width="48" height="48"/>
  </objectgroup>
  <layer id="1" name="Background" width="197" height="75">
   <data encoding="csv">
