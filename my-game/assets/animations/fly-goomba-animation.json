@@ -1,0 +1,20 @@
+{
+  "1": {
+    "running": [
+      { "name": "4.png", "time": 100 },
+      { "name": "3.png", "time": 100 }
+    ],
+    "flying": [
+      { "name": "3.png", "time": 100 },
+      { "name": "2.png", "time": 100 }
+    ],
+    "jumping": [
+      { "name": "3.png", "time": 100 },
+      { "name": "2.png", "time": 100 }
+    ],
+    "die": [{ "name": "31.png", "time": 100 }]
+  },
+  "mini": {
+    "running": [{ "name": "30.png", "time": 100 }]
+  }
+}

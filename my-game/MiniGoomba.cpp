@@ -1,31 +1,31 @@
-#include "VenusBullet.h"
+#include "MiniGoomba.h"
 #include "Vector.h"
 #include "Test.h"
 #include <iostream>
 
 
-LPDIRECT3DTEXTURE9 VenusBullet::texture = NULL;
-unordered_map<string, LPSPRITE> VenusBullet::sprites; //save all sprite of animation
-unordered_map<string, LPANIMATION> VenusBullet::all_animations; //save all animations
-CAnimationSets VenusBullet::animations_set; //save all the animation sets
-json VenusBullet::data = NULL;
+LPDIRECT3DTEXTURE9 MiniGoomba::texture = NULL;
+unordered_map<string, LPSPRITE> MiniGoomba::sprites; //save all sprite of animation
+unordered_map<string, LPANIMATION> MiniGoomba::all_animations; //save all animations
+CAnimationSets MiniGoomba::animations_set; //save all the animation sets
+json MiniGoomba::data = NULL;
 
-VenusBullet::VenusBullet()
+MiniGoomba::MiniGoomba()
 {
 	SetState("running");
 	isBlockPlayer = false;
 	isAllowCollision = false;
 	point = 0;
-	v = Vector(0.10f, 0.10f);
-	g = Vector(0, 0);
+	v = Vector(0.0f, 0.10f);
+	type = "mini";
 }
 
-void VenusBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void MiniGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
-	p.x += direction.x * v.x * dt;
-	p.y += direction.y * v.y * dt;
-
+	/*p.x += direction.x * v.x * dt;
+	p.y += direction.y * v.y * dt;*/
+	p.y += v.y * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -89,7 +89,7 @@ void VenusBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear();
 }
 
-void VenusBullet::SetState(string state)
+void MiniGoomba::SetState(string state)
 {
 
 
@@ -97,7 +97,7 @@ void VenusBullet::SetState(string state)
 
 }
 
-void VenusBullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void MiniGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = p.x;
 	top = p.y;
@@ -106,15 +106,14 @@ void VenusBullet::GetBoundingBox(float& left, float& top, float& right, float& b
 }
 
 
-void VenusBullet::HandleCollision(LPCOLLISIONEVENT e) {
+void MiniGoomba::HandleCollision(LPCOLLISIONEVENT e) {
 	if (Test* player = dynamic_cast<Test*>(e->obj)) {
 		//player->Die();
 		KillPlayer(player);
-
 	}
 }
 
-void VenusBullet::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+void MiniGoomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	if (Test* player = dynamic_cast<Test*>(event->obj)) {
 		KillPlayer(player);
 		SetState("hidden");

@@ -25,6 +25,8 @@
 #include "BoomerangBrother.h"
 #include "Boomerang.h"
 #include "MusicBox.h"
+#include "FlyGoomba.h"
+#include "MiniGoomba.h"
 
 using namespace std;
 
@@ -407,6 +409,14 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			if (visible != true)
 				MusicBox::SaveStaticData(data);
 			break;
+		case ObjectType::FlyGoomba:
+			if (visible != true)
+				FlyGoomba::SaveStaticData(data);
+			break;
+		case ObjectType::MiniGoomba:
+			if (visible != true)
+				MiniGoomba::SaveStaticData(data);
+			break;
 		default:
 			break;
 		}
@@ -606,6 +616,9 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 				break;
 			case ObjectType::MusicBox:
 				obj = new MusicBox();
+				break;
+			case ObjectType::FlyGoomba:
+				obj = new FlyGoomba();
 				break;
 			case ObjectType::Camera:
 				camera->setCamPos(x, y);

@@ -45,7 +45,9 @@ enum class ObjectType
 	UI,
 	BoomerangBrother,
 	Boomerang,
-	MusicBox
+	MusicBox,
+	FlyGoomba,
+	MiniGoomba
 };
 
 

@@ -298,6 +298,28 @@
         }, 
         {
          "draworder":"topdown",
+         "id":39,
+         "name":"FlyGoomba",
+         "objects":[
+                {
+                 "height":48,
+                 "id":406,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":1104,
+                 "y":960
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":24,
          "name":"RedGoomba",
          "objects":[],
@@ -1136,7 +1158,7 @@
          "name":"Background",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":197,
          "x":0,
          "y":0
@@ -1316,8 +1338,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":39,
- "nextobjectid":406,
+ "nextlayerid":40,
+ "nextobjectid":407,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

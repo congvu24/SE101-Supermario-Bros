@@ -138,6 +138,7 @@
     <ClCompile Include="DefineCharacter.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FlyGoomba.cpp" />
     <ClCompile Include="GoldenBrick.cpp" />
     <ClCompile Include="Intro.cpp" />
     <ClCompile Include="IntroCursor.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapEntity.cpp" />
     <ClCompile Include="MarioSelection.cpp" />
+    <ClCompile Include="MiniGoomba.cpp" />
     <ClCompile Include="MiniPortal.cpp" />
     <ClCompile Include="MisteryBox.cpp" />
     <ClCompile Include="Mushroom.cpp" />
@@ -190,6 +192,7 @@
     <ClInclude Include="DefineCharacter.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FlyGoomba.h" />
     <ClInclude Include="GoldenBrick.h" />
     <ClInclude Include="Intro.h" />
     <ClInclude Include="IntroCursor.h" />
@@ -200,6 +203,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapEntity.h" />
     <ClInclude Include="MarioSelection.h" />
+    <ClInclude Include="MiniGoomba.h" />
     <ClInclude Include="MiniPortal.h" />
     <ClInclude Include="MisteryBox.h" />
     <ClInclude Include="Mushroom.h" />

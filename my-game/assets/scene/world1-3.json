@@ -157,6 +157,24 @@
       "animation": "assets/animations/music-box-animation.json",
       "type": 1,
       "visible": false
+    },
+    {
+      "id": "16",
+      "name": "FlyGoomba",
+      "texture": "assets/texture/enemy.png",
+      "sprite": "assets/sprite/enemy.json",
+      "animation": "assets/animations/fly-goomba-animation.json",
+      "type": 1,
+      "visible": false
+    },
+    {
+      "id": "17",
+      "name": "MiniGoomba",
+      "texture": "assets/texture/enemy.png",
+      "sprite": "assets/sprite/enemy.json",
+      "animation": "assets/animations/fly-goomba-animation.json",
+      "type": 1,
+      "visible": false
     }
   ]
 }
