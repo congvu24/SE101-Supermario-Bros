@@ -2,6 +2,7 @@
 #include <d3dx9.h>
 #include <limits>
 #include "GameObject.h"
+#include "Config.h"
 
 class Camera {
 public:
@@ -16,8 +17,8 @@ public:
 	float cam_bottom_limit = std::numeric_limits<float>::infinity();
 	float move_x = 0;
 	float move_y = 0;
-	float cam_width = 800;
-	float cam_height = 600;
+	float cam_width = SCREEN_WIDTH;
+	float cam_height = SCREEN_HEIGHT;
 	bool isCameraMoving = false;
 
 	void setCamPos(float x, float y);

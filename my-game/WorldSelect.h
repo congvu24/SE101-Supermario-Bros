@@ -11,6 +11,7 @@
 #include "RectPlatform.h"
 #include "Leaf.h"
 #include "SelectNode.h"
+#include "CUI.h"
 
 
 class WorldSelect : public CScene
@@ -25,6 +26,7 @@ public:
 	Map* map;
 	SelectNode* currentNode;
 	SelectPortal* currentPortal;
+	CUI* UI;
 
 	bool isMoving = true;
 	WorldSelect(int id, LPCWSTR filePath);
@@ -34,6 +36,7 @@ public:
 	virtual void Unload();
 	virtual void addObject(LPGAMEOBJECT obj);
 	virtual void ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions);
+	virtual void DrawUI();
 	LPMAP GetMap() { return this->map; };
 
 	CGameObject* GetPlayer() { return player; }

@@ -3,7 +3,7 @@
     "running": [
       { "name": "4.png", "time": 100 },
       { "name": "3.png", "time": 100 }
-    ],
+    ], 
     "flying": [
       { "name": "3.png", "time": 100 },
       { "name": "2.png", "time": 100 }

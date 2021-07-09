@@ -23,10 +23,14 @@ public:
 		float h = height;
 		Vector scale = Vector((float)-nx, 1.0f);
 		T::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h, scale);
-		p.y = p.y - (h - this->height) / 2;
-		p.x = p.x - (w - this->width) / 2;
-		width = w;
-		height = h;
+		if (abs(h - this->height) >= 10) {
+			p.y = p.y - (h - this->height);
+			height = h;
+		}
+		if (abs(w - this->width) >= 10) {
+			p.x = p.x - (w - this->width);
+			width = w;
+		}
 		RenderBoundingBox();
 	}
 
@@ -82,15 +86,11 @@ public:
 			string id = it.key();
 			json frame = data["frame"];
 
-			int l = frame["x"];
-			int t = frame["y"];
-			int r = l + frame["w"];
-			//b = h - t;
-			//w = r - l;
+			float l = frame["x"];
+			float t = frame["y"];
+			float r = l + frame["w"];
 
-			int b = t + frame["h"];
-			//int w = frame["w"];
-			//int h = frame["h"];
+			float b = t + frame["h"];
 
 			if (T::texture == NULL)
 			{
@@ -100,7 +100,7 @@ public:
 
 			MapEntity::AddSprite(id, l, t, r, b, T::texture);
 		}
-		DebugOut(L"[INFOR] Get Texture success : %s\n", filePath);
+		DebugOut(L"[INFO] Get Texture success : %s\n", filePath);
 
 	}
 	static void ParseAnimationFromJson(LPCWSTR filePath) {
@@ -128,9 +128,9 @@ public:
 			}
 			MapEntity::AddAnimationSet(key, animation_set);
 		}
-		DebugOut(L"[INFOR] Get Animation success : %s\n", filePath);
+		DebugOut(L"[INFO] Get Animation success : %s\n", filePath);
 	}
-	static void AddSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex) {
+	static void AddSprite(string id, float left, float top, float right, float bottom, LPDIRECT3DTEXTURE9 tex) {
 		LPSPRITE s = new CSprite(id, left, top, right, bottom, right - left, bottom - top, tex);
 		T::sprites[id] = s;
 	}
@@ -158,6 +158,5 @@ public:
 	}
 
 	virtual void HandleAfterCreated() {
-		DebugOut(L"out here");
 	}
 };

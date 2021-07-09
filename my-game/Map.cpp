@@ -20,20 +20,20 @@ void Tileset::unload() {
 }
 
 void Layer::render(unordered_map<int, LPTILESET>* tileset) {
-	//DebugOut(L"[INFOR] Render tile layer %s\n", ToLPCWSTR(this->name));
+	//DebugOut(L"[INFO] Render tile layer %s\n", ToLPCWSTR(this->name));
 	for (int i = 0; i < width * height; i++) {
 		int cell = data[i];
 		if (cell > 0) {
 			LPTILESET activeTileset = getTileSetFromMin(tileset, cell);
 
 			Vector p;
-			RECT r;
+			Rect r;
 
 			int col = floor(i / width);
 			int row = i % width;
 
-			p.x = row * activeTileset->tileHeight;
-			p.y = col * activeTileset->tileHeight; //calc from i, all size will be transform below
+			p.x = (float)row * activeTileset->tileHeight;
+			p.y = (float)col * activeTileset->tileHeight; //calc from i, all size will be transform below
 
 			int tilecol = floor(cell / activeTileset->imageWidth);
 			int tileRow = cell % int(activeTileset->imageWidth);
@@ -51,7 +51,7 @@ void Layer::render(unordered_map<int, LPTILESET>* tileset) {
 
 }
 
-void Layer::draw(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity) {
+void Layer::draw(Vector p, LPDIRECT3DTEXTURE9 texture, Rect r, int opacity) {
 	// transform every size to be one fixed size
 	// also calc new position after scale
 	// draw here

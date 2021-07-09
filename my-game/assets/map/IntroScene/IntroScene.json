@@ -72,15 +72,15 @@
          "name":"OptionCursor",
          "objects":[
                 {
-                 "height":21.3333333333334,
+                 "height":21.3333,
                  "id":94,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":25.3333333333333,
-                 "x":187.666666666667,
-                 "y":482.333333333333
+                 "width":25.3333,
+                 "x":187.667,
+                 "y":482.333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -94,7 +94,7 @@
          "name":"IntroText",
          "objects":[
                 {
-                 "height":25.930817610063,
+                 "height":25.9308,
                  "id":97,
                  "name":"",
                  "properties":[
@@ -106,12 +106,12 @@
                  "rotation":0,
                  "type":"1",
                  "visible":true,
-                 "width":289.333333333333,
+                 "width":289.333,
                  "x":240,
-                 "y":479.701257861635
+                 "y":479.701
                 }, 
                 {
-                 "height":28.392523364486,
+                 "height":28.3925,
                  "id":98,
                  "name":"",
                  "properties":[
@@ -123,12 +123,12 @@
                  "rotation":0,
                  "type":"2",
                  "visible":true,
-                 "width":289.333333333333,
+                 "width":289.333,
                  "x":240,
-                 "y":527.803738317757
+                 "y":527.804
                 }, 
                 {
-                 "height":25.3333333333333,
+                 "height":25.3333,
                  "id":99,
                  "name":"",
                  "properties":[
@@ -145,7 +145,7 @@
                  "y":576
                 }, 
                 {
-                 "height":166.666666666667,
+                 "height":166.667,
                  "id":101,
                  "name":"",
                  "properties":[
@@ -157,8 +157,8 @@
                  "rotation":0,
                  "type":"4",
                  "visible":true,
-                 "width":177.333333333333,
-                 "x":290.666666666667,
+                 "width":177.333,
+                 "x":290.667,
                  "y":312.5
                 }, 
                 {
@@ -174,8 +174,8 @@
                  "rotation":0,
                  "type":"5",
                  "visible":true,
-                 "width":485.333333333333,
-                 "x":158.833666666667,
+                 "width":485.333,
+                 "x":158.834,
                  "y":142.917
                 }],
          "opacity":1,
@@ -202,13 +202,13 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":800,
-                 "x":-14.6667,
-                 "y":80
+                 "width":768,
+                 "x":0,
+                 "y":96
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],

@@ -137,9 +137,11 @@
     <ClCompile Include="Death.h" />
     <ClCompile Include="DefineCharacter.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EndSceneItem.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FlyGoomba.cpp" />
     <ClCompile Include="GoldenBrick.cpp" />
+    <ClCompile Include="HammerBrother.cpp" />
     <ClCompile Include="Intro.cpp" />
     <ClCompile Include="IntroCursor.cpp" />
     <ClCompile Include="IntroText.cpp" />
@@ -189,11 +191,14 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="DefineCharacter.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="EndSceneItem.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FlyGoomba.h" />
     <ClInclude Include="GoldenBrick.h" />
+    <ClInclude Include="HammerBrother.h" />
     <ClInclude Include="Intro.h" />
     <ClInclude Include="IntroCursor.h" />
     <ClInclude Include="IntroText.h" />

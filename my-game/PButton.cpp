@@ -54,7 +54,6 @@ void PButton::HandleCollision(LPCOLLISIONEVENT e) {
 void PButton::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	if (state == "running" && event->ny < 0) {
 		this->SetState("hitted");
-
 		for (auto i = listEffect->begin(); i != listEffect->end(); i++)
 			if (GoldenBrick* obj = dynamic_cast<GoldenBrick*>(*i)) {
 				obj->Explore();

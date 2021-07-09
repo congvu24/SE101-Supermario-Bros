@@ -10,6 +10,7 @@
 #include "PlayScence.h"
 #include "WorldSelect.h"
 #include "Intro.h"
+#include "Scence.h"
 
 using json = nlohmann::json;
 
@@ -86,7 +87,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 
 
 
-void CGame::DrawWithScale(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity, D3DXVECTOR2 scale)
+void CGame::DrawWithScale(Vector p, LPDIRECT3DTEXTURE9 texture, Rect r, int opacity, D3DXVECTOR2 scale)
 {
 	Camera* camera = this->GetCurrentScene()->camera;
 	D3DXVECTOR3 position = camera->calcInCamPosition(p.x, p.y);
@@ -95,11 +96,16 @@ void CGame::DrawWithScale(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opac
 	D3DXVECTOR3 deltaToCenter = D3DXVECTOR3((r.right - r.left) / 2, (r.bottom - r.top) / 2, 0);
 	D3DXVECTOR3 pCenter = D3DXVECTOR3(deltaToCenter.x + 0, deltaToCenter.y + 0, 0); //pivot x, y instead of 0 ?
 
+	RECT rect;
+	rect.left = r.left;
+	rect.top = r.top;
+	rect.right = r.right;
+	rect.bottom = r.bottom;
 
 	if (camera->isInCam(position.x, position.y, 100) == true) {
 
 		if (scale.x == 1 && scale.y == 1) {
-			spriteHandler->Draw(texture, &r, NULL, &position, D3DCOLOR_ARGB(opacity, 255, 255, 255));
+			spriteHandler->Draw(texture, &rect, NULL, &position, D3DCOLOR_ARGB(opacity, 255, 255, 255));
 		}
 		else {
 			D3DXVECTOR2 ppp = D3DXVECTOR2(position.x, position.y);
@@ -111,27 +117,32 @@ void CGame::DrawWithScale(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opac
 			//position.x = position.x - 100;
 			position.x = position.x - deltaToCenter.x;
 			position.y = position.y + deltaToCenter.y;
-			spriteHandler->Draw(texture, &r, &pCenter, &position, D3DCOLOR_ARGB(opacity, 255, 255, 255));
+			spriteHandler->Draw(texture, &rect, &pCenter, &position, D3DCOLOR_ARGB(opacity, 255, 255, 255));
 			spriteHandler->SetTransform(&oldMatrix);
 		}
 	}
 }
 
-void CGame::DrawPositionInCamera(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity, D3DXVECTOR2 scale)
+void CGame::DrawPositionInCamera(Vector p, LPDIRECT3DTEXTURE9 texture, Rect r, int opacity, D3DXVECTOR2 scale)
 {
 	Camera* camera = this->GetCurrentScene()->camera;
 	D3DXVECTOR3 position = D3DXVECTOR3(p.x, p.y, 0);
-	
+
 
 	D3DXMATRIX oldMatrix, newMatrix;
 	D3DXVECTOR3 deltaToCenter = D3DXVECTOR3((r.right - r.left) / 2, (r.bottom - r.top) / 2, 0);
 	D3DXVECTOR3 pCenter = D3DXVECTOR3(deltaToCenter.x + 0, deltaToCenter.y + 0, 0); //pivot x, y instead of 0 ?
 
+	RECT rect;
+	rect.left = r.left;
+	rect.top = r.top;
+	rect.right = r.right;
+	rect.bottom = r.bottom;
 
 	if (camera->isInCam(position.x, position.y, 100) == true) {
 
 		if (scale.x == 1 && scale.y == 1) {
-			spriteHandler->Draw(texture, &r, NULL, &position, D3DCOLOR_ARGB(opacity, 255, 255, 255));
+			spriteHandler->Draw(texture, &rect, NULL, &position, D3DCOLOR_ARGB(opacity, 255, 255, 255));
 		}
 		else {
 			D3DXVECTOR2 ppp = D3DXVECTOR2(position.x, position.y);
@@ -143,7 +154,7 @@ void CGame::DrawPositionInCamera(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, i
 			//position.x = position.x - 100;
 			position.x = position.x - deltaToCenter.x;
 			position.y = position.y + deltaToCenter.y;
-			spriteHandler->Draw(texture, &r, &pCenter, &position, D3DCOLOR_ARGB(opacity, 255, 255, 255));
+			spriteHandler->Draw(texture, &rect, &pCenter, &position, D3DCOLOR_ARGB(opacity, 255, 255, 255));
 			spriteHandler->SetTransform(&oldMatrix);
 		}
 	}
@@ -388,7 +399,7 @@ CGame* CGame::GetInstance()
 	return __instance;
 }
 
-#define MAX_GAME_LINE 1024
+#define MAX_GAME_LINE 768
 
 
 #define GAME_FILE_SECTION_UNKNOWN -1
@@ -431,13 +442,26 @@ void CGame::_ParseSection_SCENES_FromJson(json data)
 		DebugOut(L"[INFO] Load data : %s\n", path);
 		int id = stoi(it.key());
 		json value = it.value();
-		//string name = string(value["name"]);
 
 		LPSCENE scene = NULL;
-		if (id == 1) scene = new WorldSelect(id, path);
-		else if (id == 2) scene = new CPlayScene(id, path);
-		else if (id == 3) scene = new Intro(id, path);
-		else if (id == 4) scene = new CPlayScene(id, path);
+
+		switch (id)
+		{
+		case Scences::IntroScence:
+			scene = new Intro(id, path);
+			break;
+		case Scences::SelectMap:
+			scene = new WorldSelect(id, path);
+			break;
+		case Scences::World_1_1:
+			scene = new CPlayScene(id, path);
+			break;
+		case Scences::World_1_3:
+			scene = new CPlayScene(id, path);
+			break;
+		default:
+			break;
+		}
 
 		if (scene != NULL)
 			scenes[id] = scene;
@@ -522,7 +546,7 @@ LPDIRECT3DTEXTURE9 CGame::LoadTexture(LPCWSTR filePath) {
 
 	if (result != D3D_OK)
 	{
-		DebugOut(L"[INFOR] GetImageInfoFromFile success: %s\n", filePath);
+		DebugOut(L"[INFO] GetImageInfoFromFile success: %s\n", filePath);
 		return NULL;
 	}
 

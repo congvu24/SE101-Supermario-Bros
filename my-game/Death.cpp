@@ -11,7 +11,8 @@ json Death::data = NULL;
 
 Death::Death()
 {
-	//DebugOut(L"init death");
+	DebugOut(L"init death");
+	isBlockPlayer = true;
 	isUniversal = true;
 }
 
@@ -37,7 +38,7 @@ void Death::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void  Death::Render()
 {
-	
+	RenderBoundingBox();
 }
 
 void Death::HandleCollision(LPCOLLISIONEVENT e) {

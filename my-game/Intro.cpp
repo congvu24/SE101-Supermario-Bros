@@ -230,8 +230,6 @@ void Intro::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 				obj->name = name;
 				obj->p.x = x;
 				obj->p.y = y;
-				DebugOut(L"[INFO] Size Of Object: %s \n", IntToLPCWSTR(sizeof(*obj)));
-
 				obCollisions->push_back(obj);
 			}
 			else delete obj;

@@ -15,6 +15,8 @@
 #include "SelectNode.h"
 #include "SelectionTree.h"
 #include "DefineCharacter.h"
+#include "HammerBrother.h"
+#include "CUI.h"
 
 
 WorldSelect::WorldSelect(int id, LPCWSTR filePath) :
@@ -33,6 +35,7 @@ void WorldSelect::Load()
 	DebugOut(L"[INFO] Scene : %s \n", ToLPCWSTR(scene["name"].dump()));
 
 	//parse texture, sprite, animation
+	UI = new CUI();
 
 	json object = scene["object"];
 
@@ -54,47 +57,9 @@ void WorldSelect::Update(DWORD dt)
 {
 	CScene::Update(dt);
 
-	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
-
-	RECT base = { camera->cam_x, camera->cam_y, camera->cam_x + 800 ,camera->cam_y + 600 };
-	Quadtree* quadtree = new Quadtree(1, new RECT(base));
-
-	for (auto i = objects.begin(); i != objects.end(); i++) {
-		quadtree->Insert(*i);
-	}
-
 	for (size_t i = 0; i < objects.size(); i++)
 	{
-		vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
-		quadtree->Retrieve(return_objects_list, objects[i]);
-
-		if (Test* v = dynamic_cast<Test*>(objects[i])) {
-			objects[i]->Update(dt, return_objects_list);
-		}
-
-		else if (objects[i]->state != "hidden") {
-			objects[i]->Update(dt, return_objects_list);
-		}
-		else {
-			objects.erase(std::remove(objects.begin(), objects.end(), objects[i]), objects.end());
-		}
-		delete return_objects_list;
-	}
-	quadtree->Clear();
-	delete quadtree;
-
-}
-
-void WorldSelect::Render()
-{
-	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
-
-	map->render();
-	player->Render();
-
-	for (int i = 0; i < objects.size(); i++) {
-		/*if (objects[i]->state != "hidden")*/
-		objects[i]->Render();
+		objects[i]->Update(dt, &objects);
 	}
 
 	if (currentNode != NULL && player != NULL)
@@ -113,6 +78,19 @@ void WorldSelect::Render()
 			if (abs(distanceY) < 3.5) player->p.y -= distanceY;
 			else player->p.y += 3.5 * (distanceY < 0 ? 1 : -1);
 		}
+
+}
+
+void WorldSelect::Render()
+{
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
+
+	map->render();
+	for (int i = 0; i < objects.size(); i++) {
+		objects[i]->Render();
+	}
+	player->Render();
+	DrawUI();
 	CScene::Render();
 }
 
@@ -186,9 +164,17 @@ void  WorldSelect::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			obj->ParseFromJson(data); //remember to set position, animation_set in this function
 			player = obj;
 			break;
+		case  ObjectType::HammerBrother:
+			if (visible != true)
+				HammerBrother::SaveStaticData(data);
+			break;
 		case ObjectType::SelectionTree:
 			if (visible != true)
 				SelectionTree::SaveStaticData(data);
+			break;
+		case ObjectType::UI:
+			if (visible != true)
+				CUI::SaveStaticData(data);
 			break;
 		default:
 			break;
@@ -317,10 +303,10 @@ void WorldSelect::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) 
 			case ObjectType::SelectionTree:
 				obj = new SelectionTree();
 				break;
-			case ObjectType::IntroText:
-				obj = new IntroText();
-				obj->type = type;
+			case ObjectType::HammerBrother:
+				obj = new HammerBrother();
 				break;
+
 			case ObjectType::Camera:
 				camera->setCamPos(x, y);
 				camera->cam_left_limit = x;
@@ -338,15 +324,36 @@ void WorldSelect::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) 
 				obj->name = name;
 				obj->p.x = x;
 				obj->p.y = y;
-				DebugOut(L"[INFO] Size Of Object: %s \n", IntToLPCWSTR(sizeof(*obj)));
-
 				obCollisions->push_back(obj);
 			}
 			else delete obj;
-
 		}
-
-
 	}
+}
+
+
+void WorldSelect::DrawUI() {
+	UI->DrawUI("hub", Vector(0, 555));
+	UI->DrawUI("reward-slot", Vector(500, 555));
+	UI->DrawUI("1", Vector(124, 580), Vector(0.8, 0.8));
+	UI->DrawUI("M-icon", Vector(12, 600));
+
+
+	UI->DrawText("123", Vector(413, 578), Vector(0.8, 0.8));
+
+	//draw mario life
+	UI->DrawUI("1", Vector(90, 599));
+
+	//draw player point
+	UI->DrawText("0000000", Vector(150, 600));
+
+	UI->DrawText("000", Vector(393, 603), Vector(0.8, 0.8));
+
+	//draw mario speed 
+	for (int i = 0; i < 6; i++) {
+		UI->DrawUI("arrow", Vector(152 + i * 24, 578));
+	}
+
+	UI->DrawUI("power-1", Vector(300, 578));
 
 }

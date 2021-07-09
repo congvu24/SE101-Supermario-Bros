@@ -79,7 +79,9 @@ void GoldenBrick::OnHadCollidedHorizontal(LPGAMEOBJECT obj, LPCOLLISIONEVENT eve
 
 		for (auto i = allObjects->begin(); i != allObjects->end(); i++)
 			if (GoldenBrick* obj = dynamic_cast<GoldenBrick*>(*i)) {
-				if (obj->type != "P" && obj->state == "running") effectList->push_back(*i);
+				if (obj->type != "P" && obj->state == "running" && obj->group == this->group) {
+					effectList->push_back(*i);
+				}
 			}
 
 		this->SetState("hitted");
@@ -87,7 +89,7 @@ void GoldenBrick::OnHadCollidedHorizontal(LPGAMEOBJECT obj, LPCOLLISIONEVENT eve
 		reward = new PButton();
 		reward->ParseFromOwnJson();
 		reward->p.y = p.y;
-		reward->p.x = p.x + width / 2;
+		reward->p.x = p.x + width;
 		reward->isAllowCollision = true;
 		((PButton*)reward)->listEffect = effectList;
 		CGame::GetInstance()->GetCurrentScene()->addObject(reward);
@@ -102,16 +104,16 @@ void GoldenBrick::Explore() {
 	}
 	else if (type != "P" && state == "running") {
 		LPGAMEOBJECT reward = NULL;
+		this->SetState("hidden");
 		reward = new Coin();
 		reward->ParseFromOwnJson();
-		reward->p.y = p.y + height / 2;
-		reward->p.x = p.x + width / 2;
-		reward->SetState("stop");
 		reward->isAllowCollision = false;
+		reward->isBlockPlayer = false;
 		CGame::GetInstance()->GetCurrentScene()->addObject(reward);
-		this->SetState("hidden");
+		reward->SetState("stop");
+		reward->p.x = p.x + width / 2;
+		reward->p.y = p.y + height / 2;
 	}
-
 }
 
 void GoldenBrick::HandleAfterCreated() {

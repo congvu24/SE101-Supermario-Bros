@@ -12,7 +12,7 @@ public:
 	static void SaveStaticData(json data);
 	static void ParseSpriteFromJson(LPCWSTR path);
 	static void SetTexture(LPCWSTR path);
-	static void AddSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	static void AddSprite(string id, float left, float top, float right, float bottom, LPDIRECT3DTEXTURE9 tex);
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

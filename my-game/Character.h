@@ -43,7 +43,7 @@ public:
 	virtual void HandleCollision(LPCOLLISIONEVENT e) = 0;
 
 
-	void AddSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	void AddSprite(string id, float left, float top, float right, float bottom, LPDIRECT3DTEXTURE9 tex);
 	LPSPRITE GetSprite(string id);
 	void ClearSprite();
 

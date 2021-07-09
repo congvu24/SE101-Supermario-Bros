@@ -47,7 +47,9 @@ enum class ObjectType
 	Boomerang,
 	MusicBox,
 	FlyGoomba,
-	MiniGoomba
+	MiniGoomba,
+	EndSceneItem,
+	HammerBrother
 };
 
 

@@ -294,6 +294,13 @@
       "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 24 },
       "sourceSize": { "w": 24, "h": 24 }
     },
+    "space": {
+      "frame": { "x": 126, "y": 199, "w": 24, "h": 24 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 24 },
+      "sourceSize": { "w": 24, "h": 24 }
+    },
     "power-1": {
       "frame": { "x": 367, "y": 87, "w": 39, "h": 15 },
       "rotated": false,

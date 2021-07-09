@@ -109,7 +109,6 @@ void Venus::HandleCollision(LPCOLLISIONEVENT e) {
 }
 
 void Venus::HandleAfterCreated() {
-	DebugOut(L"here");
 	oldP = p;
 	SetAction(VenusAction::HIDING);
 }

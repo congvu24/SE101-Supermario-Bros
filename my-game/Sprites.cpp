@@ -12,7 +12,6 @@ CSprite::CSprite(string id, float left, float top, float right, float bottom, fl
 	this->width = width;
 	this->height = height;
 	this->texture = tex;
-	DebugOut(L"hello");
 }
 
 CSprites* CSprites::__instance = NULL;
@@ -26,16 +25,14 @@ CSprites* CSprites::GetInstance()
 void CSprite::Draw(float x, float y, int alpha)
 {
 	CGame* game = CGame::GetInstance();
-	//DebugOut(L"[INFO] render %s \n", ToLPCWSTR(id));
 	game->Draw(x, y, texture, left, top, right, bottom, alpha);
 }
 
 void CSprite::DrawWithScale(float x, float y, Vector scale, int alpha)
 {
 	CGame* game = CGame::GetInstance();
-	//DebugOut(L"[INFO] render %s \n", ToLPCWSTR(id));
 	Vector p = Vector(x, y);
-	RECT r = { left ,top,right ,bottom };
+	Rect r = { left ,top,right ,bottom };
 	D3DXVECTOR2 scal = D3DXVECTOR2(scale.x, scale.y);
 
 	game->DrawWithScale(p, texture, r, alpha, scal);
@@ -44,9 +41,8 @@ void CSprite::DrawWithScale(float x, float y, Vector scale, int alpha)
 void CSprite::DrawPositionInCamera(float x, float y, Vector scale, int alpha)
 {
 	CGame* game = CGame::GetInstance();
-	//DebugOut(L"[INFO] render %s \n", ToLPCWSTR(id));
 	Vector p = Vector(x, y);
-	RECT r = { left ,top,right ,bottom };
+	Rect r = { left ,top,right ,bottom };
 	D3DXVECTOR2 scal = D3DXVECTOR2(scale.x, scale.y);
 
 	game->DrawPositionInCamera(p, texture, r, alpha, scal);

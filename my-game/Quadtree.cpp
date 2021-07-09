@@ -5,10 +5,10 @@
 
 
 #define MAX_LEVEL                5
-#define MAX_OBJECT_IN_REGION     10
+#define MAX_OBJECT_IN_REGION     15
 
 
-Quadtree::Quadtree(int level, RECT* region) {
+Quadtree::Quadtree(int level, Rect* region) {
 	this->m_level = level;
 	this->m_region = region;
 
@@ -48,16 +48,16 @@ void Quadtree::Split()
 	float middle_x = m_region->left + (m_region->right - m_region->left) / 2;
 	float middle_y = m_region->top + (m_region->bottom - m_region->top) / 2;
 
-	RECT rect1 = { m_region->left ,m_region->top , middle_x, middle_y };
-	RECT rect2 = { middle_x ,m_region->top , m_region->right, middle_y };
-	RECT rect3 = { m_region->left, middle_y, middle_x, m_region->bottom };
-	RECT rect4 = { middle_x, middle_y, m_region->right, m_region->bottom };
+	Rect rect1 = { m_region->left ,m_region->top , middle_x, middle_y };
+	Rect rect2 = { middle_x ,m_region->top , m_region->right, middle_y };
+	Rect rect3 = { m_region->left, middle_y, middle_x, m_region->bottom };
+	Rect rect4 = { middle_x, middle_y, m_region->right, m_region->bottom };
 	this->m_nodes = new Quadtree * [4];
 
-	this->m_nodes[0] = new Quadtree(m_level + 1, new RECT(rect1));
-	this->m_nodes[1] = new Quadtree(m_level + 1, new RECT(rect2));
-	this->m_nodes[2] = new Quadtree(m_level + 1, new RECT(rect3));
-	this->m_nodes[3] = new Quadtree(m_level + 1, new RECT(rect4));
+	this->m_nodes[0] = new Quadtree(m_level + 1, new Rect(rect1));
+	this->m_nodes[1] = new Quadtree(m_level + 1, new Rect(rect2));
+	this->m_nodes[2] = new Quadtree(m_level + 1, new Rect(rect3));
+	this->m_nodes[3] = new Quadtree(m_level + 1, new Rect(rect4));
 }
 void Quadtree::Insert(CGameObject* entity)
 {

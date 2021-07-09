@@ -10,20 +10,35 @@
       "sprite": "assets/sprite/World1-Selection - extend.json",
       "animation": "assets/animations/selectionTree-animation.json",
       "type": 1,
-      "x": 96,
-      "y": 144,
       "visible": false
     },
     {
       "id": "1",
       "name": "test",
-      "texture": "assets/texture/real-mario.png",
-      "sprite": "assets/sprite/real-mario.json",
+      "texture": "assets/texture/mario.png",
+      "sprite": "assets/sprite/mario.json",
       "animation": "assets/animations/mario-animation.json",
       "type": 3,
-      "x": 48,
-      "y": 150,
+      "x": 145,
+      "y": 200,
       "visible": true
+    },
+    {
+      "id": "8",
+      "name": "HammerBrother",
+      "texture": "assets/texture/enemy2.png",
+      "sprite": "assets/sprite/enemy2.json",
+      "animation": "assets/animations/hammer-brother-animation.json",
+      "type": 1,
+      "visible": false
+    },
+    {
+      "id": "9",
+      "name": "UI",
+      "texture": "assets/texture/ui.png",
+      "sprite": "assets/sprite/ui.json",
+      "type": 1,
+      "visible": false
     }
   ]
 }

@@ -2,28 +2,36 @@
 #include "GameObject.h"
 #include "MapEntity.h"
 #include "Game.h"
-#include "Coin.h"
-#include "Leaf.h"
-#include "Box.h"
 #include <iostream>
 
-class GoldenBrick :public Box<GoldenBrick>
+
+enum class EndSceneItemReward {
+	Mushroom = 0,
+	Star,
+	Tree
+};
+
+
+class EndSceneItem :public MapEntity<EndSceneItem>
 {
-
+	//virtual void  Render();
 public:
-	GoldenBrick();
+	EndSceneItem();
 
-	int countHit = 0;
+	bool isTouched = false;
+	int timeChangeItem = 500;
+	int currenRewardIndex = 0;
+	EndSceneItemReward reward = EndSceneItemReward::Mushroom;
+
 	Vector oldP;
-	string group;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetState(string state);
-	virtual void GiveReward();
+	virtual void HandleCollision(LPCOLLISIONEVENT e);
 	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
-	virtual void Explore();
-	virtual void OnHadCollidedHorizontal(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
-	virtual void HandleAfterCreated();
+	virtual void Render();
+	virtual void ChangeReward();
+
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

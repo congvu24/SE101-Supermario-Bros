@@ -2,6 +2,7 @@
 #include "Game.h"
 
 
+
 LPDIRECT3DTEXTURE9 CScene::blackTexture = NULL;
 CScene::CScene(int id, LPCWSTR filePath)
 {

@@ -222,6 +222,12 @@
     <ClCompile Include="MiniGoomba.cpp">
       <Filter>Source Files\Object\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="EndSceneItem.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="HammerBrother.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -375,6 +381,15 @@
       <Filter>Header Files\Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="MiniGoomba.h">
+      <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EndSceneItem.h">
+      <Filter>Header Files\Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="HammerBrother.h">
       <Filter>Header Files\Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

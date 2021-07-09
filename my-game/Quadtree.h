@@ -10,14 +10,14 @@ class Quadtree
 {
 private:
 	int            m_level;
-	RECT* m_region = new RECT{ 0,0,0,0 };
+	Rect* m_region = new Rect{ 0,0,0,0 };
 	vector<CGameObject*>* m_objects_list = new vector<CGameObject*>();
 	Quadtree** m_nodes;
 
 	void           Split();
 public:
 	Quadtree();
-	Quadtree(int level, RECT* region);
+	Quadtree(int level, Rect* region);
 	//~Quadtree();
 
 	bool  IsContain(CGameObject* entity);

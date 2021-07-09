@@ -128,8 +128,8 @@ void CGameObject::FilterCollision(
 
 void CGameObject::RenderBoundingBox()
 {
-	D3DXVECTOR3 p(p.x, p.y, 0);
-	RECT rect;
+	/*D3DXVECTOR3 p(p.x, p.y, 0);
+	Rect rect;
 
 	float l, t, r, b;
 
@@ -140,7 +140,7 @@ void CGameObject::RenderBoundingBox()
 	rect.bottom = (int)b - (int)t;
 
 	if (CGameObject::bboxtex != NULL)
-		CGame::GetInstance()->Draw(p.x, p.y, CGameObject::bboxtex, rect.left, rect.top, rect.right, rect.bottom, 100);
+		CGame::GetInstance()->Draw(p.x, p.y, CGameObject::bboxtex, rect.left, rect.top, rect.right, rect.bottom, 100);*/
 }
 
 
@@ -192,7 +192,6 @@ void CGameObject::CalcPotentialCollisions(
 {
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)

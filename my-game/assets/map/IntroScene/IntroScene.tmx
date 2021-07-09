@@ -64,7 +64,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="23" name="Camera" visible="0">
-  <object id="100" x="-14.6667" y="80" width="800" height="600"/>
+ <objectgroup id="23" name="Camera">
+  <object id="100" x="0" y="96" width="768" height="600"/>
  </objectgroup>
 </map>

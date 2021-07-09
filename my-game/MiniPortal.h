@@ -16,6 +16,7 @@ public:
 	float camera_right_limit;
 	float camera_top_limit;
 	float camera_bottom_limit;
+	string direction;
 
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

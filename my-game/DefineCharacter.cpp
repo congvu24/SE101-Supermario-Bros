@@ -30,6 +30,8 @@ ObjectType fromNameToCode(string name) {
 	character_code["MusicBox"] = ObjectType::MusicBox;
 	character_code["FlyGoomba"] = ObjectType::FlyGoomba;
 	character_code["MiniGoomba"] = ObjectType::MiniGoomba;
+	character_code["EndSceneItem"] = ObjectType::EndSceneItem;
+	character_code["HammerBrother"] = ObjectType::HammerBrother;
 
 	if (character_code.find(name) != character_code.end()) {
 		return character_code.at(name);

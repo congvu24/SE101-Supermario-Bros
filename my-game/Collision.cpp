@@ -37,10 +37,6 @@ void Collision::GetBoundingBox(float& left, float& top, float& right, float& bot
 
 void  Collision::Render()
 {
-	/*float width = 0;
-	float height = 0;
-	animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
-	RenderBoundingBox();*/
 	RenderBoundingBox();
 }
 

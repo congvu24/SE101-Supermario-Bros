@@ -15,8 +15,7 @@ Character::Character()
 
 
 
-
-void Character::AddSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex) {
+void Character::AddSprite(string id, float left, float top, float right, float bottom, LPDIRECT3DTEXTURE9 tex) {
 	LPSPRITE s = new CSprite(id, left, top, right, bottom, right - left, bottom - top, tex);
 	sprites[id] = s;
 
@@ -121,7 +120,6 @@ void Character::ParseAnimationFromJson(LPCWSTR filePath) {
 			}
 			AddAnimation(animationName, ani);
 			animation_set[animationName] = GetAnimation(animationName);
-
 		}
 		AddAnimationSet(key, animation_set);
 

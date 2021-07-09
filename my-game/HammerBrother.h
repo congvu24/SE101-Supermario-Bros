@@ -2,28 +2,23 @@
 #include "GameObject.h"
 #include "MapEntity.h"
 #include "Game.h"
-#include "Coin.h"
-#include "Leaf.h"
-#include "Box.h"
+#include "Enemy.h"
 #include <iostream>
 
-class GoldenBrick :public Box<GoldenBrick>
+class HammerBrother :public Enemy<HammerBrother>
 {
 
 public:
-	GoldenBrick();
+	HammerBrother();
 
-	int countHit = 0;
-	Vector oldP;
-	string group;
+	float sumMoveX = 0;
+	virtual void SetState(string state);
+	virtual void HandleCollision(LPCOLLISIONEVENT e);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void SetState(string state);
-	virtual void GiveReward();
+	virtual void Die();
 	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
-	virtual void Explore();
-	virtual void OnHadCollidedHorizontal(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
-	virtual void HandleAfterCreated();
+	virtual void BeingKill();
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

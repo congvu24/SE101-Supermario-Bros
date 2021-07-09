@@ -28,7 +28,7 @@ enum class MarioAction {
 	GETTING_INTO_THE_HOLE,
 	TRANSFORM,
 	PICK_UP,
-	RELEASE
+	RELEASE,
 };
 
 class Test : public Character

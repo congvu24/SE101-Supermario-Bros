@@ -7,8 +7,8 @@
     {
       "id": "1",
       "name": "test",
-      "texture": "assets/texture/real-mario.png",
-      "sprite": "assets/sprite/real-mario.json",
+      "texture": "assets/texture/mario.png",
+      "sprite": "assets/sprite/mario.json",
       "animation": "assets/animations/mario-animation.json",
       "type": 4,
       "x": 2016.0,
@@ -173,6 +173,15 @@
       "texture": "assets/texture/enemy.png",
       "sprite": "assets/sprite/enemy.json",
       "animation": "assets/animations/fly-goomba-animation.json",
+      "type": 1,
+      "visible": false
+    },
+    {
+      "id": "18",
+      "name": "EndSceneItem",
+      "texture": "assets/texture/misc.png",
+      "sprite": "assets/sprite/misc.json",
+      "animation": "assets/animations/end-scene-item-animation.json",
       "type": 1,
       "visible": false
     }

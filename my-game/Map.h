@@ -68,7 +68,7 @@ public:
 
 	Layer() {  };
 	void render(unordered_map<int, LPTILESET>* tileset);
-	void draw(Vector p, LPDIRECT3DTEXTURE9 texture, RECT r, int opacity);
+	void draw(Vector p, LPDIRECT3DTEXTURE9 texture, Rect r, int opacity);
 	void unload();
 };
 

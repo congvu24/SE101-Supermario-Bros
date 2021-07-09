@@ -142,7 +142,7 @@ void MarioSelection::SetState(string state)
 			v.y = 0;
 		}
 	}
-	CGameObject::SetState(state);
+	CGameObject::SetState("running");
 
 }
 

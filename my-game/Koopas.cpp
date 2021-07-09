@@ -125,9 +125,6 @@ void Koopas::HandleCollision(LPCOLLISIONEVENT e) { // xử lí collision do chí
 		useLimit = false;
 	}
 
-	if (e->obj->name != "RectPlatform" && e->obj->name != "RectCollision" && !CPlayScene::IsPlayer(e->obj))
-		DebugOut(L"Collision with: %s \n", ToLPCWSTR(e->obj->name));
-
 	if (state == "die" && isHitted == true && e->nx != 0) {
 		if (Goomba* obj = dynamic_cast<Goomba*>(e->obj)) {
 			obj->BeingKill();

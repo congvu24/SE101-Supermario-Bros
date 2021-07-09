@@ -6,6 +6,13 @@
 #include "Camera.h"
 
 
+enum Scences {
+	SelectMap = 1,
+	World_1_1 = 2,
+	IntroScence = 3,
+	World_1_3 = 4
+};
+
 enum AnimationDirection {
 	CLOSING,
 	OPENING,

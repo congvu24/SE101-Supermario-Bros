@@ -27,8 +27,26 @@
 #include "MusicBox.h"
 #include "FlyGoomba.h"
 #include "MiniGoomba.h"
+#include "EndSceneItem.h"
 
 using namespace std;
+
+
+string getPropertyFromData(string propertyName, json jsonData) {
+	json properties = jsonData["properties"];
+	for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
+		json data = property.value();
+		string name = data["name"];
+
+		if (name == propertyName) {
+			string result = to_string((data["value"]));
+			return result;
+
+		}
+	}
+	return "";
+}
+
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	CScene(id, filePath)
@@ -76,8 +94,8 @@ void CPlayScene::Update(DWORD dt)
 	UpdateTime(dt);
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 
-	RECT base = { camera->cam_x, camera->cam_y, camera->cam_x + 800 ,camera->cam_y + 600 };
-	Quadtree* quadtree = new Quadtree(1, new RECT(base));
+	Rect base = { camera->cam_x, camera->cam_y, camera->cam_x + camera->cam_width ,camera->cam_y + camera->cam_height };
+	Quadtree* quadtree = new Quadtree(1, new Rect(base));
 
 
 	for (auto i = objects.begin(); i != objects.end(); i++) {
@@ -135,7 +153,7 @@ void CPlayScene::Update(DWORD dt)
 
 		if (((Test*)player)->isAllowCameraFollow == true) {
 			if (player->p.y + player->height + 100 < camera->camera_default_top) {
-				camera->setCamPos(cx, cy);
+				camera->setCamPos(cx, cy < camera->camera_default_top - 600 ? camera->camera_default_top - 600 : cy);
 			}
 			else {
 				camera->setCamPos(cx, camera->camera_default_top);
@@ -143,11 +161,8 @@ void CPlayScene::Update(DWORD dt)
 		}
 	}
 	else {
-		camera->setCamPos(cx, cy);
+		camera->setCamPos(cx, cy < camera->camera_default_top - 600 ? camera->camera_default_top - 600 : cy);
 	}
-
-	DebugOut(L"[INFO] Camera x: %s \n", IntToLPCWSTR(camera->cam_x));
-	DebugOut(L"[INFO] Camera y: %s \n", IntToLPCWSTR(camera->cam_y));
 }
 
 bool comparePtrToNode(CGameObject* a, CGameObject* b) { return (a->renderOrder < b->renderOrder); }
@@ -158,11 +173,11 @@ void CPlayScene::Render()
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 
-	RECT* base = new RECT();
+	Rect* base = new Rect();
 	base->left = camera->cam_x - 200;
 	base->top = camera->cam_y - 200;
-	base->right = camera->cam_x + 800 + 200;
-	base->bottom = camera->cam_y + 600 + 200;
+	base->right = camera->cam_x + camera->cam_width + 200;
+	base->bottom = camera->cam_y + camera->cam_height + 200;
 
 	Quadtree* quadtree = new Quadtree(5, base); // set the level to 5 to stop split function
 	vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
@@ -256,7 +271,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 
 
 
-	std::vector<int> UnOrderProcessKey = { DIK_A, DIK_S };
+	std::vector<int> UnOrderProcessKey = { DIK_A, DIK_S, DIK_SPACE };
 	std::vector<int> OrderProcessKey = { DIK_LEFT,DIK_RIGHT, DIK_DOWN, DIK_UP };
 
 
@@ -272,6 +287,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 			return;
 		}
 	}
+	((Character*)player)->ProcessKeyboard(CGame::GenerateKeyboardEvent(-1, true));
 
 
 	if (game->IsKeyDown(DIK_R))
@@ -417,6 +433,10 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			if (visible != true)
 				MiniGoomba::SaveStaticData(data);
 			break;
+		case ObjectType::EndSceneItem:
+			if (visible != true)
+				EndSceneItem::SaveStaticData(data);
+			break;
 		default:
 			break;
 		}
@@ -491,26 +511,13 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 			float y = float(value["y"]);*/
 
 			if (type == "Out") {
-				json properties = value["properties"];
-				for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
-					json data = property.value();
-					string name = data["name"];
-					if (name == "CameraLeftTopLimitX") {
-						obj->camera_x = float(data["value"]);
-						obj->camera_left_limit = float(data["value"]);
-					}
-					if (name == "CameraLeftTopLimitY") {
-						obj->camera_y = float(data["value"]);
-						obj->camera_top_limit = float(data["value"]);
-					}
-					if (name == "CameraRightBottomLimitX") {
-						obj->camera_y = float(data["value"]);
-						obj->camera_right_limit = float(data["value"]);
-					}
-					if (name == "CameraRightBottomLimitY") {
-						obj->camera_bottom_limit = float(data["value"]);
-					}
-				}
+				obj->camera_x = stof(getPropertyFromData("CameraLeftTopLimitX", value));
+				obj->camera_y = stof(getPropertyFromData("CameraLeftTopLimitY", value));
+				obj->camera_left_limit = stof(getPropertyFromData("CameraLeftTopLimitX", value));
+				obj->camera_top_limit = stof(getPropertyFromData("CameraLeftTopLimitY", value));
+				obj->camera_right_limit = stof(getPropertyFromData("CameraRightBottomLimitX", value));
+				obj->camera_bottom_limit = stof(getPropertyFromData("CameraRightBottomLimitY", value));
+				obj->direction = getPropertyFromData("AccessKeyCode", value);
 			}
 
 
@@ -610,6 +617,7 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 				break;
 			case ObjectType::GoldenBrick:
 				obj = new GoldenBrick();
+				((GoldenBrick*)obj)->group = getPropertyFromData("group", value);
 				break;
 			case ObjectType::BoomerangBrother:
 				obj = new BoomerangBrother();
@@ -619,6 +627,9 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 				break;
 			case ObjectType::FlyGoomba:
 				obj = new FlyGoomba();
+				break;
+			case ObjectType::EndSceneItem:
+				obj = new EndSceneItem();
 				break;
 			case ObjectType::Camera:
 				camera->setCamPos(x, y);
@@ -643,8 +654,6 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 					obj->type = type;
 				}
 				obj->ParseFromOwnJson();
-				DebugOut(L"[INFO] Size Of Object: %s \n", IntToLPCWSTR(sizeof(*obj)));
-
 				obCollisions->push_back(obj);
 			}
 			else delete obj;
@@ -655,8 +664,9 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 	}
 }
 
+
 void CPlayScene::GameOver() {
-	switchScene(3);
+	switchScene(Scences::SelectMap);
 }
 
 bool CPlayScene::IsPlayer(LPGAMEOBJECT obj) {
@@ -665,16 +675,16 @@ bool CPlayScene::IsPlayer(LPGAMEOBJECT obj) {
 }
 
 void CPlayScene::DrawUI() {
-	UI->DrawUI("hub", Vector(0, 470));
-	UI->DrawUI("reward-slot", Vector(500, 470));
-	UI->DrawUI("1", Vector(124, 495), Vector(0.8, 0.8));
-	UI->DrawUI("M-icon", Vector(12, 515));
+	UI->DrawUI("hub", Vector(0, 555));
+	UI->DrawUI("reward-slot", Vector(500, 555));
+	UI->DrawUI("1", Vector(124, 580), Vector(0.8, 0.8));
+	UI->DrawUI("M-icon", Vector(12, 600));
 
 
-	UI->DrawText("123", Vector(413, 493), Vector(0.8, 0.8));
+	UI->DrawText("123", Vector(413, 578), Vector(0.8, 0.8));
 
 	//draw mario life
-	UI->DrawUI(to_string(((Test*)player)->life), Vector(90, 514));
+	UI->DrawUI(to_string(((Test*)player)->life), Vector(90, 599));
 
 	//draw player point
 	string point = to_string(playerPoint);
@@ -682,19 +692,19 @@ void CPlayScene::DrawUI() {
 	for (int i = 1; i <= numberOfZero; i++) {
 		point = "0" + point;
 	}
-	UI->DrawText(point, Vector(150, 515));
+	UI->DrawText(point, Vector(150, 600));
 
 	//draw remain time
 	int remain = trunc(timeLimit / 1000);
-	UI->DrawText(to_string(remain >= 0 ? remain : 0), Vector(393, 518), Vector(0.8, 0.8));
+	UI->DrawText(to_string(remain >= 0 ? remain : 0), Vector(393, 603), Vector(0.8, 0.8));
 
 	//draw mario speed 
 	float levelSpeed = abs((((Test*)player)->powerX / 1000) * 6);
 	for (int i = 0; i < 6; i++) {
-		UI->DrawUI(levelSpeed > i ? "arrow-white" : "arrow", Vector(152 + i * 24, 493));
+		UI->DrawUI(levelSpeed > i ? "arrow-white" : "arrow", Vector(152 + i * 24, 578));
 	}
 
-	UI->DrawUI(abs(((Test*)player)->powerX) == 1000 ? "power-white" : "power-1", Vector(300, 493));
+	UI->DrawUI(abs(((Test*)player)->powerX) == 1000 ? "power-white" : "power-1", Vector(300, 578));
 
 }
 
@@ -707,3 +717,4 @@ void CPlayScene::UpdateTime(DWORD dt) {
 		GameOver();
 	}
 }
+
