@@ -61,7 +61,7 @@ public:
 	void ParseSpriteFromJson(LPCWSTR filePath);
 	void ParseAnimationFromJson(LPCWSTR filePath);
 	virtual void ProcessKeyboard(KeyboardEvent kEvent) = 0;
-
+	virtual void HandleAfterCreated() {}
 	~Character();
 };
 

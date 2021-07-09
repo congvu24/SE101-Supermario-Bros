@@ -158,6 +158,7 @@ void Character::ParseFromJson(json data) {
 
 	// set active animation set;
 	SetActiveAnimationSet(type);
+	HandleAfterCreated();
 }
 
 

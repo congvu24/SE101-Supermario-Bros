@@ -175,14 +175,3 @@ void GoldenBrick::GiveReward() {
 		}
 	}
 }
-
-// void GoldenBrick::JumpUp(LPGAMEOBJECT obj) {
-//	if (isHitted == false && !isJumping) {
-//		isJumping = true;
-//		isHitted = true;
-//		oldP = p;
-//		v.y = -0.3f;
-//		jumpDirection = -1;
-//		g.y = 0.001f;
-//	}
-//}

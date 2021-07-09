@@ -15,7 +15,7 @@ json FlyGoomba::data = NULL;
 FlyGoomba::FlyGoomba()
 {
 	SetState("running");
-	v = Vector(0.05f, 0);
+	v = Vector(-0.05f, 0);
 	isAllowCollision = true;
 	isBlockPlayer = true;
 	useLimit = false;

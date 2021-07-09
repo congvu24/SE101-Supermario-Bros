@@ -648,8 +648,12 @@ void Test::DecreasePowerX() {
 void Test::Teleport(MiniPortal* destination, int duration) {
 	if (teleportDestination == NULL) {
 		teleportDestination = destination;
-		if (destination->direction == "\"DOWN\"") {
+		renderOrder = 0;
+		if (destination->direction == "DOWN") {
 			d.y = 0.5f;
+		}
+		else if (destination->direction == "UPP") {
+			d.y = -10;
 		}
 		else {
 			d.y = -0.5f;
@@ -691,5 +695,28 @@ void Test::UpdateAnimation(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 	if (action == MarioAction::ATTACK && timeBeginAction >= 0) {
 		timeBeginAction = timeBeginAction - dt;
+	}
+}
+
+void Test::HandleAfterCreated() {
+	switch (stoi(type))
+	{
+	case SmallMario:
+		max_move_y = VY_SMALL;
+		v.y = 0.1f;
+		life = 1;
+		break;
+	case BigMario:
+		max_move_y = VY_BIG;
+		v.y = 0.1f;
+		life = 2;
+		break;
+	case RacconMario:
+		max_move_y = VY_BIG;
+		v.y = 0.1f;
+		life = 3;
+		break;
+	default:
+		break;
 	}
 }

@@ -14,7 +14,7 @@ json Goomba::data = NULL;
 Goomba::Goomba()
 {
 	SetState("running");
-	v = Vector(0.05f, 0);
+	v = Vector(-0.05f, 0);
 	isAllowCollision = true;
 	isBlockPlayer = true;
 	useLimit = false;

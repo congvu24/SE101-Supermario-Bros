@@ -26,8 +26,8 @@
     {
       "id": "8",
       "name": "HammerBrother",
-      "texture": "assets/texture/enemy2.png",
-      "sprite": "assets/sprite/enemy2.json",
+      "texture": "assets/texture/enemy.png",
+      "sprite": "assets/sprite/enemy.json",
       "animation": "assets/animations/hammer-brother-animation.json",
       "type": 1,
       "visible": false

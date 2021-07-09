@@ -11,8 +11,8 @@
       "sprite": "assets/sprite/mario.json",
       "animation": "assets/animations/mario-animation.json",
       "type": 1,
-      "x": 4222,
-      "y": 500,
+      "x": 100,
+      "y": 1000,
       "visible": true
     },
     {
@@ -45,8 +45,8 @@
     {
       "id": "4",
       "name": "RedGoomba",
-      "texture": "assets/texture/enemy2.png",
-      "sprite": "assets/sprite/enemy2.json",
+      "texture": "assets/texture/enemy.png",
+      "sprite": "assets/sprite/enemy.json",
       "animation": "assets/animations/goomba-animation.json",
       "type": 2,
       "visible": false
@@ -72,8 +72,8 @@
     {
       "id": "7",
       "name": "Venus",
-      "texture": "assets/texture/enemy2.png",
-      "sprite": "assets/sprite/enemy2.json",
+      "texture": "assets/texture/enemy.png",
+      "sprite": "assets/sprite/enemy.json",
       "animation": "assets/animations/venus-animation.json",
       "type": 1,
       "visible": false
@@ -81,8 +81,8 @@
     {
       "id": "8",
       "name": "Venus_Bullet",
-      "texture": "assets/texture/enemy2.png",
-      "sprite": "assets/sprite/enemy2.json",
+      "texture": "assets/texture/enemy.png",
+      "sprite": "assets/sprite/enemy.json",
       "animation": "assets/animations/venus-bullet-animation.json",
       "type": 1,
       "visible": false
@@ -90,8 +90,8 @@
     {
       "id": "8",
       "name": "Koopas",
-      "texture": "assets/texture/enemy2.png",
-      "sprite": "assets/sprite/enemy2.json",
+      "texture": "assets/texture/enemy.png",
+      "sprite": "assets/sprite/enemy.json",
       "animation": "assets/animations/koopas-animation.json",
       "type": 1,
       "visible": false

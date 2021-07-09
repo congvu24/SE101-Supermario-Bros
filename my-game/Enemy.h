@@ -28,7 +28,7 @@ public:
 	}
 
 	virtual void KillPlayer(Test* obj) {
-		//obj->Die();
+		obj->Die();
 	}
 	virtual void BeingKill() {
 		if (state != "die") {

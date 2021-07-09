@@ -1,14 +1,20 @@
 {
   "1": {
     "running": [
-      { "name": "1.png", "time": 100 },
-      { "name": "0.png", "time": 100 }
+      { "name": "0.png", "time": 100 },
+      { "name": "1.png", "time": 100 }
     ],
-    "die": [{ "name": "31.png", "time": 100 }]
+    "die": [{ "name": "2.png", "time": 100 }]
   },
   "2": {
-    "flying": [{ "name": "41.png", "time": 100 }],
-    "running": [{ "name": "9.png", "time": 100 }],
-    "die": [{ "name": "10.png", "time": 100 }]
+    "flying": [
+      { "name": "13.png", "time": 100 },
+      { "name": "14.png", "time": 100 }
+    ],
+    "running": [
+      { "name": "16.png", "time": 100 },
+      { "name": "15.png", "time": 100 }
+    ],
+    "die": [{ "name": "17.png", "time": 100 }]
   }
 }

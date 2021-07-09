@@ -16,9 +16,7 @@ public:
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void Die();
 	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
-	virtual void BeingKill();
 
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;

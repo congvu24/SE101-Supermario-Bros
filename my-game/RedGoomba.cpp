@@ -14,7 +14,7 @@ json RedGoomba::data = NULL;
 RedGoomba::RedGoomba()
 {
 	SetState("flying");
-	v = Vector(0.05f, -0.1f);
+	v = Vector(-0.05f, -0.1f);
 	isAllowCollision = true;
 	isBlockPlayer = true;
 	useLimit = false;

@@ -68,4 +68,5 @@ public:
 	virtual void DecreasePowerX();
 	virtual bool IsReadyToChangeAction();
 	virtual void Teleport(MiniPortal* destination, int duration);
+	virtual void HandleAfterCreated();
 };

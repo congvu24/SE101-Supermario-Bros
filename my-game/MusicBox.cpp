@@ -83,6 +83,22 @@ void MusicBox::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 				isHitted = true;
 				if (Test* player = dynamic_cast<Test*>(obj)) {
 					player->v.y = -1;
+					MiniPortal* destination = NULL;
+					vector<CGameObject*>* allObjectOfSence = &(CGame::GetInstance()->GetCurrentScene()->objects);
+
+					for (auto i = allObjectOfSence->begin(); i != allObjectOfSence->end(); i++)
+					{
+						if (MiniPortal* obj = dynamic_cast<MiniPortal*>(*i)) {
+							if (obj->portalName == this->portName && obj->type == "Out") {
+								destination = obj;
+								break;
+							}
+						}
+					}
+
+					if (destination != NULL) {
+						player->Teleport(destination, 2000);
+					}
 				}
 			}
 		}

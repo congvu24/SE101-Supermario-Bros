@@ -1,16 +1,13 @@
 {
   "1": {
     "running": [
-      { "name": "39.png", "time": 100 },
-      { "name": "38.png", "time": 100 }
+      { "name": "45.png", "time": 100 },
+      { "name": "46.png", "time": 100 }
     ],
-    "die": [
-      { "name": "39.png", "time": 100 },
-      { "name": "38.png", "time": 100 }
-    ],
+    "die": [{ "name": "45.png", "time": 100 }],
     "attack": [
-      { "name": "37.png", "time": 100 },
-      { "name": "36.png", "time": 100 }
+      { "name": "44.png", "time": 100 },
+      { "name": "45.png", "time": 100 }
     ]
   }
 }

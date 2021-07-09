@@ -36,8 +36,6 @@ void HammerBrother::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void HammerBrother::SetState(string state)
 {
-	if (state == "running") {
-	}
 	CGameObject::SetState(state);
 
 }
@@ -55,11 +53,9 @@ void HammerBrother::HandleCollision(LPCOLLISIONEVENT e) {
 	Enemy::HandleCollision(e);
 }
 
-void HammerBrother::Die() {
-}
 
-void HammerBrother::BeingKill() {
-}
+
 
 void HammerBrother::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+	Enemy::OnHadCollided(obj, event);
 }

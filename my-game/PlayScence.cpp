@@ -40,8 +40,8 @@ string getPropertyFromData(string propertyName, json jsonData) {
 
 		if (name == propertyName) {
 			string result = to_string((data["value"]));
+			result.erase(remove(result.begin(), result.end(), '\"'), result.end());
 			return result;
-
 		}
 	}
 	return "";
@@ -161,7 +161,7 @@ void CPlayScene::Update(DWORD dt)
 		}
 	}
 	else {
-		camera->setCamPos(cx, cy < camera->camera_default_top - 600 ? camera->camera_default_top - 600 : cy);
+		camera->setCamPos(cx, cy < camera->camera_default_top - 600 ? camera->camera_default_top - 600 : cy - 100);
 	}
 }
 
@@ -624,6 +624,7 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 				break;
 			case ObjectType::MusicBox:
 				obj = new MusicBox();
+				((MusicBox*)obj)->portName = getPropertyFromData("portName", value);
 				break;
 			case ObjectType::FlyGoomba:
 				obj = new FlyGoomba();
