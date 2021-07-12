@@ -49,7 +49,10 @@ enum class ObjectType
 	FlyGoomba,
 	MiniGoomba,
 	EndSceneItem,
-	HammerBrother
+	HammerBrother,
+	RectCollision,
+	Death,
+	FlyKoopas
 };
 
 

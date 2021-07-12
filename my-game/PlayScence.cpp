@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-
+#include "Config.h"
 #include "PlayScence.h"
 #include "Utils.h"
 #include "Textures.h"
@@ -28,24 +28,10 @@
 #include "FlyGoomba.h"
 #include "MiniGoomba.h"
 #include "EndSceneItem.h"
+#include "FlyKoopas.h"
 
 using namespace std;
 
-
-string getPropertyFromData(string propertyName, json jsonData) {
-	json properties = jsonData["properties"];
-	for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
-		json data = property.value();
-		string name = data["name"];
-
-		if (name == propertyName) {
-			string result = to_string((data["value"]));
-			result.erase(remove(result.begin(), result.end(), '\"'), result.end());
-			return result;
-		}
-	}
-	return "";
-}
 
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
@@ -90,6 +76,8 @@ void CPlayScene::Load()
 
 void CPlayScene::Update(DWORD dt)
 {
+	if (isPaused) return;
+
 	CScene::Update(dt);
 	UpdateTime(dt);
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
@@ -231,45 +219,34 @@ void CPlayScene::Unload()
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
+	if (((CPlayScene*)scence)->isPaused == true) return;
 
 	CGameObject* player = ((CPlayScene*)scence)->GetPlayer();
 	((Character*)player)->ProcessKeyboard(CGame::GenerateKeyboardEvent(KeyCode));
-
-	/*switch (KeyCode)
-	{
-	case DIK_SPACE:
-		player->SetState("jumping");
-		DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-		break;
-	}*/
-
 }
 
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 {
 
 	CGameObject* player = ((CPlayScene*)scence)->GetPlayer();
-
 	((Character*)player)->ProcessKeyboard(CGame::GenerateKeyboardEvent(KeyCode, false, true));
 
-
-	/*switch (KeyCode)
+	switch (KeyCode)
 	{
-	case DIK_SPACE:
-		player->SetState("jumping");
-		DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	case DIK_ESCAPE:
+		((CPlayScene*)scence)->Pause();
 		break;
-	}*/
+	}
 
 }
 
 
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
+	if (((CPlayScene*)scence)->isPaused == true) return;
+
 	CGame* game = CGame::GetInstance();
 	CGameObject* player = ((CPlayScene*)scence)->GetPlayer();
-
-
 
 	std::vector<int> UnOrderProcessKey = { DIK_A, DIK_S, DIK_SPACE };
 	std::vector<int> OrderProcessKey = { DIK_LEFT,DIK_RIGHT, DIK_DOWN, DIK_UP };
@@ -296,10 +273,6 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 		((Test*)player)->SetAction(MarioAction::IDLE);
 
 
-	//CGame::GenerateKeyboardEvent(UnOrderProcessKey[i], true);
-
-	//// disable control key when Mario die 
-
 	// move camera
 	if (game->IsKeyDown(DIK_J))
 		((CPlayScene*)scence)->moveCamera(LEFT);
@@ -312,10 +285,6 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 }
 
 void CPlayScene::restart() {
-	//this->player->SetPosition(100, 1000);
-	//this->camera->move_x = 0;
-	//this->camera->move_y = 0;
-	//this->camera->isCameraMoving = false;
 	CGame::GetInstance()->Restart();
 }
 
@@ -437,6 +406,10 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			if (visible != true)
 				EndSceneItem::SaveStaticData(data);
 			break;
+		case ObjectType::FlyKoopas:
+			if (visible != true)
+				Koopas::SaveStaticData(data);
+			break;
 		default:
 			break;
 		}
@@ -468,30 +441,7 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 	string type = string(data["type"]);
 	string name = string(data["name"]);
 
-	if (type == "objectgroup" && name == "RectCollision") {
-		json objects = data["objects"];
-
-		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
-			json value = objData.value();
-			LPGAMEOBJECT obj = new Collision();
-
-			obj->ParseFromOwnJson();
-
-			float width = float(value["width"]);
-			float height = float(value["height"]);
-			float x = float(value["x"]);
-			float y = float(value["y"]);
-
-
-			obj->width = width;
-			obj->height = height;
-			obj->name = "RectCollision";
-			obj->p = Vector(x, y);
-
-			obCollisions->push_back(obj);
-		}
-	}
-	else if (type == "objectgroup" && name == "MiniPortal") {
+	if (type == "objectgroup" && name == "MiniPortal") {
 		json objects = data["objects"];
 
 		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
@@ -507,9 +457,6 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 			string portalName = value["name"];
 			string type = value["type"];
 
-			/*float can = float(value["y"]);
-			float y = float(value["y"]);*/
-
 			if (type == "Out") {
 				obj->camera_x = stof(getPropertyFromData("CameraLeftTopLimitX", value));
 				obj->camera_y = stof(getPropertyFromData("CameraLeftTopLimitY", value));
@@ -519,7 +466,6 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 				obj->camera_bottom_limit = stof(getPropertyFromData("CameraRightBottomLimitY", value));
 				obj->direction = getPropertyFromData("AccessKeyCode", value);
 			}
-
 
 			obj->width = width;
 			obj->height = height;
@@ -531,54 +477,7 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 			obCollisions->push_back(obj);
 		}
 	}
-	else if (type == "objectgroup" && name == "RectPlatform") {
-		json objects = data["objects"];
-
-		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
-			json value = objData.value();
-			LPGAMEOBJECT obj = new RectPlatform();
-
-			obj->ParseFromOwnJson();
-
-			float width = float(value["width"]);
-			float height = float(value["height"]);
-			float x = float(value["x"]);
-			float y = float(value["y"]);
-
-
-
-			obj->width = width;
-			obj->height = height;
-			obj->name = name;
-			obj->p = Vector(x, y);
-
-			obCollisions->push_back(obj);
-		}
-	}
-	else if (type == "objectgroup" && name == "Death") {
-		json objects = data["objects"];
-
-		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
-			json value = objData.value();
-			LPGAMEOBJECT obj = new Death();
-
-			obj->ParseFromOwnJson();
-
-			float width = float(value["width"]);
-			float height = float(value["height"]);
-			float x = float(value["x"]);
-			float y = float(value["y"]);
-
-
-			obj->width = width;
-			obj->height = height;
-			obj->name = "Death";
-			obj->p = Vector(x, y);
-
-			obCollisions->push_back(obj);
-		}
-	}
-	else if (type == "objectgroup" && name != "RectCollision") {
+	else if (type == "objectgroup") {
 		DebugOut(L"[INFO] Load name: %s \n", ToLPCWSTR(name));
 
 		json objects = data["objects"];
@@ -597,6 +496,15 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 
 			switch (fromNameToCode(name))
 			{
+			case ObjectType::RectCollision:
+				obj = new Collision();
+				break;
+			case ObjectType::Death:
+				obj = new Death();
+				break;
+			case ObjectType::RectPlatform:
+				obj = new RectPlatform();
+				break;
 			case ObjectType::QuestionBox_Item:
 				obj = new MisteryBox();
 				break;
@@ -631,6 +539,9 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 				break;
 			case ObjectType::EndSceneItem:
 				obj = new EndSceneItem();
+				break;
+			case ObjectType::FlyKoopas:
+				obj = new FlyKoopas();
 				break;
 			case ObjectType::Camera:
 				camera->setCamPos(x, y);
@@ -707,6 +618,12 @@ void CPlayScene::DrawUI() {
 
 	UI->DrawUI(abs(((Test*)player)->powerX) == 1000 ? "power-white" : "power-1", Vector(300, 578));
 
+
+	// draw paused ui
+	if (isPaused == true) {
+		CGame::GetInstance()->Draw(camera->cam_x, camera->cam_y, blackTexture, 0, 0, camera->cam_width, camera->cam_height, 50);
+		UI->DrawText("pause", Vector(SCREEN_WIDTH / 2 - (5 * 24 / 2), SCREEN_HEIGHT / 2 - 24), Vector(1.5, 1.5));
+	}
 }
 
 
@@ -719,3 +636,7 @@ void CPlayScene::UpdateTime(DWORD dt) {
 	}
 }
 
+
+void CPlayScene::Pause() {
+	isPaused = !isPaused;
+}

@@ -27,7 +27,6 @@ Mushroom::Mushroom(string type)
 	isAllowCollision = false;
 	this->type = type;
 	point = 400;
-
 }
 
 void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -69,7 +68,6 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (rdx != 0 && rdx != d.x)
 			p.x += nx * abs(rdx);
 
-		// block every object first!
 		p.x += min_tx * d.x + nx * 0.4f;
 		p.y += min_ty * d.y + ny * 0.4f;
 
@@ -79,30 +77,14 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		for (UINT i = 0; i < coEventsResult.size(); i++) {
 
-			if (Test* obj = dynamic_cast<Test*>(coEventsResult[i]->obj)) {
-				//obj->Transform(BigMario);
-				GiveReward();
-				SetState("hidden");
-			}
+			HandleCollision(coEventsResult[i]);
 		}
 
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 	}
-
-	//}
-
 }
 
-//void Mushroom::Render() {
-//	if (state == "hidden") return;
-//	else {
-//		float width = 0;
-//		float height = 0;
-//		Mushroom::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, width, height);
-//		RenderBoundingBox();
-//	}
-//}
 
 void Mushroom::SetState(string state)
 {
@@ -134,7 +116,10 @@ void Mushroom::GetBoundingBox(float& left, float& top, float& right, float& bott
 
 
 void Mushroom::HandleCollision(LPCOLLISIONEVENT e) {
-	SetState("hidden");
+	if (Test* obj = dynamic_cast<Test*>(e->obj)) {
+		GiveReward();
+		SetState("hidden");
+	}
 }
 
 void Mushroom::GiveReward() {
@@ -151,7 +136,14 @@ void Mushroom::GiveReward() {
 		Effect* pointEffect = new Effect(to_string(point), 300);
 		pointEffect->v.y = -0.05f;
 		pointEffect->p = p;
-		CGame::GetInstance()->GetCurrentScene()->addObject(pointEffect);
+
+		LPGAMEOBJECT player = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->player;
+		if (stoi(player->type) < BigMario) {
+			((Test*)player)->Transform(BigMario);
+		}
+		else {
+			CGame::GetInstance()->GetCurrentScene()->addObject(pointEffect);
+		}
 		CGame::GetInstance()->GetCurrentScene()->AddPoint(point);
 	}
 }

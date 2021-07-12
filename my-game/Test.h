@@ -29,6 +29,7 @@ enum class MarioAction {
 	TRANSFORM,
 	PICK_UP,
 	RELEASE,
+	SKID
 };
 
 class Test : public Character
@@ -45,6 +46,9 @@ public:
 	bool isAllowCameraFollow = true;
 	int life = 1;
 	int point = 0;
+	float ax = 0;
+	int untouchableTime = 0;
+	bool isRender = true;
 
 	MarioAction action;
 	unordered_map<int, bool> holdingKeys;

@@ -111,15 +111,16 @@ void Goomba::Die() {
 void Goomba::BeingKill() {
 	Enemy::BeingKill();
 	isAllowCollision = false;
+	isBlockPlayer = false;
 }
 
 void Goomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	Enemy::OnHadCollided(obj, event);
 
-	if (Test* player = dynamic_cast<Test*>(obj)) {
+	/*if (Test* player = dynamic_cast<Test*>(obj)) {
 		if (isBlockPlayer == true) {
 			isAllowCollision = false;
 			isBlockPlayer = false;
 		}
-	}
+	}*/
 }

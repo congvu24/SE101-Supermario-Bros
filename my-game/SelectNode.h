@@ -15,6 +15,7 @@ public:
 	string left;
 	string down;
 	string up;
+	string scene_id;
 
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);

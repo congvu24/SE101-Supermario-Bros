@@ -42,6 +42,11 @@ public:
 	}
 
 	virtual void HandleCollision(LPCOLLISIONEVENT e) {
+		if (e->obj->name == "Death") {
+			SetState("hidden");
+			return;
+		}
+
 		if (e->ny != 0) {
 			FindWalkingLimit(e->obj);
 		}

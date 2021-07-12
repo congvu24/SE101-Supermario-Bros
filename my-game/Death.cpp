@@ -11,7 +11,7 @@ json Death::data = NULL;
 
 Death::Death()
 {
-	//DebugOut(L"init death");
+	DebugOut(L"init death");
 	isBlockPlayer = true;
 	isUniversal = true;
 }
@@ -25,7 +25,6 @@ void Death::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void Death::SetState(string state)
 {
 	CGameObject::SetState(state);
-
 }
 
 void Death::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -36,7 +35,7 @@ void Death::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	bottom = p.y + height;
 }
 
-void  Death::Render()
+void Death::Render()
 {
 	RenderBoundingBox();
 }

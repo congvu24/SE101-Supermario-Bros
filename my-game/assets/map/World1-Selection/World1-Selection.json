@@ -29,23 +29,6 @@
          "objects":[
                 {
                  "height":48,
-                 "id":2,
-                 "name":"gate-1",
-                 "properties":[
-                        {
-                         "name":"scene_id",
-                         "type":"string",
-                         "value":"2"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":48,
-                 "x":240,
-                 "y":96
-                }, 
-                {
-                 "height":48,
                  "id":4,
                  "name":"gate-3",
                  "properties":[
@@ -645,14 +628,14 @@
          "name":"HammerBrother",
          "objects":[
                 {
-                 "height":59.6666666666667,
+                 "height":59.6667,
                  "id":73,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":30.6666666666667,
-                 "x":431.333333333333,
+                 "width":30.6667,
+                 "x":431.333,
                  "y":371
                 }],
          "opacity":1,
@@ -682,28 +665,6 @@
                  "width":48,
                  "x":144,
                  "y":192
-                }, 
-                {
-                 "height":48,
-                 "id":57,
-                 "name":"node-1",
-                 "properties":[
-                        {
-                         "name":"down",
-                         "type":"string",
-                         "value":"node-8"
-                        }, 
-                        {
-                         "name":"right",
-                         "type":"string",
-                         "value":"node-2"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":48,
-                 "x":240.667,
-                 "y":94.6667
                 }, 
                 {
                  "height":48,
@@ -746,6 +707,11 @@
                          "name":"right",
                          "type":"string",
                          "value":"node-9"
+                        }, 
+                        {
+                         "name":"scene_id",
+                         "type":"string",
+                         "value":"4"
                         }],
                  "rotation":0,
                  "type":"",
@@ -951,6 +917,33 @@
                  "width":48,
                  "x":240,
                  "y":288
+                }, 
+                {
+                 "height":48,
+                 "id":75,
+                 "name":"node-1",
+                 "properties":[
+                        {
+                         "name":"down",
+                         "type":"string",
+                         "value":"node-8"
+                        }, 
+                        {
+                         "name":"right",
+                         "type":"string",
+                         "value":"node-2"
+                        }, 
+                        {
+                         "name":"scene_id",
+                         "type":"string",
+                         "value":"2"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":240,
+                 "y":96
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1028,7 +1021,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":75,
+ "nextobjectid":76,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

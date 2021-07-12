@@ -139,6 +139,15 @@
       "animation": "assets/animations/end-scene-item-animation.json",
       "type": 1,
       "visible": false
+    },
+    {
+      "id": "14",
+      "name": "FlyKoopas",
+      "texture": "assets/texture/enemy.png",
+      "sprite": "assets/sprite/enemy.json",
+      "animation": "assets/animations/koopas-animation.json",
+      "type": 1,
+      "visible": false
     }
   ]
 }

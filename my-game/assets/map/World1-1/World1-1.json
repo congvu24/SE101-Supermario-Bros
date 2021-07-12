@@ -544,15 +544,15 @@
                  "y":1140.67
                 }, 
                 {
-                 "height":46.6666666666667,
+                 "height":46.6667,
                  "id":312,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":45.3333333333333,
+                 "width":45.3333,
                  "x":1488,
-                 "y":1189.33333333333
+                 "y":1189.33
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -596,7 +596,7 @@
         {
          "draworder":"topdown",
          "id":21,
-         "name":"KoopasFly",
+         "name":"FlyKoopas",
          "objects":[
                 {
                  "height":48,
@@ -2353,7 +2353,7 @@
          "y":0
         }],
  "nextlayerid":34,
- "nextobjectid":313,
+ "nextobjectid":321,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

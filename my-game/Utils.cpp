@@ -88,3 +88,19 @@ json ReadJsonFIle(LPCWSTR file) {
 	readData >> jsonData;
 	return jsonData;
 }
+
+
+string getPropertyFromData(string propertyName, json jsonData) {
+	json properties = jsonData["properties"];
+	for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
+		json data = property.value();
+		string name = data["name"];
+
+		if (name == propertyName) {
+			string result = to_string((data["value"]));
+			result.erase(remove(result.begin(), result.end(), '\"'), result.end());
+			return result;
+		}
+	}
+	return "";
+}

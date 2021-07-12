@@ -149,7 +149,7 @@ void Koopas::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 
 	if (Test* player = dynamic_cast<Test*>(obj)) {
 		if (state == "die") {
-			if (isHitted == false && event->nx != 0 && event->ny != 0) {
+			if (isHitted == false && event->nx != 0 && event->ny == 0 && player->holdingKeys[DIK_A] == false && isHolded == false) {
 				player->SetAction(MarioAction::KICK);
 				isUniversal = true;
 				this->v.x = 0.5f * -event->nx;
@@ -157,13 +157,7 @@ void Koopas::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 				isBlockPlayer = true;
 				useLimit = false;
 			}
-
-			else if (isHitted == false && event->nx != 0 && isHolded == false) {
-				player->SetAction(MarioAction::HOLD);
-				holdedBy = player;
-				isHolded = true;
-			}
-			else if (isHitted == false && event->nx != 0 && player->action == MarioAction::PICK_UP && isHolded == false) {
+			else if (isHitted == false && event->nx != 0 && isHolded == false && player->holdingKeys[DIK_A] == true) {
 				player->SetAction(MarioAction::HOLD);
 				holdedBy = player;
 				isHolded = true;

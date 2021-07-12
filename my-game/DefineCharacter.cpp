@@ -32,6 +32,10 @@ ObjectType fromNameToCode(string name) {
 	character_code["MiniGoomba"] = ObjectType::MiniGoomba;
 	character_code["EndSceneItem"] = ObjectType::EndSceneItem;
 	character_code["HammerBrother"] = ObjectType::HammerBrother;
+	character_code["RectCollision"] = ObjectType::RectCollision;
+	character_code["RectPlatform"] = ObjectType::RectPlatform;
+	character_code["Death"] = ObjectType::Death;
+	character_code["FlyKoopas"] = ObjectType::FlyKoopas;
 
 	if (character_code.find(name) != character_code.end()) {
 		return character_code.at(name);

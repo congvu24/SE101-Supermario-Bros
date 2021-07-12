@@ -138,8 +138,7 @@ void RedGoomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	if (state == "running") {
 		if (Test* player = dynamic_cast<Test*>(obj)) {
 			if (isBlockPlayer == true) {
-				player->canJump = true;
-				player->SetState("jumping");
+				player->SetAction(MarioAction::JUMP);
 				isAllowCollision = true;
 			}
 		}
@@ -147,12 +146,8 @@ void RedGoomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 
 	else if (state == "die") {
 		if (Test* player = dynamic_cast<Test*>(obj)) {
-			if (isBlockPlayer == true) {
-				player->canJump = true;
-				player->SetState("jumping");
-				isAllowCollision = true;
-				isBlockPlayer = false;
-			}
+			player->SetAction(MarioAction::JUMP);
+			isBlockPlayer = false;
 		}
 	}
 }

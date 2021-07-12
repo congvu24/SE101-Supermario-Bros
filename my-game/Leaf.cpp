@@ -20,8 +20,8 @@ Leaf::Leaf()
 
 void Leaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	v = v + g * dt;
-	if (v.y > 0.15f) v.y = 0.15f;
+	v.y = v.y + g.y * dt;
+	if (v.y > 0.05f) v.y = 0.05f;
 
 	CGameObject::Update(dt, coObjects);
 	float time = GetTickCount64() - beginFalling;
@@ -71,6 +71,7 @@ void Leaf::SetState(string state)
 	}
 	else if (state == "fromMisteryBox") {
 		p.y = p.y - 20;
+		v.y = -0.5f;
 		oldP = p;
 	}
 	else if (state == "hidden") {
@@ -93,15 +94,26 @@ void Leaf::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 void Leaf::HandleCollision(LPCOLLISIONEVENT e) {
 	LPGAMEOBJECT obj = e->obj;
 
-	if (Test* player = dynamic_cast<Test*>(e->obj)) {
+	/*if (Test* player = dynamic_cast<Test*>(e->obj)) {
 		player->Transform(RacconMario);
 		SetState("hidden");
-	}
+	}*/
 }
 
 void Leaf::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	if (Test* player = dynamic_cast<Test*>(obj)) {
-		player->Transform(RacconMario);
+		Effect* pointEffect = new Effect(to_string(point), 300);
+		pointEffect->v.y = -0.05f;
+		pointEffect->p = p;
+
+		if (stoi(player->type) < RacconMario) {
+			((Test*)player)->Transform(RacconMario);
+		}
+		else {
+			CGame::GetInstance()->GetCurrentScene()->addObject(pointEffect);
+		}
+		CGame::GetInstance()->GetCurrentScene()->AddPoint(point);
 		SetState("hidden");
 	}
+
 }

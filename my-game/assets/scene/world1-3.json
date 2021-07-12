@@ -106,15 +106,6 @@
       "visible": false
     },
     {
-      "id": "10",
-      "name": "PButton",
-      "texture": "assets/texture/misc.png",
-      "sprite": "assets/sprite/misc.json",
-      "animation": "assets/animations/p-button-animation.json",
-      "type": 1,
-      "visible": false
-    },
-    {
       "id": "11",
       "name": "Effect",
       "texture": "assets/texture/effect.png",

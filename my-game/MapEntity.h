@@ -149,11 +149,11 @@ public:
 	}
 
 	void clear() {
-		T::all_animations.clear();
+		/*T::all_animations.clear();
 		T::animations_set.Clear();
 		T::sprites.clear();
 		T::texture = NULL;
-		T::data = NULL;
+		T::data = NULL;*/
 		CGameObject::clear();
 	}
 

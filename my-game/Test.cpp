@@ -8,7 +8,7 @@
 
 
 #define VX_SMALL 0.15f
-#define VY_SMALL 0.4f
+#define VY_SMALL 0.5f
 #define VY_BIG 0.6f
 
 Test::Test()
@@ -21,13 +21,20 @@ Test::Test()
 	renderOrder = 99999;
 	name = "player";
 	isUniversal = true;
+	g = Vector(0.0015f, 0.0015f);
 }
 
 
 void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (untouchableTime > 0) {
+		untouchableTime -= dt;
+	}
+
 	if (action == MarioAction::TRANSFORM && timeBeginAction >= 0) {
 		timeBeginAction = timeBeginAction - dt;
+		ax = 0;
+		v.x = 0;
 		return;
 	}
 	if (action == MarioAction::GETTING_INTO_THE_HOLE && timeBeginAction >= 0) {
@@ -35,7 +42,7 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
-	if (v.x != 0 && powerX != 0) {
+	/*if (v.x != 0 && powerX != 0) {
 		if (canJump == false) {
 			v.x = (v.x / abs(v.x)) * 0.15f + (v.x / abs(v.x)) * 0.2f * (abs(powerX) / 1000);
 		}
@@ -48,12 +55,12 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		if (v.x != 0)
 			v.x = (v.x / abs(v.x)) * max_move_x;
-	}
-	if (abs(v.x) > 0.5f) {
-		v.x = (v.x / abs(v.x)) * 0.5f;
-	}
+	}*/
 
+	if (abs(v.x) < 0.35f)
+		v.x += ax * dt;
 
+	if (v.x >= 0.15f && canJump == false) v.x = 0.15f;
 
 	CGameObject::Update(dt, coObjects);
 
@@ -69,9 +76,20 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	if (action != MarioAction::FLY)
-		v = v + g * dt;
-	if (v.y > max_move_y) v.y = max_move_y;
+		v.y = v.y + g.y * dt;
 
+	/*if (v.y > 0.4f) {
+		v.y = 0.4f;
+	}*/
+
+
+
+	if (v.x * nx < 0 && abs(v.x) > 0.3f) {
+		SetAction(MarioAction::SKID, 500);
+	}
+
+
+	//DebugOut(L"V.x = %s \n", ToLPCWSTR(to_string(v.x)));
 
 
 	vector<LPGAMEOBJECT>* checkObjects = new vector<LPGAMEOBJECT>();
@@ -118,7 +136,7 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			p.x += nx * abs(rdx);
 
 
-		if (nx != 0) v.x = 0;
+		//if (nx != 0) v.x = 0;
 		if (ny != 0) v.y = 0;
 
 
@@ -144,14 +162,22 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	checkObjects->clear();
 	delete checkObjects;
+	ax = 0;
 }
 
 void Test::Render()
 {
+	if (untouchableTime > 0) {
+		isRender = !isRender;
+	}
+	else {
+		isRender = true;
+	}
+
 	if (action == MarioAction::TRANSFORM && timeBeginAction >= 100) {
 		return;
 	}
-	else {
+	if (isRender) {
 		float w = width;
 		float h = height;
 		Vector scale = Vector((float)nx, 1.0f);
@@ -197,6 +223,9 @@ void Test::SetState(string state)
 		}
 		else if (state == "sitting") {
 			CGameObject::SetState("sitting");
+		}
+		else if (state == "skid") {
+			CGameObject::SetState("skid");
 		}
 		else if (state == "jumping") {
 			CGameObject::SetState(state);
@@ -280,7 +309,7 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 	{
 	case MarioAction::IDLE:
 		if (canJump == true) {
-			v.x = 0;
+			//v.x = 0;
 			SetState("indie");
 			action = newAction;
 			timeBeginAction = time;
@@ -294,6 +323,7 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 		timeBeginAction = 0;
 		break;
 	case MarioAction::RUN:
+		SetState("running");
 		action = newAction;
 		timeBeginAction = 0;
 		break;
@@ -305,7 +335,6 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 		else {
 			if (canJump == true) {
 				v.y = -VY_SMALL;
-				g.y = 0.001f;
 				canJump = false;
 				SetState("jumping");
 				action = newAction;
@@ -324,7 +353,6 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 		}
 		else if ((action == MarioAction::JUMP || action == MarioAction::JUMP_HEIGHT) && stoi(type) == RacconMario && canJump == false) {
 			v.y = -0.03f;
-			v.x = 0;
 			SetState("flying");
 			action = MarioAction::JUMP;
 			timeBeginAction = time;
@@ -334,10 +362,12 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 		if (action == MarioAction::FLY) {
 			action = MarioAction::JUMP_HEIGHT;
 			timeBeginAction = time;
+			ax = 0;
+			v.x = 0;
 		}
 		else if (canJump == true && abs(powerX) == 1000) {
 			v.y = -VY_BIG;
-			g.y = 0.001f;
+
 			canJump = false;
 			SetState("jump-height");
 			action = newAction;
@@ -378,6 +408,12 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 		break;
 	case MarioAction::DIE:
 		action = newAction;
+		break;
+	case MarioAction::SKID:
+		SetState("skid");
+		action = newAction;
+		v.x = -nx * 0.1f;
+		timeBeginAction = time;
 		break;
 	case MarioAction::GETTING_INTO_THE_HOLE:
 		SetState("into-hole");
@@ -425,6 +461,7 @@ void Test::HandleCollision(LPCOLLISIONEVENT e) {
 
 void Test::Die() {
 
+	if (untouchableTime > 0) return;
 	if (IsReadyToChangeAction() == true) {
 		v.y = -0.3f;
 		v.x = 0;
@@ -448,33 +485,40 @@ void Test::Die() {
 
 void Test::Transform(int marioType) {
 
+	if (marioType < stoi(type)) {
+		untouchableTime = 1000;
+	}
+	else {
+		SetAction(MarioAction::TRANSFORM, 500);
+	}
+
 	switch (marioType)
 	{
 	case SmallMario:
 		this->type = to_string(marioType);
 		max_move_y = VY_SMALL;
 		v.y = 0.1f;
-		SetAction(MarioAction::TRANSFORM, 500);
 		life = 1;
 		break;
 	case BigMario:
 		this->type = to_string(marioType);
 		max_move_y = VY_BIG;
 		v.y = 0.1f;
-		SetAction(MarioAction::TRANSFORM, 500);
 		life = 2;
 		break;
 	case RacconMario:
 		this->type = to_string(marioType);
 		max_move_y = VY_BIG;
 		v.y = 0.1f;
-		SetAction(MarioAction::TRANSFORM, 500);
 		life = 3;
 		break;
 	default:
 		break;
 	}
-	SetState("jumping");
+
+	
+
+	SetState("indie");
 }
 
 void Test::ProcessKeyboard(KeyboardEvent kEvent)
@@ -483,25 +527,25 @@ void Test::ProcessKeyboard(KeyboardEvent kEvent)
 
 	if (kEvent.isKeyUp == true) {
 		holdingKeys[kEvent.key] = false;
-		return;
+		//return;
 	}
 
-	if (kEvent.isHolding == false) holdingKeys[kEvent.key] = true;
+	if (kEvent.isHolding == true) holdingKeys[kEvent.key] = true;
 
 	switch (kEvent.key) {
 	case DIK_RIGHT:
-		v.x = max_move_x;
+		//v.x = max_move_x;
 		nx = 1;
+		ax = 0.000575f;
 
 		if (action == MarioAction::FLY && stoi(type) == RacconMario && canJump == false) {
 			if (holdingKeys[DIK_S] == false) {
-				//SetAction(MarioAction::JUMP_HEIGHT);
 				SetState("flying");
+
 			}
 		}
 		else if (action == MarioAction::JUMP_HEIGHT && stoi(type) == RacconMario && canJump == false) {
 			if (holdingKeys[DIK_S] == false) {
-				//SetAction(MarioAction::JUMP_HEIGHT);
 				SetState("flying");
 			}
 		}
@@ -512,23 +556,20 @@ void Test::ProcessKeyboard(KeyboardEvent kEvent)
 			SetState("jumping");
 		}
 		else {
-			SetState("running");
 			SetAction(MarioAction::RUN);
 		}
 		break;
 	case DIK_LEFT:
-		v.x = -max_move_x;
+		ax = -0.000575f;
 		nx = -1;
 
 		if (action == MarioAction::FLY && stoi(type) == RacconMario && canJump == false) {
 			if (holdingKeys[DIK_S] == false) {
-				//SetAction(MarioAction::JUMP_HEIGHT);
 				SetState("flying");
 			}
 		}
 		else if (action == MarioAction::JUMP_HEIGHT && stoi(type) == RacconMario && canJump == false) {
 			if (holdingKeys[DIK_S] == false) {
-				//SetAction(MarioAction::JUMP_HEIGHT);
 				SetState("flying");
 			}
 		}
@@ -539,7 +580,6 @@ void Test::ProcessKeyboard(KeyboardEvent kEvent)
 			SetState("jumping");
 		}
 		else {
-			SetState("running");
 			SetAction(MarioAction::RUN);
 		}
 		break;
@@ -552,17 +592,23 @@ void Test::ProcessKeyboard(KeyboardEvent kEvent)
 		}
 		break;
 	case DIK_A:
-		if (!kEvent.isHolding && !kEvent.isKeyUp) {
-			SetAction(MarioAction::ATTACK, 300);
+
+		if (kEvent.isKeyUp == true) {
+			DebugOut(L"out");
+			if (action == MarioAction::HOLD) {
+				SetAction(MarioAction::RELEASE);
+			}
 		}
+
+
+		if (action != MarioAction::HOLD) {
+			if (!kEvent.isHolding && !kEvent.isKeyUp)
+				SetAction(MarioAction::ATTACK, 300);
+		}
+
+
 		break;
 	case DIK_B:
-		if (action != MarioAction::HOLD) {
-			SetAction(MarioAction::PICK_UP, 100);
-		}
-		else if (action == MarioAction::HOLD) {
-			SetAction(MarioAction::RELEASE);
-		}
 		break;
 	case DIK_UP:
 		//develop propose
@@ -627,7 +673,7 @@ void Test::IncreasePowerX() {
 		powerX = powerX + 20 * this->nx;
 		timeMaxPower = 0;
 		if (abs(powerX) == 1000) {
-			timeMaxPower = 10000;
+			timeMaxPower = 5000;
 		}
 	}
 }
@@ -670,10 +716,6 @@ void Test::UpdateAnimation(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	else if (action == MarioAction::GETTING_INTO_THE_HOLE && timeBeginAction < 100 && teleportDestination != NULL) {
 		timeBeginAction = 0;
 		Camera* camera = CGame::GetInstance()->GetCurrentScene()->getCamera();
-		/*camera->cam_x = teleportDestination->camera_x;
-		camera->cam_y = teleportDestination->camera_y;*/
-		//isAllowCameraFollow = !isAllowCameraFollow;
-
 		camera->isCameraMoving = !camera->isCameraMoving;
 		camera->cam_top_limit = teleportDestination->camera_top_limit;
 		camera->cam_right_limit = teleportDestination->camera_right_limit;

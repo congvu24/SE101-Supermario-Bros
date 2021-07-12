@@ -33,6 +33,7 @@ public:
 	int timeLimit = 0;
 	int playerPoint = 0;
 	int playerMoney = 0;
+	bool isPaused = false;
 
 	CPlayScene(int id, LPCWSTR filePath);
 	LPMAP GetMap() { return this->map; };
@@ -52,6 +53,7 @@ public:
 	virtual void AddPoint(int point) { playerPoint = playerPoint + point; }
 	virtual void AddMoney(int money) { playerMoney = playerMoney + money; }
 	virtual void UpdateTime(DWORD dt);
+	virtual void Pause();
 
 	static bool IsPlayer(LPGAMEOBJECT obj);
 

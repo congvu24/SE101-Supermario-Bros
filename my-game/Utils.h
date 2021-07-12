@@ -31,3 +31,4 @@ LPCWSTR IntToLPCWSTR(int st);
 
 json ReadJsonFIle(LPCWSTR file);
 
+string getPropertyFromData(string propertyName, json jsonData);

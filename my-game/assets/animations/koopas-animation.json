@@ -20,5 +20,16 @@
       { "name": "26.png", "time": 100 },
       { "name": "25.png", "time": 100 }
     ]
+  },
+  "fly": {
+    "running": [
+      { "name": "30.png", "time": 100 },
+      { "name": "32.png", "time": 100 }
+    ],
+    "die": [
+      { "name": "36.png", "time": 100 },
+      { "name": "38.png", "time": 100 },
+      { "name": "37.png", "time": 100 }
+    ]
   }
 }

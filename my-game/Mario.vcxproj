@@ -140,6 +140,7 @@
     <ClCompile Include="EndSceneItem.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FlyGoomba.cpp" />
+    <ClCompile Include="FlyKoopas.cpp" />
     <ClCompile Include="GoldenBrick.cpp" />
     <ClCompile Include="HammerBrother.cpp" />
     <ClCompile Include="Intro.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="MusicBox.h" />
     <ClInclude Include="PButton.h" />
+    <ClInclude Include="FlyKoopas.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="RectPlatform.h" />

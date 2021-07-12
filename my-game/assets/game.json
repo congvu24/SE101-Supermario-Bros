@@ -1,9 +1,21 @@
 {
-  "active": "3",
+  "active": "2",
   "scene": {
-    "1": "assets/scene/select-map.json",
-    "2": "assets/scene/world1-1.json",
-    "3": "assets/scene/intro.json",
-    "4": "assets/scene/world1-3.json"
+    "1": {
+      "type": "SelectMap",
+      "path": "assets/scene/select-map.json"
+    },
+    "2": {
+      "type": "PlayScence",
+      "path": "assets/scene/world1-1.json"
+    },
+    "3": {
+      "type": "Intro",
+      "path": "assets/scene/intro.json"
+    },
+    "4": {
+      "type": "PlayScence",
+      "path": "assets/scene/world1-3.json"
+    }
   }
 }

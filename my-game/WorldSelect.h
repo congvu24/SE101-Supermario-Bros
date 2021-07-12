@@ -25,10 +25,10 @@ protected:
 public:
 	Map* map;
 	SelectNode* currentNode;
-	SelectPortal* currentPortal;
+	string currentPortal = "";
 	CUI* UI;
 
-	bool isMoving = true;
+	bool isMoving = false;
 	WorldSelect(int id, LPCWSTR filePath);
 	virtual void Load();
 	virtual void Update(DWORD dt);
@@ -37,6 +37,7 @@ public:
 	virtual void addObject(LPGAMEOBJECT obj);
 	virtual void ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions);
 	virtual void DrawUI();
+	virtual void MovePlayer(string direction);
 	LPMAP GetMap() { return this->map; };
 
 	CGameObject* GetPlayer() { return player; }

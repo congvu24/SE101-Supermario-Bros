@@ -228,6 +228,9 @@
     <ClCompile Include="HammerBrother.cpp">
       <Filter>Source Files\Object\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="FlyKoopas.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -390,6 +393,9 @@
       <Filter>Header Files\Helper</Filter>
     </ClInclude>
     <ClInclude Include="HammerBrother.h">
+      <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyKoopas.h">
       <Filter>Header Files\Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

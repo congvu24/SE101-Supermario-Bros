@@ -56,12 +56,10 @@ void WorldSelect::Load()
 void WorldSelect::Update(DWORD dt)
 {
 	CScene::Update(dt);
-
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &objects);
 	}
-
 	if (currentNode != NULL && player != NULL)
 		if (isMoving) {
 			Vector centerObj = Vector(currentNode->p.x + currentNode->width / 2, currentNode->p.y + currentNode->height / 2);
@@ -72,7 +70,15 @@ void WorldSelect::Update(DWORD dt)
 			float distanceY = player->p.y - destinationy;
 
 
-			if (distanceX == 0 && distanceY == 0) isMoving = false;
+			if (distanceX == 0 && distanceY == 0) {
+				isMoving = false;
+				MarioSelection* selectPlayer = ((MarioSelection*)this->player);
+				selectPlayer->right = currentNode->right;
+				selectPlayer->left = currentNode->left;
+				selectPlayer->up = currentNode->up;
+				selectPlayer->down = currentNode->down;
+				currentPortal = currentNode->scene_id;
+			}
 			if (abs(distanceX) < 3.5) player->p.x -= distanceX;
 			else player->p.x += 3.5 * (distanceX < 0 ? 1 : -1);
 			if (abs(distanceY) < 3.5) player->p.y -= distanceY;
@@ -94,9 +100,6 @@ void WorldSelect::Render()
 	CScene::Render();
 }
 
-/*
-	Unload current scene
-*/
 void WorldSelect::Unload()
 {
 	player = NULL;
@@ -113,9 +116,8 @@ void CSelectScenceKeyHandler::OnKeyDown(int KeyCode)
 	{
 	case DIK_S:
 
-		if (scene->currentPortal != NULL) {
-			scene->switchScene(stoi(scene->currentPortal->scene_id));
-			//CGame::GetInstance()->SwitchScene(stoi(scene->currentPortal->scene_id));
+		if (scene->currentPortal != "") {
+			scene->switchScene(stoi(scene->currentPortal));
 		}
 		break;
 	}
@@ -127,19 +129,39 @@ void CSelectScenceKeyHandler::KeyState(BYTE* states)
 	CGame* game = CGame::GetInstance();
 	CGameObject* player = ((WorldSelect*)scence)->GetPlayer();
 
-	//// disable control key when Mario die 
-	if (player->GetState() == "die") return;
+	WorldSelect* map = ((WorldSelect*)scence);
 	if (game->IsKeyDown(DIK_RIGHT))
-		player->SetState("running-right");
+		map->MovePlayer("right");
 	else if (game->IsKeyDown(DIK_LEFT))
-		player->SetState("running-left");
+		map->MovePlayer("left");
 	else if (game->IsKeyDown(DIK_UP))
-		player->SetState("running-up");
+		map->MovePlayer("up");
 	else if (game->IsKeyDown(DIK_DOWN))
-		player->SetState("running-down");
-	else
-		player->SetState("indie");
+		map->MovePlayer("down");
 }
+
+
+void WorldSelect::MovePlayer(string direction) {
+	if (isMoving == true) return;
+	MarioSelection* selectPlayer = ((MarioSelection*)this->player);
+	string destinationName = "";
+	if (direction == "right") destinationName = selectPlayer->right;
+	if (direction == "left") destinationName = selectPlayer->left;
+	if (direction == "up") destinationName = selectPlayer->up;
+	if (direction == "down") destinationName = selectPlayer->down;
+
+	if (destinationName == "") return;
+	for (UINT i = 0; i < objects.size(); i++) {
+		if (SelectNode* obj = dynamic_cast<SelectNode*>(objects[i])) {
+			if (obj->nodeName == destinationName) {
+				currentNode = obj;
+				isMoving = true;
+				return;
+			}
+		}
+	}
+}
+
 
 
 
@@ -195,8 +217,6 @@ void  WorldSelect::_ParseSection_MAP_FromJson(string mapPath) {
 	{
 		objects.push_back(obCollision[i]);
 	}
-
-
 }
 
 void WorldSelect::addObject(LPGAMEOBJECT obj) {
@@ -224,23 +244,12 @@ void WorldSelect::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) 
 			float y = float(value["y"]);
 			string nodeName = value["name"];
 
-			json properties = value["properties"];
-			for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
-				json data = property.value();
-				string name = data["name"];
-				if (name == "up") {
-					obj->up = data["value"];
-				}
-				else if (name == "down") {
-					obj->down = data["value"];
-				}
-				else if (name == "right") {
-					obj->right = data["value"];
-				}
-				else if (name == "left") {
-					obj->left = data["value"];
-				}
-			}
+			obj->up = getPropertyFromData("up", value);
+			obj->down = getPropertyFromData("down", value);
+			obj->right = getPropertyFromData("right", value);
+			obj->left = getPropertyFromData("left", value);
+			obj->scene_id = getPropertyFromData("scene_id", value);
+
 
 			obj->width = width;
 			obj->height = height;
@@ -250,37 +259,6 @@ void WorldSelect::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) 
 			obCollisions->push_back(obj);
 		}
 	}
-	else if (type == "objectgroup" && name == "SelectionPortal") {
-		json objects = data["objects"];
-
-		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
-			json value = objData.value();
-			SelectPortal* obj = new SelectPortal();
-
-			obj->ParseFromOwnJson();
-
-			float width = float(value["width"]);
-			float height = float(value["height"]);
-			float x = float(value["x"]);
-			float y = float(value["y"]);
-
-			json properties = value["properties"];
-			for (json::iterator property = properties.begin(); property != properties.end(); ++property) {
-				json data = property.value();
-				string name = data["name"];
-				if (name == "scene_id") {
-					obj->scene_id = data["value"];
-				}
-			}
-
-			obj->width = width;
-			obj->height = height;
-			obj->name = "SelectPortal";
-			obj->p = Vector(x, y);
-			obCollisions->push_back(obj);
-		}
-	}
-
 	else if (type == "objectgroup" && name != "RectCollision") {
 		DebugOut(L"[INFO] Load name: %s \n", ToLPCWSTR(name));
 

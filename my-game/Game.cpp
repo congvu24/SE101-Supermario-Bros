@@ -438,35 +438,26 @@ void CGame::_ParseSection_SCENES_FromJson(json data)
 {
 	for (json::iterator it = data.begin(); it != data.end(); ++it) {
 
-		LPCWSTR path = ToLPCWSTR(it.value());
-		DebugOut(L"[INFO] Load data : %s\n", path);
 		int id = stoi(it.key());
 		json value = it.value();
+		string type = value["type"];
+		LPCWSTR path = ToLPCWSTR(value["path"]);
+		DebugOut(L"[INFO] Load data : %s\n", path);
 
 		LPSCENE scene = NULL;
 
-		switch (id)
-		{
-		case Scences::IntroScence:
+		if (type == "Intro") {
 			scene = new Intro(id, path);
-			break;
-		case Scences::SelectMap:
-			scene = new WorldSelect(id, path);
-			break;
-		case Scences::World_1_1:
-			scene = new CPlayScene(id, path);
-			break;
-		case Scences::World_1_3:
-			scene = new CPlayScene(id, path);
-			break;
-		default:
-			break;
 		}
-
+		else if (type == "SelectMap") {
+			scene = new WorldSelect(id, path);
+		}
+		else {
+			scene = new CPlayScene(id, path);
+		}
 		if (scene != NULL)
 			scenes[id] = scene;
 	}
-
 }
 
 
@@ -511,7 +502,6 @@ void CGame::Restart()
 	LPSCENE s = scenes[current_scene];
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
-
 }
 
 
