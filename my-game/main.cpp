@@ -162,8 +162,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game = CGame::GetInstance();
 	game->Init(hWnd);
 	game->InitKeyboard();
-	CGameObject::LoadBoundedBox(); // load bounded box to debug 
 
+	// move these thing to config file 
+	CGameObject::LoadBoundedBox(L"assets/texture/bbox.png");
 	CScene::LoadBlackTexture(L"assets/texture/black.png");
 	game->Load(L"assets/game.json"); //load all sence
 

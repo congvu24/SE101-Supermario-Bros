@@ -145,10 +145,8 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (ny < 0 && canJump == false) powerX = 0;
 			if (ny < 0) canJump = true;
-			//if (coEventsResult[i]->obj->name != "") {
 			HandleCollision(coEventsResult[i]);
 			coEventsResult[i]->obj->OnHadCollided(this, coEventsResult[i]);
-			//}
 		}
 
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -373,13 +371,6 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 			action = newAction;
 			timeBeginAction = time;
 		}
-		/*else if (canJump == true) {
-			v.y = -VY_BIG;
-			SetState("jump");
-			canJump = false;
-			action = newAction;
-			timeBeginAction = time;
-		}*/
 		else if (action == MarioAction::JUMP && v.y > -VY_SMALL * 0.6f && v.y < -VY_SMALL * 0.55 && powerX < 1000) {
 			v.y = -VY_BIG;
 			SetState("jump");
@@ -445,7 +436,6 @@ void Test::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void Test::HandleCollision(LPCOLLISIONEVENT e) {
 	LPGAMEOBJECT obj = e->obj;
-
 	if (e->nx != 0) {
 		HandleCollisionHorizontal(e);
 	}
@@ -523,7 +513,7 @@ void Test::Transform(int marioType) {
 
 void Test::ProcessKeyboard(KeyboardEvent kEvent)
 {
-	if (action == MarioAction::TRANSFORM || action == MarioAction::GETTING_INTO_THE_HOLE) return;
+	if (action == MarioAction::TRANSFORM || action == MarioAction::GETTING_INTO_THE_HOLE || state == "die") return;
 
 	if (kEvent.isKeyUp == true) {
 		holdingKeys[kEvent.key] = false;

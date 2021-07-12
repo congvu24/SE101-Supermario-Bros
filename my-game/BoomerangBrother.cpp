@@ -169,9 +169,9 @@ void BoomerangBrother::HandleAfterCreated() {
 void BoomerangBrother::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	Enemy::OnHadCollided(obj, event);
 
-	if (Test* player = dynamic_cast<Test*>(obj)) {
+	/*if (Test* player = dynamic_cast<Test*>(obj)) {
 		KillPlayer(player);
-	}
+	}*/
 	if (Boomerang* boomerang = dynamic_cast<Boomerang*>(obj)) {
 		SetAction(BoomerangBrotherAction::MOVING);
 	}
