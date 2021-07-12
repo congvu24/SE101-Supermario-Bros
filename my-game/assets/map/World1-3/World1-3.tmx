@@ -149,7 +149,7 @@
  <objectgroup id="17" name="Venus"/>
  <objectgroup id="14" name="RectPlatform">
   <object id="362" x="626" y="914" width="282" height="138"/>
-  <object id="363" x="478" y="1150" width="190" height="98"/>
+  <object id="363" x="481.333" y="1152" width="183.333" height="94"/>
   <object id="364" x="5760" y="1104" width="232" height="96"/>
   <object id="365" x="6094" y="1008" width="190" height="94"/>
   <object id="366" x="5756" y="720" width="240" height="90"/>

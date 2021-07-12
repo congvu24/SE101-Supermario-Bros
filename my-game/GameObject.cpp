@@ -101,7 +101,7 @@ void CGameObject::FilterCollision(
 		if (c->t < min_tx && c->nx != 0) {
 
 			if (dynamic_cast<RectPlatform*>(c->obj)) {
-				// Do not thing ( allow Mario go in X-direction )
+				//  allow Mario go in x
 			}
 			else {
 				min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
@@ -111,7 +111,7 @@ void CGameObject::FilterCollision(
 
 		if (c->t < min_ty && c->ny != 0) {
 			if (dynamic_cast<RectPlatform*>(c->obj) && c->ny == 1) {
-				min_ty = 1; ny = 2; min_iy = i; rdy = c->dy;
+				//min_ty = 1; ny = 2; min_iy = i; rdy = c->dy;8
 			}
 			else {
 				min_ty = c->t; ny = c->ny; min_iy = i; rdy = c->dy;
@@ -162,9 +162,9 @@ void CGameObject::clear()
 	active_animation_set.clear();
 }
 
-void CGameObject::LoadBoundedBox() {
+void CGameObject::LoadBoundedBox(LPCWSTR path) {
 	if (CGameObject::bboxtex == NULL) {
-		CGameObject::bboxtex = CGame::LoadTexture(L"assets/texture/bbox.png");
+		CGameObject::bboxtex = CGame::LoadTexture(path);
 	}
 }
 

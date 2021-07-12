@@ -346,7 +346,6 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 
 void Test::HandleCollision(LPCOLLISIONEVENT e) {
 	LPGAMEOBJECT obj = e->obj;
-
 	if (e->nx != 0) {
 		HandleCollisionHorizontal(e);
 	}
@@ -414,7 +413,7 @@ void Test::Transform(int marioType) {
 
 void Test::ProcessKeyboard(KeyboardEvent kEvent)
 {
-	if (action == MarioAction::TRANSFORM || action == MarioAction::GETTING_INTO_THE_HOLE) return;
+	if (action == MarioAction::TRANSFORM || action == MarioAction::GETTING_INTO_THE_HOLE || state == "die") return;
 
 	if (kEvent.isKeyUp == true) {
 		holdingKeys[kEvent.key] = false;
