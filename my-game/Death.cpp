@@ -11,7 +11,7 @@ json Death::data = NULL;
 
 Death::Death()
 {
-	DebugOut(L"init death");
+	//DebugOut(L"init death");
 	isBlockPlayer = true;
 	isUniversal = true;
 }

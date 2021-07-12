@@ -4,6 +4,8 @@
 #include "Game.h"
 #include "Enemy.h"
 
+#define TIME_WAITING 5000
+
 enum class BoomerangBrotherAction {
 	ATTACK,
 	MOVING,
@@ -18,7 +20,7 @@ public:
 	BoomerangBrotherAction action;
 
 	Vector oldP;
-	int timeWaiting = 5000;
+	int timeWaiting = TIME_WAITING;
 	virtual void SetState(string state);
 	virtual void SetAction(BoomerangBrotherAction newAction);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);

@@ -13,7 +13,7 @@ MarioSelection::MarioSelection()
 
 	width = 24;
 	height = 30;
-	SetState("indie");
+	SetState("idle");
 	g = Vector(0, 0);
 	right = "node-8";
 	left = "";

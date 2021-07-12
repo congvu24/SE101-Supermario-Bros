@@ -6,6 +6,8 @@
 #include <iostream>
 
 
+
+
 LPDIRECT3DTEXTURE9 FlyGoomba::texture = NULL;
 unordered_map<string, LPSPRITE> FlyGoomba::sprites; //save all sprite of animation
 unordered_map<string, LPANIMATION> FlyGoomba::all_animations; //save all animations
@@ -25,9 +27,6 @@ FlyGoomba::FlyGoomba()
 
 void FlyGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
-	
-
 	if (actionTime > 0) {
 		actionTime = actionTime - dt;
 	}
@@ -49,7 +48,6 @@ void FlyGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-
 	if (state == "running") {
 		v = v + g * dt;
 		if (v.y > 0.35f) v.y = 0.35f;
@@ -70,12 +68,12 @@ void FlyGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		if ((*i)->isAllowCollision == true && !CPlayScene::IsPlayer) {
+		if ((*i)->isAllowCollision == true && !CPlayScene::IsPlayer(*i)) {
 			checkObjects->push_back((*i));
 		}
 	}
 
-	CalcPotentialCollisions(coObjects, coEvents);
+	CalcPotentialCollisions(checkObjects, coEvents);
 
 
 	if (coEvents.size() == 0) {
@@ -91,10 +89,6 @@ void FlyGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		/*if (rdx != 0 && rdx != d.x)
-			p.x += nx * abs(rdx);*/
-
-		//if (nx != 0) v.x = 0;
 		if (ny != 0) v.y = 0;
 
 		for (UINT i = 0; i < coEventsResult.size(); i++) {

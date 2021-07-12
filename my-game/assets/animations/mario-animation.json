@@ -1,6 +1,6 @@
 {
   "1": {
-    "indie": [{ "name": "2", "time": 100 }],
+    "idle": [{ "name": "2", "time": 100 }],
     "jumping": [{ "name": "5", "time": 100 }],
     "running-up": [{ "name": "17", "time": 100 }],
     "running-down": [{ "name": "17", "time": 100 }],
@@ -11,7 +11,7 @@
     "die": [{ "name": "9", "time": 100 }],
     "kick": [{ "name": "12", "time": 100 }],
     "into-hole": [{ "name": "17", "time": 100 }],
-    "indie-hold": [{ "name": "10", "time": 100 }],
+    "idle-hold": [{ "name": "10", "time": 100 }],
     "running-hold": [
       { "name": "11", "time": 100 },
       { "name": "10", "time": 100 }
@@ -19,7 +19,7 @@
     "skid": [{ "name": "4", "time": 100 }]
   },
   "2": {
-    "indie": [{ "name": "19", "time": 100 }],
+    "idle": [{ "name": "19", "time": 100 }],
     "running-up": [
       { "name": "71", "time": 100 },
       { "name": "40", "time": 100 }
@@ -30,10 +30,10 @@
       { "name": "20", "time": 100 },
       { "name": "19", "time": 100 }
     ],
-    "sitting": [{ "name": "28", "time": 100 }],
+    "crouch": [{ "name": "28", "time": 100 }],
     "kick": [{ "name": "34", "time": 100 }],
     "into-hole": [{ "name": "30", "time": 100 }],
-    "indie-hold": [{ "name": "31", "time": 100 }],
+    "idle-hold": [{ "name": "31", "time": 100 }],
     "running-hold": [
       { "name": "32", "time": 100 },
       { "name": "31", "time": 100 }
@@ -47,7 +47,7 @@
     ]
   },
   "4": {
-    "indie": [{ "name": "41", "time": 100 }],
+    "idle": [{ "name": "41", "time": 100 }],
     "jumping": [{ "name": "48", "time": 100 }],
     "running-up": [
       { "name": "67", "time": 100 },
@@ -67,13 +67,14 @@
       { "name": "54", "time": 100 },
       { "name": "56", "time": 100 }
     ],
+    "crouch": [{ "name": "28", "time": 100 }],
     "attack": [
       { "name": "47", "time": 100 },
       { "name": "46", "time": 100 },
       { "name": "45", "time": 100 }
     ],
     "into-hole": [{ "name": "45", "time": 100 }],
-    "indie-hold": [{ "name": "58", "time": 100 }],
+    "idle-hold": [{ "name": "58", "time": 100 }],
     "running-hold": [
       { "name": "59", "time": 100 },
       { "name": "58", "time": 100 }

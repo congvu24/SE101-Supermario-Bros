@@ -11,7 +11,7 @@ json SelectionTree::data = NULL;
 
 SelectionTree::SelectionTree()
 {
-	SetState("indie");
+	SetState("idle");
 
 }
 

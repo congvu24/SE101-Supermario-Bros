@@ -1,15 +1,15 @@
 {
   "0": {
-    "indie": [{ "name": "0about.png", "time": 100 }]
+    "idle": [{ "name": "0about.png", "time": 100 }]
   },
   "1": {
-    "indie": [{ "name": "1player.png", "time": 100 }]
+    "idle": [{ "name": "1player.png", "time": 100 }]
   },
   "2": {
-    "indie": [{ "name": "2player.png", "time": 100 }]
+    "idle": [{ "name": "2player.png", "time": 100 }]
   },
   "4": {
-    "indie": [
+    "idle": [
       { "name": "1.png", "time": 100 },
       { "name": "2.png", "time": 100 },
       { "name": "3.png", "time": 100 },
@@ -17,6 +17,6 @@
     ]
   },
   "5": {
-    "indie": [{ "name": "0.png", "time": 100 }]
+    "idle": [{ "name": "0.png", "time": 100 }]
   }
 }

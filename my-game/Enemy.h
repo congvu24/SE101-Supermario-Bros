@@ -5,18 +5,19 @@
 #include "Test.h"
 #include "MapEntity.h"
 #include "Effect.h"
-
-
 #include "library/json.hpp"
 
 using json = nlohmann::json;
 
 
+#define MAX_VY  0.35f
+#define DEFAULT_POINT  100
+
 template <class T>
 class Enemy : public MapEntity<T>
 {
 public:
-	int point = 100;
+	int point = DEFAULT_POINT;
 
 	Enemy() {}
 
@@ -51,10 +52,6 @@ public:
 			FindWalkingLimit(e->obj);
 		}
 		if (e->nx != 0) {
-			/*if (e->obj->name == "RectPlatform" && e->ny == 0) {
-				p.x = p.x + d.x;
-			}
-			else*/
 			if (ny == 0)
 				ChangeDirection();
 		}

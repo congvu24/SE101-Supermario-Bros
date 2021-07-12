@@ -56,12 +56,12 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		if ((*i)->isAllowCollision == true && !CPlayScene::IsPlayer) {
+		if ((*i)->isAllowCollision == true && !CPlayScene::IsPlayer(*i)) {
 			checkObjects->push_back((*i));
 		}
 	}
 
-	CalcPotentialCollisions(coObjects, coEvents);
+	CalcPotentialCollisions(checkObjects, coEvents);
 
 
 	if (coEvents.size() == 0) {

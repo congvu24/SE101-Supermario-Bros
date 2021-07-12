@@ -4,7 +4,7 @@
 #include "PlayScence.h"
 #include <iostream>
 
-
+#define TIME_ATTACK 3000
 
 LPDIRECT3DTEXTURE9 BoomerangBrother::texture = NULL;
 unordered_map<string, LPSPRITE> BoomerangBrother::sprites; //save all sprite of animation
@@ -50,8 +50,6 @@ void BoomerangBrother::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	if (action == BoomerangBrotherAction::ATTACK && abs(distance.x) <= 400) {
-
-
 		LPGAMEOBJECT bullet = new Boomerang();
 		Vector direction = Vector::Normalize(distance);
 		bullet->ParseFromOwnJson();
@@ -62,14 +60,14 @@ void BoomerangBrother::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		((Boomerang*)bullet)->direction = direction;
 		((Boomerang*)bullet)->parent = this;
 		CGame::GetInstance()->GetCurrentScene()->addObject(bullet);
-		timeWaiting = 3000;
+		timeWaiting = TIME_ATTACK;
 		SetAction(BoomerangBrotherAction::THROW);
 	}
 
 	Enemy::CheckToChangeDirection(); 
 
 	v = v + g * dt;
-	if (v.y > 0.35f) v.y = 0.35f;
+	if (v.y > MAX_VY) v.y = MAX_VY;
 	if (v.x >= 0) nx = 1; else nx = -1;
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -82,16 +80,15 @@ void BoomerangBrother::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		if ((*i)->isAllowCollision == true && !CPlayScene::IsPlayer && state != "die") {
+		if ((*i)->isAllowCollision == true && !CPlayScene::IsPlayer(*i) && state != "die") {
 			checkObjects->push_back((*i));
 		}
 	}
 
-	CalcPotentialCollisions(coObjects, coEvents);
+	CalcPotentialCollisions(checkObjects, coEvents);
 
 	if (state == "die") {
 		p = p + d;
-
 	}
 
 	if (coEvents.size() == 0) {
@@ -169,13 +166,10 @@ void BoomerangBrother::HandleAfterCreated() {
 void BoomerangBrother::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	Enemy::OnHadCollided(obj, event);
 
-	if (Test* player = dynamic_cast<Test*>(obj)) {
-		KillPlayer(player);
-	}
 	if (Boomerang* boomerang = dynamic_cast<Boomerang*>(obj)) {
 		SetAction(BoomerangBrotherAction::MOVING);
 	}
-
+	
 	if (obj->name == "Death") {
 		SetState("hidden");
 	}

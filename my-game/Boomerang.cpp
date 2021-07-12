@@ -13,10 +13,10 @@ json Boomerang::data = NULL;
 
 Boomerang::Boomerang()
 {
+	point = 0;
 	SetState("running");
 	isBlockPlayer = false;
 	isAllowCollision = false;
-	point = 0;
 	v = Vector(0.10f, 0.10f);
 	g = Vector(0, 0);
 	isUniversal = true;
@@ -25,17 +25,6 @@ Boomerang::Boomerang()
 void Boomerang::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
-	/*if (flyTime >= 0 && flyTime - dt >= 0) {
-		flyTime = flyTime - dt;
-
-		p.x += direction.x * v.x * dt;
-		p.y += direction.y * v.y * dt;
-	}
-	else {
-		p.x -= direction.x * v.x * dt;
-		p.y -= direction.y * v.y * dt;
-	}*/
-
 	if (count < 1.0f) {
 		count += 1.0f * 0.01f;
 		D3DXVECTOR3 start = D3DXVECTOR3(oldP.x, oldP.y, 0);
@@ -43,20 +32,18 @@ void Boomerang::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		D3DXVECTOR3 control;
 		if (moveDirection == BoomerangDirection::Forward) {
 			if (nx >= 0) {
-				control = D3DXVECTOR3(oldP.x + 200, oldP.y - 100, 0);
+				control = D3DXVECTOR3(oldP.x + ANCHOR_DISTANCE_X, oldP.y - ANCHOR_DISTANCE_Y, 0);
 			}
 			else
-				control = D3DXVECTOR3(oldP.x - 200, oldP.y - 100, 0);
-
+				control = D3DXVECTOR3(oldP.x - ANCHOR_DISTANCE_X, oldP.y - ANCHOR_DISTANCE_Y, 0);
 		}
 		else
 		{
 			if (nx >= 0) {
-				control = D3DXVECTOR3(oldP.x - 200, oldP.y + 100, 0);
+				control = D3DXVECTOR3(oldP.x - ANCHOR_DISTANCE_X, oldP.y + ANCHOR_DISTANCE_Y, 0);
 			}
 			else
-				control = D3DXVECTOR3(oldP.x + 200, oldP.y + 100, 0);
-
+				control = D3DXVECTOR3(oldP.x + ANCHOR_DISTANCE_X, oldP.y + ANCHOR_DISTANCE_Y, 0);
 		}
 
 		D3DXVECTOR3 out;
@@ -65,6 +52,7 @@ void Boomerang::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		D3DXVec3Lerp(&out2, &control, &end, count);
 		D3DXVECTOR3 out3;
 		D3DXVec3Lerp(&out3, &out, &out2, count);
+
 		p.x = out3.x;
 		p.y = out3.y;
 	}
@@ -78,19 +66,8 @@ void Boomerang::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else {
 		SetState("hidden");
 	}
-
-
-
-
-
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	/*Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
-	if (camera->isInCamPosition(this, 0) == false) {
-		SetState("hidden");
-	}*/
-
 	coEvents.clear();
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
@@ -178,9 +155,6 @@ void Boomerang::GetBoundingBox(float& left, float& top, float& right, float& bot
 
 
 void Boomerang::HandleCollision(LPCOLLISIONEVENT e) {
-	if (Test* player = dynamic_cast<Test*>(e->obj)) {
-		//player->Die();
-	}
 }
 
 void Boomerang::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {

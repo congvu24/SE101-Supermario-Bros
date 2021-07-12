@@ -6,6 +6,11 @@
 #include <iostream>
 #include "Enemy.h"
 
+#define FLY_TIME 2000
+#define ANCHOR_DISTANCE_X 200
+#define ANCHOR_DISTANCE_Y 100
+
+
 enum class BoomerangDirection {
 	Forward,
 	Goback
@@ -13,8 +18,6 @@ enum class BoomerangDirection {
 
 class Boomerang :public Enemy<Boomerang>
 {
-
-	//virtual void  Render();
 public:
 	Boomerang();
 	BoomerangBrother* parent;
@@ -25,7 +28,7 @@ public:
 	Vector destination;
 	float angle;
 	Vector oldP;
-	int flyTime = 2000;
+	int flyTime = FLY_TIME;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

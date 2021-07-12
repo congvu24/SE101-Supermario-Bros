@@ -10,7 +10,7 @@ IntroCursor::IntroCursor()
 
 	width = 24;
 	height = 30;
-	SetState("indie");
+	SetState("idle");
 }
 
 

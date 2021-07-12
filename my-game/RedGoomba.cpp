@@ -39,12 +39,12 @@ void RedGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
-		if ((*i)->isAllowCollision == true) {
+		if ((*i)->isAllowCollision == true && !CPlayScene::IsPlayer(*i)) {
 			checkObjects->push_back((*i));
 		}
 	}
 
-	CalcPotentialCollisions(coObjects, coEvents);
+	CalcPotentialCollisions(checkObjects, coEvents);
 
 
 	if (coEvents.size() == 0) {
@@ -61,7 +61,6 @@ void RedGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 
-		/*	if (nx != 0) v.x = -v.x;*/
 		if (ny != 0) v.y = 0;
 
 		for (UINT i = 0; i < coEventsResult.size(); i++) {
@@ -129,6 +128,7 @@ void RedGoomba::BeingKill() {
 	if (state == "running") {
 		Enemy::BeingKill();
 		isAllowCollision = false;
+		isBlockPlayer = false;
 	}
 }
 
