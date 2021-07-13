@@ -16,12 +16,6 @@ using json = nlohmann::json;
 
 CGame* CGame::__instance = NULL;
 
-/*
-	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
-	rendering 2D images
-	- hInst: Application instance handle
-	- hWnd: Application window handle
-*/
 void CGame::Init(HWND hWnd)
 {
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
@@ -80,9 +74,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	r.top = top;
 	r.right = right;
 	r.bottom = bottom;
-	//if (camera->isInCam(p.x, p.y, 100) == true) {
 	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-	//}
 }
 
 
@@ -399,41 +391,6 @@ CGame* CGame::GetInstance()
 	return __instance;
 }
 
-#define MAX_GAME_LINE 768
-
-
-#define GAME_FILE_SECTION_UNKNOWN -1
-#define GAME_FILE_SECTION_SETTINGS 1
-#define GAME_FILE_SECTION_SCENES 2
-
-void CGame::_ParseSection_SETTINGS(string line)
-{
-	vector<string> tokens = split(line);
-
-	if (tokens.size() < 2) return;
-	if (tokens[0] == "start")
-		current_scene = atoi(tokens[1].c_str());
-	else
-		DebugOut(L"[ERROR] Unknown game setting %s\n", ToWSTR(tokens[0]).c_str());
-}
-
-void CGame::_ParseSection_SETTINGS_FromJson(json data)
-{
-	DebugOut(L"DATAAAAAAAAAA %s\n", IntToLPCWSTR(stoi(data["active"].dump())));
-}
-
-void CGame::_ParseSection_SCENES(string line)
-{
-	vector<string> tokens = split(line);
-
-	if (tokens.size() < 2) return;
-	int id = atoi(tokens[0].c_str());
-	LPCWSTR path = ToLPCWSTR(tokens[1]);
-
-	LPSCENE scene = new CPlayScene(id, path);
-	scenes[id] = scene;
-}
-
 void CGame::_ParseSection_SCENES_FromJson(json data)
 {
 	for (json::iterator it = data.begin(); it != data.end(); ++it) {
@@ -480,18 +437,14 @@ void CGame::SwitchScene(int scene_id)
 	if (current_scene != scene_id && current_scene != -1) {
 		scenes[current_scene]->Unload();
 		DebugOut(L"[INFO] Switching to scene %d\n", scene_id);
-		current_scene = scene_id;
-		LPSCENE s = scenes[scene_id];
-		CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
-		s->Load();
 	}
 	else if (current_scene == -1) {
 		DebugOut(L"[INFO] Start with scene %d\n", scene_id);
-		current_scene = scene_id;
-		LPSCENE s = scenes[scene_id];
-		CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
-		s->Load();
 	}
+	current_scene = scene_id;
+	LPSCENE s = scenes[scene_id];
+	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
+	s->Load();
 }
 
 void CGame::Restart()

@@ -14,7 +14,6 @@ public:
 	float sumMoveX = 0;
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
 

@@ -154,8 +154,6 @@ void CGameObject::GetBoundingBox(float& left, float& top, float& right, float& b
 	bottom = p.y + height;
 }
 
-
-
 void CGameObject::clear()
 {
 	texture = NULL;

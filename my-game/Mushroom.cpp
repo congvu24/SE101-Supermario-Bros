@@ -42,19 +42,9 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (p.y + height <= oldP.y - 20) {
 		SetState("running");
 	}
-
 	coEvents.clear();
-	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
-	{
-		LPCOLLISIONEVENT e = SweptAABBEx(*i);
+	CalcPotentialCollisions(coObjects, coEvents);
 
-		if (e->t > 0 && e->t <= 1.0f) {
-			coEvents.push_back(e);
-		}
-		else {
-			delete e;
-		}
-	}
 	if (coEvents.size() == 0) {
 		p = p + d;
 	}
@@ -68,9 +58,6 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (rdx != 0 && rdx != d.x)
 			p.x += nx * abs(rdx);
 
-		p.x += min_tx * d.x + nx * 0.4f;
-		p.y += min_ty * d.y + ny * 0.4f;
-
 		if (nx != 0) v.x = -v.x;
 		if (ny != 0) v.y = 0;
 
@@ -79,6 +66,9 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			HandleCollision(coEventsResult[i]);
 		}
+
+		p.x += min_tx * d.x + nx * 0.4f;
+		p.y += min_ty * d.y + ny * 0.4f;
 
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 

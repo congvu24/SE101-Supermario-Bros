@@ -27,7 +27,7 @@ void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	Enemy::CheckToChangeDirection();
 
 	v = v + g * dt;
-	if (v.y > 0.35f) v.y = 0.35f;
+	if (v.y > MAX_VY) v.y = MAX_VY;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -92,15 +92,6 @@ void Goomba::SetState(string state)
 
 }
 
-void Goomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = p.x;
-	top = p.y;
-	right = p.x + width;
-	bottom = p.y + height;
-}
-
-
 void Goomba::HandleCollision(LPCOLLISIONEVENT e) {
 	Enemy::HandleCollision(e);
 }
@@ -116,11 +107,4 @@ void Goomba::BeingKill() {
 
 void Goomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	Enemy::OnHadCollided(obj, event);
-
-	/*if (Test* player = dynamic_cast<Test*>(obj)) {
-		if (isBlockPlayer == true) {
-			isAllowCollision = false;
-			isBlockPlayer = false;
-		}
-	}*/
 }

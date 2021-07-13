@@ -11,8 +11,9 @@
 #define RacconMario 4
 
 #define A_X 0.000575f
-#define JUMP_VY 0.5f
+#define JUMP_VY 0.55f
 #define HIGHT_JUMP_VY 0.6f
+#define FLY_VY 0.3f
 #define DEFAULT_GY 0.0015f
 #define DEFAULT_RENDER_ORDER 9999
 

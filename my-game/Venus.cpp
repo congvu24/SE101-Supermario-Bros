@@ -4,6 +4,7 @@
 #include "PlayScence.h"
 #include <iostream>
 
+#define DISTANCE_ATTACK 400
 
 
 LPDIRECT3DTEXTURE9 Venus::texture = NULL;
@@ -45,7 +46,7 @@ void Venus::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (action == VenusAction::ATTACK) {
 
-		if (abs(playerPos.x - p.x) <= 400) {
+		if (abs(playerPos.x - p.x) <= DISTANCE_ATTACK) {
 			LPGAMEOBJECT bullet = new VenusBullet();
 			Vector direction = Vector::Normalize(distance);
 			bullet->ParseFromOwnJson();
@@ -94,15 +95,6 @@ void Venus::SetAction(VenusAction newAction) {
 
 	this->action = newAction;
 }
-
-void Venus::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = p.x;
-	top = p.y;
-	right = p.x + width;
-	bottom = p.y + height;
-}
-
 
 void Venus::HandleCollision(LPCOLLISIONEVENT e) {
 

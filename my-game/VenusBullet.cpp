@@ -71,8 +71,6 @@ void VenusBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (rdx != 0 && rdx != d.x)
 		p.x += nx * abs(rdx);
 
-	// block every object first!
-
 	for (UINT i = 0; i < coEventsResult.size(); i++) {
 
 		if (Test* obj = dynamic_cast<Test*>(coEventsResult[i]->obj)) {
@@ -97,20 +95,9 @@ void VenusBullet::SetState(string state)
 
 }
 
-void VenusBullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = p.x;
-	top = p.y;
-	right = p.x + width;
-	bottom = p.y + height;
-}
-
-
 void VenusBullet::HandleCollision(LPCOLLISIONEVENT e) {
 	if (Test* player = dynamic_cast<Test*>(e->obj)) {
-		//player->Die();
 		KillPlayer(player);
-
 	}
 }
 

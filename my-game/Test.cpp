@@ -38,12 +38,15 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		v.x += ax * dt;
 	if (v.x >= MAX_VX && canJump == false) v.x = MAX_VX;
 
+
+
 	CGameObject::Update(dt, coObjects);
 	UpdateTimeAction();
-
+	
 	if (action != MarioAction::FLY)
-		v.y = v.y + g.y * dt;
-	if (v.y >= MAX_VY) v.y = MAX_VY;
+		v.y = v.y + g.y * dt ;
+	//if (v.y >= MAX_VY) v.y = MAX_VY;
+	
 
 	if (v.x * nx < 0 && abs(v.x) >= VX_TO_SKID) {
 		SetAction(MarioAction::SKID, 500);
@@ -172,7 +175,7 @@ void Test::SetState(string state)
 			CGameObject::SetState("jumping");
 		}
 		else if (state == "flying" && canJump == false) {
-			if (abs(powerX) == 1000)
+			if (abs(powerX) == MAX_POWER)
 				CGameObject::SetState("flying-speed");
 			else
 				CGameObject::SetState("flying");
@@ -216,7 +219,7 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 	if (action == MarioAction::HOLD) return;
 
 	if (newAction == MarioAction::HOLD) {
-		SetState("hold");
+		//SetState("hold");
 		action = newAction;
 	}
 
@@ -244,7 +247,7 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 		timeBeginAction = 0;
 		break;
 	case MarioAction::JUMP:
-		if (abs(powerX) == 1000 && stoi(type) == RacconMario) {
+		if (abs(powerX) == MAX_POWER && stoi(type) == RacconMario) {
 			SetAction(MarioAction::JUMP_HEIGHT);
 			break;
 		}
@@ -265,7 +268,7 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 		break;
 	case MarioAction::FLY:
 		if (abs(powerX) == 1000 && (action == MarioAction::FLY || action == MarioAction::JUMP_HEIGHT)) {
-			v.y = -0.3f;
+			v.y = -FLY_VY;
 			SetState("fly-up");
 			action = MarioAction::FLY;
 			timeBeginAction = time;
@@ -286,14 +289,13 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 		}
 		else if (canJump == true && abs(powerX) == 1000) {
 			v.y = -HIGHT_JUMP_VY;
-
 			canJump = false;
 			SetState("jump-height");
 			action = newAction;
 			timeBeginAction = time;
 		}
 		else if (action == MarioAction::JUMP && v.y > -JUMP_VY * 0.6f && v.y < -JUMP_VY * 0.55 && powerX < 1000) {
-			v.y = -HIGHT_JUMP_VY;
+			v.y = -JUMP_VY;
 			SetState("jumping");
 			action = newAction;
 			timeBeginAction = time;
@@ -386,7 +388,7 @@ void Test::Die() {
 void Test::Transform(int marioType) {
 
 	if (marioType < stoi(type)) {
-		untouchableTime = 1000;
+		untouchableTime = UNTOUCHABLE_TIME;
 	}
 	else {
 		SetAction(MarioAction::TRANSFORM, 500);

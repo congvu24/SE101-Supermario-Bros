@@ -18,10 +18,25 @@ FlyKoopas::FlyKoopas()
 
 void FlyKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	Enemy::Update(dt, coObjects);
 
+	if (isHolded == true && ((Test*)holdedBy)->action == MarioAction::HOLD) {
+		p.x = holdedBy->nx < 0 ? holdedBy->p.x - holdedBy->width : holdedBy->p.x + holdedBy->width;
+		p.y = holdedBy->p.y;
+		nx = holdedBy->nx;
+		return;
+	}
+	else if (isHolded == true && ((Test*)holdedBy)->action != MarioAction::HOLD) {
+		isHolded = false;
+		isUniversal = true;
+		this->v.x = 0.5f * holdedBy->nx;
+		isHitted = true;
+		isBlockPlayer = true;
+		useLimit = false;
+	}
+
+	Enemy::Update(dt, coObjects);
 	v = v + g * dt;
-	if (v.y > 0.35f) v.y = 0.35f;
+	if (v.y > MAX_VY) v.y = MAX_VY;
 
 	CGameObject::Update(dt, coObjects);
 
@@ -79,7 +94,7 @@ void FlyKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void FlyKoopas::SetState(string state) {
 	if (state == "running" && canJump == true) {
-		v.y = -0.3;
+		v.y = -0.3f;
 		canJump = false;
 		CGameObject::SetState(state);
 	}

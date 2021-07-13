@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Coin.h"
 #include "Leaf.h"
+#include "Test.h"
 #include <iostream>
 
 
@@ -76,13 +77,16 @@ public:
 			jumpDirection = 1;
 			g.y = -0.001f;
 			hitObject = obj;
-			hitObject->g.y = -0.001f;
+			hitObject->g.y = -DEFAULT_GY;
 			hitObject->v.y = 0.2f;
+			if (Test* player = dynamic_cast<Test*>(obj)) {
+				player->canJump = false;
+			}
 		}
 	}
 	virtual void AfterJump() {
 		if (hitObject != NULL) {
-			hitObject->g.y = 0.001f;
+			hitObject->g.y = DEFAULT_GY;
 		}
 		g.y = 0;
 		v.y = 0;

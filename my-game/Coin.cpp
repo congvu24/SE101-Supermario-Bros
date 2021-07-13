@@ -19,7 +19,6 @@ Coin::Coin()
 
 void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	//if (state != "hidden") {
 	v = v + g * dt;
 	if (v.y > 1.0f) v.y = 1.0f;
 	CGameObject::Update(dt, coObjects);
@@ -63,8 +62,6 @@ void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (rdx != 0 && rdx != d.x)
 		p.x += nx * abs(rdx);
 
-	// block every object first!
-
 	for (UINT i = 0; i < coEventsResult.size(); i++) {
 
 		if (Test* obj = dynamic_cast<Test*>(coEventsResult[i]->obj)) {
@@ -78,47 +75,24 @@ void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEventsResult.clear();
 }
 
- void  Coin::Render()
+void  Coin::Render()
 {
-	float w = width;
-	float h = height;
-	Vector scale = Vector((float)-nx, 1.0f);
-	Coin::animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h, scale);
-	p.y = p.y - (h - this->height) / 2;
-	p.x = p.x - (w - this->width) /2;
-	width = w;
-	height = h;
-	RenderBoundingBox();
+	MapEntity::Render();
 }
 
 
 
 void Coin::SetState(string state)
 {
-	if (state == "running") {
-	}
-	else if (state == "fromMisteryBox") {
+	 if (state == "fromMisteryBox") {
 		p.y = p.y - 20;
 		oldP = p;
 		v.y = -0.5f;
 		g.y = 0.0015f;
 	}
-	else if (state == "hidden") {
-
-	}
-
 	CGameObject::SetState(state);
 
 }
-
-void Coin::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = p.x;
-	top = p.y;
-	right = p.x + width;
-	bottom = p.y + height;
-}
-
 
 void Coin::HandleCollision(LPCOLLISIONEVENT e) {
 	if (isAllowCollision == true && state != "hidden") {

@@ -20,22 +20,12 @@ PButton::PButton()
 
 void PButton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	//if (state != "hidden") {
-
 }
 
 
 void PButton::SetState(string state)
 {
-	if (state == "running") {
-	}
-
-	else if (state == "hidden") {
-
-	}
-
 	CGameObject::SetState(state);
-
 }
 
 void PButton::GetBoundingBox(float& left, float& top, float& right, float& bottom)

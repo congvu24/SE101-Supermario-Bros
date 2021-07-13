@@ -59,48 +59,6 @@ void CScene::Unload() {
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
-void  CScene::_ParseSection_TEXTURES_FromJson(LPCWSTR filePath, int id) {
-
-	DebugOut(L"[INFO] Start loading texture resources from : %s \n", filePath);
-
-	int R = 0;
-	int G = 0;
-	int B = 0;
-
-	CTextures::GetInstance()->Add(id, filePath, D3DCOLOR_XRGB(R, G, B));
-
-
-}
-void  CScene::_ParseSection_SPRITES_FromJson(LPCWSTR filePath, int textID) {
-
-	json sprite = ReadJsonFIle(filePath);
-	json frames = sprite["frames"];
-
-
-	for (json::iterator it = frames.begin(); it != frames.end(); ++it) {
-
-		json data = it.value();
-		string id = it.key();
-		json frame = data["frame"];
-
-
-		int l = stoi(frame["x"].dump());
-		int t = stoi(frame["y"].dump());
-		int r = l + stoi(frame["w"].dump());
-		int b = t + stoi(frame["h"].dump());
-
-		LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(textID);
-		if (tex == NULL)
-		{
-			DebugOut(L"[ERROR] Texture ID %d not found!\n", IntToLPCWSTR(textID));
-			return;
-		}
-
-		CSprites::GetInstance()->Add(id, l, t, r, b, tex);
-	}
-
-}
-
 
 void CScene::switchScene(int sence_id) {
 	this->animationDirection = CLOSING;

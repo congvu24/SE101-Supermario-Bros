@@ -30,19 +30,7 @@ void MisteryBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void MisteryBox::SetState(string state)
 {
-
-	if (state == "running") {
-	}
-	else if (state == "hitting") {
-
-	}
-	else if (state == "hitted") {
-
-	}
-
-
 	CGameObject::SetState(state);
-
 }
 
 void MisteryBox::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -71,39 +59,28 @@ void MisteryBox::GiveReward() {
 		LPGAMEOBJECT reward = NULL;
 		if (name == "QuestionBox_Coin") {
 			reward = new Coin();
+			reward->name = "Coin";
 			reward->ParseFromOwnJson();
-			reward->height = height;
-			reward->width = width;
-			reward->p = p;
-			reward->p.y = p.y - height;
 			reward->isAllowCollision = false;
-			CGame::GetInstance()->GetCurrentScene()->addObject(reward);
-			reward->SetState("fromMisteryBox");
 		}
 		else if (name == "QuestionBox_Mushroom") {
 			reward = new Mushroom();
 			reward->ParseFromOwnJson();
-			reward->height = height;
-			reward->width = width;
-			reward->p = p;
-			reward->p.y = p.y - height;
 			reward->name = "Mushroom";
 			reward->isAllowCollision = true;
-			CGame::GetInstance()->GetCurrentScene()->addObject(reward);
-			reward->SetState("fromMisteryBox");
 		}
 		else {
 			reward = new Leaf();
 			reward->ParseFromOwnJson();
-			reward->height = height;
-			reward->width = width;
-			reward->p = p;
-			reward->p.y = p.y - height;
 			reward->name = "Leaf";
 			reward->isAllowCollision = true;
-			CGame::GetInstance()->GetCurrentScene()->addObject(reward);
-			reward->SetState("fromMisteryBox");
 		}
+		reward->height = height;
+		reward->width = width;
+		reward->p = p;
+		reward->p.y = p.y - height;
+		CGame::GetInstance()->GetCurrentScene()->addObject(reward);
+		reward->SetState("fromMisteryBox");
 	}
 
 }

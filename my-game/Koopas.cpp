@@ -109,17 +109,7 @@ void Koopas::SetState(string state)
 
 }
 
-void Koopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = p.x;
-	top = p.y;
-	right = p.x + width;
-	bottom = p.y + height;
-}
-
-
-
-void Koopas::HandleCollision(LPCOLLISIONEVENT e) { // xử lí collision do chính mình detect: chạm Goomba khi đã bị hit
+void Koopas::HandleCollision(LPCOLLISIONEVENT e) {
 	Enemy::HandleCollision(e);
 	if (e->obj->name == "RectCollision") {
 		useLimit = false;

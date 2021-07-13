@@ -87,9 +87,9 @@ public:
 
 
 public:
-	static void LoadBoundedBox(LPCWSTR path);
 	static LPDIRECT3DTEXTURE9 bboxtex;
 
+	static void LoadBoundedBox(LPCWSTR path);
 	void SetPosition(float x, float y) { this->p.x = x, this->p.y = y; }
 	void SetSpeed(float vx, float vy) { this->v.x = vx, this->v.y = vy; }
 	void SetSize(float w, float h) { this->width = w, this->height = h; }

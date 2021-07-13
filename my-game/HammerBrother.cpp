@@ -40,15 +40,6 @@ void HammerBrother::SetState(string state)
 
 }
 
-void HammerBrother::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = p.x;
-	top = p.y;
-	right = p.x + width;
-	bottom = p.y + height;
-}
-
-
 void HammerBrother::HandleCollision(LPCOLLISIONEVENT e) {
 	Enemy::HandleCollision(e);
 }

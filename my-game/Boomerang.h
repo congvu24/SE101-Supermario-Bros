@@ -30,7 +30,6 @@ public:
 	Vector oldP;
 	int flyTime = FLY_TIME;
 
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
 	virtual void SetState(string state);

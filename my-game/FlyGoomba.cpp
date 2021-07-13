@@ -6,7 +6,9 @@
 #include <iostream>
 
 
-
+#define JUMP_TIME 1000
+#define FLY_TIME 5000
+#define RUN_TIME 3000
 
 LPDIRECT3DTEXTURE9 FlyGoomba::texture = NULL;
 unordered_map<string, LPSPRITE> FlyGoomba::sprites; //save all sprite of animation
@@ -107,16 +109,16 @@ void FlyGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void FlyGoomba::SetState(string state)
 {
 	if (state == "running") {
-		actionTime = 2000;
+		actionTime = RUN_TIME;
 	}
 	else if (state == "jumping") {
 		v.y = -0.3f;
-		actionTime = 1000;
+		actionTime = JUMP_TIME;
 	}
 	else if (state == "flying") {
 		v.y = 0;
 		countChild = 5;
-		actionTime = 5000;
+		actionTime = FLY_TIME;
 	}
 	else if (state == "die") {
 		v = Vector(0, -0.15f);
@@ -128,15 +130,6 @@ void FlyGoomba::SetState(string state)
 	CGameObject::SetState(state);
 
 }
-
-void FlyGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = p.x;
-	top = p.y;
-	right = p.x + width;
-	bottom = p.y + height;
-}
-
 
 void FlyGoomba::HandleCollision(LPCOLLISIONEVENT e) {
 	Enemy::HandleCollision(e);

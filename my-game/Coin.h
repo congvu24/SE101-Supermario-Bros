@@ -10,7 +10,6 @@ class Coin :public MapEntity<Coin>
 public:
 	Coin();
 	Vector oldP;
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);

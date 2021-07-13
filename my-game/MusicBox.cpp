@@ -44,24 +44,8 @@ void MusicBox::Render() {
 
 void MusicBox::SetState(string state)
 {
-
-	if (state == "running") {
-	}
-	else if (state == "hitting") {
-	}
-	else if (state == "hitted") {
-	}
-
 	CGameObject::SetState(state);
 
-}
-
-void MusicBox::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = p.x;
-	top = p.y;
-	right = p.x + width;
-	bottom = p.y + height;
 }
 
 

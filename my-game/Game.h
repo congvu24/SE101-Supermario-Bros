@@ -9,6 +9,7 @@
 
 
 #define DIRECTINPUT_VERSION 0x0800
+
 #include <dinput.h>
 
 #include "Scence.h"
@@ -60,11 +61,7 @@ class CGame
 
 	unordered_map<int, LPSCENE> scenes;
 	int current_scene;
-
-	void _ParseSection_SETTINGS(string line);
-	void _ParseSection_SCENES(string line);
 	void _ParseSection_SCENES_FromJson(json data);
-	void _ParseSection_SETTINGS_FromJson(json data);
 
 public:
 	void InitKeyboard();
@@ -117,7 +114,6 @@ public:
 		result.isKeyUp = isKeyUp;
 		return result;
 	}
-
 
 	~CGame();
 };

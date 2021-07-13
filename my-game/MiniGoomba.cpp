@@ -22,9 +22,6 @@ MiniGoomba::MiniGoomba()
 
 void MiniGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
-	/*p.x += direction.x * v.x * dt;
-	p.y += direction.y * v.y * dt;*/
 	p.y += v.y * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -71,8 +68,6 @@ void MiniGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (rdx != 0 && rdx != d.x)
 		p.x += nx * abs(rdx);
 
-	// block every object first!
-
 	for (UINT i = 0; i < coEventsResult.size(); i++) {
 
 		if (Test* obj = dynamic_cast<Test*>(coEventsResult[i]->obj)) {
@@ -91,24 +86,11 @@ void MiniGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void MiniGoomba::SetState(string state)
 {
-
-
 	CGameObject::SetState(state);
-
 }
-
-void MiniGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = p.x;
-	top = p.y;
-	right = p.x + width;
-	bottom = p.y + height;
-}
-
 
 void MiniGoomba::HandleCollision(LPCOLLISIONEVENT e) {
 	if (Test* player = dynamic_cast<Test*>(e->obj)) {
-		//player->Die();
 		KillPlayer(player);
 	}
 }

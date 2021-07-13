@@ -5,6 +5,7 @@
 #include <iostream>
 
 #define TIME_ATTACK 3000
+#define ATTACK_DISTANCE 400
 
 LPDIRECT3DTEXTURE9 BoomerangBrother::texture = NULL;
 unordered_map<string, LPSPRITE> BoomerangBrother::sprites; //save all sprite of animation
@@ -24,8 +25,6 @@ BoomerangBrother::BoomerangBrother()
 
 void BoomerangBrother::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
-
 	if (action == BoomerangBrotherAction::THROW) return;
 	CGameObject::Update(dt, coObjects);
 
@@ -49,7 +48,7 @@ void BoomerangBrother::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		SetAction(BoomerangBrotherAction::ATTACK);
 	}
 
-	if (action == BoomerangBrotherAction::ATTACK && abs(distance.x) <= 400) {
+	if (action == BoomerangBrotherAction::ATTACK && abs(distance.x) <= ATTACK_DISTANCE && state != "die") {
 		LPGAMEOBJECT bullet = new Boomerang();
 		Vector direction = Vector::Normalize(distance);
 		bullet->ParseFromOwnJson();
@@ -141,15 +140,6 @@ void BoomerangBrother::SetAction(BoomerangBrotherAction newAction) {
 
 	this->action = newAction;
 }
-
-void BoomerangBrother::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = p.x;
-	top = p.y;
-	right = p.x + width;
-	bottom = p.y + height;
-}
-
 
 void BoomerangBrother::HandleCollision(LPCOLLISIONEVENT e) {
 	Enemy::HandleCollision(e);
