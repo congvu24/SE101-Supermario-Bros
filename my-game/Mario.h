@@ -1,61 +1,97 @@
-//#pragma once
-//#include "GameObject.h"
-//
-//#define MARIO_WALKING_SPEED		0.15f 
-////0.1f
-//#define MARIO_JUMP_SPEED_Y		0.5f
-//#define MARIO_JUMP_DEFLECT_SPEED 0.2f
-//#define MARIO_GRAVITY			0.002f
-//#define MARIO_DIE_DEFLECT_SPEED	 0.5f
-//
-//#define MARIO_STATE_IDLE			0
-//#define MARIO_STATE_WALKING_RIGHT	100
-//#define MARIO_STATE_WALKING_LEFT	200
-//#define MARIO_STATE_JUMP			300
-//#define MARIO_STATE_DIE				400
-//
-//#define MARIO_ANI_BIG_IDLE_RIGHT		0
-//#define MARIO_ANI_BIG_IDLE_LEFT			1
-//#define MARIO_ANI_SMALL_IDLE_RIGHT		2
-//#define MARIO_ANI_SMALL_IDLE_LEFT			3
-//
-//#define MARIO_ANI_BIG_WALKING_RIGHT			4
-//#define MARIO_ANI_BIG_WALKING_LEFT			5
-//#define MARIO_ANI_SMALL_WALKING_RIGHT		6
-//#define MARIO_ANI_SMALL_WALKING_LEFT		7
-//
-//#define MARIO_ANI_DIE				8
-//
-//#define	MARIO_LEVEL_SMALL	1
-//#define	MARIO_LEVEL_BIG		2
-//
-//#define MARIO_BIG_BBOX_WIDTH  15
-//#define MARIO_BIG_BBOX_HEIGHT 27
-//
-//#define MARIO_SMALL_BBOX_WIDTH  13
-//#define MARIO_SMALL_BBOX_HEIGHT 15
-//
-//#define MARIO_UNTOUCHABLE_TIME 5000
-//
-//
-//class CMario : public CGameObject
-//{
-//	int level;
-//	int untouchable;
-//	DWORD untouchable_start;
-//
-//	float start_x;			// initial position of Mario at scene
-//	float start_y; 
-//public: 
-//	CMario(float x = -100.0f, float y = -100.0f);
-//	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
-//	virtual void Render();
-//
-//	void SetState(int state);
-//	void SetLevel(int l) { level = l; }
-//	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
-//
-//	void Reset();
-//
-//	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-//};
+#pragma once
+#include "GameObject.h"
+#include "Character.h"
+#include "Game.h"
+#include "MiniPortal.h"
+#include <iostream>
+
+
+#define SmallMario 1
+#define BigMario 2
+#define RacconMario 4
+
+#define A_X 0.000575f
+#define JUMP_VY 0.8f
+#define HIGHT_JUMP_VY 1.2f
+#define FLY_VY 0.8f
+#define DEFAULT_GY 0.0015f
+#define DEFAULT_RENDER_ORDER 9999
+
+#define UNTOUCHABLE_TIME 1000
+#define MAX_VX 0.35f
+#define MAX_VY 0.6f
+#define MAX_POWER 1000
+#define ASC_POWER 20
+#define TIME_MAX_POWER 5000
+#define DESC_POWER 40
+#define VX_TO_SKID 0.3f
+#define VX_AFTER_SKID 0.1f
+
+#define MIN_DIFF_UPDATE 10
+
+#define SMALL_LIFE 1
+#define BIG_LIFE 2
+#define RACCON_LIFE 3
+
+enum class MarioAction {
+	IDLE,
+	WALK,
+	RUN,
+	JUMP,
+	CROUCH,
+	FLY,
+	JUMP_HEIGHT,
+	FALL,
+	HOLD,
+	ATTACK,
+	KICK,
+	DIE,
+	GETTING_INTO_THE_HOLE,
+	TRANSFORM,
+	PICK_UP,
+	RELEASE,
+	SKID
+};
+
+
+
+class Mario : public Character
+{
+public:
+	Mario();
+	bool canJump = true;
+	bool isReadyChangeState = true;
+	float powerX = 0;
+	int timeMaxPower = 0;
+	int timeBeginAction = 0;
+	bool isAllowCameraFollow = true;
+	int life = 1;
+	int point = 0;
+	float ax = 0;
+	int untouchableTime = 0;
+	bool isRender = true;
+
+	MarioAction action;
+	unordered_map<int, bool> holdingKeys;
+	MiniPortal* teleportDestination;
+	LPGAMEOBJECT* holdObject;
+
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void UpdateAnimation(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void Render();
+	virtual void SetState(string state);
+	virtual void SetAction(MarioAction newAction, DWORD time = 0);
+	virtual void HandleCollision(LPCOLLISIONEVENT e);
+	virtual void HandleCollisionVertical(LPCOLLISIONEVENT e);
+	virtual void HandleCollisionHorizontal(LPCOLLISIONEVENT e);
+	virtual void Die();
+	virtual void Transform(int marioType);
+	virtual void ProcessKeyboard(KeyboardEvent kEvent);
+	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {}
+	virtual void IncreasePowerX();
+	virtual void DecreasePowerX();
+	virtual bool IsReadyToChangeAction();
+	virtual void Teleport(MiniPortal* destination, int duration);
+	virtual void HandleAfterCreated();
+	virtual void UpdateTimeAction();
+};

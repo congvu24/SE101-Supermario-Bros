@@ -69,7 +69,7 @@ void MiniPortal::HandleCollision(LPCOLLISIONEVENT e) {
 
 	if (type == "In" && e->nx == 0 && e->ny != 0) {
 
-		if (Test* player = dynamic_cast<Test*>(e->obj)) {
+		if (Mario* player = dynamic_cast<Mario*>(e->obj)) {
 
 			MiniPortal* destination = NULL;
 			vector<CGameObject*>* allObjectOfSence = &(CGame::GetInstance()->GetCurrentScene()->objects);

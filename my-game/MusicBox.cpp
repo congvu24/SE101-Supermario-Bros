@@ -65,7 +65,7 @@ void MusicBox::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 			}
 			else if (isHitted == false && event->ny < 0 && event->nx == 0 && countHit == 4) {
 				isHitted = true;
-				if (Test* player = dynamic_cast<Test*>(obj)) {
+				if (Mario* player = dynamic_cast<Mario*>(obj)) {
 					player->v.y = -1;
 					MiniPortal* destination = NULL;
 					vector<CGameObject*>* allObjectOfSence = &(CGame::GetInstance()->GetCurrentScene()->objects);

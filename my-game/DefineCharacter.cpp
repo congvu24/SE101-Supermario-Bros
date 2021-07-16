@@ -4,7 +4,7 @@
 ObjectType fromNameToCode(string name) {
 	unordered_map <string, ObjectType> character_code;
 	character_code["Camera"] = ObjectType::Camera;
-	character_code["test"] = ObjectType::Test;
+	character_code["test"] = ObjectType::Mario;
 	character_code["enemy"] = ObjectType::Enemy;
 	character_code["QuestionBox_Item"] = ObjectType::QuestionBox_Item;
 	character_code["QuestionBox_Coin"] = ObjectType::QuestionBox_Item;

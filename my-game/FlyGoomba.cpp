@@ -1,6 +1,6 @@
 #include "FlyGoomba.h"
 #include "Vector.h"
-#include "Test.h"
+#include "Mario.h"
 #include "PlayScence.h"
 #include "MiniGoomba.h"
 #include <iostream>
@@ -146,7 +146,7 @@ void FlyGoomba::BeingKill() {
 void FlyGoomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	Enemy::OnHadCollided(obj, event);
 
-	if (Test* player = dynamic_cast<Test*>(obj)) {
+	if (Mario* player = dynamic_cast<Mario*>(obj)) {
 		if (isBlockPlayer == true) {
 			isAllowCollision = false;
 			isBlockPlayer = false;

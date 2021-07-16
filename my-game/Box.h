@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "Coin.h"
 #include "Leaf.h"
-#include "Test.h"
+#include "Mario.h"
 #include <iostream>
 
 
@@ -79,7 +79,7 @@ public:
 			hitObject = obj;
 			hitObject->g.y = -DEFAULT_GY;
 			hitObject->v.y = 0.2f;
-			if (Test* player = dynamic_cast<Test*>(obj)) {
+			if (Mario* player = dynamic_cast<Mario*>(obj)) {
 				player->canJump = false;
 			}
 		}

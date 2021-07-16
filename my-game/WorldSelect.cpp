@@ -6,7 +6,7 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
-#include "Test.h"
+#include "Mario.h"
 #include "Enemy.h"
 #include "MisteryBox.h"
 #include "Coin.h"
@@ -177,7 +177,7 @@ void  WorldSelect::_ParseSection_OBJECTS_FromJson(json allObjects) {
 
 		switch (fromNameToCode(name))
 		{
-		case ObjectType::Test:
+		case ObjectType::Mario:
 			if (player != NULL)
 			{
 				return;

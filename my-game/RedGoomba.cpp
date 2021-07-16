@@ -1,6 +1,6 @@
 #include "RedGoomba.h"
 #include "Vector.h"
-#include "Test.h"
+#include "Mario.h"
 #include "PlayScence.h"
 #include <iostream>
 
@@ -136,7 +136,7 @@ void RedGoomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	Enemy::OnHadCollided(obj, event);
 
 	if (state == "running") {
-		if (Test* player = dynamic_cast<Test*>(obj)) {
+		if (Mario* player = dynamic_cast<Mario*>(obj)) {
 			if (isBlockPlayer == true) {
 				player->SetAction(MarioAction::JUMP);
 				isAllowCollision = true;
@@ -145,7 +145,7 @@ void RedGoomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	}
 
 	else if (state == "die") {
-		if (Test* player = dynamic_cast<Test*>(obj)) {
+		if (Mario* player = dynamic_cast<Mario*>(obj)) {
 			player->SetAction(MarioAction::JUMP);
 			isBlockPlayer = false;
 		}
@@ -153,7 +153,7 @@ void RedGoomba::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 }
 
 void RedGoomba::CollisionVertical(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
-	if (Test* player = dynamic_cast<Test*>(obj)) {
+	if (Mario* player = dynamic_cast<Mario*>(obj)) {
 		if (state == "flying") {
 			if (event->ny < 0) {
 				SetState("running");

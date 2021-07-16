@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Game.h"
 #include <iostream>
-#include "Test.h"
+#include "Mario.h"
 #include "MapEntity.h"
 #include "Effect.h"
 #include "library/json.hpp"
@@ -27,7 +27,7 @@ public:
 		isUniversal = true;
 	}
 
-	virtual void KillPlayer(Test* obj) {
+	virtual void KillPlayer(Mario* obj) {
 		obj->Die();
 	}
 	virtual void BeingKill() {
@@ -57,7 +57,7 @@ public:
 	}
 
 	virtual void CollisionHorizontal(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
-		if (Test* player = dynamic_cast<Test*>(obj)) {
+		if (Mario* player = dynamic_cast<Mario*>(obj)) {
 
 			if (state != "die" && player->action != MarioAction::ATTACK) {
 				if (event->nx != 0 && event->ny == 0) {
@@ -72,7 +72,7 @@ public:
 		}
 	}
 	virtual void CollisionVertical(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
-		if (Test* player = dynamic_cast<Test*>(obj)) {
+		if (Mario* player = dynamic_cast<Mario*>(obj)) {
 			if (state != "die") {
 				if (event->ny < 0) {
 					BeingKill();

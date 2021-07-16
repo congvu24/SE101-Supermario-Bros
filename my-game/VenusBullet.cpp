@@ -1,6 +1,6 @@
 #include "VenusBullet.h"
 #include "Vector.h"
-#include "Test.h"
+#include "Mario.h"
 #include <iostream>
 
 
@@ -39,7 +39,7 @@ void VenusBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
 	{
 
-		if (Test* obj = dynamic_cast<Test*>((*i))) {
+		if (Mario* obj = dynamic_cast<Mario*>((*i))) {
 			LPCOLLISIONEVENT e = SweptAABBEx(*i);
 
 			if (e->t > 0 && e->t <= 1.0f) {
@@ -73,7 +73,7 @@ void VenusBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	for (UINT i = 0; i < coEventsResult.size(); i++) {
 
-		if (Test* obj = dynamic_cast<Test*>(coEventsResult[i]->obj)) {
+		if (Mario* obj = dynamic_cast<Mario*>(coEventsResult[i]->obj)) {
 			obj->Die();
 		}
 		if (coEventsResult[i]->obj->name == "Death") {
@@ -96,13 +96,13 @@ void VenusBullet::SetState(string state)
 }
 
 void VenusBullet::HandleCollision(LPCOLLISIONEVENT e) {
-	if (Test* player = dynamic_cast<Test*>(e->obj)) {
+	if (Mario* player = dynamic_cast<Mario*>(e->obj)) {
 		KillPlayer(player);
 	}
 }
 
 void VenusBullet::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
-	if (Test* player = dynamic_cast<Test*>(event->obj)) {
+	if (Mario* player = dynamic_cast<Mario*>(event->obj)) {
 		KillPlayer(player);
 		SetState("hidden");
 	}

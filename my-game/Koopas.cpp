@@ -1,6 +1,6 @@
 ﻿#include "Koopas.h"
 #include "Vector.h"
-#include "Test.h"
+#include "Mario.h"
 #include "PlayScence.h"
 #include "RedGoomba.h"
 #include "GoldenBrick.h"
@@ -32,13 +32,13 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		holdedBy = NULL;
 	}
 
-	if (isHolded == true && ((Test*)holdedBy)->action == MarioAction::HOLD) {
+	if (isHolded == true && ((Mario*)holdedBy)->action == MarioAction::HOLD) {
 		p.x = holdedBy->nx < 0 ? holdedBy->p.x - holdedBy->width : holdedBy->p.x + holdedBy->width;
 		p.y = holdedBy->p.y;
 		nx = holdedBy->nx;
 		return;
 	}
-	else if (isHolded == true && ((Test*)holdedBy)->action != MarioAction::HOLD) {
+	else if (isHolded == true && ((Mario*)holdedBy)->action != MarioAction::HOLD) {
 		isHolded = false;
 		isUniversal = true;
 		this->v.x = 0.5f * holdedBy->nx;
@@ -145,7 +145,7 @@ void Koopas::HandleCollision(LPCOLLISIONEVENT e) {
 void Koopas::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	string stateBefore = state;
 	Enemy::OnHadCollided(obj, event);
-	if (Test* player = dynamic_cast<Test*>(obj)) {
+	if (Mario* player = dynamic_cast<Mario*>(obj)) {
 		if (stateBefore != state) {
 			revieTime = 5000;
 			player->SetAction(MarioAction::JUMP, 500);

@@ -1,6 +1,6 @@
 #include "Mushroom.h"
 #include "Vector.h"
-#include "Test.h"
+#include "Mario.h"
 #include "Effect.h"
 #include "PlayScence.h"
 #include <iostream>
@@ -106,7 +106,7 @@ void Mushroom::GetBoundingBox(float& left, float& top, float& right, float& bott
 
 
 void Mushroom::HandleCollision(LPCOLLISIONEVENT e) {
-	if (Test* obj = dynamic_cast<Test*>(e->obj)) {
+	if (Mario* obj = dynamic_cast<Mario*>(e->obj)) {
 		GiveReward();
 		SetState("hidden");
 	}
@@ -120,7 +120,7 @@ void Mushroom::GiveReward() {
 		CGame::GetInstance()->GetCurrentScene()->addObject(pointEffect);
 		CGame::GetInstance()->GetCurrentScene()->AddPoint(1000);
 		LPGAMEOBJECT player = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->player;
-		((Test*)player)->life++;
+		((Mario*)player)->life++;
 	}
 	else {
 		Effect* pointEffect = new Effect(to_string(point), 300);
@@ -129,7 +129,7 @@ void Mushroom::GiveReward() {
 
 		LPGAMEOBJECT player = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->player;
 		if (stoi(player->type) < BigMario) {
-			((Test*)player)->Transform(BigMario);
+			((Mario*)player)->Transform(BigMario);
 		}
 		else {
 			CGame::GetInstance()->GetCurrentScene()->addObject(pointEffect);

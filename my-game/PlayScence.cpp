@@ -6,7 +6,7 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
-#include "Test.h"
+#include "Mario.h"
 #include "Enemy.h"
 #include "MisteryBox.h"
 #include "Coin.h"
@@ -100,7 +100,7 @@ void CPlayScene::Update(DWORD dt)
 			vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
 			quadtree->Retrieve(return_objects_list, objects[i]);
 
-			if (Test* v = dynamic_cast<Test*>(objects[i])) {
+			if (Mario* v = dynamic_cast<Mario*>(objects[i])) {
 				// prevent re update player;
 				v->Update(dt, return_objects_list);
 			}
@@ -139,7 +139,7 @@ void CPlayScene::Update(DWORD dt)
 
 	if (camera->isCameraMoving == false) {
 
-		if (((Test*)player)->isAllowCameraFollow == true) {
+		if (((Mario*)player)->isAllowCameraFollow == true) {
 			if (player->p.y + player->height + 100 < camera->camera_default_top) {
 				camera->setCamPos(cx, cy < camera->camera_default_top - 600 ? camera->camera_default_top - 600 : cy);
 			}
@@ -270,7 +270,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	if (game->IsKeyDown(DIK_R))
 		((CPlayScene*)scence)->restart();
 	else
-		((Test*)player)->SetAction(MarioAction::IDLE);
+		((Mario*)player)->SetAction(MarioAction::IDLE);
 
 
 	// move camera
@@ -316,13 +316,13 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 
 		switch (fromNameToCode(name))
 		{
-		case ObjectType::Test:
+		case ObjectType::Mario:
 			if (player != NULL)
 			{
 				DebugOut(L"[ERROR] MARIO object was created before!\n");
 				return;
 			}
-			obj = new Test();
+			obj = new Mario();
 			obj->ParseFromJson(data); //remember to set position, animation_set in this function
 			player = obj;
 			break;
@@ -582,7 +582,7 @@ void CPlayScene::GameOver() {
 }
 
 bool CPlayScene::IsPlayer(LPGAMEOBJECT obj) {
-	if (Test* player = dynamic_cast<Test*>(obj))  return true;
+	if (Mario* player = dynamic_cast<Mario*>(obj))  return true;
 	return false;
 }
 
@@ -596,7 +596,7 @@ void CPlayScene::DrawUI() {
 	UI->DrawText("123", Vector(413, 578), Vector(0.8, 0.8));
 
 	//draw mario life
-	UI->DrawUI(to_string(((Test*)player)->life), Vector(90, 599));
+	UI->DrawUI(to_string(((Mario*)player)->life), Vector(90, 599));
 
 	//draw player point
 	string point = to_string(playerPoint);
@@ -611,12 +611,12 @@ void CPlayScene::DrawUI() {
 	UI->DrawText(to_string(remain >= 0 ? remain : 0), Vector(393, 603), Vector(0.8, 0.8));
 
 	//draw mario speed 
-	float levelSpeed = abs((((Test*)player)->powerX / 1000) * 6);
+	float levelSpeed = abs((((Mario*)player)->powerX / 1000) * 6);
 	for (int i = 0; i < 6; i++) {
 		UI->DrawUI(levelSpeed > i ? "arrow-white" : "arrow", Vector(152 + i * 24, 578));
 	}
 
-	UI->DrawUI(abs(((Test*)player)->powerX) == 1000 ? "power-white" : "power-1", Vector(300, 578));
+	UI->DrawUI(abs(((Mario*)player)->powerX) == 1000 ? "power-white" : "power-1", Vector(300, 578));
 
 	// draw paused ui
 	if (isPaused == true) {

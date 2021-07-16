@@ -7,7 +7,7 @@
 #include "GameObject.h"
 #include "Textures.h"
 #include "Config.h"
-#include "Test.h"
+#include "Mario.h"
 
 #include "PlayScence.h"
 

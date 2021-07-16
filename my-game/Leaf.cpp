@@ -1,6 +1,6 @@
 #include "Leaf.h"
 #include "Vector.h"
-#include "Test.h"
+#include "Mario.h"
 #include <iostream>
 #include "PlayScence.h"
 
@@ -94,20 +94,20 @@ void Leaf::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 void Leaf::HandleCollision(LPCOLLISIONEVENT e) {
 	LPGAMEOBJECT obj = e->obj;
 
-	/*if (Test* player = dynamic_cast<Test*>(e->obj)) {
+	/*if (Mario* player = dynamic_cast<Mario*>(e->obj)) {
 		player->Transform(RacconMario);
 		SetState("hidden");
 	}*/
 }
 
 void Leaf::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
-	if (Test* player = dynamic_cast<Test*>(obj)) {
+	if (Mario* player = dynamic_cast<Mario*>(obj)) {
 		Effect* pointEffect = new Effect(to_string(point), 300);
 		pointEffect->v.y = -0.05f;
 		pointEffect->p = p;
 
 		if (stoi(player->type) < RacconMario) {
-			((Test*)player)->Transform(RacconMario);
+			((Mario*)player)->Transform(RacconMario);
 		}
 		else {
 			CGame::GetInstance()->GetCurrentScene()->addObject(pointEffect);

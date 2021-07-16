@@ -166,7 +166,6 @@
     <ClCompile Include="SelectPortal.cpp" />
     <ClCompile Include="SweptAABB.cpp" />
     <ClCompile Include="SweptAABB.h" />
-    <ClCompile Include="Test.cpp" />
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -223,7 +222,6 @@
     <ClInclude Include="SelectionTree.h" />
     <ClInclude Include="SelectNode.h" />
     <ClInclude Include="SelectPortal.h" />
-    <ClInclude Include="Test.h" />
     <ClInclude Include="CUI.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Game.h" />

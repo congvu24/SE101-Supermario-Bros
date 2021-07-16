@@ -22,7 +22,7 @@ enum class ObjectType
 {
 	NOT_FOUND,
 	Camera,
-	Test,
+	Mario,
 	Enemy,
 	QuestionBox_Item,
 	QuestionBox_Coin,

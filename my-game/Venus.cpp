@@ -108,7 +108,7 @@ void Venus::HandleAfterCreated() {
 void Venus::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	//Enemy::OnHadCollided(obj, event);
 
-	if (Test* player = dynamic_cast<Test*>(obj)) {
+	if (Mario* player = dynamic_cast<Mario*>(obj)) {
 		KillPlayer(player);
 	}
 }

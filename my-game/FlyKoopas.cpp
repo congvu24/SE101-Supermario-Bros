@@ -1,6 +1,6 @@
 #include "Koopas.h"
 #include "Vector.h"
-#include "Test.h"
+#include "Mario.h"
 #include "PlayScence.h"
 #include <iostream>
 #include "FlyKoopas.h"
@@ -19,13 +19,13 @@ FlyKoopas::FlyKoopas()
 void FlyKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
-	if (isHolded == true && ((Test*)holdedBy)->action == MarioAction::HOLD) {
+	if (isHolded == true && ((Mario*)holdedBy)->action == MarioAction::HOLD) {
 		p.x = holdedBy->nx < 0 ? holdedBy->p.x - holdedBy->width : holdedBy->p.x + holdedBy->width;
 		p.y = holdedBy->p.y;
 		nx = holdedBy->nx;
 		return;
 	}
-	else if (isHolded == true && ((Test*)holdedBy)->action != MarioAction::HOLD) {
+	else if (isHolded == true && ((Mario*)holdedBy)->action != MarioAction::HOLD) {
 		isHolded = false;
 		isUniversal = true;
 		this->v.x = 0.5f * holdedBy->nx;
