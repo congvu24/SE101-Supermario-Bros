@@ -18,6 +18,7 @@ Mushroom::Mushroom()
 	isBlockPlayer = false;
 	isAllowCollision = false;
 	point = 400;
+	isUniversal = true;
 }
 
 Mushroom::Mushroom(string type)
@@ -27,6 +28,7 @@ Mushroom::Mushroom(string type)
 	isAllowCollision = false;
 	this->type = type;
 	point = 400;
+	isUniversal = true;
 }
 
 void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

@@ -45,7 +45,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (action != MarioAction::FLY)
 		v.y = v.y + g.y * dt * 1.8;
-	//if (v.y >= MAX_VY) v.y = MAX_VY;
+	if (v.y >= 0.8) v.y = 0.8;
 
 	if (v.x * nx < 0 && abs(v.x) >= VX_TO_SKID && canJump == true) {
 		SetAction(MarioAction::SKID, 500);
@@ -53,8 +53,6 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else if (v.x * nx < 0) {
 		v.x = 0;
 	}
-
-
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -219,12 +217,17 @@ void Mario::SetAction(MarioAction newAction, DWORD time) {
 	if (action == MarioAction::HOLD && newAction == MarioAction::IDLE) {
 		v.x = 0;
 		SetState("idle");
+		return;
+	}
+	else if (action == MarioAction::HOLD && newAction == MarioAction::RUN) {
+		SetState("running");
+		return;
+	}
+	else if (action == MarioAction::HOLD) {
+		return;
 	}
 
-	if (action == MarioAction::HOLD) return;
-
 	if (newAction == MarioAction::HOLD) {
-		//SetState("hold");
 		action = newAction;
 	}
 
@@ -272,14 +275,16 @@ void Mario::SetAction(MarioAction newAction, DWORD time) {
 		SetState("crouch");
 		break;
 	case MarioAction::FLY:
-		if (abs(powerX) == 1000 && (action == MarioAction::FLY || action == MarioAction::JUMP_HEIGHT)) {
+		if (abs(powerX) == MAX_POWER && (action == MarioAction::FLY || action == MarioAction::JUMP_HEIGHT)) {
 			v.y = -FLY_VY;
 			SetState("fly-up");
 			action = MarioAction::FLY;
+			/*ax = 0;
+			v.x = 0;*/
 			timeBeginAction = time;
 		}
 		else if ((action == MarioAction::JUMP || action == MarioAction::JUMP_HEIGHT) && stoi(type) == RacconMario && canJump == false) {
-			v.y = -0.03f;
+			v.y = -0.1f;
 			SetState("flying");
 			action = MarioAction::JUMP;
 			timeBeginAction = time;
@@ -289,17 +294,15 @@ void Mario::SetAction(MarioAction newAction, DWORD time) {
 		if (action == MarioAction::FLY) {
 			action = MarioAction::JUMP_HEIGHT;
 			timeBeginAction = time;
-			//ax = 0;
-			//v.x = 0;
 		}
-		else if (canJump == true && abs(powerX) == 1000) {
-			v.y = -HIGHT_JUMP_VY;
+		else if (canJump == true && abs(powerX) == MAX_POWER) {
+			v.y = -FLY_VY;
 			canJump = false;
 			SetState("jump-height");
 			action = newAction;
 			timeBeginAction = time;
 		}
-		else if (action == MarioAction::JUMP && v.y > -JUMP_VY * 0.6f && v.y < -JUMP_VY * 0.55 && powerX < 1000) {
+		else if (action == MarioAction::JUMP && v.y > -JUMP_VY * 0.6f && v.y < -JUMP_VY * 0.55 && powerX < MAX_POWER) {
 			v.y = -JUMP_VY;
 			SetState("jumping");
 			action = newAction;

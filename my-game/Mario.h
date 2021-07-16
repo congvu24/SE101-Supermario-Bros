@@ -13,7 +13,7 @@
 #define A_X 0.000575f
 #define JUMP_VY 0.8f
 #define HIGHT_JUMP_VY 1.2f
-#define FLY_VY 0.8f
+#define FLY_VY 0.4f
 #define DEFAULT_GY 0.0015f
 #define DEFAULT_RENDER_ORDER 9999
 

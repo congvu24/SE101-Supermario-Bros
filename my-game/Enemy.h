@@ -24,7 +24,7 @@ public:
 	Vector walkingLimit = Vector(0, 0);
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-		isUniversal = true;
+		//isUniversal = true;
 	}
 
 	virtual void KillPlayer(Mario* obj) {

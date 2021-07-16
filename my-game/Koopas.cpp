@@ -4,6 +4,7 @@
 #include "PlayScence.h"
 #include "RedGoomba.h"
 #include "GoldenBrick.h"
+#include "BoomerangBrother.h"
 #include <iostream>
 
 
@@ -129,6 +130,10 @@ void Koopas::HandleCollision(LPCOLLISIONEVENT e) {
 			this->v.x = 0.5f * -e->nx;
 		}
 		if (RedGoomba* obj = dynamic_cast<RedGoomba*>(e->obj)) {
+			obj->BeingKill();
+			this->v.x = 0.5f * -e->nx;
+		}
+		if (BoomerangBrother* obj = dynamic_cast<BoomerangBrother*>(e->obj)) {
 			obj->BeingKill();
 			this->v.x = 0.5f * -e->nx;
 		}

@@ -241,16 +241,17 @@ void CGame::ProcessKeyboard()
 				DebugOut(L"[INFO] Keyboard re-acquired!\n");
 			}
 			else {
-				CPlayScene* playScene = (CPlayScene*)CGame::GetCurrentScene();
-				if (playScene->isPaused == false)
-					playScene->Pause();
+				if (CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetCurrentScene())) {
+					if (playScene->isPaused == false)
+						playScene->Pause();
+				}
 				return;
 			}
 		}
 		else
 		{
 			DebugOut(L"[ERROR] DINPUT::GetDeviceState failed. Error: %d\n", hr);
-			return;
+				return;
 		}
 	}
 

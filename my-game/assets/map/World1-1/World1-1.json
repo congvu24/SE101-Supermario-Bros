@@ -1,12 +1,4 @@
 { "compressionlevel":-1,
- "editorsettings":
-    {
-     "export":
-        {
-         "format":"json",
-         "target":"World1-1.json"
-        }
-    },
  "height":41,
  "infinite":false,
  "layers":[
@@ -355,6 +347,17 @@
                  "width":579,
                  "x":6339.33,
                  "y":1392
+                }, 
+                {
+                 "height":49,
+                 "id":321,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":6912,
+                 "y":1391.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -780,8 +783,8 @@
                  "type":"In",
                  "visible":true,
                  "width":24,
-                 "x":6948,
-                 "y":1464.17
+                 "x":6948.5,
+                 "y":1453.17
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2353,10 +2356,10 @@
          "y":0
         }],
  "nextlayerid":34,
- "nextobjectid":321,
+ "nextobjectid":322,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.4.3",
+ "tiledversion":"1.7.1",
  "tileheight":48,
  "tilesets":[
         {
@@ -2374,6 +2377,6 @@
         }],
  "tilewidth":48,
  "type":"map",
- "version":1.4,
+ "version":"1.6",
  "width":176
 }
