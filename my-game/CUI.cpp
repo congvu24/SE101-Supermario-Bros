@@ -58,12 +58,27 @@ void CUI::AddSprite(string id, float left, float top, float right, float bottom,
 
 void CUI::DrawText(string text, Vector p, Vector scale) {
 	for (int i = 0; i < text.length(); i++) {
-		std::string sprId = string(1, text[i]) == " " ? "space" :  string(1, text[i]);
-		LPSPRITE sprite = CUI::sprites.at(sprId);
-		sprite->DrawPositionInCamera(p.x + i* 24 * scale.x, p.y, scale);
+		std::string sprId = string(1, text[i]) == " " ? "space" : string(1, text[i]);
+		try
+		{
+			LPSPRITE sprite = CUI::sprites.at(sprId);
+			sprite->DrawPositionInCamera(p.x + i * 24 * scale.x, p.y, scale);
+		}
+		catch (const std::exception&)
+		{
+			DebugOut(L"[ERROR] Sprite not found: %s\n", ToLPCWSTR(to_string(text[i])));
+		}
 	}
 }
 void CUI::DrawUI(string name, Vector p, Vector scale) {
-	LPSPRITE sprite = CUI::sprites.at(name);
-	sprite->DrawPositionInCamera(p.x, p.y, scale);
+	try
+	{
+		LPSPRITE sprite = CUI::sprites.at(name);
+		sprite->DrawPositionInCamera(p.x, p.y, scale);
+
+	}
+	catch (const std::exception&)
+	{
+		DebugOut(L"[ERROR] Sprite not found: %s\n", ToLPCWSTR(name));
+	}
 }

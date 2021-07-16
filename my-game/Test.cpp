@@ -36,21 +36,26 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (abs(v.x) < MAX_VX)
 		v.x += ax * dt;
-	if (v.x >= MAX_VX && canJump == false) v.x = MAX_VX;
+	if (abs(v.x) >= MAX_VX && canJump == false) v.x = ((v.x) / abs(v.x)) * MAX_VX;
 
 
 
 	CGameObject::Update(dt, coObjects);
 	UpdateTimeAction();
-	
-	if (action != MarioAction::FLY)
-		v.y = v.y + g.y * dt ;
-	//if (v.y >= MAX_VY) v.y = MAX_VY;
-	
 
-	if (v.x * nx < 0 && abs(v.x) >= VX_TO_SKID) {
+	if (action != MarioAction::FLY)
+		v.y = v.y + g.y * dt * 1.8;
+	//if (v.y >= MAX_VY) v.y = MAX_VY;
+
+	if (v.x * nx < 0 && abs(v.x) >= VX_TO_SKID && canJump == true) {
 		SetAction(MarioAction::SKID, 500);
+		DebugOut(L"skid \n");
 	}
+	else if (v.x * nx < 0) {
+		v.x = 0;
+	}
+
+
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -195,6 +200,7 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 
 	if (newAction == MarioAction::DIE) {
 		action = newAction;
+		return;
 	}
 
 	if (newAction == MarioAction::TRANSFORM) {
@@ -284,8 +290,8 @@ void Test::SetAction(MarioAction newAction, DWORD time) {
 		if (action == MarioAction::FLY) {
 			action = MarioAction::JUMP_HEIGHT;
 			timeBeginAction = time;
-			ax = 0;
-			v.x = 0;
+			//ax = 0;
+			//v.x = 0;
 		}
 		else if (canJump == true && abs(powerX) == 1000) {
 			v.y = -HIGHT_JUMP_VY;
@@ -425,8 +431,8 @@ void Test::ProcessKeyboard(KeyboardEvent kEvent)
 
 	switch (kEvent.key) {
 	case DIK_RIGHT:
-		nx = 1;
 		ax = A_X;
+		nx = 1;
 
 		if (action == MarioAction::FLY && stoi(type) == RacconMario && canJump == false) {
 			if (holdingKeys[DIK_S] == false) {
@@ -446,7 +452,8 @@ void Test::ProcessKeyboard(KeyboardEvent kEvent)
 			SetState("jumping");
 		}
 		else {
-			SetAction(MarioAction::RUN);
+			//SetState("running");
+			SetAction(MarioAction::RUN, 0);
 		}
 		break;
 	case DIK_LEFT:
@@ -470,7 +477,8 @@ void Test::ProcessKeyboard(KeyboardEvent kEvent)
 			SetState("jumping");
 		}
 		else {
-			SetAction(MarioAction::RUN);
+			//SetState("running");
+			SetAction(MarioAction::RUN, 0);
 		}
 		break;
 	case DIK_S:

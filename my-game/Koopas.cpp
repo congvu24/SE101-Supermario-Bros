@@ -23,6 +23,15 @@ Koopas::Koopas()
 
 void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (revieTime >= 0 && state == "die" && isHitted == false) {
+		revieTime -= dt;
+	}
+	else if (revieTime < 0 && state == "die" && isHitted == false) {
+		SetState("running");
+		isHolded = false;
+		holdedBy = NULL;
+	}
+
 	if (isHolded == true && ((Test*)holdedBy)->action == MarioAction::HOLD) {
 		p.x = holdedBy->nx < 0 ? holdedBy->p.x - holdedBy->width : holdedBy->p.x + holdedBy->width;
 		p.y = holdedBy->p.y;
@@ -38,12 +47,15 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		useLimit = false;
 	}
 
+
+
+
 	Enemy::Update(dt, coObjects);
 	CGameObject::Update(dt, coObjects);
 	Enemy::CheckToChangeDirection();
 
 	v = v + g * dt;
-	if (v.y > 0.35f) v.y = 0.35f;
+	if (v.y > MAX_VY) v.y = MAX_VY;
 	if (v.x > 0) nx = 1; else nx = -1;
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -96,17 +108,13 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Koopas::SetState(string state)
 {
-	if (state == "running") {
-	}
-	else if (state == "die") {
+	if (state == "die") {
 		v = Vector(0, 0);
 	}
-	else if (state == "hidden") {
-
+	else if (state == "running") {
+		v.x = -0.05f;
 	}
-
 	CGameObject::SetState(state);
-
 }
 
 void Koopas::HandleCollision(LPCOLLISIONEVENT e) {
@@ -135,27 +143,35 @@ void Koopas::HandleCollision(LPCOLLISIONEVENT e) {
 
 
 void Koopas::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+	string stateBefore = state;
 	Enemy::OnHadCollided(obj, event);
-
 	if (Test* player = dynamic_cast<Test*>(obj)) {
+		if (stateBefore != state) {
+			revieTime = 5000;
+			player->SetAction(MarioAction::JUMP, 500);
+			return;
+		}
+
 		if (state == "die") {
-			if (isHitted == false && event->nx != 0 && event->ny == 0 && player->holdingKeys[DIK_A] == false && isHolded == false) {
-				player->SetAction(MarioAction::KICK);
+			if (isHitted == false && player->holdingKeys[DIK_A] == false && isHolded == false && player->action != MarioAction::ATTACK) {
+				player->SetAction(MarioAction::KICK, 200);
 				isUniversal = true;
-				this->v.x = 0.5f * -event->nx;
+				this->v.x = 0.5f * event->nx != 0 ? -event->nx : player->nx;
 				isHitted = true;
 				isBlockPlayer = true;
 				useLimit = false;
+				return;
 			}
 			else if (isHitted == false && event->nx != 0 && isHolded == false && player->holdingKeys[DIK_A] == true) {
 				player->SetAction(MarioAction::HOLD);
 				holdedBy = player;
 				isHolded = true;
 			}
-			else if (isHitted == true && event->nx != 0) {
+			else if (isHitted == true && player->action != MarioAction::KICK) {
 				KillPlayer(player);
-				this->v.x = 0.5f * event->nx;
+				this->v.x = 0.5f * event->nx != 0 ? -event->nx : nx;
 			}
+
 		}
 	}
 }

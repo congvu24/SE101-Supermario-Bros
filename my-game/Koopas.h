@@ -12,6 +12,7 @@ public:
 	Vector oldP;
 	bool isHolded = false;
 	bool isHitted = false;
+	int revieTime = 0;
 	LPGAMEOBJECT holdedBy;
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);

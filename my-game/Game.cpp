@@ -240,11 +240,16 @@ void CGame::ProcessKeyboard()
 			{
 				DebugOut(L"[INFO] Keyboard re-acquired!\n");
 			}
-			else return;
+			else {
+				CPlayScene* playScene = (CPlayScene*)CGame::GetCurrentScene();
+				if (playScene->isPaused == false)
+					playScene->Pause();
+				return;
+			}
 		}
 		else
 		{
-			//DebugOut(L"[ERROR] DINPUT::GetDeviceState failed. Error: %d\n", hr);
+			DebugOut(L"[ERROR] DINPUT::GetDeviceState failed. Error: %d\n", hr);
 			return;
 		}
 	}
@@ -424,8 +429,14 @@ void CGame::_ParseSection_SCENES_FromJson(json data)
 void CGame::Load(LPCWSTR gameFile)
 {
 	json gameData = ReadJsonFIle(gameFile);
-	string active = gameData["active"];
+	json configData = gameData["config"];
 
+	string redTexture = configData["red-texture"];
+	string blackTexture = configData["black-texture"];
+	CGameObject::LoadBoundedBox(ToLPCWSTR(redTexture));
+	CScene::LoadBlackTexture(ToLPCWSTR(blackTexture));
+
+	string active = gameData["active"];
 	DebugOut(L"[INFO] Active id : %s\n", ToLPCWSTR(active));
 	_ParseSection_SCENES_FromJson(gameData["scene"]); // now parse the json to game data;
 	current_scene = -1;

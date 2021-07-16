@@ -618,7 +618,6 @@ void CPlayScene::DrawUI() {
 
 	UI->DrawUI(abs(((Test*)player)->powerX) == 1000 ? "power-white" : "power-1", Vector(300, 578));
 
-
 	// draw paused ui
 	if (isPaused == true) {
 		CGame::GetInstance()->Draw(camera->cam_x, camera->cam_y, blackTexture, 0, 0, camera->cam_width, camera->cam_height, 50);

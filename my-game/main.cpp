@@ -163,11 +163,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game->Init(hWnd);
 	game->InitKeyboard();
 
-	// move these thing to config file 
-	CGameObject::LoadBoundedBox(L"assets/texture/bbox.png");
-	CScene::LoadBlackTexture(L"assets/texture/black.png");
 	game->Load(L"assets/game.json"); //load all sence
-
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

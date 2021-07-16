@@ -8,6 +8,10 @@
       { "name": "36.png", "time": 100 },
       { "name": "37.png", "time": 100 },
       { "name": "38.png", "time": 100 }
+    ],
+    "revie": [
+      { "name": "33.png", "time": 100 },
+      { "name": "35.png", "time": 100 }
     ]
   },
   "2": {
@@ -19,6 +23,10 @@
       { "name": "24.png", "time": 100 },
       { "name": "26.png", "time": 100 },
       { "name": "25.png", "time": 100 }
+    ],
+    "revie": [
+      { "name": "20.png", "time": 100 },
+      { "name": "22.png", "time": 100 }
     ]
   },
   "fly": {
@@ -30,6 +38,10 @@
       { "name": "36.png", "time": 100 },
       { "name": "38.png", "time": 100 },
       { "name": "37.png", "time": 100 }
+    ],
+    "revie": [
+      { "name": "33.png", "time": 100 },
+      { "name": "31.png", "time": 100 }
     ]
   }
 }

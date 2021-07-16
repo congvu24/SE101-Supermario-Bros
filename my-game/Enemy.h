@@ -10,7 +10,6 @@
 using json = nlohmann::json;
 
 
-#define MAX_VY  0.35f
 #define DEFAULT_POINT  100
 
 template <class T>
