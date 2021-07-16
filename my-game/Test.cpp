@@ -49,7 +49,6 @@ void Test::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (v.x * nx < 0 && abs(v.x) >= VX_TO_SKID && canJump == true) {
 		SetAction(MarioAction::SKID, 500);
-		DebugOut(L"skid \n");
 	}
 	else if (v.x * nx < 0) {
 		v.x = 0;
