@@ -38,6 +38,7 @@ void CSprite::DrawWithScale(float x, float y, Vector scale, int alpha)
 	game->DrawWithScale(p, texture, r, alpha, scal);
 }
 
+
 void CSprite::DrawPositionInCamera(float x, float y, Vector scale, int alpha)
 {
 	CGame* game = CGame::GetInstance();

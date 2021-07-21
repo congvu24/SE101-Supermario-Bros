@@ -36,16 +36,29 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	v = v + g * dt;
 	if (v.y > 0.15f) v.y = 0.15f;
 
+	
+
 	CGameObject::Update(dt, coObjects);
-
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
 	if (p.y + height <= oldP.y - 20) {
 		SetState("running");
 	}
+
+
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+	vector<LPGAMEOBJECT>* checkObjects = new vector<LPGAMEOBJECT>();
+
 	coEvents.clear();
-	CalcPotentialCollisions(coObjects, coEvents);
+	for (auto i = coObjects->begin(); i != coObjects->end(); i++)
+	{
+		if (CPlayScene::IsPlayer(*i) || (*i)->isAllowCollision == true) {
+			checkObjects->push_back(*i);
+		}
+	}
+
+	
+	coEvents.clear();
+	CalcPotentialCollisions(checkObjects, coEvents);
 
 	if (coEvents.size() == 0) {
 		p = p + d;
@@ -109,6 +122,13 @@ void Mushroom::GetBoundingBox(float& left, float& top, float& right, float& bott
 
 void Mushroom::HandleCollision(LPCOLLISIONEVENT e) {
 	if (Mario* obj = dynamic_cast<Mario*>(e->obj)) {
+		GiveReward();
+		SetState("hidden");
+	}
+}
+
+void Mushroom::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+	if (Mario* obj = dynamic_cast<Mario*>(event->obj)) {
 		GiveReward();
 		SetState("hidden");
 	}

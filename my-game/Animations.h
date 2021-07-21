@@ -32,6 +32,7 @@ public:
 	void Add(LPSPRITE sprite, DWORD time = 0);
 
 	void Render(float x, float y, int alpha, float& width, float& height, Vector scale = Vector(1.0f, 1.0f));
+	void GetSpriteSize(float& width, float& height);
 };
 
 typedef CAnimation* LPANIMATION;

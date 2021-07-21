@@ -131,8 +131,7 @@ void Mario::Render()
 		float h = height;
 		Vector scale = Vector((float)nx, 1.0f);
 
-		animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h, scale);
-
+		animations_set.Get(type).at(state)->GetSpriteSize(w, h);
 
 		if (action != MarioAction::ATTACK) {
 			if (abs(h - this->height) >= MIN_DIFF_UPDATE) {
@@ -144,6 +143,7 @@ void Mario::Render()
 				width = w;
 			}
 		}
+		animations_set.Get(type).at(state)->Render(p.x, p.y, 255, w, h, scale);
 
 		RenderBoundingBox();
 	}

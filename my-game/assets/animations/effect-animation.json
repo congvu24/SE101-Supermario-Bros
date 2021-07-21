@@ -36,5 +36,8 @@
   },
   "1up": {
     "running": [{ "name": "1up.png", "time": 100 }]
+  },
+  "break": {
+    "running": [{ "name": "11.png", "time": 100 }, { "name": "12.png", "time": 100 }, { "name": "13.png", "time": 100 }, { "name": "14.png", "time": 100 }]
   }
 }

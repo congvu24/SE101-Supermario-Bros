@@ -65,14 +65,20 @@ void GoldenBrick::GetBoundingBox(float& left, float& top, float& right, float& b
 void GoldenBrick::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	Box::OnHadCollided(obj, event);
 
-	if (CPlayScene::IsPlayer(obj)) {
+	if (Mario* player = dynamic_cast<Mario*>(obj)) {
 		if (isHitted == false && event->ny > 0 && event->nx == 0) {
 			GiveReward();
+		}
+		if (type == "Break" && event->nx != 0 && event->ny == 0 && player->action == MarioAction::ATTACK) {
+			Explore();
 		}
 	}
 }
 
 void GoldenBrick::OnHadCollidedHorizontal(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
+
+
+
 	if (type == "P" && isHitted == false) {
 		vector<LPGAMEOBJECT>* effectList = new vector<LPGAMEOBJECT>();
 		vector<LPGAMEOBJECT>* allObjects = &((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->objects;
@@ -95,12 +101,22 @@ void GoldenBrick::OnHadCollidedHorizontal(LPGAMEOBJECT obj, LPCOLLISIONEVENT eve
 		CGame::GetInstance()->GetCurrentScene()->addObject(reward);
 		isHitted = true;
 	}
+	else if (type == "Break") {
+		if (Mario* player = dynamic_cast<Mario*>(obj)) {
+			if (event->nx != 0 && event->ny == 0 && player->action == MarioAction::ATTACK) {
+				Explore();
+			}
+		}
+	}
 }
 
 void GoldenBrick::Explore() {
 	if (type == "Break" && state == "running") {
 		isAllowCollision = false;
 		this->SetState("hidden");
+		LPGAMEOBJECT smoke = new Effect("break", 200);
+		smoke->p = Vector((p.x + width / 2), p.y + height / 2);
+		CGame::GetInstance()->GetCurrentScene()->addObject(smoke);
 	}
 	else if (type != "P" && state == "running") {
 		LPGAMEOBJECT reward = NULL;

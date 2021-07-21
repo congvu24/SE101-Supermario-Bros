@@ -7,7 +7,6 @@
 
 #define Mushroom_SPEED	    0.003f
 #define Mushroom_AMPLITUDE	60 
-#define PI 3.1415926535897932384626433832795028841971693993751058209 
 
 
 class Mushroom :public MapEntity<Mushroom>
@@ -26,7 +25,7 @@ public:
 	virtual void HandleCollision(LPCOLLISIONEVENT e);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {};
+	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
 	virtual void GiveReward();
 
 	static json data;

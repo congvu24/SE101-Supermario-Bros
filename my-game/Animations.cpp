@@ -45,6 +45,32 @@ void CAnimation::Render(float x, float y, int alpha, float& width, float& height
 }
 
 
+void CAnimation::GetSpriteSize( float& width, float& height)
+{
+	this->currentFrame = this->currentFrame;
+	DWORD now = GetTickCount();
+	if (currentFrame == -1)
+	{
+		currentFrame = 0;
+		lastFrameTime = now;
+	}
+	else
+	{
+		DWORD t = frames[currentFrame]->GetTime();
+		if (now - lastFrameTime > t)
+		{
+			currentFrame++;
+			lastFrameTime = now;
+			if (currentFrame == frames.size()) currentFrame = 0;
+		}
+	}
+	LPSPRITE sprite = frames[currentFrame]->GetSprite();
+	width = sprite->width;
+	height = sprite->height;
+}
+
+
+
 void CAnimations::Add(string id, LPANIMATION ani)
 {
 	animations[id] = ani;
