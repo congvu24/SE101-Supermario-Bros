@@ -82,7 +82,7 @@ LPCWSTR FloatToLPCWSTR(float st)
 json ReadJsonFIle(LPCWSTR file) {
 
 	ifstream readData(file);
-	DebugOut(L"[INFO] Start loading game file : %s\n", file);
+	//DebugOut(L"[INFO] Start loading game file : %s\n", file);
 
 	json jsonData;
 	readData >> jsonData;

@@ -11,7 +11,7 @@ unordered_map<string, LPSPRITE> Mushroom::sprites; //save all sprite of animatio
 unordered_map<string, LPANIMATION> Mushroom::all_animations; //save all animations
 CAnimationSets Mushroom::animations_set; //save all the animation sets
 json Mushroom::data = NULL;
-
+json Mushroom::spriteData = NULL;
 Mushroom::Mushroom()
 {
 	SetState("fromMisteryBox");
@@ -33,7 +33,7 @@ Mushroom::Mushroom(string type)
 
 void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	v = v + g * dt;
+	v = v + g * (float)dt;
 	if (v.y > 0.15f) v.y = 0.15f;
 
 	

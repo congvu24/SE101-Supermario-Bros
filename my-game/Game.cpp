@@ -65,7 +65,7 @@ void CGame::Init(HWND hWnd)
 /*
 	Utility function to wrap LPD3DXSPRITE::Draw
 */
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, float left, float top, float right, float bottom, int alpha)
 {
 	Camera* camera = this->GetCurrentScene()->camera;
 	D3DXVECTOR3 p = camera->calcInCamPosition(x, y);

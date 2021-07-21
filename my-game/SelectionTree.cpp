@@ -8,7 +8,7 @@ unordered_map<string, LPSPRITE> SelectionTree::sprites; //save all sprite of ani
 unordered_map<string, LPANIMATION> SelectionTree::all_animations; //save all animations
 CAnimationSets SelectionTree::animations_set; //save all the animation sets
 json SelectionTree::data = NULL;
-
+json SelectionTree::spriteData = NULL;
 SelectionTree::SelectionTree()
 {
 	SetState("idle");

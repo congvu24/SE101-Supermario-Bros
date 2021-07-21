@@ -9,7 +9,7 @@ unordered_map<string, LPSPRITE> MiniPortal::sprites; //save all sprite of animat
 unordered_map<string, LPANIMATION> MiniPortal::all_animations; //save all animations
 CAnimationSets MiniPortal::animations_set; //save all the animation sets
 json MiniPortal::data = NULL;
-
+json MiniPortal::spriteData = NULL;
 MiniPortal::MiniPortal()
 {
 	isAllowCollision = false;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="24" nextobjectid="103">
+<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="24" nextobjectid="103">
  <editorsettings>
   <export target="IntroScene.json" format="json"/>
  </editorsettings>
@@ -32,39 +32,39 @@
  <objectgroup id="21" name="Ani3"/>
  <objectgroup id="16" name="Title"/>
  <objectgroup id="20" name="OptionCursor">
-  <object id="94" x="187.667" y="482.333" width="25.3333" height="21.3333"/>
+  <object id="94" x="190.374" y="506.694" width="25.3333" height="21.3333"/>
  </objectgroup>
  <objectgroup id="22" name="IntroText">
   <properties>
    <property name="type" value="0"/>
   </properties>
-  <object id="97" type="1" x="240" y="479.701" width="289.333" height="25.9308">
+  <object id="97" type="1" x="242.707" y="504.062" width="289.333" height="25.9308">
    <properties>
     <property name="type" value="2"/>
    </properties>
   </object>
-  <object id="98" type="2" x="240" y="527.804" width="289.333" height="28.3925">
+  <object id="98" type="2" x="242.707" y="552.165" width="289.333" height="28.3925">
    <properties>
     <property name="type" value="0"/>
    </properties>
   </object>
-  <object id="99" type="0" x="240" y="576" width="288" height="25.3333">
+  <object id="99" type="0" x="242.707" y="600.361" width="288" height="25.3333">
    <properties>
     <property name="tyoe" value="1"/>
    </properties>
   </object>
-  <object id="101" type="4" x="290.667" y="312.5" width="177.333" height="166.667">
+  <object id="101" type="4" x="329.464" y="333.252" width="96.13" height="101.705">
    <properties>
     <property name="type" value="2"/>
    </properties>
   </object>
-  <object id="102" type="5" x="158.834" y="142.917" width="485.333" height="160">
+  <object id="102" type="5" x="129.06" y="98.7065" width="485.333" height="160">
    <properties>
     <property name="type" value="2"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="23" name="Camera">
+ <objectgroup id="23" name="Camera" visible="0">
   <object id="100" x="0" y="96" width="768" height="600"/>
  </objectgroup>
 </map>

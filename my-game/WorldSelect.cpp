@@ -92,7 +92,7 @@ void WorldSelect::Render()
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->camera;
 
 	map->render();
-	for (int i = 0; i < objects.size(); i++) {
+	for (size_t  i = 0; i < objects.size(); i++) {
 		objects[i]->Render();
 	}
 	player->Render();

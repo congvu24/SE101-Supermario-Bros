@@ -13,7 +13,7 @@ unordered_map<string, LPSPRITE> Koopas::sprites; //save all sprite of animation
 unordered_map<string, LPANIMATION> Koopas::all_animations; //save all animations
 CAnimationSets Koopas::animations_set; //save all the animation sets
 json Koopas::data = NULL;
-
+json Koopas::spriteData = NULL;
 Koopas::Koopas()
 {
 	SetState("running");
@@ -49,13 +49,11 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 
-
-
 	Enemy::Update(dt, coObjects);
 	CGameObject::Update(dt, coObjects);
 	Enemy::CheckToChangeDirection();
 
-	v = v + g * dt;
+	v = v + g * (float)dt;
 	if (v.y > MAX_VY) v.y = MAX_VY;
 	if (v.x > 0) nx = 1; else nx = -1;
 
@@ -127,15 +125,15 @@ void Koopas::HandleCollision(LPCOLLISIONEVENT e) {
 	if (state == "die" && isHitted == true && e->nx != 0) {
 		if (Goomba* obj = dynamic_cast<Goomba*>(e->obj)) {
 			obj->BeingKill();
-			this->v.x = 0.5f * -e->nx;
+			//this->v.x = 0.5f * -e->nx;
 		}
 		if (RedGoomba* obj = dynamic_cast<RedGoomba*>(e->obj)) {
 			obj->BeingKill();
-			this->v.x = 0.5f * -e->nx;
+			//this->v.x = 0.5f * -e->nx;
 		}
 		if (BoomerangBrother* obj = dynamic_cast<BoomerangBrother*>(e->obj)) {
 			obj->BeingKill();
-			this->v.x = 0.5f * -e->nx;
+			//this->v.x = 0.5f * -e->nx;
 		}
 		if (MisteryBox* obj = dynamic_cast<MisteryBox*>(e->obj)) {
 			obj->GiveReward();

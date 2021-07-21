@@ -10,7 +10,7 @@ unordered_map<string, LPSPRITE> HammerBrother::sprites; //save all sprite of ani
 unordered_map<string, LPANIMATION> HammerBrother::all_animations; //save all animations
 CAnimationSets HammerBrother::animations_set; //save all the animation sets
 json HammerBrother::data = NULL;
-
+json HammerBrother::spriteData = NULL;
 HammerBrother::HammerBrother()
 {
 	SetState("running");

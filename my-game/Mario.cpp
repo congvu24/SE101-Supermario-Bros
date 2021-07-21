@@ -418,7 +418,7 @@ void Mario::Transform(int marioType) {
 	default:
 		break;
 	}
-	SetState("idle");
+	SetState("jumping");
 }
 
 void Mario::ProcessKeyboard(KeyboardEvent kEvent)

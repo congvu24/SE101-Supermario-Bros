@@ -10,7 +10,7 @@ unordered_map<string, LPSPRITE> RedGoomba::sprites; //save all sprite of animati
 unordered_map<string, LPANIMATION> RedGoomba::all_animations; //save all animations
 CAnimationSets RedGoomba::animations_set; //save all the animation sets
 json RedGoomba::data = NULL;
-
+json RedGoomba::spriteData = NULL;
 RedGoomba::RedGoomba()
 {
 	SetState("flying");
@@ -26,7 +26,7 @@ void RedGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt, coObjects);
 	Enemy::CheckToChangeDirection();
 
-	v = v + g * dt;
+	v = v + g * (float)dt;
 	if (v.y > MAX_VY) v.y = MAX_VY;
 
 	vector<LPCOLLISIONEVENT> coEvents;

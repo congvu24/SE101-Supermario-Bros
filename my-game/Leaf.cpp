@@ -10,7 +10,7 @@ unordered_map<string, LPSPRITE> Leaf::sprites; //save all sprite of animation
 unordered_map<string, LPANIMATION> Leaf::all_animations; //save all animations
 CAnimationSets Leaf::animations_set; //save all the animation sets
 json Leaf::data = NULL;
-
+json Leaf::spriteData = NULL;
 Leaf::Leaf()
 {
 	SetState("fromMisteryBox");
@@ -24,7 +24,7 @@ void Leaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (v.y > 0.05f) v.y = 0.05f;
 
 	CGameObject::Update(dt, coObjects);
-	float time = GetTickCount64() - beginFalling;
+	ULONGLONG time = GetTickCount64() - beginFalling;
 	p.y = p.y + d.y;
 	if (v.y > 0)
 		p.x = oldP.x + LEAF_AMPLITUDE * cos(LEAF_SPEED * time * 1.0f - PI / 2);

@@ -12,7 +12,7 @@ unordered_map<string, LPSPRITE> Venus::sprites; //save all sprite of animation
 unordered_map<string, LPANIMATION> Venus::all_animations; //save all animations
 CAnimationSets Venus::animations_set; //save all the animation sets
 json Venus::data = NULL;
-
+json Venus::spriteData = NULL;
 
 Venus::Venus()
 {

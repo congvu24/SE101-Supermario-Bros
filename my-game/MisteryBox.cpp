@@ -10,7 +10,7 @@ unordered_map<string, LPSPRITE> MisteryBox::sprites; //save all sprite of animat
 unordered_map<string, LPANIMATION> MisteryBox::all_animations; //save all animations
 CAnimationSets MisteryBox::animations_set; //save all the animation sets
 json MisteryBox::data = NULL;
-
+json MisteryBox::spriteData = NULL;
 MisteryBox::MisteryBox()
 {
 	SetState("running");

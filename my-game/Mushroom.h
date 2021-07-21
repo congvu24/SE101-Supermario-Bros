@@ -28,6 +28,7 @@ public:
 	virtual void OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event);
 	virtual void GiveReward();
 
+	static json spriteData;
 	static json data;
 	static LPDIRECT3DTEXTURE9 texture;
 	static unordered_map<string, LPSPRITE> sprites; //save all sprite of animation

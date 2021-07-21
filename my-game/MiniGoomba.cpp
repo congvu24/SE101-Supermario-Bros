@@ -9,7 +9,7 @@ unordered_map<string, LPSPRITE> MiniGoomba::sprites; //save all sprite of animat
 unordered_map<string, LPANIMATION> MiniGoomba::all_animations; //save all animations
 CAnimationSets MiniGoomba::animations_set; //save all the animation sets
 json MiniGoomba::data = NULL;
-
+json MiniGoomba::spriteData = NULL;
 MiniGoomba::MiniGoomba()
 {
 	SetState("running");

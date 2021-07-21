@@ -8,7 +8,7 @@ unordered_map<string, LPSPRITE> SelectPortal::sprites; //save all sprite of anim
 unordered_map<string, LPANIMATION> SelectPortal::all_animations; //save all animations
 CAnimationSets SelectPortal::animations_set; //save all the animation sets
 json SelectPortal::data = NULL;
-
+json SelectPortal::spriteData = NULL;
 SelectPortal::SelectPortal()
 {
 	SetState("running");

@@ -1,12 +1,4 @@
 { "compressionlevel":-1,
- "editorsettings":
-    {
-     "export":
-        {
-         "format":"json",
-         "target":"IntroScene.json"
-        }
-    },
  "height":16,
  "infinite":false,
  "layers":[
@@ -79,8 +71,8 @@
                  "type":"",
                  "visible":true,
                  "width":25.3333,
-                 "x":187.667,
-                 "y":482.333
+                 "x":190.373766917293,
+                 "y":506.693902255639
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -107,8 +99,8 @@
                  "type":"1",
                  "visible":true,
                  "width":289.333,
-                 "x":240,
-                 "y":479.701
+                 "x":242.706766917293,
+                 "y":504.061902255639
                 }, 
                 {
                  "height":28.3925,
@@ -124,8 +116,8 @@
                  "type":"2",
                  "visible":true,
                  "width":289.333,
-                 "x":240,
-                 "y":527.804
+                 "x":242.706766917293,
+                 "y":552.164902255639
                 }, 
                 {
                  "height":25.3333,
@@ -141,11 +133,11 @@
                  "type":"0",
                  "visible":true,
                  "width":288,
-                 "x":240,
-                 "y":576
+                 "x":242.706766917293,
+                 "y":600.360902255639
                 }, 
                 {
-                 "height":166.667,
+                 "height":101.704593984962,
                  "id":101,
                  "name":"",
                  "properties":[
@@ -157,9 +149,9 @@
                  "rotation":0,
                  "type":"4",
                  "visible":true,
-                 "width":177.333,
-                 "x":290.667,
-                 "y":312.5
+                 "width":96.1299924812031,
+                 "x":329.463992481203,
+                 "y":333.251879699248
                 }, 
                 {
                  "height":160,
@@ -175,8 +167,8 @@
                  "type":"5",
                  "visible":true,
                  "width":485.333,
-                 "x":158.834,
-                 "y":142.917
+                 "x":129.059563909774,
+                 "y":98.7064736842105
                 }],
          "opacity":1,
          "properties":[
@@ -208,7 +200,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }],
@@ -216,7 +208,7 @@
  "nextobjectid":103,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.4.3",
+ "tiledversion":"1.7.1",
  "tileheight":48,
  "tilesets":[
         {
@@ -234,6 +226,6 @@
         }],
  "tilewidth":48,
  "type":"map",
- "version":1.4,
+ "version":"1.6",
  "width":16
 }

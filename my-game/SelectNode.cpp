@@ -8,7 +8,7 @@ unordered_map<string, LPSPRITE> SelectNode::sprites; //save all sprite of animat
 unordered_map<string, LPANIMATION> SelectNode::all_animations; //save all animations
 CAnimationSets SelectNode::animations_set; //save all the animation sets
 json SelectNode::data = NULL;
-
+json SelectNode::spriteData = NULL;
 SelectNode::SelectNode()
 {
 	SetState("running");

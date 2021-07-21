@@ -1,7 +1,6 @@
 #pragma once
-#include "Camera.h";
 
-
+#include "Camera.h"
 
 Camera::Camera() {
 

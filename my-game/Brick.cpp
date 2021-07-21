@@ -10,7 +10,7 @@ unordered_map<string, LPSPRITE> Brick::sprites; //save all sprite of animation
 unordered_map<string, LPANIMATION> Brick::all_animations; //save all animations
 CAnimationSets Brick::animations_set; //save all the animation sets
 json Brick::data = NULL;
-
+json Brick::spriteData = NULL;
 Brick::Brick()
 {
 	SetState("running");

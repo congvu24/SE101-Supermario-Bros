@@ -10,7 +10,7 @@ unordered_map<string, LPSPRITE> PButton::sprites; //save all sprite of animation
 unordered_map<string, LPANIMATION> PButton::all_animations; //save all animations
 CAnimationSets PButton::animations_set; //save all the animation sets
 json PButton::data = NULL;
-
+json PButton::spriteData = NULL;
 PButton::PButton()
 {
 	SetState("running");

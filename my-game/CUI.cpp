@@ -13,7 +13,6 @@ void CUI::SaveStaticData(json data) {
 		CUI::SetTexture(texture);
 		CUI::ParseSpriteFromJson(sprite);
 
-		DebugOut(L"[INFO] Save static data complete!\n");
 
 	}
 
@@ -34,11 +33,11 @@ void CUI::ParseSpriteFromJson(LPCWSTR path) {
 		string id = it.key();
 		json frame = data["frame"];
 
-		int l = frame["x"];
-		int t = frame["y"];
-		int r = l + frame["w"];
+		float l = float(frame["x"]);
+		float t = float(frame["y"]);
+		float r = float(l + frame["w"]);
 
-		int b = t + frame["h"];
+		float b = float(t + frame["h"]);
 
 		if (CUI::texture == NULL)
 		{
@@ -57,7 +56,7 @@ void CUI::AddSprite(string id, float left, float top, float right, float bottom,
 }
 
 void CUI::DrawText(string text, Vector p, Vector scale) {
-	for (int i = 0; i < text.length(); i++) {
+	for (size_t  i = 0; i < text.length(); i++) {
 		std::string sprId = string(1, text[i]) == " " ? "space" : string(1, text[i]);
 		try
 		{

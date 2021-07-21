@@ -8,7 +8,7 @@ unordered_map<string, LPSPRITE> RectPlatform::sprites; //save all sprite of anim
 unordered_map<string, LPANIMATION> RectPlatform::all_animations; //save all animations
 CAnimationSets RectPlatform::animations_set; //save all the animation sets
 json RectPlatform::data = NULL;
-
+json RectPlatform::spriteData = NULL;
 RectPlatform::RectPlatform()
 {
 	isUniversal = true;

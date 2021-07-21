@@ -38,7 +38,7 @@ public:
 	static LPDIRECT3DTEXTURE9 blackTexture; // texture to render opening and closing animation
 	float animationDuration;
 	float animationProgress; //  = (getTickcount64 - animationStartedTime) / animationDuration;
-	float animationStartedTime; // get tick count 64 when start loading;
+	ULONGLONG animationStartedTime; // get tick count 64 when start loading;
 	float lastTime;
 	AnimationDirection animationDirection;
 

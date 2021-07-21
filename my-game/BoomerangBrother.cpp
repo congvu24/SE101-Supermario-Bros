@@ -11,6 +11,7 @@ LPDIRECT3DTEXTURE9 BoomerangBrother::texture = NULL;
 unordered_map<string, LPSPRITE> BoomerangBrother::sprites; //save all sprite of animation
 unordered_map<string, LPANIMATION> BoomerangBrother::all_animations; //save all animations
 CAnimationSets BoomerangBrother::animations_set; //save all the animation sets
+json BoomerangBrother::spriteData = NULL;
 json BoomerangBrother::data = NULL;
 
 
@@ -65,7 +66,7 @@ void BoomerangBrother::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	Enemy::CheckToChangeDirection(); 
 
-	v = v + g * dt;
+	v = v + g * (float)dt;
 	if (v.y > MAX_VY) v.y = MAX_VY;
 	if (v.x >= 0) nx = 1; else nx = -1;
 

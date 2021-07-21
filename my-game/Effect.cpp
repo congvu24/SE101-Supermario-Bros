@@ -6,7 +6,7 @@ unordered_map<string, LPSPRITE> Effect::sprites; //save all sprite of animation
 unordered_map<string, LPANIMATION> Effect::all_animations; //save all animations
 CAnimationSets Effect::animations_set; //save all the animation sets
 json Effect::data = NULL;
-
+json Effect::spriteData = NULL;
 Effect::Effect(string type, int time) {
 	this->time = time;
 	this->type = type;

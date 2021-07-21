@@ -21,8 +21,33 @@ void Character::AddSprite(string id, float left, float top, float right, float b
 
 }
 LPSPRITE Character::GetSprite(string id) {
-	LPSPRITE sprite = sprites.at(id);
-	return sprite;
+
+	if (sprites.find(id) == sprites.end()) {
+		json frames = spriteData["frames"];
+		json c = frames[id];
+		json frame = c["frame"];
+
+		float l = frame["x"];
+		float t = frame["y"];
+		float r = l + frame["w"];
+
+		float b = t + frame["h"];
+
+		if (GetTexture() == NULL)
+		{
+			DebugOut(L"[ERROR] Texture ID %d not found!\n");
+			//return;
+		}
+
+		AddSprite(id, l, t, r, b, GetTexture());
+		LPSPRITE sprite = sprites.at(id);
+		return sprite;
+	}
+	else {
+		LPSPRITE sprite =sprites.at(id);
+		return sprite;
+	}
+
 }
 void Character::ClearSprite() {
 	for (auto x : sprites)
@@ -80,13 +105,13 @@ void Character::ParseSpriteFromJson(LPCWSTR filePath) {
 		string id = it.key();
 		json frame = data["frame"];
 
-		int l = frame["x"];
-		int t = frame["y"];
-		int r = l + frame["w"];
+		float l = float(frame["x"]);
+		float t = float(frame["y"]);
+		float r = float(l + frame["w"]);
 		//b = h - t;
 		//w = r - l;
 
-		int b = t + frame["h"];
+		float b = float(t + frame["h"]);
 		//int w = frame["w"];
 		//int h = frame["h"];
 
@@ -150,9 +175,12 @@ void Character::ParseFromJson(json data) {
 	this->p.y = y;
 	this->name = name;
 	//
-	D3DCOLOR transcolor;
 	SetTexture(texture, D3DCOLOR_XRGB(255, 0, 255));
-	ParseSpriteFromJson(sprite);
+
+
+	//ParseSpriteFromJson(sprite);
+	this->spriteData = ReadJsonFIle(sprite);
+
 
 	ParseAnimationFromJson(animation);
 

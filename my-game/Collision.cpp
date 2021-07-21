@@ -8,7 +8,7 @@ unordered_map<string, LPSPRITE> Collision::sprites; //save all sprite of animati
 unordered_map<string, LPANIMATION> Collision::all_animations; //save all animations
 CAnimationSets Collision::animations_set; //save all the animation sets
 json Collision::data = NULL;
-
+json Collision::spriteData = NULL;
 Collision::Collision()
 {
 	isBlockPlayer = true;

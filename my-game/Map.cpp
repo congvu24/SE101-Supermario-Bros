@@ -29,14 +29,14 @@ void Layer::render(unordered_map<int, LPTILESET>* tileset) {
 			Vector p;
 			Rect r;
 
-			int col = floor(i / width);
-			int row = i % width;
+			double col = floor(i / width);
+			double row = i % width;
 
 			p.x = (float)row * activeTileset->tileHeight;
 			p.y = (float)col * activeTileset->tileHeight; //calc from i, all size will be transform below
 
-			int tilecol = floor(cell / activeTileset->imageWidth);
-			int tileRow = cell % int(activeTileset->imageWidth);
+			double tilecol = floor(cell / activeTileset->imageWidth);
+			double tileRow = cell % int(activeTileset->imageWidth);
 
 			r.top = ((cell - activeTileset->firstGrid) / activeTileset->columns) * activeTileset->tileHeight;
 			r.left = ((cell - activeTileset->firstGrid) % activeTileset->columns) * activeTileset->tileWidth;
@@ -81,6 +81,7 @@ void Layer::unload() {
 }
 
 void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions, LPSCENE scene) {
+	DebugOut(L"Load file map \n");
 	json mapData = ReadJsonFIle(ToLPCWSTR(path));
 	this->data = mapData;
 
@@ -118,6 +119,8 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions, LPSCENE scene) {
 		this->all_typeset[firstGrid] = tile;
 
 	}
+	DebugOut(L"Load tile set done\n");
+
 
 	//load all layer
 
@@ -155,6 +158,8 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions, LPSCENE scene) {
 			scene->ParseMapObject(data, obCollisions);
 		}
 	}
+	DebugOut(L"Load object done\n");
+
 }
 
 void Map::render() {

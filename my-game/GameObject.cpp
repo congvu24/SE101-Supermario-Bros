@@ -27,7 +27,7 @@ CGameObject::CGameObject()
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	this->dt = dt;
-	d = v * dt;
+	d = v * (float)dt;
 }
 
 /*
@@ -223,7 +223,7 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects, int& o_ny
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		for (int i = 0; i < coEventsResult.size(); i++) {
+		for (size_t  i = 0; i < coEventsResult.size(); i++) {
 
 			if (coEventsResult[i]->nx != 0) {
 			/*	if (!VerifyCollidedLeftRight(coEventsResult[i]->obj) || coEventsResult[i]->obj->name == "RectPlatform") {
@@ -258,8 +258,6 @@ void CGameObject::UpdateWithCollision(vector<LPGAMEOBJECT>* coObjects, int& o_ny
 		//if(ny != 0)
 		p.y += min_ty * d.y + ny * 0.4f;
 
-		o_ny = ny;
-		o_nx = nx;
 
 	}
 

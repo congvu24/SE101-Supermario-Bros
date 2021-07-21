@@ -10,6 +10,7 @@ unordered_map<string, LPSPRITE> Boomerang::sprites; //save all sprite of animati
 unordered_map<string, LPANIMATION> Boomerang::all_animations; //save all animations
 CAnimationSets Boomerang::animations_set; //save all the animation sets
 json Boomerang::data = NULL;
+json Boomerang::spriteData = NULL;
 
 Boomerang::Boomerang()
 {

@@ -29,6 +29,7 @@ public:
 	LPANIMATION_SET active_animation_set;
 
 	vector<LPCOLLISIONEVENT> coEvents;
+	json spriteData = NULL;
 
 
 public:

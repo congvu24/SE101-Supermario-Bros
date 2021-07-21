@@ -60,12 +60,13 @@ void CPlayScene::Load()
 	json object = scene["object"];
 
 	_ParseSection_OBJECTS_FromJson(object);
+	DebugOut(L"[INFO] PARSE OBJECT DONE  \n" );
 
 
 	string map = string(scene["map"]);
-	DebugOut(L"[INFO] LOAD MAP : %s \n", ToLPCWSTR(map));
 
 	_ParseSection_MAP_FromJson(map);
+	DebugOut(L"[INFO] LOAD MAP : %s \n", ToLPCWSTR(map));
 
 
 	animationDirection = UNACTIVE;
@@ -177,7 +178,7 @@ void CPlayScene::Render()
 
 	sort(return_objects_list->begin(), return_objects_list->end(), comparePtrToNode);
 
-	for (int i = 0; i < return_objects_list->size(); i++) { // order < 1
+	for (size_t  i = 0; i < return_objects_list->size(); i++) { // order < 1
 		if (return_objects_list->at(i)->state != "hidden" && return_objects_list->at(i)->renderOrder < 1)
 			return_objects_list->at(i)->Render();
 	}
@@ -187,7 +188,7 @@ void CPlayScene::Render()
 	map->render();  // render map here
 
 
-	for (int i = 0; i < return_objects_list->size(); i++) { // order >= 1
+	for (size_t  i = 0; i < return_objects_list->size(); i++) { // order >= 1
 		if (return_objects_list->at(i)->state != "hidden" && return_objects_list->at(i)->renderOrder >= 1)
 			return_objects_list->at(i)->Render();
 	}
@@ -252,13 +253,13 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	std::vector<int> OrderProcessKey = { DIK_LEFT,DIK_RIGHT, DIK_DOWN, DIK_UP };
 
 
-	for (int i = 0; i < UnOrderProcessKey.size(); i++) {
+	for (size_t  i = 0; i < UnOrderProcessKey.size(); i++) {
 		if (game->IsKeyDown(UnOrderProcessKey[i])) {
 			((Character*)player)->ProcessKeyboard(CGame::GenerateKeyboardEvent(UnOrderProcessKey[i], true));
 		}
 	}
 
-	for (int i = 0; i < OrderProcessKey.size(); i++) {
+	for (size_t  i = 0; i < OrderProcessKey.size(); i++) {
 		if (game->IsKeyDown(OrderProcessKey[i])) {
 			((Character*)player)->ProcessKeyboard(CGame::GenerateKeyboardEvent(OrderProcessKey[i], true));
 			return;
@@ -413,6 +414,7 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 		default:
 			break;
 		}
+		
 		if (obj != NULL)
 			objects.push_back(obj);
 		else delete obj;
@@ -478,8 +480,6 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 		}
 	}
 	else if (type == "objectgroup") {
-		DebugOut(L"[INFO] Load name: %s \n", ToLPCWSTR(name));
-
 		json objects = data["objects"];
 
 		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
@@ -606,11 +606,11 @@ void CPlayScene::DrawUI() {
 	}
 	UI->DrawText(point, Vector(150, 600));
 
-	//draw remain time
+	////draw remain time
 	int remain = trunc(timeLimit / 1000);
 	UI->DrawText(to_string(remain >= 0 ? remain : 0), Vector(393, 603), Vector(0.8, 0.8));
 
-	//draw mario speed 
+	////draw mario speed 
 	float levelSpeed = abs((((Mario*)player)->powerX / 1000) * 6);
 	for (int i = 0; i < 6; i++) {
 		UI->DrawUI(levelSpeed > i ? "arrow-white" : "arrow", Vector(152 + i * 24, 578));

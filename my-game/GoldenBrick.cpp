@@ -11,7 +11,7 @@ unordered_map<string, LPSPRITE> GoldenBrick::sprites; //save all sprite of anima
 unordered_map<string, LPANIMATION> GoldenBrick::all_animations; //save all animations
 CAnimationSets GoldenBrick::animations_set; //save all the animation sets
 json GoldenBrick::data = NULL;
-
+json GoldenBrick::spriteData = NULL;
 GoldenBrick::GoldenBrick()
 {
 	SetState("running");
@@ -127,8 +127,8 @@ void GoldenBrick::Explore() {
 		reward->isBlockPlayer = false;
 		CGame::GetInstance()->GetCurrentScene()->addObject(reward);
 		reward->SetState("stop");
-		reward->p.x = p.x + width / 2;
-		reward->p.y = p.y + height / 2;
+		reward->p.x = p.x + width;
+		reward->p.y = p.y + height;
 	}
 }
 

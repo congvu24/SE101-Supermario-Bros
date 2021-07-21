@@ -9,7 +9,7 @@ unordered_map<string, LPSPRITE> Coin::sprites; //save all sprite of animation
 unordered_map<string, LPANIMATION> Coin::all_animations; //save all animations
 CAnimationSets Coin::animations_set; //save all the animation sets
 json Coin::data = NULL;
-
+json Coin::spriteData = NULL;
 Coin::Coin()
 {
 	SetState("running");
@@ -19,7 +19,7 @@ Coin::Coin()
 
 void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	v = v + g * dt;
+	v = v + g * (float)dt;
 	if (v.y > 1.0f) v.y = 1.0f;
 	CGameObject::Update(dt, coObjects);
 	if (state == "fromMisteryBox") {

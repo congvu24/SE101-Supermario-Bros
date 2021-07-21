@@ -10,7 +10,7 @@ unordered_map<string, LPSPRITE> EndSceneItem::sprites; //save all sprite of anim
 unordered_map<string, LPANIMATION> EndSceneItem::all_animations; //save all animations
 CAnimationSets EndSceneItem::animations_set; //save all the animation sets
 json EndSceneItem::data = NULL;
-
+json EndSceneItem::spriteData = NULL;
 EndSceneItem::EndSceneItem()
 {
 	SetState("Mushroom");

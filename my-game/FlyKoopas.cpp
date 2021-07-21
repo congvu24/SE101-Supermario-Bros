@@ -35,7 +35,7 @@ void FlyKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	Enemy::Update(dt, coObjects);
-	v = v + g * dt;
+	v = v + g * (float)dt;
 	if (v.y > MAX_VY) v.y = MAX_VY;
 
 	CGameObject::Update(dt, coObjects);

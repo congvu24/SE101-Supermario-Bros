@@ -9,7 +9,7 @@ unordered_map<string, LPSPRITE> VenusBullet::sprites; //save all sprite of anima
 unordered_map<string, LPANIMATION> VenusBullet::all_animations; //save all animations
 CAnimationSets VenusBullet::animations_set; //save all the animation sets
 json VenusBullet::data = NULL;
-
+json VenusBullet::spriteData = NULL;
 VenusBullet::VenusBullet()
 {
 	SetState("running");

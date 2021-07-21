@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="197" height="75" tilewidth="48" tileheight="48" infinite="0" nextlayerid="40" nextobjectid="482">
+<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="197" height="75" tilewidth="48" tileheight="48" infinite="0" nextlayerid="40" nextobjectid="483">
  <editorsettings>
   <export target="World1-3.json" format="json"/>
  </editorsettings>
@@ -9,8 +9,7 @@
  <objectgroup id="13" name="RectCollision">
   <object id="10" x="6.06333" y="1248" width="4743.94" height="48"/>
   <object id="20" x="5619" y="1251" width="3831.53" height="45"/>
-  <object id="34" x="0" y="0" width="5" height="1296"/>
-  <object id="36" x="9452.09" y="-1.13687e-13" width="5" height="1296"/>
+  <object id="36" x="9406.09" y="-1.13687e-13" width="51" height="1296"/>
   <object id="347" x="4802.33" y="1247.33" width="766.667" height="49.3333"/>
   <object id="348" x="2830.67" y="1057.33" width="49.3333" height="188"/>
   <object id="349" x="3265.33" y="1105.33" width="44" height="141.333"/>
@@ -63,7 +62,7 @@
   </object>
  </objectgroup>
  <objectgroup id="37" name="BoomerangBrother">
-  <object id="396" x="1298" y="1158" width="52" height="72"/>
+  <object id="396" x="1126" y="1152.67" width="52" height="72"/>
  </objectgroup>
  <objectgroup id="18" name="Coin">
   <object id="302" x="3408" y="1008" width="46" height="44"/>
@@ -142,9 +141,9 @@
   <object id="471" x="3408" y="3266" width="49" height="46"/>
  </objectgroup>
  <objectgroup id="20" name="Koopas">
-  <object id="397" x="2109" y="828" width="48" height="84"/>
   <object id="473" x="730" y="1148" width="52" height="76"/>
   <object id="474" x="6232" y="914" width="44" height="76"/>
+  <object id="482" x="2098.67" y="864" width="37.3333" height="85.3333"/>
  </objectgroup>
  <objectgroup id="16" name="QuestionBox_Item"/>
  <objectgroup id="17" name="Venus"/>
@@ -188,9 +187,6 @@
   <object id="399" type="OneUpGreen" x="2416" y="1066" width="48" height="48"/>
   <object id="405" x="1776" y="1104" width="48" height="48"/>
   <object id="436" type="OneUpGreen" x="2544" y="2689" width="47.5" height="47"/>
-  <object id="479" type="Break" x="240" y="1056" width="48" height="48"/>
-  <object id="480" type="Break" x="336" y="1200" width="48" height="48"/>
-  <object id="481" type="Break" x="340" y="1149.33" width="48" height="48"/>
  </objectgroup>
  <objectgroup id="38" name="MusicBox">
   <object id="401" type="JumpUp" x="1824" y="1104" width="48" height="48">

@@ -10,6 +10,7 @@ class Collision :public MapEntity<Collision>
 public:
 	Collision();
 
+	static json spriteData;
 	static json data;
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);

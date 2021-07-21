@@ -9,6 +9,7 @@ class Death :public MapEntity<Death>
 public:
 	Death();
 
+	static json spriteData;
 	static json data;
 	virtual void SetState(string state);
 	virtual void HandleCollision(LPCOLLISIONEVENT e);

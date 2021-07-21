@@ -15,6 +15,7 @@ unordered_map<string, LPSPRITE> FlyGoomba::sprites; //save all sprite of animati
 unordered_map<string, LPANIMATION> FlyGoomba::all_animations; //save all animations
 CAnimationSets FlyGoomba::animations_set; //save all the animation sets
 json FlyGoomba::data = NULL;
+json FlyGoomba::spriteData = NULL;
 
 FlyGoomba::FlyGoomba()
 {
@@ -51,7 +52,7 @@ void FlyGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	if (state == "running") {
-		v = v + g * dt;
+		v = v + g * (float)dt;
 		if (v.y > 0.35f) v.y = 0.35f;
 	}
 

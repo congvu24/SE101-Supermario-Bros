@@ -78,7 +78,7 @@ void Intro::Render()
 	map->render();
 	player->Render();
 
-	for (int i = 0; i < objects.size(); i++) {
+	for (size_t  i = 0; i < objects.size(); i++) {
 		objects[i]->Render();
 	}
 	CScene::Render();

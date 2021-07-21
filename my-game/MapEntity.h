@@ -66,7 +66,6 @@ public:
 			MapEntity::SetTexture(texture, D3DCOLOR_XRGB(255, 0, 255));
 			MapEntity::ParseSpriteFromJson(sprite);
 			MapEntity::ParseAnimationFromJson(animation);
-			DebugOut(L"[INFO] Save static data complete!\n");
 
 		}
 
@@ -75,32 +74,12 @@ public:
 		T::texture = CGame::LoadTexture(filePath);
 	}
 	static void ParseSpriteFromJson(LPCWSTR filePath) {
-		OutputDebugString(filePath);
+		if (T::spriteData == NULL) {
+
 		json sprite = ReadJsonFIle(filePath);
-		json frames = sprite["frames"];
 
-
-		for (json::iterator it = frames.begin(); it != frames.end(); ++it) {
-
-			json data = it.value();
-			string id = it.key();
-			json frame = data["frame"];
-
-			float l = frame["x"];
-			float t = frame["y"];
-			float r = l + frame["w"];
-
-			float b = t + frame["h"];
-
-			if (T::texture == NULL)
-			{
-				DebugOut(L"[ERROR] Texture ID %d not found!\n");
-				return;
-			}
-
-			MapEntity::AddSprite(id, l, t, r, b, T::texture);
+		T::spriteData = sprite;
 		}
-		DebugOut(L"[INFO] Get Texture success : %s\n", filePath);
 
 	}
 	static void ParseAnimationFromJson(LPCWSTR filePath) {
@@ -128,15 +107,34 @@ public:
 			}
 			MapEntity::AddAnimationSet(key, animation_set);
 		}
-		DebugOut(L"[INFO] Get Animation success : %s\n", filePath);
 	}
 	static void AddSprite(string id, float left, float top, float right, float bottom, LPDIRECT3DTEXTURE9 tex) {
 		LPSPRITE s = new CSprite(id, left, top, right, bottom, right - left, bottom - top, tex);
 		T::sprites[id] = s;
 	}
 	static LPSPRITE GetSprite(string id) {
-		LPSPRITE sprite = T::sprites.at(id);
-		return sprite;
+		if (T::sprites.find(id) == T::sprites.end()) {
+			json frames = T::spriteData["frames"];
+			json c = frames[id];
+			json frame = c["frame"];
+
+			float l = frame["x"];
+			float t = frame["y"];
+			float r = l + frame["w"];
+
+			float b = t + frame["h"];
+
+			if (T::texture == NULL)
+			{
+				DebugOut(L"[ERROR] Texture ID %d not found!\n");
+				//return;
+			}
+
+			AddSprite(id, l, t, r, b, T::texture);
+		}
+			LPSPRITE sprite = T::sprites.at(id);
+			return sprite;
+
 	}
 	static void AddAnimation(string id, LPANIMATION ani) {
 		T::all_animations[id] = ani;

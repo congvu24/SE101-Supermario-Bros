@@ -48,7 +48,7 @@ void CScene::Update(DWORD dt) {
 }
 
 void CScene::Unload() {
-	for (int i = 0; i < objects.size(); i++) {
+	for (size_t  i = 0; i < objects.size(); i++) {
 		objects[i]->clear();
 		delete objects[i];
 	}

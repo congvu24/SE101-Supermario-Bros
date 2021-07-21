@@ -11,7 +11,7 @@ unordered_map<string, LPSPRITE> MusicBox::sprites; //save all sprite of animatio
 unordered_map<string, LPANIMATION> MusicBox::all_animations; //save all animations
 CAnimationSets MusicBox::animations_set; //save all the animation sets
 json MusicBox::data = NULL;
-
+json MusicBox::spriteData = NULL;
 MusicBox::MusicBox()
 {
 	SetState("running");

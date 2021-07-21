@@ -10,7 +10,7 @@ unordered_map<string, LPSPRITE> Goomba::sprites; //save all sprite of animation
 unordered_map<string, LPANIMATION> Goomba::all_animations; //save all animations
 CAnimationSets Goomba::animations_set; //save all the animation sets
 json Goomba::data = NULL;
-
+json Goomba::spriteData = NULL;
 Goomba::Goomba()
 {
 	SetState("running");

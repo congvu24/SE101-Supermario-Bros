@@ -8,7 +8,7 @@ unordered_map<string, LPSPRITE> Death::sprites; //save all sprite of animation
 unordered_map<string, LPANIMATION> Death::all_animations; //save all animations
 CAnimationSets Death::animations_set; //save all the animation sets
 json Death::data = NULL;
-
+json Death::spriteData = NULL;
 Death::Death()
 {
 	DebugOut(L"init death");

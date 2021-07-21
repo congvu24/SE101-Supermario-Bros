@@ -24,7 +24,7 @@ public:
 	bool allowToHitLeft = false;
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-		v = v + g * dt;
+		v = v + g * (float)dt;
 		if (v.y > 0.35f) v.y = 0.35f;
 
 		CGameObject::Update(dt, coObjects);
