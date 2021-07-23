@@ -84,6 +84,8 @@ void Map::load(string path, vector<LPGAMEOBJECT>* obCollisions, LPSCENE scene) {
 	DebugOut(L"Load file map \n");
 	json mapData = ReadJsonFIle(ToLPCWSTR(path));
 	this->data = mapData;
+	DebugOut(L"Load done file map \n");
+
 
 	//load all tileset first
 

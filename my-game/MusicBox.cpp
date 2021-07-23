@@ -59,11 +59,11 @@ void MusicBox::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 			}
 
 
-			if (isHitted == false && event->ny < 0 && event->nx == 0 && countHit >= 1 && countHit < 4) {
+			if (isHitted == false && event->ny < 0 && event->nx == 0 && countHit >= 1 && countHit < 3) {
 				countHit++;
 				Box::OnHadCollided(obj, event);
 			}
-			else if (isHitted == false && event->ny < 0 && event->nx == 0 && countHit == 4) {
+			else if (isHitted == false && event->ny < 0 && event->nx == 0 && countHit == 3) {
 				isHitted = true;
 				if (Mario* player = dynamic_cast<Mario*>(obj)) {
 					player->v.y = -1;

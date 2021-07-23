@@ -75,10 +75,8 @@ public:
 	}
 	static void ParseSpriteFromJson(LPCWSTR filePath) {
 		if (T::spriteData == NULL) {
-
-		json sprite = ReadJsonFIle(filePath);
-
-		T::spriteData = sprite;
+			json sprite = ReadJsonFIle(filePath);
+			T::spriteData = sprite;
 		}
 
 	}
@@ -132,8 +130,8 @@ public:
 
 			AddSprite(id, l, t, r, b, T::texture);
 		}
-			LPSPRITE sprite = T::sprites.at(id);
-			return sprite;
+		LPSPRITE sprite = T::sprites.at(id);
+		return sprite;
 
 	}
 	static void AddAnimation(string id, LPANIMATION ani) {

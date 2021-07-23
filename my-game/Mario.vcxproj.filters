@@ -222,6 +222,9 @@
     <ClCompile Include="FlyKoopas.cpp">
       <Filter>Source Files\Object\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Spawn.cpp">
+      <Filter>Source Files\Object\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -391,6 +394,9 @@
     </ClInclude>
     <ClInclude Include="SweptAABB.h">
       <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawn.h">
+      <Filter>Header Files\Object\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

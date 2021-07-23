@@ -52,7 +52,8 @@ enum class ObjectType
 	HammerBrother,
 	RectCollision,
 	Death,
-	FlyKoopas
+	FlyKoopas,
+	Spawn
 };
 
 

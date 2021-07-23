@@ -14,6 +14,11 @@ unordered_map<string, LPANIMATION> Koopas::all_animations; //save all animations
 CAnimationSets Koopas::animations_set; //save all the animation sets
 json Koopas::data = NULL;
 json Koopas::spriteData = NULL;
+
+
+
+#define VX_KICK 0.5f
+
 Koopas::Koopas()
 {
 	SetState("running");
@@ -42,7 +47,7 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else if (isHolded == true && ((Mario*)holdedBy)->action != MarioAction::HOLD) {
 		isHolded = false;
 		isUniversal = true;
-		this->v.x = 0.5f * holdedBy->nx;
+		this->v.x = VX_KICK * holdedBy->nx;
 		isHitted = true;
 		isBlockPlayer = true;
 		useLimit = false;
@@ -53,7 +58,10 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt, coObjects);
 	Enemy::CheckToChangeDirection();
 
-	v = v + g * (float)dt;
+	v.y = v.y + g.y * (float)dt;
+	
+	if (abs(v.x) > VX_KICK) v.x = VX_KICK * (v.x / abs(v.x));
+
 	if (v.y > MAX_VY) v.y = MAX_VY;
 	if (v.x > 0) nx = 1; else nx = -1;
 
@@ -125,15 +133,12 @@ void Koopas::HandleCollision(LPCOLLISIONEVENT e) {
 	if (state == "die" && isHitted == true && e->nx != 0) {
 		if (Goomba* obj = dynamic_cast<Goomba*>(e->obj)) {
 			obj->BeingKill();
-			//this->v.x = 0.5f * -e->nx;
 		}
 		if (RedGoomba* obj = dynamic_cast<RedGoomba*>(e->obj)) {
 			obj->BeingKill();
-			//this->v.x = 0.5f * -e->nx;
 		}
 		if (BoomerangBrother* obj = dynamic_cast<BoomerangBrother*>(e->obj)) {
 			obj->BeingKill();
-			//this->v.x = 0.5f * -e->nx;
 		}
 		if (MisteryBox* obj = dynamic_cast<MisteryBox*>(e->obj)) {
 			obj->GiveReward();
@@ -150,7 +155,7 @@ void Koopas::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 	Enemy::OnHadCollided(obj, event);
 	if (Mario* player = dynamic_cast<Mario*>(obj)) {
 		if (stateBefore != state) {
-			revieTime = 5000;
+			revieTime = 7000;
 			player->SetAction(MarioAction::JUMP, 500);
 			return;
 		}
@@ -159,7 +164,7 @@ void Koopas::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 			if (isHitted == false && player->holdingKeys[DIK_A] == false && isHolded == false && player->action != MarioAction::ATTACK) {
 				player->SetAction(MarioAction::KICK, 200);
 				isUniversal = true;
-				this->v.x = 0.5f * event->nx != 0 ? -event->nx : player->nx;
+				this->v.x = VX_KICK * event->nx != 0 ? -event->nx : player->nx;
 				isHitted = true;
 				isBlockPlayer = true;
 				useLimit = false;
@@ -172,7 +177,7 @@ void Koopas::OnHadCollided(LPGAMEOBJECT obj, LPCOLLISIONEVENT event) {
 			}
 			else if (isHitted == true && player->action != MarioAction::KICK) {
 				KillPlayer(player);
-				this->v.x = 0.5f * event->nx != 0 ? -event->nx : nx;
+				this->v.x = VX_KICK * event->nx != 0 ? -event->nx : nx;
 			}
 
 		}

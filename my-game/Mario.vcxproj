@@ -163,6 +163,7 @@
     <ClCompile Include="SelectionTree.cpp" />
     <ClCompile Include="SelectNode.cpp" />
     <ClCompile Include="SelectPortal.cpp" />
+    <ClCompile Include="Spawn.cpp" />
     <ClCompile Include="SweptAABB.cpp" />
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="Utils.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="SelectNode.h" />
     <ClInclude Include="SelectPortal.h" />
     <ClInclude Include="CUI.h" />
+    <ClInclude Include="Spawn.h" />
     <ClInclude Include="SweptAABB.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Game.h" />

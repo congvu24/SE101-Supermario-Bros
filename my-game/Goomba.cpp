@@ -26,7 +26,7 @@ void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt, coObjects);
 	Enemy::CheckToChangeDirection();
 
-	v = v + g * dt;
+	v = v + g * (float)dt;
 	if (v.y > MAX_VY) v.y = MAX_VY;
 
 	vector<LPCOLLISIONEVENT> coEvents;

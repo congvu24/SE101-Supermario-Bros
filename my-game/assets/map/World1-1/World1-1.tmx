@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="34" nextobjectid="323">
+<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="35" nextobjectid="330">
  <editorsettings>
   <export target="World1-1.json" format="json"/>
  </editorsettings>
@@ -38,6 +38,33 @@
   <object id="77" x="7008" y="1392" width="48" height="240"/>
   <object id="78" x="6339.33" y="1392" width="579" height="48"/>
   <object id="321" x="6912" y="1391.5" width="100" height="49"/>
+ </objectgroup>
+ <objectgroup id="34" name="Spawn">
+  <object id="323" x="4496.97" y="445.455" width="36.3636" height="45.4545">
+   <properties>
+    <property name="Key" value="1"/>
+   </properties>
+  </object>
+  <object id="325" x="6742.39" y="283.333" width="36.3636" height="45.4545">
+   <properties>
+    <property name="Key" value="2"/>
+   </properties>
+  </object>
+  <object id="327" x="5930.3" y="980.303" width="36.3636" height="45.4545">
+   <properties>
+    <property name="Key" value="3"/>
+   </properties>
+  </object>
+  <object id="328" x="7469.7" y="1080.3" width="36.3636" height="45.4545">
+   <properties>
+    <property name="Key" value="4"/>
+   </properties>
+  </object>
+  <object id="329" x="306.061" y="1050" width="36.3636" height="45.4545">
+   <properties>
+    <property name="Key" value="0"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="26" name="Death">
   <object id="143" x="4.03009" y="1349.04" width="8446.91" height="29.4685"/>
@@ -256,7 +283,7 @@
  </objectgroup>
  <objectgroup id="20" name="Koopas">
   <object id="297" x="1756" y="1036" width="37.3333" height="85.3333"/>
-  <object id="322" x="6199.52" y="1017.94" width="37.3333" height="85.3333"/>
+  <object id="322" x="6254.07" y="1017.94" width="37.3333" height="85.3333"/>
  </objectgroup>
  <objectgroup id="16" name="QuestionBox_Item">
   <object id="144" x="1968" y="1152" width="48" height="48">
@@ -265,7 +292,7 @@
     <property name="cellY" value="2"/>
    </properties>
   </object>
-  <object id="295" x="5713.33" y="1201.33" width="45.3333" height="46.6667"/>
+  <object id="295" x="5670.91" y="1201.33" width="45.3333" height="46.6667"/>
  </objectgroup>
  <objectgroup id="17" name="Venus">
   <object id="53" type="1" x="1080" y="1008" width="48" height="96">
@@ -304,131 +331,131 @@
   <object id="107" x="4422" y="530" width="763.333" height="44"/>
  </objectgroup>
  <objectgroup id="23" name="GoldenBrick">
-  <object id="109" x="5904" y="1152" width="48" height="48">
+  <object id="109" x="5876.73" y="1152" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="2"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="110" x="5856" y="1200" width="48" height="48">
+  <object id="110" x="5828.73" y="1200" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="3"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="111" x="5808" y="1200" width="48" height="48">
+  <object id="111" x="5780.73" y="1200" width="48" height="48">
    <properties>
     <property name="cellX" value="14"/>
     <property name="cellY" value="3"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="112" x="5904" y="1200" width="48" height="48">
+  <object id="112" x="5876.73" y="1200" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="3"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="113" x="5952" y="1200" width="48" height="48">
+  <object id="113" x="5924.73" y="1200" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="3"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="114" x="6000" y="1200" width="48" height="48">
+  <object id="114" x="5972.73" y="1200" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="3"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="115" x="6048" y="1200" width="48" height="48">
+  <object id="115" x="6020.73" y="1200" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="3"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="116" x="6096" y="1200" width="48" height="48">
+  <object id="116" x="6068.73" y="1200" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="3"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="117" x="6048" y="1152" width="48" height="48">
+  <object id="117" x="6020.73" y="1152" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="2"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="118" x="6000" y="1152" width="48" height="48">
+  <object id="118" x="5972.73" y="1152" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="2"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="119" x="5952" y="1152" width="48" height="48">
+  <object id="119" x="5924.73" y="1152" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="2"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="120" x="5856" y="1152" width="48" height="48">
+  <object id="120" x="5828.73" y="1152" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="2"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="121" x="5904" y="1104" width="48" height="48">
+  <object id="121" x="5876.73" y="1104" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="2"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="122" x="5952" y="1104" width="48" height="48">
+  <object id="122" x="5924.73" y="1104" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="2"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="123" x="6000" y="1104" width="48" height="48">
+  <object id="123" x="5972.73" y="1104" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="2"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="124" type="P" x="6048" y="1104" width="48" height="48">
+  <object id="124" type="P" x="6020.73" y="1104" width="48" height="48">
    <properties>
     <property name="cellX" value="15"/>
     <property name="cellY" value="2"/>
     <property name="group" value="1"/>
    </properties>
   </object>
-  <object id="125" x="6194.67" y="1153.33" width="48" height="48">
+  <object id="125" x="6249.22" y="1153.33" width="48" height="48">
    <properties>
     <property name="cellX" value="16"/>
     <property name="cellY" value="2"/>
    </properties>
   </object>
-  <object id="126" x="6194.67" y="1201.33" width="48" height="48">
+  <object id="126" x="6249.22" y="1201.33" width="48" height="48">
    <properties>
     <property name="cellX" value="16"/>
     <property name="cellY" value="3"/>
    </properties>
   </object>
-  <object id="127" x="6242.67" y="1201.33" width="48" height="48">
+  <object id="127" x="6297.22" y="1201.33" width="48" height="48">
    <properties>
     <property name="cellX" value="16"/>
     <property name="cellY" value="3"/>

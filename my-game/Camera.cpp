@@ -6,12 +6,6 @@ Camera::Camera() {
 
 }
 void Camera::setCamPos(float x, float y) {
-	/*if (x >= cam_left_limit)
-	cam_x = x;
-	cam_y = y;*/
-	/*if (y >= cam_top_limit)
-		cam_y = y;*/
-
 	if (isCameraMoving == true) {
 		if (x >= cam_left_limit && x <= cam_right_limit) {
 			cam_x = x;

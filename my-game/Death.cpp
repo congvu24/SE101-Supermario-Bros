@@ -11,7 +11,6 @@ json Death::data = NULL;
 json Death::spriteData = NULL;
 Death::Death()
 {
-	DebugOut(L"init death");
 	isBlockPlayer = true;
 	isUniversal = true;
 }

@@ -70,10 +70,10 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, float left, float
 	Camera* camera = this->GetCurrentScene()->camera;
 	D3DXVECTOR3 p = camera->calcInCamPosition(x, y);
 	RECT r;
-	r.left = left;
-	r.top = top;
-	r.right = right;
-	r.bottom = bottom;
+	r.left = LONG(left);
+	r.top = LONG(top);
+	r.right = LONG(right);
+	r.bottom = LONG(bottom);
 	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
@@ -89,10 +89,10 @@ void CGame::DrawWithScale(Vector p, LPDIRECT3DTEXTURE9 texture, Rect r, int opac
 	D3DXVECTOR3 pCenter = D3DXVECTOR3(deltaToCenter.x + 0, deltaToCenter.y + 0, 0); //pivot x, y instead of 0 ?
 
 	RECT rect;
-	rect.left = r.left;
-	rect.top = r.top;
-	rect.right = r.right;
-	rect.bottom = r.bottom;
+	rect.left = LONG(r.left);
+	rect.top = LONG(r.top);
+	rect.right = LONG(r.right);
+	rect.bottom = LONG(r.bottom);
 
 	if (camera->isInCam(position.x, position.y, 100) == true) {
 
@@ -126,10 +126,10 @@ void CGame::DrawPositionInCamera(Vector p, LPDIRECT3DTEXTURE9 texture, Rect r, i
 	D3DXVECTOR3 pCenter = D3DXVECTOR3(deltaToCenter.x + 0, deltaToCenter.y + 0, 0); //pivot x, y instead of 0 ?
 
 	RECT rect;
-	rect.left = r.left;
-	rect.top = r.top;
-	rect.right = r.right;
-	rect.bottom = r.bottom;
+	rect.left = LONG(r.left);
+	rect.top = LONG(r.top);
+	rect.right = LONG(r.right);
+	rect.bottom = LONG(r.bottom);
 
 	if (camera->isInCam(position.x, position.y, 100) == true) {
 

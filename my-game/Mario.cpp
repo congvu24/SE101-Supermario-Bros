@@ -44,7 +44,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	UpdateTimeAction();
 
 	if (action != MarioAction::FLY)
-		v.y = v.y + g.y * dt * 1.8;
+		v.y = v.y + g.y * (float)dt * 1.8;
 	if (v.y >= 0.8) v.y = 0.8;
 
 	if (v.x * nx < 0 && abs(v.x) >= VX_TO_SKID && canJump == true) {
@@ -485,12 +485,25 @@ void Mario::ProcessKeyboard(KeyboardEvent kEvent)
 		break;
 	case DIK_S:
 
-		if (!kEvent.isHolding && !kEvent.isKeyUp) {
-			SetAction(MarioAction::FLY);
+		if (stoi(type) == RacconMario && canJump == false ) {
+			if (!kEvent.isHolding && !kEvent.isKeyUp) {
+				SetAction(MarioAction::FLY);
+			}
+			if (!kEvent.isHolding && !kEvent.isKeyUp) {
+				SetAction(MarioAction::FALL);
+			}
+			//return;
 		}
-		if (!kEvent.isHolding && !kEvent.isKeyUp) {
-			SetAction(MarioAction::FALL);
+
+
+		if (action != MarioAction::FLY || action != MarioAction::JUMP_HEIGHT) {
+			if (!kEvent.isHolding) {
+				if (!kEvent.isKeyUp) SetAction(MarioAction::JUMP);
+			}
+			else SetAction(MarioAction::JUMP_HEIGHT);
 		}
+
+
 		break;
 	case DIK_A:
 		if (kEvent.isKeyUp == true) {
@@ -509,10 +522,7 @@ void Mario::ProcessKeyboard(KeyboardEvent kEvent)
 		}
 		break;
 	case DIK_SPACE:
-		if (!kEvent.isHolding) {
-			if (!kEvent.isKeyUp) SetAction(MarioAction::JUMP);
-		}
-		else SetAction(MarioAction::JUMP_HEIGHT);
+
 		break;
 	case DIK_1:
 		Transform(SmallMario);

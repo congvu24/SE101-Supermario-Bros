@@ -29,6 +29,7 @@
 #include "MiniGoomba.h"
 #include "EndSceneItem.h"
 #include "FlyKoopas.h"
+#include "Spawn.h"
 
 using namespace std;
 
@@ -60,7 +61,7 @@ void CPlayScene::Load()
 	json object = scene["object"];
 
 	_ParseSection_OBJECTS_FromJson(object);
-	DebugOut(L"[INFO] PARSE OBJECT DONE  \n" );
+	DebugOut(L"[INFO] PARSE OBJECT DONE  \n");
 
 
 	string map = string(scene["map"]);
@@ -92,17 +93,14 @@ void CPlayScene::Update(DWORD dt)
 	}
 	int count = 0;
 
-	//player->Update(dt, coObjectsWithMario);
-
 	for (size_t i = 0; i < objects.size(); i++)
 	{
-		if (quadtree->IsContain(objects[i])) {
+		if (quadtree->IsContain(objects[i]) && objects[i]->isUniversal == false) {
 			count++;
 			vector<CGameObject*>* return_objects_list = new vector<CGameObject*>();
 			quadtree->Retrieve(return_objects_list, objects[i]);
 
 			if (Mario* v = dynamic_cast<Mario*>(objects[i])) {
-				// prevent re update player;
 				v->Update(dt, return_objects_list);
 			}
 
@@ -115,17 +113,31 @@ void CPlayScene::Update(DWORD dt)
 
 			delete return_objects_list;
 		}
-
-		else if (objects[i]->isUniversal == true) {
+		else if (objects[i]->isUniversal == true && objects[i]->state != "hidden") {
 			count++;
-			objects[i]->Update(dt, &objects);
-		}
+			LPGAMEOBJECT obj = objects[i];
 
+			float left, top, right, bottom;
+			obj->GetBoundingBox(left, top, right, bottom);
+
+			Rect miniBase = { left - 200, top - 200, right + 200, bottom + 200 };
+			Quadtree* miniQuadtree = new Quadtree(5, new Rect(miniBase));
+
+			for (auto i = objects.begin(); i != objects.end(); i++) {
+				miniQuadtree->Insert(*i);
+			}
+			vector<CGameObject*>* mini_return_objects_list = new vector<CGameObject*>();
+			miniQuadtree->Retrieve(mini_return_objects_list, obj);
+
+			obj->Update(dt, mini_return_objects_list);
+			miniQuadtree->Clear();
+			delete miniQuadtree;
+			delete mini_return_objects_list;
+		}
 	}
 	quadtree->Clear();
 	delete quadtree;
 
-	//DebugOut(L"[INFO] UPDATE: %s \n", IntToLPCWSTR(count));
 
 	if (player == NULL) return;
 
@@ -135,8 +147,6 @@ void CPlayScene::Update(DWORD dt)
 	CGame* game = CGame::GetInstance();
 	cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;
-	//camera->setCamPos(cx, cy);
-
 
 	if (camera->isCameraMoving == false) {
 
@@ -178,7 +188,7 @@ void CPlayScene::Render()
 
 	sort(return_objects_list->begin(), return_objects_list->end(), comparePtrToNode);
 
-	for (size_t  i = 0; i < return_objects_list->size(); i++) { // order < 1
+	for (size_t i = 0; i < return_objects_list->size(); i++) { // order < 1
 		if (return_objects_list->at(i)->state != "hidden" && return_objects_list->at(i)->renderOrder < 1)
 			return_objects_list->at(i)->Render();
 	}
@@ -188,7 +198,7 @@ void CPlayScene::Render()
 	map->render();  // render map here
 
 
-	for (size_t  i = 0; i < return_objects_list->size(); i++) { // order >= 1
+	for (size_t i = 0; i < return_objects_list->size(); i++) { // order >= 1
 		if (return_objects_list->at(i)->state != "hidden" && return_objects_list->at(i)->renderOrder >= 1)
 			return_objects_list->at(i)->Render();
 	}
@@ -224,6 +234,30 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 
 	CGameObject* player = ((CPlayScene*)scence)->GetPlayer();
 	((Character*)player)->ProcessKeyboard(CGame::GenerateKeyboardEvent(KeyCode));
+
+	std::vector<int> SpawnKeyCode = { DIK_5, DIK_6, DIK_7, DIK_8, DIK_9 };
+
+	CGame* game = CGame::GetInstance();
+
+
+
+	for (size_t i = 0; i < SpawnKeyCode.size(); i++) {
+
+
+		if (game->IsKeyDown(SpawnKeyCode[i])) {
+			DebugOut(L"key clicked \n");
+
+			for (size_t j = 0; j < scence->objects.size(); j++) {
+				if (Spawn* obj = dynamic_cast<Spawn*>(scence->objects[j])) {
+					if (obj->key == i) {
+						player->p = scence->objects[j]->p;
+						((CPlayScene*)scence)->camera->isCameraMoving = false;
+					}
+				}
+			}
+		}
+	}
+
 }
 
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
@@ -239,6 +273,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 		break;
 	}
 
+
 }
 
 
@@ -253,13 +288,13 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	std::vector<int> OrderProcessKey = { DIK_LEFT,DIK_RIGHT, DIK_DOWN, DIK_UP };
 
 
-	for (size_t  i = 0; i < UnOrderProcessKey.size(); i++) {
+	for (size_t i = 0; i < UnOrderProcessKey.size(); i++) {
 		if (game->IsKeyDown(UnOrderProcessKey[i])) {
 			((Character*)player)->ProcessKeyboard(CGame::GenerateKeyboardEvent(UnOrderProcessKey[i], true));
 		}
 	}
 
-	for (size_t  i = 0; i < OrderProcessKey.size(); i++) {
+	for (size_t i = 0; i < OrderProcessKey.size(); i++) {
 		if (game->IsKeyDown(OrderProcessKey[i])) {
 			((Character*)player)->ProcessKeyboard(CGame::GenerateKeyboardEvent(OrderProcessKey[i], true));
 			return;
@@ -275,14 +310,16 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 
 
 	// move camera
-	if (game->IsKeyDown(DIK_J))
+	/*if (game->IsKeyDown(DIK_J))
 		((CPlayScene*)scence)->moveCamera(LEFT);
 	if (game->IsKeyDown(DIK_K))
 		((CPlayScene*)scence)->moveCamera(DOWN);
 	if (game->IsKeyDown(DIK_I))
 		((CPlayScene*)scence)->moveCamera(UP);
 	if (game->IsKeyDown(DIK_L))
-		((CPlayScene*)scence)->moveCamera(RIGHT);
+		((CPlayScene*)scence)->moveCamera(RIGHT);*/
+
+
 }
 
 void CPlayScene::restart() {
@@ -329,92 +366,71 @@ void  CPlayScene::_ParseSection_OBJECTS_FromJson(json allObjects) {
 			break;
 
 		case  ObjectType::QuestionBox_Item:
-			if (visible != true)
-				MisteryBox::SaveStaticData(data);
+			MisteryBox::SaveStaticData(data);
 		case  ObjectType::Coin:
-			if (visible != true)
-				Coin::SaveStaticData(data);
+			Coin::SaveStaticData(data);
 			break;
 		case  ObjectType::Goomba:
-			if (visible != true)
-				Goomba::SaveStaticData(data);
+			Goomba::SaveStaticData(data);
 			break;
 		case  ObjectType::RectPlatform:
-			if (visible != true)
-				RectPlatform::SaveStaticData(data);
+			RectPlatform::SaveStaticData(data);
 			break;
 		case  ObjectType::Leaf:
-			if (visible != true)
-				Leaf::SaveStaticData(data);
+			Leaf::SaveStaticData(data);
 			break;
 		case  ObjectType::Mushroom:
-			if (visible != true)
-				Mushroom::SaveStaticData(data);
+			Mushroom::SaveStaticData(data);
 			break;
 		case  ObjectType::Venus:
-			if (visible != true)
-				Venus::SaveStaticData(data);
+			Venus::SaveStaticData(data);
 			break;
 		case  ObjectType::Venus_Bullet:
-			if (visible != true)
-				VenusBullet::SaveStaticData(data);
+			VenusBullet::SaveStaticData(data);
 			break;
 		case  ObjectType::Koopas:
-			if (visible != true)
-				Koopas::SaveStaticData(data);
+			Koopas::SaveStaticData(data);
 			break;
 		case  ObjectType::RedGoomba:
-			if (visible != true)
-				RedGoomba::SaveStaticData(data);
+			RedGoomba::SaveStaticData(data);
 			break;
 		case  ObjectType::GoldenBrick:
-			if (visible != true)
-				GoldenBrick::SaveStaticData(data);
+			GoldenBrick::SaveStaticData(data);
 			break;
 		case  ObjectType::PButton:
-			if (visible != true)
-				PButton::SaveStaticData(data);
+			PButton::SaveStaticData(data);
 			break;
 		case  ObjectType::Effect:
-			if (visible != true)
-				Effect::SaveStaticData(data);
+			Effect::SaveStaticData(data);
 			break;
 		case ObjectType::UI:
-			if (visible != true)
-				CUI::SaveStaticData(data);
+			CUI::SaveStaticData(data);
 			break;
 		case ObjectType::BoomerangBrother:
-			if (visible != true)
-				BoomerangBrother::SaveStaticData(data);
+			BoomerangBrother::SaveStaticData(data);
 			break;
 		case ObjectType::Boomerang:
-			if (visible != true)
-				Boomerang::SaveStaticData(data);
+			Boomerang::SaveStaticData(data);
 			break;
 		case ObjectType::MusicBox:
-			if (visible != true)
-				MusicBox::SaveStaticData(data);
+			MusicBox::SaveStaticData(data);
 			break;
 		case ObjectType::FlyGoomba:
-			if (visible != true)
-				FlyGoomba::SaveStaticData(data);
+			FlyGoomba::SaveStaticData(data);
 			break;
 		case ObjectType::MiniGoomba:
-			if (visible != true)
-				MiniGoomba::SaveStaticData(data);
+			MiniGoomba::SaveStaticData(data);
 			break;
 		case ObjectType::EndSceneItem:
-			if (visible != true)
-				EndSceneItem::SaveStaticData(data);
+			EndSceneItem::SaveStaticData(data);
 			break;
 		case ObjectType::FlyKoopas:
-			if (visible != true)
-				Koopas::SaveStaticData(data);
+			Koopas::SaveStaticData(data);
 			break;
 		default:
 			break;
 		}
-		
+
 		if (obj != NULL)
 			objects.push_back(obj);
 		else delete obj;
@@ -442,8 +458,30 @@ void CPlayScene::addObject(LPGAMEOBJECT obj) {
 void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 	string type = string(data["type"]);
 	string name = string(data["name"]);
+	if (type == "objectgroup" && name == "Spawn") {
+		json objects = data["objects"];
 
-	if (type == "objectgroup" && name == "MiniPortal") {
+		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
+			json value = objData.value();
+			Spawn* obj = new Spawn();
+
+
+			float width = float(value["width"]);
+			float height = float(value["height"]);
+			float x = float(value["x"]);
+			float y = float(value["y"]);
+			string type = value["type"];
+
+			obj->key = stoi(getPropertyFromData("Key", value));
+
+			obj->name = "Spawn";
+			obj->type = type;
+			obj->p = Vector(x, y);
+
+			obCollisions->push_back(obj);
+		}
+	}
+	else if (type == "objectgroup" && name == "MiniPortal") {
 		json objects = data["objects"];
 
 		for (json::iterator objData = objects.begin(); objData != objects.end(); ++objData) {
@@ -543,6 +581,10 @@ void CPlayScene::ParseMapObject(json data, vector<LPGAMEOBJECT>* obCollisions) {
 			case ObjectType::FlyKoopas:
 				obj = new FlyKoopas();
 				break;
+				/*case ObjectType::Spawn:
+					obj = new Spawn();
+					((Spawn*)obj)->key = stoi(getPropertyFromData("Key", value));
+					break;*/
 			case ObjectType::Camera:
 				camera->setCamPos(x, y);
 				camera->camera_default_left = x;
